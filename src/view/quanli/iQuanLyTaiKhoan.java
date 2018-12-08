@@ -7,6 +7,7 @@ package view.quanli;
 
 import java.util.List;
 import model.TaiKhoanModelTable;
+import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 
 
@@ -17,5 +18,6 @@ import model.entities.PhanQuyen;
 public interface iQuanLyTaiKhoan {
     void hienThiDuLieuLenTable(TaiKhoanModelTable modelTable);
     void hienThiDuLieuLenCboPhanQuyen(List<PhanQuyen> data);
+    void hienThiDuLieuLenCboNhanVien(List<NhanVien> data);
     void thayDoiDuLieu(String message, boolean success);
 }

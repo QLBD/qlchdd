@@ -6,6 +6,7 @@
 package view.quanli;
 
 import java.util.List;
+import model.NhanVienModelTable;
 import model.entities.NhanVien;
 
 /**
@@ -13,6 +14,6 @@ import model.entities.NhanVien;
  * @author THAITHANG
  */
 public interface iQuanLiNhanVien {
-    void hienThiDuLieuLenTable(List<NhanVien> data, String[] columnNames);
+    void hienThiDuLieuLenTable(NhanVienModelTable modelTable);
     void thayDoiDuLieu(String message, boolean success);
 }

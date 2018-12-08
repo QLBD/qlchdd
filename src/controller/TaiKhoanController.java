@@ -8,8 +8,10 @@ package controller;
 
 import java.util.List;
 import model.TaiKhoanModelTable;
+import model.dao.NhanVienDAO;
 import model.dao.PhanQuyenDAO;
 import model.dao.TaiKhoanDAO;
+import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
 import view.quanli.iQuanLyTaiKhoan;
@@ -36,6 +38,7 @@ public class TaiKhoanController {
     
     public void getDSPhanQuyen(){
         List<PhanQuyen> data = PhanQuyenDAO.getDSPhanQuyen();
+        callBack.hienThiDuLieuLenCboPhanQuyen(data);
     }
     
     public void themTaiKhoan(TaiKhoan tk){
@@ -46,4 +49,8 @@ public class TaiKhoanController {
             callBack.thayDoiDuLieu("Thêm Tài Khoản Thất Bại", result);
     }
     
+    public void getDSNhanVien(){
+        List<NhanVien> data = NhanVienDAO.getDSNhanVien();
+        callBack.hienThiDuLieuLenCboNhanVien(data);
+    }
 }

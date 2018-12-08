@@ -158,10 +158,15 @@ public class NhanVien implements java.io.Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
     public Set<HoaDonBan> getHoadonbans() {
-            return this.hoadonbans;
+        return this.hoadonbans;
     }
 
     public void setHoadonbans(Set<HoaDonBan> hoadonbans) {
-            this.hoadonbans = hoadonbans;
+        this.hoadonbans = hoadonbans;
+    }
+
+    @Override
+    public String toString() {
+        return maNv+"";
     }
 }

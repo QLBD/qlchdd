@@ -17,50 +17,54 @@ import javax.persistence.Table;
 @Table(name = "phanquyen", catalog = "qlchdd")
 public class PhanQuyen implements java.io.Serializable {
 
-	private int maPhanQuyen;
-	private String quyentruycap;
-	private Set<TaiKhoan> taikhoans = new HashSet<TaiKhoan>(0);
+    private int maPhanQuyen;
+    private String quyentruycap;
+    private Set<TaiKhoan> taikhoans = new HashSet<TaiKhoan>(0);
 
-	public PhanQuyen() {
-	}
+    public PhanQuyen() {
+    }
 
-	public PhanQuyen(int maPhanQuyen) {
-		this.maPhanQuyen = maPhanQuyen;
-	}
+    public PhanQuyen(int maPhanQuyen) {
+            this.maPhanQuyen = maPhanQuyen;
+    }
 
-	public PhanQuyen(int maPhanQuyen, String quyentruycap, Set<TaiKhoan> taikhoans) {
-		this.maPhanQuyen = maPhanQuyen;
-		this.quyentruycap = quyentruycap;
-		this.taikhoans = taikhoans;
-	}
+    public PhanQuyen(int maPhanQuyen, String quyentruycap, Set<TaiKhoan> taikhoans) {
+            this.maPhanQuyen = maPhanQuyen;
+            this.quyentruycap = quyentruycap;
+            this.taikhoans = taikhoans;
+    }
 
-	@Id
+    @Id
 
-	@Column(name = "ma_PhanQuyen", unique = true, nullable = false)
-	public int getMaPhanQuyen() {
-		return this.maPhanQuyen;
-	}
+    @Column(name = "ma_PhanQuyen", unique = true, nullable = false)
+    public int getMaPhanQuyen() {
+            return this.maPhanQuyen;
+    }
 
-	public void setMaPhanQuyen(int maPhanQuyen) {
-		this.maPhanQuyen = maPhanQuyen;
-	}
+    public void setMaPhanQuyen(int maPhanQuyen) {
+            this.maPhanQuyen = maPhanQuyen;
+    }
 
-	@Column(name = "quyentruycap", length = 45)
-	public String getQuyentruycap() {
-		return this.quyentruycap;
-	}
+    @Column(name = "quyentruycap", length = 45)
+    public String getQuyentruycap() {
+            return this.quyentruycap;
+    }
 
-	public void setQuyentruycap(String quyentruycap) {
-		this.quyentruycap = quyentruycap;
-	}
+    public void setQuyentruycap(String quyentruycap) {
+            this.quyentruycap = quyentruycap;
+    }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "phanquyen")
-	public Set<TaiKhoan> getTaikhoans() {
-		return this.taikhoans;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "phanquyen")
+    public Set<TaiKhoan> getTaikhoans() {
+            return this.taikhoans;
+    }
 
-	public void setTaikhoans(Set<TaiKhoan> taikhoans) {
-		this.taikhoans = taikhoans;
-	}
+    public void setTaikhoans(Set<TaiKhoan> taikhoans) {
+            this.taikhoans = taikhoans;
+    }
 
+    @Override
+    public String toString() {
+        return quyentruycap;
+    }
 }

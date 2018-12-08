@@ -7,6 +7,7 @@ package controller;
 
 import java.util.List;
 import java.util.Vector;
+import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
 import model.dao.TaiKhoanDAO;
 import view.quanli.iQuanLiNhanVien;
@@ -24,22 +25,9 @@ public class NhanVienController {
     }
     
     public void layToanBoNhanVien(){
-        
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
-        
-        String[] columnNames = {"Mã NV",
-                                "Tên NV",
-                                "CMND",
-                                "GioiTinh",
-                                "Ngày Sinh",
-                                "Địa Chỉ",
-                                "Số ĐT",
-                                "Ngày Vào Làm",
-                                "Lương CB",
-                                "Tình Trạng",
-                                };
-        
-        callBack.hienThiDuLieuLenTable(data, columnNames);
+        NhanVienModelTable modelTable = new NhanVienModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
     }
     
     public void themNhanVien(NhanVien nhanVien){

@@ -147,12 +147,11 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
 
     private void loadData() {
         controller.getDSTaiKhoan();
-        controller.g
+        controller.getDSPhanQuyen();
     }
 
     private void initEvent() {
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
@@ -161,9 +160,33 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
                     TaiKhoanModelTable modelTable = (TaiKhoanModelTable) table.getModel();
                     TaiKhoan tk = modelTable.getSelectedRow(row);
                     tfTenDangNhap.setText(tk.getTenDangNhap());
+                    PhanQuyen pq = tk.getPhanquyen();
+                    System.out.println(pq.getQuyentruycap());
+                    cboPhanQuyen.getModel().setSelectedItem(pq);
+                    NhanVien nv = tk.getNhanvien();
+                    if(nv != null) cboMaNV.getModel().setSelectedItem(nv);
+                    else cboMaNV.setSelectedIndex(-1);
                 }
             }
         });
+    }
+
+    @Override
+    public void hienThiDuLieuLenCboPhanQuyen(List<PhanQuyen> data) {
+        cboPhanQuyen.removeAllItems();
+        for(PhanQuyen pq : data){
+            cboPhanQuyen.addItem(pq);
+        }
+        cboPhanQuyen.setSelectedIndex(-1);
+    }
+
+    @Override
+    public void hienThiDuLieuLenCboNhanVien(List<NhanVien> data) {
+        cboMaNV.removeAllItems();
+        for(NhanVien nv : data){
+            cboMaNV.addItem(nv);
+        }
+        cboMaNV.setSelectedIndex(-1);
     }
 
 }

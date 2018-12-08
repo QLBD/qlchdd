@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
 import model.dao.TaiKhoanDAO;
 import model.entities.NhanVien;
@@ -221,32 +222,32 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
         });
     }
 
-    @Override
-    public void hienThiDuLieuLenTable(List<NhanVien> data, String[] columnNames) {
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(columnNames);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        for(NhanVien nhanVien : data){
-            int maNv = nhanVien.getMaNv();
-            String tenNv = nhanVien.getTenNv();
-            int soCmndNv = nhanVien.getSoCmndNv();
-            String gioiTinh;
-            if(nhanVien.getGioitinh()) gioiTinh = "Nam";
-            else gioiTinh = "Nữ";
-            String ngaysinhNv = dateFormat.format(nhanVien.getNgaysinhNv());
-            String diachiNv = nhanVien.getDiachiNv();
-            int soDtNv = nhanVien.getSoDtNv();
-            String ngayVaoLam = dateFormat.format(nhanVien.getNgayVaoLam());
-            double luongCb = nhanVien.getLuongCb();
-            int tinhTrang = nhanVien.getTinhTrang();
-            
-            Object[] objs = {maNv, tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang};
-            tableModel.addRow(objs);
-        }
-        
-        tableNhanVien.setModel(tableModel);
-        //tableModel.fireTableDataChanged();
-    }
+
+//    public void hienThiDuLieuLenTable(List<NhanVien> data, String[] columnNames) {
+//        DefaultTableModel tableModel = new DefaultTableModel();
+//        tableModel.setColumnIdentifiers(columnNames);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//        for(NhanVien nhanVien : data){
+//            int maNv = nhanVien.getMaNv();
+//            String tenNv = nhanVien.getTenNv();
+//            int soCmndNv = nhanVien.getSoCmndNv();
+//            String gioiTinh;
+//            if(nhanVien.getGioitinh()) gioiTinh = "Nam";
+//            else gioiTinh = "Nữ";
+//            String ngaysinhNv = dateFormat.format(nhanVien.getNgaysinhNv());
+//            String diachiNv = nhanVien.getDiachiNv();
+//            int soDtNv = nhanVien.getSoDtNv();
+//            String ngayVaoLam = dateFormat.format(nhanVien.getNgayVaoLam());
+//            double luongCb = nhanVien.getLuongCb();
+//            int tinhTrang = nhanVien.getTinhTrang();
+//            
+//            Object[] objs = {maNv, tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang};
+//            tableModel.addRow(objs);
+//        }
+//        
+//        tableNhanVien.setModel(tableModel);
+//        //tableModel.fireTableDataChanged();
+//    }
 
     private void loadData() {
         controller.layToanBoNhanVien();
@@ -265,6 +266,8 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
         event();
     }
 
-    
-
+    @Override
+    public void hienThiDuLieuLenTable(NhanVienModelTable modelTable) {
+        tableNhanVien.setModel(modelTable);
+    }
 }
