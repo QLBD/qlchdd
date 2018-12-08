@@ -20,7 +20,7 @@ public class TaiKhoanDAO {
 
     public static List<TaiKhoan> getDSTaiKhoan(){
         List<TaiKhoan> ds = null;
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try{
             String sql = "select tk from TaiKhoan tk";
@@ -40,7 +40,7 @@ public class TaiKhoanDAO {
     
     public static TaiKhoan getTaiKhoan(String tenDangNhap){
         TaiKhoan tk = null;
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try{
             tk = (TaiKhoan) session.get(TaiKhoan.class, tenDangNhap);

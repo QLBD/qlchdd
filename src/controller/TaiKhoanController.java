@@ -7,7 +7,10 @@ package controller;
 
 
 import java.util.List;
+import model.TaiKhoanModelTable;
+import model.dao.PhanQuyenDAO;
 import model.dao.TaiKhoanDAO;
+import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
 import view.quanli.iQuanLyTaiKhoan;
 
@@ -26,12 +29,13 @@ public class TaiKhoanController {
     public void getDSTaiKhoan(){
         List<TaiKhoan> data = TaiKhoanDAO.getDSTaiKhoan();
         
-        String[] columnNames = {"Tên Đăng Nhập",
-                                "Phân Quyền",
-                                "Nhân Viên",
-                                };
+        TaiKhoanModelTable modelTable = new TaiKhoanModelTable(data);
         
-        callBack.hienThiDuLieuLenTable(data, columnNames); 
+        callBack.hienThiDuLieuLenTable(modelTable); 
+    }
+    
+    public void getDSPhanQuyen(){
+        List<PhanQuyen> data = PhanQuyenDAO.getDSPhanQuyen();
     }
     
     public void themTaiKhoan(TaiKhoan tk){

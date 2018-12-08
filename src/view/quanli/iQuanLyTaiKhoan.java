@@ -6,13 +6,16 @@
 package view.quanli;
 
 import java.util.List;
-import model.entities.TaiKhoan;
+import model.TaiKhoanModelTable;
+import model.entities.PhanQuyen;
+
 
 /**
  *
  * @author THAITHANG
  */
 public interface iQuanLyTaiKhoan {
-    void hienThiDuLieuLenTable(List<TaiKhoan> data, String[] columnNames);
+    void hienThiDuLieuLenTable(TaiKhoanModelTable modelTable);
+    void hienThiDuLieuLenCboPhanQuyen(List<PhanQuyen> data);
     void thayDoiDuLieu(String message, boolean success);
 }

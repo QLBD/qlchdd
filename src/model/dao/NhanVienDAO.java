@@ -19,7 +19,7 @@ import org.hibernate.Session;
 public class NhanVienDAO {
     public static List<NhanVien> getDSNhanVien(){
         List<NhanVien> ds = null;
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try{
             String sql = "from NhanVien";
@@ -41,7 +41,7 @@ public class NhanVienDAO {
     
     public static NhanVien getNhanVien(int maNv){
         NhanVien nv = null;
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try{
             nv = (NhanVien) session.get(NhanVien.class, maNv);

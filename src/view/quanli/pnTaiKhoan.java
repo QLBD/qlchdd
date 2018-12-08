@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import model.TaiKhoanModelTable;
 import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
@@ -29,7 +30,7 @@ import model.entities.TaiKhoan;
  *
  * @author THAITHANG
  */
-public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan{
+public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
 
     private JTable table;
     private JTextField tfTenDangNhap;
@@ -47,9 +48,9 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan{
     private JButton btnXem;
     private JPanel panel_1;
     private JScrollPane scrollPane;
-    
+
     private TaiKhoanController controller = new TaiKhoanController(this);
-    
+
     public pnTaiKhoan() {
         initComponents();
         loadData();
@@ -57,7 +58,7 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan{
     }
 
     private void initComponents() {
-        
+
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setLayout(null);
 
@@ -97,12 +98,14 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan{
 
         tfQuyenTC = new JTextField();
         tfQuyenTC.setBounds(455, 63, 196, 22);
+        tfQuyenTC.setEditable(false);
         panel.add(tfQuyenTC);
         tfQuyenTC.setColumns(10);
 
         tfTenNV = new JTextField();
         tfTenNV.setColumns(10);
         tfTenNV.setBounds(455, 97, 196, 22);
+        tfTenNV.setEditable(false);
         panel.add(tfTenNV);
 
         lblTnNv = new JLabel("Tên NV:");
@@ -124,40 +127,27 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan{
 
         scrollPane = new JScrollPane();
         panel_1.add(scrollPane, BorderLayout.CENTER);
-        
+
         table = new JTable();
         scrollPane.setViewportView(table);
     }
 
     @Override
-    public void hienThiDuLieuLenTable(List<TaiKhoan> data, String[] columnNames) {
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(columnNames);
-        for(TaiKhoan tk : data){
-            
-            String tenDangNhap = tk.getTenDangNhap();
-            NhanVien nhanVien = tk.getNhanvien();
-            String maNV = null;
-            if(nhanVien != null)
-                maNV = nhanVien.getMaNv() +"";
-            PhanQuyen phanquyen = tk.getPhanquyen();
-            
-            Object[] objs = {tenDangNhap, phanquyen.getMaPhanQuyen(), maNV};
-            tableModel.addRow(objs);
-        }
-        
-        table.setModel(tableModel);
+    public void hienThiDuLieuLenTable(TaiKhoanModelTable modelTable) {
+        table.setModel(modelTable);
     }
 
     @Override
     public void thayDoiDuLieu(String message, boolean success) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        if(success)
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        if (success) {
             loadData();
+        }
     }
-    
+
     private void loadData() {
         controller.getDSTaiKhoan();
+        controller.g
     }
 
     private void initEvent() {
@@ -166,9 +156,14 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan{
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-    
+                    int row = table.getSelectedRow();
+                    if (row < 0) return;
+                    TaiKhoanModelTable modelTable = (TaiKhoanModelTable) table.getModel();
+                    TaiKhoan tk = modelTable.getSelectedRow(row);
+                    tfTenDangNhap.setText(tk.getTenDangNhap());
                 }
             }
         });
     }
+
 }
