@@ -23,7 +23,7 @@ public class TaiKhoanDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try{
-            String sql = "select tk from TaiKhoan tk";
+            String sql = "from TaiKhoan";
             Query query = session.createQuery(sql);
             ds = query.list();
         }
@@ -70,7 +70,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("thêm tài khoản thành công!");
+            System.out.println("Thêm tài khoản thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("thêm tài khoản thành công!");
+            System.out.println("Xóa tài khoản thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -123,7 +123,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("thêm tài khoản thành công!");
+            System.out.println("Cập nhật tài khoản thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();

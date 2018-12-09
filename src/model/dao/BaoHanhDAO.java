@@ -4,11 +4,17 @@
  * and open the template in the editor.
  */
 package model.dao;
-
+import java.util.List;
+import model.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Query;
+import model.entities.*;
 /**
  *
- * @author THAITHANG
+ * @author ACER
  */
 public class BaoHanhDAO {
+    
     
 }

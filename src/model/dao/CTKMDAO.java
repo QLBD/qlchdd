@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package model.dao;
-
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import model.HibernateUtil;
+import model.entities.*;
 /**
  *
- * @author THAITHANG
+ * @author ACER
  */
 public class CTKMDAO {
     
