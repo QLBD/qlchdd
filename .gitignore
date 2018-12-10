@@ -56,4 +56,4 @@ pom.xml.releaseBackup
 pom.xml.tag
 
 # custom
-!lib/
+!libs/*.jar
