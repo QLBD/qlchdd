@@ -84,35 +84,35 @@ public class CTHD_MuaDAO {
         return kq;
     }
     
-    public static boolean xoaCTHDMua(CthdMuaId id)
-    {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        CthdMua ct = CTHD_MuaDAO.getCTHDMua(id);
-        if(ct == null)
-        {
-            return false;
-        }
-        boolean kq = true;
-        try
-        {
-            session.beginTransaction();
-            session.delete(ct);
-            session.getTransaction().commit();
-            System.out.println("Xóa chi tiết hóa đơn mua thành công!");
-        }
-        catch(RuntimeException e)
-        {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-            kq = false;
-        }
-        finally
-        {
-            session.flush();
-            session.close();
-        }
-        return kq;
-    }
+//    public static boolean xoaCTHDMua(CthdMuaId id)
+//    {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        CthdMua ct = CTHD_MuaDAO.getCTHDMua(id);
+//        if(ct == null)
+//        {
+//            return false;
+//        }
+//        boolean kq = true;
+//        try
+//        {
+//            session.beginTransaction();
+//            session.delete(ct);
+//            session.getTransaction().commit();
+//            System.out.println("Xóa chi tiết hóa đơn mua thành công!");
+//        }
+//        catch(RuntimeException e)
+//        {
+//            session.getTransaction().rollback();
+//            e.printStackTrace();
+//            kq = false;
+//        }
+//        finally
+//        {
+//            session.flush();
+//            session.close();
+//        }
+//        return kq;
+//    }
     
     public static boolean capNhatCTHDMua(CthdMua ct)
     {
