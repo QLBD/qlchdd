@@ -9,7 +9,7 @@
     <!--    <property name="hibernate.current_session_context_class">thread</property>-->
     <property name="hibernate.connection.useUnicode">true</property>
     <property name="hibernate.connection.characterEncoding">UTF-8</property>
-    <property name="hibernate.connection.charSet">UTF-8</property> 
+    <property name="hibernate.connection.charSet">UTF-8</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <property name="hibernate.show_sql">true</property>
     <property name="format_sql">true</property>
@@ -17,7 +17,6 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
     <property name="hibernate.format_sql">true</property>
-    
     <mapping class="model.entities.KhuyenMai"/>
     <mapping class="model.entities.CthdBan"/>
     <mapping class="model.entities.TaiKhoan"/>
@@ -30,5 +29,7 @@
     <mapping class="model.entities.NhaSanXuat"/>
     <mapping class="model.entities.NhanVien"/>
     <mapping class="model.entities.SanPham"/>
+    <mapping class="model.entities.BaoHanh"/>
+    <mapping class="model.entities.HoaHong"/>
   </session-factory>
 </hibernate-configuration>

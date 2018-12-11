@@ -38,11 +38,11 @@ public class NhanVienController {
             callBack.thayDoiDuLieu("Thêm Nhân Viên Thất Bại", result);
     }
     
-    public void xoaNhanVien(int maNv){
-        boolean result = NhanVienDAO.xoaNhanVien(maNv);
-        if(result)
-            callBack.thayDoiDuLieu("Xóa Nhân Viên Thành Công", result);
-        else
-            callBack.thayDoiDuLieu("Xóa Nhân Viên Thất Bại", result);
-    }
+//    public void xoaNhanVien(int maNv){
+//        boolean result = NhanVienDAO.xoaNhanVien(maNv);
+//        if(result)
+//            callBack.thayDoiDuLieu("Xóa Nhân Viên Thành Công", result);
+//        else
+//            callBack.thayDoiDuLieu("Xóa Nhân Viên Thất Bại", result);
+//    }
 }

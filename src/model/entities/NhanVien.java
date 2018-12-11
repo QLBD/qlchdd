@@ -1,5 +1,5 @@
 package model.entities;
-// Generated Dec 7, 2018 9:42:19 PM by Hibernate Tools 4.3.5.Final
+// Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,153 +20,160 @@ import javax.persistence.TemporalType;
 @Table(name = "nhanvien", catalog = "qlchdd")
 public class NhanVien implements java.io.Serializable {
 
-    private int maNv;
-    private String tenNv;
-    private Integer soCmndNv;
-    private Boolean gioitinh;
-    private Date ngayVaoLam;
-    private String diachiNv;
-    private Integer soDtNv;
-    private Date ngaysinhNv;
-    private Double luongCb;
-    private Integer tinhTrang;
-    private Set<TaiKhoan> taikhoans = new HashSet<TaiKhoan>(0);
-    private Set<HoaDonBan> hoadonbans = new HashSet<HoaDonBan>(0);
+	private int maNv;
+	private String tenNv;
+	private Integer soCmndNv;
+	private Boolean gioitinh;
+	private Date ngaysinhNv;
+	private String diachiNv;
+	private Integer soDtNv;
+	private Date ngayVaoLam;
+	private Double luongCb;
+	private Integer tinhTrang;
+	private Set<TaiKhoan> taikhoans = new HashSet<TaiKhoan>(0);
+	private Set<HoaDonBan> hoadonbans = new HashSet<HoaDonBan>(0);
+	private Set<HoaHong> hoahongs = new HashSet<HoaHong>(0);
 
-    public NhanVien() {
-    }
+	public NhanVien() {
+	}
 
-    public NhanVien(int maNv) {
-            this.maNv = maNv;
-    }
+	public NhanVien(int maNv) {
+		this.maNv = maNv;
+	}
 
-    public NhanVien(int maNv, String tenNv, Integer soCmndNv, Boolean gioitinh, Date ngayVaoLam, Date ngaysinhNv,
-                    String diachiNv, Integer soDtNv, Double luongCb, Integer tinhTrang) {
-            this.maNv = maNv;
-            this.tenNv = tenNv;
-            this.soCmndNv = soCmndNv;
-            this.gioitinh = gioitinh;
-            this.ngayVaoLam = ngayVaoLam;
-            this.ngaysinhNv = ngaysinhNv;
-            this.diachiNv = diachiNv;
-            this.soDtNv = soDtNv;
-            this.luongCb = luongCb;
-            this.tinhTrang = tinhTrang;
-    }
+	public NhanVien(int maNv, String tenNv, Integer soCmndNv, Boolean gioitinh, Date ngaysinhNv, String diachiNv,
+			Integer soDtNv, Date ngayVaoLam, Double luongCb, Integer tinhTrang) {
+		this.maNv = maNv;
+		this.tenNv = tenNv;
+		this.soCmndNv = soCmndNv;
+		this.gioitinh = gioitinh;
+		this.ngaysinhNv = ngaysinhNv;
+		this.diachiNv = diachiNv;
+		this.soDtNv = soDtNv;
+		this.ngayVaoLam = ngayVaoLam;
+		this.luongCb = luongCb;
+		this.tinhTrang = tinhTrang;
+	}
 
-    @Id
-    @Column(name = "ma_NV", unique = true, nullable = false)
-    public int getMaNv() {
-            return this.maNv;
-    }
+	@Id
 
-    public void setMaNv(int maNv) {
-            this.maNv = maNv;
-    }
+	@Column(name = "ma_NV", unique = true, nullable = false)
+	public int getMaNv() {
+		return this.maNv;
+	}
 
-    @Column(name = "ten_NV")
-    public String getTenNv() {
-            return this.tenNv;
-    }
+	public void setMaNv(int maNv) {
+		this.maNv = maNv;
+	}
 
-    public void setTenNv(String tenNv) {
-            this.tenNv = tenNv;
-    }
+	@Column(name = "ten_NV")
+	public String getTenNv() {
+		return this.tenNv;
+	}
 
-    @Column(name = "soCMND_NV")
-    public Integer getSoCmndNv() {
-            return this.soCmndNv;
-    }
+	public void setTenNv(String tenNv) {
+		this.tenNv = tenNv;
+	}
 
-    public void setSoCmndNv(Integer soCmndNv) {
-            this.soCmndNv = soCmndNv;
-    }
+	@Column(name = "soCMND_NV")
+	public Integer getSoCmndNv() {
+		return this.soCmndNv;
+	}
 
-    @Column(name = "gioitinh")
-    public Boolean getGioitinh() {
-            return this.gioitinh;
-    }
+	public void setSoCmndNv(Integer soCmndNv) {
+		this.soCmndNv = soCmndNv;
+	}
 
-    public void setGioitinh(Boolean gioitinh) {
-            this.gioitinh = gioitinh;
-    }
+	@Column(name = "gioitinh")
+	public Boolean getGioitinh() {
+		return this.gioitinh;
+	}
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ngaysinh_NV", length = 10)
-    public Date getNgaysinhNv() {
-            return this.ngaysinhNv;
-    }
+	public void setGioitinh(Boolean gioitinh) {
+		this.gioitinh = gioitinh;
+	}
 
-    public void setNgaysinhNv(Date ngaysinhNv) {
-            this.ngaysinhNv = ngaysinhNv;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ngaysinh_NV", length = 10)
+	public Date getNgaysinhNv() {
+		return this.ngaysinhNv;
+	}
 
-    @Column(name = "diachi_NV", length = 45)
-    public String getDiachiNv() {
-            return this.diachiNv;
-    }
+	public void setNgaysinhNv(Date ngaysinhNv) {
+		this.ngaysinhNv = ngaysinhNv;
+	}
 
-    public void setDiachiNv(String diachiNv) {
-            this.diachiNv = diachiNv;
-    }
+	@Column(name = "diachi_NV", length = 45)
+	public String getDiachiNv() {
+		return this.diachiNv;
+	}
 
-    @Column(name = "soDT_NV")
-    public Integer getSoDtNv() {
-            return this.soDtNv;
-    }
+	public void setDiachiNv(String diachiNv) {
+		this.diachiNv = diachiNv;
+	}
 
-    public void setSoDtNv(Integer soDtNv) {
-            this.soDtNv = soDtNv;
-    }
+	@Column(name = "soDT_NV")
+	public Integer getSoDtNv() {
+		return this.soDtNv;
+	}
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "ngay_VaoLam", length = 10)
-    public Date getNgayVaoLam() {
-            return this.ngayVaoLam;
-    }
+	public void setSoDtNv(Integer soDtNv) {
+		this.soDtNv = soDtNv;
+	}
 
-    public void setNgayVaoLam(Date ngayVaoLam) {
-            this.ngayVaoLam = ngayVaoLam;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ngay_VaoLam", length = 10)
+	public Date getNgayVaoLam() {
+		return this.ngayVaoLam;
+	}
 
-    @Column(name = "luong_CB", precision = 22, scale = 0)
-    public Double getLuongCb() {
-            return this.luongCb;
-    }
+	public void setNgayVaoLam(Date ngayVaoLam) {
+		this.ngayVaoLam = ngayVaoLam;
+	}
 
-    public void setLuongCb(Double luongCb) {
-            this.luongCb = luongCb;
-    }
+	@Column(name = "luong_CB", precision = 22, scale = 0)
+	public Double getLuongCb() {
+		return this.luongCb;
+	}
 
-    @Column(name = "tinh_trang")
-    public Integer getTinhTrang() {
-            return this.tinhTrang;
-    }
+	public void setLuongCb(Double luongCb) {
+		this.luongCb = luongCb;
+	}
 
-    public void setTinhTrang(Integer tinhTrang) {
-            this.tinhTrang = tinhTrang;
-    }
+	@Column(name = "tinh_trang")
+	public Integer getTinhTrang() {
+		return this.tinhTrang;
+	}
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
-    public Set<TaiKhoan> getTaikhoans() {
-            return this.taikhoans;
-    }
+	public void setTinhTrang(Integer tinhTrang) {
+		this.tinhTrang = tinhTrang;
+	}
 
-    public void setTaikhoans(Set<TaiKhoan> taikhoans) {
-            this.taikhoans = taikhoans;
-    }
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
+	public Set<TaiKhoan> getTaikhoans() {
+		return this.taikhoans;
+	}
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
-    public Set<HoaDonBan> getHoadonbans() {
-        return this.hoadonbans;
-    }
+	public void setTaikhoans(Set<TaiKhoan> taikhoans) {
+		this.taikhoans = taikhoans;
+	}
 
-    public void setHoadonbans(Set<HoaDonBan> hoadonbans) {
-        this.hoadonbans = hoadonbans;
-    }
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
+	public Set<HoaDonBan> getHoadonbans() {
+		return this.hoadonbans;
+	}
 
-    @Override
-    public String toString() {
-        return maNv+"";
-    }
+	public void setHoadonbans(Set<HoaDonBan> hoadonbans) {
+		this.hoadonbans = hoadonbans;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
+	public Set<HoaHong> getHoahongs() {
+		return this.hoahongs;
+	}
+
+	public void setHoahongs(Set<HoaHong> hoahongs) {
+		this.hoahongs = hoahongs;
+	}
+
 }

@@ -1,8 +1,6 @@
 package model.entities;
-// Generated Dec 7, 2018 9:42:19 PM by Hibernate Tools 4.3.5.Final
+// Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -11,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -107,7 +104,5 @@ public class CthdBan implements java.io.Serializable {
 	public void setThanhtien(Double thanhtien) {
 		this.thanhtien = thanhtien;
 	}
-
-
 
 }

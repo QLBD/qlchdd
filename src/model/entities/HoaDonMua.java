@@ -1,5 +1,5 @@
 package model.entities;
-// Generated Dec 7, 2018 9:42:19 PM by Hibernate Tools 4.3.5.Final
+// Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -35,12 +35,11 @@ public class HoaDonMua implements java.io.Serializable {
 		this.sohdMua = sohdMua;
 	}
 
-	public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap, Double tongtienMua, Set<CthdMua> cthdMuas) {
+	public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap, Double tongtienMua) {
 		this.sohdMua = sohdMua;
 		this.nhacungcap = nhacungcap;
 		this.ngayNhap = ngayNhap;
 		this.tongtienMua = tongtienMua;
-		this.cthdMuas = cthdMuas;
 	}
 
 	@Id

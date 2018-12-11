@@ -1,5 +1,5 @@
 package model.entities;
-// Generated Dec 7, 2018 9:42:19 PM by Hibernate Tools 4.3.5.Final
+// Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +24,7 @@ public class KhachHang implements java.io.Serializable {
 	private Integer soDtKh;
 	private String email;
 	private Set<HoaDonBan> hoadonbans = new HashSet<HoaDonBan>(0);
+	private Set<BaoHanh> baohanhs = new HashSet<BaoHanh>(0);
 
 	public KhachHang() {
 	}
@@ -32,15 +33,13 @@ public class KhachHang implements java.io.Serializable {
 		this.maKh = maKh;
 	}
 
-	public KhachHang(int maKh, String tenKh, Integer soCmndKh, String diachiKh, Integer soDtKh, String email,
-			Set<HoaDonBan> hoadonbans) {
+	public KhachHang(int maKh, String tenKh, Integer soCmndKh, String diachiKh, Integer soDtKh, String email) {
 		this.maKh = maKh;
 		this.tenKh = tenKh;
 		this.soCmndKh = soCmndKh;
 		this.diachiKh = diachiKh;
 		this.soDtKh = soDtKh;
 		this.email = email;
-		this.hoadonbans = hoadonbans;
 	}
 
 	@Id
@@ -106,6 +105,15 @@ public class KhachHang implements java.io.Serializable {
 
 	public void setHoadonbans(Set<HoaDonBan> hoadonbans) {
 		this.hoadonbans = hoadonbans;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "khachhang")
+	public Set<BaoHanh> getBaohanhs() {
+		return this.baohanhs;
+	}
+
+	public void setBaohanhs(Set<BaoHanh> baohanhs) {
+		this.baohanhs = baohanhs;
 	}
 
 }

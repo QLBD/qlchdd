@@ -190,7 +190,7 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
             double luongCb = 1000;
             int tinhTrang = 1;
             
-            NhanVien nhanVien = new NhanVien(maNv, tenNv, soCmndNv, gioiTinh, ngayVaoLam, ngaysinhNv, diachiNv, soDtNv, luongCb, tinhTrang);
+            NhanVien nhanVien = new NhanVien(maNv, tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang);
             
             controller.themNhanVien(nhanVien);
         });
@@ -217,7 +217,7 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
         btnXoa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               controller.xoaNhanVien(3);
+               //controller.xoaNhanVien(3);
             }
         });
     }

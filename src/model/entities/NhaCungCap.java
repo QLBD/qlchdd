@@ -1,5 +1,5 @@
 package model.entities;
-// Generated Dec 7, 2018 9:42:19 PM by Hibernate Tools 4.3.5.Final
+// Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,14 +31,12 @@ public class NhaCungCap implements java.io.Serializable {
 		this.maNcc = maNcc;
 	}
 
-	public NhaCungCap(int maNcc, String tenNcc, String diachiNcc, Integer soDtNcc, Integer tinhTrang,
-			Set<HoaDonMua> hoadonmuas) {
-		this.maNcc = maNcc;
-		this.tenNcc = tenNcc;
-		this.diachiNcc = diachiNcc;
-		this.soDtNcc = soDtNcc;
-		this.tinhTrang = tinhTrang;
-		this.hoadonmuas = hoadonmuas;
+	public NhaCungCap(int maNcc, String tenNcc, String diachiNcc, Integer soDtNcc, Integer tinhTrang) {
+            this.maNcc = maNcc;
+            this.tenNcc = tenNcc;
+            this.diachiNcc = diachiNcc;
+            this.soDtNcc = soDtNcc;
+            this.tinhTrang = tinhTrang;
 	}
 
 	@Id

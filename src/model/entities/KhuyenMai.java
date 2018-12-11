@@ -1,5 +1,5 @@
 package model.entities;
-// Generated Dec 7, 2018 9:42:19 PM by Hibernate Tools 4.3.5.Final
+// Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -38,15 +38,12 @@ public class KhuyenMai implements java.io.Serializable {
 		this.maKm = maKm;
 	}
 
-	public KhuyenMai(int maKm, String tenKm, Float hsKm, Date ngayBd, Date ngayKt, Set<CthdBan> cthdBans,
-			Set<SanPham> sanphams) {
+	public KhuyenMai(int maKm, String tenKm, Float hsKm, Date ngayBd, Date ngayKt) {
 		this.maKm = maKm;
 		this.tenKm = tenKm;
 		this.hsKm = hsKm;
 		this.ngayBd = ngayBd;
 		this.ngayKt = ngayKt;
-		this.cthdBans = cthdBans;
-		this.sanphams = sanphams;
 	}
 
 	@Id
