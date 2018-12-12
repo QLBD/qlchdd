@@ -4,8 +4,8 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/qlchdd?autoReconnect&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8</property>
-    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.url">jdbc:mysql://db4free.net:3306/id8206672_qlchdd?autoReconnect&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8</property>
+    <property name="hibernate.connection.username">id8206672_root</property>
     <property name="hibernate.connection.useUnicode">true</property>
     <property name="hibernate.connection.characterEncoding">UTF-8</property>
     <property name="hibernate.connection.charSet">UTF-8</property>
@@ -17,6 +17,7 @@
     <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
     <property name="hibernate.format_sql">true</property>
     <!--    <property name="hibernate.current_session_context_class">thread</property>-->
+    <property name="hibernate.connection.password">thaithang1</property>
     <mapping class="model.entities.KhuyenMai"/>
     <mapping class="model.entities.CthdBan"/>
     <mapping class="model.entities.TaiKhoan"/>
