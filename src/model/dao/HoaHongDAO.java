@@ -15,16 +15,16 @@ import model.entities.*;
  *
  * @author ACER
  */
-public class BaoHanhDAO 
+public class HoaHongDAO 
 {
-    public static List<BaoHanh> getDSBaoHanh()
+    public static List<HoaHong> getDSHoaHong()
     {
-        List<BaoHanh> ds = null;
+        List<HoaHong> ds = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try
         {
-            String sql = "from BaoHanh";
+            String sql = "from HoaHong";
             Query query = session.createQuery(sql);
             ds = query.list();
         }
@@ -41,14 +41,14 @@ public class BaoHanhDAO
         return ds;
     }
     
-    public static BaoHanh getBaoHanh(int maBH)
+    public static HoaHong getHoaHong(HoaHongId id)
     {
-        BaoHanh bh = null;
+        HoaHong hh = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try
         {
-            bh = (BaoHanh) session.get(BaoHanh.class, maBH);
+            hh = (HoaHong) session.get(HoaHong.class, id);
         }
         catch(HibernateException e)
         {
@@ -60,21 +60,21 @@ public class BaoHanhDAO
             session.flush();
             session.close();
         }
-        return bh;
+        return hh;
     }
     
-    public static boolean themBaoHanh(BaoHanh bh)
+    public static boolean themHoaHong(HoaHong hh)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(BaoHanhDAO.getBaoHanh(bh.getMaBh()) != null)
+        if(HoaHongDAO.getHoaHong(hh.getId()) != null)
             return false;
         boolean kq = true;
         try
         {
             session.beginTransaction();
-            session.save(bh);
+            session.save(hh);
             session.getTransaction().commit();
-            System.out.println("Thêm bảo hành thành công!");
+            System.out.println("Thêm hoa hồng thành công!");
         }
         catch(RuntimeException e)
         {
@@ -90,11 +90,11 @@ public class BaoHanhDAO
         return kq;
     }
     
-//    public static boolean xoaBaoHanh(int maBH)
+//    public static boolean xoaHoaHong(HoaHongId id)
 //    {
 //        Session session = HibernateUtil.getSessionFactory().openSession();
-//        BaoHanh bh = BaoHanhDAO.getBaoHanh(maBH);
-//        if(bh == null)
+//        HoaHong hh = HoaHongDAO.getHoaHong(id);
+//        if(hh == null)
 //        {
 //            return false;
 //        }
@@ -102,9 +102,9 @@ public class BaoHanhDAO
 //        try
 //        {
 //            session.beginTransaction();
-//            session.delete(bh);
+//            session.delete(hh);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa bảo hành thành công!");
+//            System.out.println("Xóa hoa hồng thành công!");
 //        }
 //        catch(RuntimeException e)
 //        {
@@ -120,10 +120,10 @@ public class BaoHanhDAO
 //        return kq;
 //    }
     
-    public static boolean capNhatBaoHanh(BaoHanh bh)
+    public static boolean capNhatHoaHong(HoaHong hh)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(BaoHanhDAO.getBaoHanh(bh.getMaBh()) == null)
+        if(HoaHongDAO.getHoaHong(hh.getId()) == null)
         {
             return false;
         }
@@ -131,9 +131,9 @@ public class BaoHanhDAO
         try
         {
             session.beginTransaction();
-            session.update(bh);
+            session.update(hh);
             session.getTransaction().commit();
-            System.out.println("Cập nhật bảo hành thành công!");
+            System.out.println("Cập nhật hoa hồng thành công!");
         }
         catch(RuntimeException e)
         {
