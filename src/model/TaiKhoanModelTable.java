@@ -19,7 +19,8 @@ import model.entities.TaiKhoan;
 public class TaiKhoanModelTable extends AbstractTableModel {
 
     private List<TaiKhoan> data;
-    private String[] columns = {"Tên Đăng Nhập",
+    private String[] columns = {
+        "Tên Đăng Nhập",
         "Phân Quyền",
         "Nhân Viên",};
 
