@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,17 +47,7 @@ public class TaiKhoan implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ma_NV")
-	public NhanVien getNhanvien() {
-		return this.nhanvien;
-	}
-
-	public void setNhanvien(NhanVien nhanvien) {
-		this.nhanvien = nhanvien;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ma_PhanQuyen")
+	@JoinColumn(name = "ma_PhanQuyen", nullable = false)
 	public PhanQuyen getPhanquyen() {
 		return this.phanquyen;
 	}
@@ -74,4 +65,13 @@ public class TaiKhoan implements java.io.Serializable {
 		this.matkhauDangNhap = matkhauDangNhap;
 	}
 
+        @OneToOne
+        @JoinColumn(name = "ma_NV", nullable = true)
+	public NhanVien getNhanvien() {
+		return this.nhanvien;
+	}
+
+	public void setNhanvien(NhanVien nhanvien) {
+		this.nhanvien = nhanvien;
+	}
 }

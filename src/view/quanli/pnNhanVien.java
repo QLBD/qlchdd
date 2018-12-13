@@ -147,18 +147,6 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
         btnXoa = new JButton("Xóa");
         btnXoa.setBounds(665, 186, 60, 25);
         add(btnXoa);
-        
-//        String[] columnNames = {"Mã NV",
-//                                "Tên NV",
-//                                "CMND",
-//                                "GioiTinh",
-//                                "Ngày Sinh",
-//                                "Địa Chỉ",
-//                                "Ngày Vào Làm",
-//                                "Lương CB",
-//                                "Tình Trạng",
-//                                };
-//        Object[][] data = {};
 
         tableNhanVien = new JTable(){
              @Override
@@ -221,33 +209,6 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
             }
         });
     }
-
-
-//    public void hienThiDuLieuLenTable(List<NhanVien> data, String[] columnNames) {
-//        DefaultTableModel tableModel = new DefaultTableModel();
-//        tableModel.setColumnIdentifiers(columnNames);
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        for(NhanVien nhanVien : data){
-//            int maNv = nhanVien.getMaNv();
-//            String tenNv = nhanVien.getTenNv();
-//            int soCmndNv = nhanVien.getSoCmndNv();
-//            String gioiTinh;
-//            if(nhanVien.getGioitinh()) gioiTinh = "Nam";
-//            else gioiTinh = "Nữ";
-//            String ngaysinhNv = dateFormat.format(nhanVien.getNgaysinhNv());
-//            String diachiNv = nhanVien.getDiachiNv();
-//            int soDtNv = nhanVien.getSoDtNv();
-//            String ngayVaoLam = dateFormat.format(nhanVien.getNgayVaoLam());
-//            double luongCb = nhanVien.getLuongCb();
-//            int tinhTrang = nhanVien.getTinhTrang();
-//            
-//            Object[] objs = {maNv, tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang};
-//            tableModel.addRow(objs);
-//        }
-//        
-//        tableNhanVien.setModel(tableModel);
-//        //tableModel.fireTableDataChanged();
-//    }
 
     private void loadData() {
         controller.layToanBoNhanVien();

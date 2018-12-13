@@ -7,6 +7,7 @@ package model;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import model.entities.NhaSanXuat;
 import model.entities.SanPham;
 
 /**
@@ -17,7 +18,6 @@ public class SanPhamModelTable extends AbstractTableModel{
     private List<SanPham> data;
     private String[] columns = {"Mã SP",
                                 "Tên SP",
-                                "Loại",
                                 "Mã NSX",
                                 "So lượng",
                                 "Ngày sản xuất",
@@ -50,8 +50,6 @@ public class SanPhamModelTable extends AbstractTableModel{
         return data.size();
     }
 
-
-
     @Override
     public int getColumnCount() {
          //To change body of generated methods, choose Tools | Templates.
@@ -71,7 +69,44 @@ public class SanPhamModelTable extends AbstractTableModel{
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        
+        SanPham sp = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return sp.getMaSp();
+            case 1:
+                return sp.getTenSp();
+            case 2:
+                NhaSanXuat nsx = sp.getNhasanxuat();
+                return nsx.getMaNsx();
+            case 3:
+                return sp.getSl();
+            case 4:
+                return sp.getNamSx();
+            case 5:
+                return sp.getThueVat();
+            case 6:
+                return sp.getGiaBanRa();
+            case 7:
+                return sp.getThoigianBh();
+            case 8:
+                return sp.getXuatxu();
+            case 9:
+                return sp.getMau();
+            case 10:
+                return sp.getBonho();
+            case 11:
+                return sp.getKichthuoc();
+            case 12:
+                return sp.getAnh();
+            case 13:
+                return sp.getTinhtrang();
+            default:
+                return null;
+        }
     }
     
 }

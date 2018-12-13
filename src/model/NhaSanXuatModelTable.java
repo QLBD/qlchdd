@@ -58,6 +58,20 @@ public class NhaSanXuatModelTable extends AbstractTableModel{
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+         
+        NhaSanXuat nsx = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return nsx.getMaNsx();
+            case 1:
+                return nsx.getTenNsx();
+            case 2:
+                return nsx.getThongtin();
+            default:
+                return null;
+        }
     }
 }

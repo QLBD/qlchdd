@@ -39,11 +39,11 @@ public class KhuyenMai implements java.io.Serializable {
 	}
 
 	public KhuyenMai(int maKm, String tenKm, Float hsKm, Date ngayBd, Date ngayKt) {
-		this.maKm = maKm;
-		this.tenKm = tenKm;
-		this.hsKm = hsKm;
-		this.ngayBd = ngayBd;
-		this.ngayKt = ngayKt;
+            this.maKm = maKm;
+            this.tenKm = tenKm;
+            this.hsKm = hsKm;
+            this.ngayBd = ngayBd;
+            this.ngayKt = ngayKt;
 	}
 
 	@Id

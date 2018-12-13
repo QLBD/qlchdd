@@ -62,7 +62,26 @@ public class KhachHangModelTable extends AbstractTableModel{
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        KhachHang kh = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return kh.getMaKh();
+            case 1:
+                return kh.getTenKh();
+            case 2:
+                return kh.getSoCmndKh();
+            case 3:
+                return kh.getSoDtKh();
+            case 4:
+                return kh.getSoCmndKh();
+            case 5:
+                return kh.getEmail();
+            default:
+                return null;
+        }
     }
     
 }

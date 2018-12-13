@@ -64,10 +64,11 @@ public class NhanVienModelTable extends AbstractTableModel{
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
             return null;
         }
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         NhanVien nv = data.get(rowIndex);
         switch (columnIndex) {
             case 0:

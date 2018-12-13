@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,29 +31,25 @@ public class NhanVien implements java.io.Serializable {
 	private Date ngayVaoLam;
 	private Double luongCb;
 	private Integer tinhTrang;
-	private Set<TaiKhoan> taikhoans = new HashSet<TaiKhoan>(0);
 	private Set<HoaDonBan> hoadonbans = new HashSet<HoaDonBan>(0);
 	private Set<HoaHong> hoahongs = new HashSet<HoaHong>(0);
+        private TaiKhoan taikhoan;
 
 	public NhanVien() {
 	}
 
-	public NhanVien(int maNv) {
-		this.maNv = maNv;
-	}
-
 	public NhanVien(int maNv, String tenNv, Integer soCmndNv, Boolean gioitinh, Date ngaysinhNv, String diachiNv,
 			Integer soDtNv, Date ngayVaoLam, Double luongCb, Integer tinhTrang) {
-		this.maNv = maNv;
-		this.tenNv = tenNv;
-		this.soCmndNv = soCmndNv;
-		this.gioitinh = gioitinh;
-		this.ngaysinhNv = ngaysinhNv;
-		this.diachiNv = diachiNv;
-		this.soDtNv = soDtNv;
-		this.ngayVaoLam = ngayVaoLam;
-		this.luongCb = luongCb;
-		this.tinhTrang = tinhTrang;
+            this.maNv = maNv;
+            this.tenNv = tenNv;
+            this.soCmndNv = soCmndNv;
+            this.gioitinh = gioitinh;
+            this.ngaysinhNv = ngaysinhNv;
+            this.diachiNv = diachiNv;
+            this.soDtNv = soDtNv;
+            this.ngayVaoLam = ngayVaoLam;
+            this.luongCb = luongCb;
+            this.tinhTrang = tinhTrang;
 	}
 
 	@Id
@@ -150,15 +147,6 @@ public class NhanVien implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
-	public Set<TaiKhoan> getTaikhoans() {
-		return this.taikhoans;
-	}
-
-	public void setTaikhoans(Set<TaiKhoan> taikhoans) {
-		this.taikhoans = taikhoans;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
 	public Set<HoaDonBan> getHoadonbans() {
 		return this.hoadonbans;
 	}
@@ -176,4 +164,12 @@ public class NhanVien implements java.io.Serializable {
 		this.hoahongs = hoahongs;
 	}
 
+        @OneToOne(fetch = FetchType.LAZY, mappedBy = "nhanvien")
+        public TaiKhoan getTaikhoan() {
+            return taikhoan;
+        }
+
+        public void setTaikhoan(TaiKhoan taikhoan) {
+            this.taikhoan = taikhoan;
+        }
 }

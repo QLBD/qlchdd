@@ -1,13 +1,14 @@
 package model.entities;
 // Generated Dec 11, 2018 1:37:51 PM by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -20,22 +21,20 @@ import org.hibernate.annotations.Parameter;
 public class NhaSanXuat implements java.io.Serializable {
 
 	private int maNsx;
-	private SanPham sanpham;
 	private String tenNsx;
 	private String thongtin;
+        private Set<SanPham> sanphams= new HashSet<SanPham>(0);
 
 	public NhaSanXuat() {
 	}
 
-	public NhaSanXuat(SanPham sanpham, String tenNsx, String thongtin) {
-		this.sanpham = sanpham;
+	public NhaSanXuat(int maNsx, String tenNsx, String thongtin) {
+		this.maNsx = maNsx;
 		this.tenNsx = tenNsx;
 		this.thongtin = thongtin;
 	}
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "sanpham"))
 	@Id
-	@GeneratedValue(generator = "generator")
 
 	@Column(name = "ma_nsx", unique = true, nullable = false)
 	public int getMaNsx() {
@@ -44,16 +43,6 @@ public class NhaSanXuat implements java.io.Serializable {
 
 	public void setMaNsx(int maNsx) {
 		this.maNsx = maNsx;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public SanPham getSanpham() {
-		return this.sanpham;
-	}
-
-	public void setSanpham(SanPham sanpham) {
-		this.sanpham = sanpham;
 	}
 
 	@Column(name = "ten_nsx", nullable = false, length = 45)
@@ -74,4 +63,12 @@ public class NhaSanXuat implements java.io.Serializable {
 		this.thongtin = thongtin;
 	}
 
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "nhasanxuat")
+	public Set<SanPham> getSanphams() {
+            return sanphams;
+        }
+
+        public void setSanphams(Set<SanPham> sanphams) {
+            this.sanphams = sanphams;
+        }
 }

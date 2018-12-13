@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import model.entities.KhuyenMai;
 import javax.swing.table.AbstractTableModel;
@@ -52,14 +53,35 @@ public class KhuyenMaiModelTable extends AbstractTableModel{
         return columns[col]; //To change body of generated methods, choose Tools | Templates.
     }
     
-        public KhuyenMai getSelectedRow(int row) {
-        if(row < data.size() && row > -1)
-                return data.get(row);
-        return null;
+    public KhuyenMai getSelectedRow(int row) {
+    if(row < data.size() && row > -1)
+            return data.get(row);
+    return null;
     }
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        KhuyenMai km = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return km.getMaKm();
+            case 1:
+                return km.getTenKm();
+            case 2:
+                return km.getHsKm();
+            case 3:
+                String ngayBD = dateFormat.format(km.getNgayBd());
+                return ngayBD;
+            case 4:
+                String ngayKT = dateFormat.format(km.getNgayKt());
+                return ngayKT;
+            default:
+                return null;
+        }
     }
 }

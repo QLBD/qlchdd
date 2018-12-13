@@ -23,43 +23,28 @@ public class BaoHanh implements java.io.Serializable {
 	private int maBh;
 	private HoaDonBan hoadonban;
 	private KhachHang khachhang;
-	private int maSp;
+        private SanPham sanpham;
 	private int serial;
 	private String yeucauBh;
 	private Date ngaynhan;
 	private int tinhtrang;
 	private Date ngaytra;
-	private SanPham sanpham;
+	
 
 	public BaoHanh() {
 	}
 
-	public BaoHanh(int maBh, HoaDonBan hoadonban, KhachHang khachhang, int maSp, int serial, String yeucauBh,
-			Date ngaynhan, int tinhtrang, Date ngaytra) {
-		this.maBh = maBh;
-		this.hoadonban = hoadonban;
-		this.khachhang = khachhang;
-		this.maSp = maSp;
-		this.serial = serial;
-		this.yeucauBh = yeucauBh;
-		this.ngaynhan = ngaynhan;
-		this.tinhtrang = tinhtrang;
-		this.ngaytra = ngaytra;
-	}
-
-	public BaoHanh(int maBh, HoaDonBan hoadonban, KhachHang khachhang, int maSp, int serial, String yeucauBh,
-			Date ngaynhan, int tinhtrang, Date ngaytra, SanPham sanpham) {
-		this.maBh = maBh;
-		this.hoadonban = hoadonban;
-		this.khachhang = khachhang;
-		this.maSp = maSp;
-		this.serial = serial;
-		this.yeucauBh = yeucauBh;
-		this.ngaynhan = ngaynhan;
-		this.tinhtrang = tinhtrang;
-		this.ngaytra = ngaytra;
-		this.sanpham = sanpham;
-	}
+        public BaoHanh(int maBh, HoaDonBan hoadonban, KhachHang khachhang, SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
+            this.maBh = maBh;
+            this.hoadonban = hoadonban;
+            this.khachhang = khachhang;
+            this.sanpham = sanpham;
+            this.serial = serial;
+            this.yeucauBh = yeucauBh;
+            this.ngaynhan = ngaynhan;
+            this.tinhtrang = tinhtrang;
+            this.ngaytra = ngaytra;
+        }
 
 	@Id
 
@@ -92,13 +77,14 @@ public class BaoHanh implements java.io.Serializable {
 		this.khachhang = khachhang;
 	}
 
-	@Column(name = "ma_SP", nullable = false)
-	public int getMaSp() {
-		return this.maSp;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ma_SP", nullable = false)
+	public SanPham getSanpham() {
+		return this.sanpham;
 	}
 
-	public void setMaSp(int maSp) {
-		this.maSp = maSp;
+	public void setSanpham(SanPham sanpham) {
+		this.sanpham = sanpham;
 	}
 
 	@Column(name = "serial", nullable = false)
@@ -147,14 +133,4 @@ public class BaoHanh implements java.io.Serializable {
 	public void setNgaytra(Date ngaytra) {
 		this.ngaytra = ngaytra;
 	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "baohanh")
-	public SanPham getSanpham() {
-		return this.sanpham;
-	}
-
-	public void setSanpham(SanPham sanpham) {
-		this.sanpham = sanpham;
-	}
-
 }

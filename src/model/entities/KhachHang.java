@@ -29,10 +29,6 @@ public class KhachHang implements java.io.Serializable {
 	public KhachHang() {
 	}
 
-	public KhachHang(int maKh) {
-		this.maKh = maKh;
-	}
-
 	public KhachHang(int maKh, String tenKh, Integer soCmndKh, String diachiKh, Integer soDtKh, String email) {
 		this.maKh = maKh;
 		this.tenKh = tenKh;

@@ -42,8 +42,6 @@ public class NhaCungCapModelTable extends AbstractTableModel{
         return data.size();
     }
 
-
-
     @Override
     public int getColumnCount() {
          //To change body of generated methods, choose Tools | Templates.
@@ -63,7 +61,25 @@ public class NhaCungCapModelTable extends AbstractTableModel{
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        
+        NhaCungCap ncc = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return ncc.getMaNcc();
+            case 1:
+                return ncc.getTenNcc();
+            case 2:
+                return ncc.getDiachiNcc();
+            case 3:
+                return ncc.getSoDtNcc();
+            case 4:
+                return ncc.getTinhTrang();
+            default:
+                return null;
+        }
     }
     
 }
