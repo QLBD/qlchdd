@@ -1,17 +1,52 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  THAITHANG
- * Created: Dec 14, 2018
- */
+DROP DATABASE IF EXISTS qlchdd;
 
 --
 -- Database: `qlchdd`
 --
+CREATE SCHEMA IF NOT EXISTS `qlchdd` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `qlchdd` ;
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `USP_Login` (IN `tenDangNhap` VARCHAR(45), IN `matKhau` VARCHAR(45))  NO SQL
+SELECT * FROM taikhoan WHERE taikhoan.ten_DangNhap = tenDangNhap AND taikhoan.matkhau_DangNhap = matKhau$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `baohanh`
+--
+
+CREATE TABLE `baohanh` (
+  `ma_BH` int(11) NOT NULL,
+  `sohd_Ban` int(11) NOT NULL,
+  `ma_SP` int(11) NOT NULL,
+  `serial` int(11) NOT NULL,
+  `yeucau_BH` varchar(45) NOT NULL,
+  `ngaynhan` datetime NOT NULL,
+  `tinhtrang` int(11) NOT NULL,
+  `ngaytra` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cthd_ban`
+--
+
+CREATE TABLE `cthd_ban` (
+  `sohd_Ban` int(11) NOT NULL,
+  `ma_SP` int(11) NOT NULL,
+  `sl` int(11) DEFAULT NULL,
+  `ma_KM` int(11) NOT NULL,
+  `thanhtien` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `cthd_mua`
@@ -138,6 +173,17 @@ CREATE TABLE `nhanvien` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`ma_NV`, `ten_NV`, `soCMND_NV`, `gioitinh`, `ngaysinh_NV`, `diachi_NV`, `soDT_NV`, `ngay_VaoLam`, `luong_CB`, `tinh_trang`) VALUES
+(1, 'thang', 147258369, 1, '2018-12-06', 'sdfsadfsd', 926528212, '2018-12-07', 123, 1),
+(2, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1),
+(3, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nhasanxuat`
 --
 
@@ -158,6 +204,15 @@ CREATE TABLE `phanquyen` (
   `quyentruycap` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `phanquyen`
+--
+
+INSERT INTO `phanquyen` (`ma_PhanQuyen`, `quyentruycap`) VALUES
+(1, 'admin'),
+(2, 'banhang');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `sanpham`
@@ -193,25 +248,6 @@ CREATE TABLE `taikhoan` (
   `ma_PhanQuyen` int(11) DEFAULT NULL,
   `ma_NV` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
---
--- Dumping data for table `nhanvien`
---
-
-INSERT INTO `nhanvien` (`ma_NV`, `ten_NV`, `soCMND_NV`, `gioitinh`, `ngaysinh_NV`, `diachi_NV`, `soDT_NV`, `ngay_VaoLam`, `luong_CB`, `tinh_trang`) VALUES
-(1, 'thang', 147258369, 1, '2018-12-06', 'sdfsadfsd', 926528212, '2018-12-07', 123, 1),
-(2, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1),
-(3, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1);
-
---
--- Dumping data for table `phanquyen`
---
-
-INSERT INTO `phanquyen` (`ma_PhanQuyen`, `quyentruycap`) VALUES
-(1, 'admin'),
-(2, 'banhang');
 
 --
 -- Dumping data for table `taikhoan`
@@ -298,8 +334,8 @@ ALTER TABLE `nhacungcap`
 --
 -- Indexes for table `nhanvien`
 --
--- ALTER TABLE `nhanvien`
---   ADD PRIMARY KEY (`ma_NV`);
+ALTER TABLE `nhanvien`
+  ADD PRIMARY KEY (`ma_NV`);
 -- ALTER TABLE `nhanvien` ADD FULLTEXT KEY `ten_NV` (`ten_NV`);
 
 --
@@ -401,14 +437,3 @@ ALTER TABLE `taikhoan`
   ADD CONSTRAINT `fk_TK_NV` FOREIGN KEY (`ma_NV`) REFERENCES `nhanvien` (`ma_NV`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_TK_PQ` FOREIGN KEY (`ma_PhanQuyen`) REFERENCES `phanquyen` (`ma_PhanQuyen`) ON UPDATE CASCADE;
 COMMIT;
-
-
-DROP PROCEDURE IF EXISTS USP_Login;
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `USP_Login` (IN `tenDangNhap` VARCHAR(45), IN `matKhau` VARCHAR(45))  NO SQL
-SELECT * FROM taikhoan WHERE taikhoan.ten_DangNhap = tenDangNhap AND taikhoan.matkhau_DangNhap = matKhau$$
-
-DELIMITER ;
