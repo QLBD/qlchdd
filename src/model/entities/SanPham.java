@@ -22,7 +22,6 @@ public class SanPham implements java.io.Serializable {
 
 	private int maSp;
 	private String tenSp;
-	private String loai;
 	private NhaSanXuat nhasanxuat;
 	private Integer sl;
 	private Integer namSx;
@@ -35,6 +34,7 @@ public class SanPham implements java.io.Serializable {
 	private String kichthuoc;
 	private byte[] anh;
 	private Integer tinhtrang;
+        private Double heSoHH;
 	private Set<KhuyenMai> khuyenmais = new HashSet<KhuyenMai>(0);
 	private Set<CthdMua> cthdMuas = new HashSet<CthdMua>(0);
 	private Set<CthdBan> cthdBans = new HashSet<CthdBan>(0);
@@ -44,10 +44,9 @@ public class SanPham implements java.io.Serializable {
 	public SanPham() {
 	}
 
-        public SanPham(int maSp, String tenSp, String loai, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double thueVat, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang) {
+        public SanPham(int maSp, String tenSp, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double thueVat, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang) {
             this.maSp = maSp;
             this.tenSp = tenSp;
-            this.loai = loai;
             this.nhasanxuat = nhasanxuat;
             this.sl = sl;
             this.namSx = namSx;
@@ -60,7 +59,27 @@ public class SanPham implements java.io.Serializable {
             this.kichthuoc = kichthuoc;
             this.anh = anh;
             this.tinhtrang = tinhtrang;
+            this.heSoHH = Double.valueOf(0);
         }
+
+        public SanPham(int maSp, String tenSp, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double thueVat, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang, Double heSoHH) {
+            this.maSp = maSp;
+            this.tenSp = tenSp;
+            this.nhasanxuat = nhasanxuat;
+            this.sl = sl;
+            this.namSx = namSx;
+            this.thueVat = thueVat;
+            this.giaBanRa = giaBanRa;
+            this.thoigianBh = thoigianBh;
+            this.xuatxu = xuatxu;
+            this.mau = mau;
+            this.bonho = bonho;
+            this.kichthuoc = kichthuoc;
+            this.anh = anh;
+            this.tinhtrang = tinhtrang;
+            this.heSoHH = heSoHH;
+        }
+        
         
 	@Id
 
@@ -81,15 +100,6 @@ public class SanPham implements java.io.Serializable {
 
 	public void setTenSp(String tenSp) {
 		this.tenSp = tenSp;
-	}
-
-	@Column(name = "loai", length = 45)
-	public String getLoai() {
-		return this.loai;
-	}
-
-	public void setLoai(String loai) {
-		this.loai = loai;
 	}
 
         @ManyToOne(fetch = FetchType.LAZY)
@@ -201,6 +211,15 @@ public class SanPham implements java.io.Serializable {
 		this.tinhtrang = tinhtrang;
 	}
 
+        @Column(name = "heso_HH")
+        public Double getHeSoHH() {
+            return heSoHH;
+        }
+
+        public void setHeSoHH(Double heSoHH) {
+            this.heSoHH = heSoHH;
+        }
+        
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "sanphams")
 	public Set<KhuyenMai> getKhuyenmais() {
 		return this.khuyenmais;
@@ -238,6 +257,4 @@ public class SanPham implements java.io.Serializable {
             this.baohanhs = baohanhs;
         }
         
-        
-
 }

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.dao.TaiKhoanDAO;
 import model.entities.TaiKhoan;
+import static utils.Config.maHoaMatKhau;
 import view.iDangNhapView;
 
 /**
@@ -26,33 +27,11 @@ public class DangNhapController {
         this.callBack = callBack;
     }
 
-    public String maHoaMatKhau(String password){
-        String resultHash = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(password.getBytes("UTF-8"));
-            for(int i=0; i<array.length/2; i++){ 
-                byte temp = array[i];
-                array[i] = array[array.length -i -1];
-                array[array.length -i -1] = temp; 
-            }
-            StringBuilder sb = new StringBuilder();
-            for (byte b : array) {
-                sb.append(String.format("%02X", b));
-            }
-            resultHash = sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(TaiKhoanController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(TaiKhoanController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return resultHash;
-    }
     
-    public void dangNhap(String taiKhoan, String matKhau){
-        TaiKhoan tk = TaiKhoanDAO.getTaiKhoan(taiKhoan);
-        String checkPass = maHoaMatKhau(matKhau);
-        if(checkPass.equals(tk.getMatkhauDangNhap()))
+    public void dangNhap(String tenDN, String matKhau){
+        String pass = maHoaMatKhau(matKhau);
+        TaiKhoan tk = TaiKhoanDAO.login(tenDN, pass);
+        if(null != tk)
             callBack.dangNhapThanhCong(tk);
         else
             callBack.dangNhapThatBai();

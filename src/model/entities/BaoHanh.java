@@ -22,7 +22,6 @@ public class BaoHanh implements java.io.Serializable {
 
 	private int maBh;
 	private HoaDonBan hoadonban;
-	private KhachHang khachhang;
         private SanPham sanpham;
 	private int serial;
 	private String yeucauBh;
@@ -34,10 +33,9 @@ public class BaoHanh implements java.io.Serializable {
 	public BaoHanh() {
 	}
 
-        public BaoHanh(int maBh, HoaDonBan hoadonban, KhachHang khachhang, SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
+        public BaoHanh(int maBh, HoaDonBan hoadonban, SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
             this.maBh = maBh;
             this.hoadonban = hoadonban;
-            this.khachhang = khachhang;
             this.sanpham = sanpham;
             this.serial = serial;
             this.yeucauBh = yeucauBh;
@@ -65,16 +63,6 @@ public class BaoHanh implements java.io.Serializable {
 
 	public void setHoadonban(HoaDonBan hoadonban) {
 		this.hoadonban = hoadonban;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ma_KH", nullable = false)
-	public KhachHang getKhachhang() {
-		return this.khachhang;
-	}
-
-	public void setKhachhang(KhachHang khachhang) {
-		this.khachhang = khachhang;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

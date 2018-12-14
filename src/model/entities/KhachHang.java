@@ -24,7 +24,6 @@ public class KhachHang implements java.io.Serializable {
 	private Integer soDtKh;
 	private String email;
 	private Set<HoaDonBan> hoadonbans = new HashSet<HoaDonBan>(0);
-	private Set<BaoHanh> baohanhs = new HashSet<BaoHanh>(0);
 
 	public KhachHang() {
 	}
@@ -102,14 +101,5 @@ public class KhachHang implements java.io.Serializable {
 	public void setHoadonbans(Set<HoaDonBan> hoadonbans) {
 		this.hoadonbans = hoadonbans;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "khachhang")
-	public Set<BaoHanh> getBaohanhs() {
-		return this.baohanhs;
-	}
-
-	public void setBaohanhs(Set<BaoHanh> baohanhs) {
-		this.baohanhs = baohanhs;
-	}
-
+        
 }

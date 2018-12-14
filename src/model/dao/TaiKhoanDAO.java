@@ -6,6 +6,11 @@
 package model.dao;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import model.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -133,5 +138,37 @@ public class TaiKhoanDAO {
             session.close();
         }
         return kq;
+    }
+     
+    public static TaiKhoan login(String tenDN, String matKhau){
+        TaiKhoan tk = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+//            Query query = session.createSQLQuery("CALL USP_Login(:tenDangNhap, :matKhau)")
+//                    .addEntity(TaiKhoan.class)
+//                    .setParameter("tenDangNhap", tenDN)
+//                    .setParameter("matKhau", matKhau);
+
+            Query query = session.getNamedQuery("USP_Login")
+            .setParameter("tenDangNhap", tenDN)
+            .setParameter("matKhau", matKhau);
+            
+            List result = query.list();
+            
+            tk = (TaiKhoan) result.get(0);
+
+            session.getTransaction().commit();
+
+            System.out.println("Cập nhật tài khoản thành công!");
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.flush();
+            session.close();
+        }
+        return tk;
     }
 }
