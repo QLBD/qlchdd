@@ -19,7 +19,7 @@ public class SanPhamModelTable extends AbstractTableModel{
     private String[] columns = {"Mã SP",
                                 "Tên SP",
                                 "Mã NSX",
-                                "So lượng",
+                                "Số lượng",
                                 "Ngày sản xuất",
                                 "Thuế VAT",
                                 "Giá bán ra",
@@ -61,7 +61,7 @@ public class SanPhamModelTable extends AbstractTableModel{
         return columns[col]; //To change body of generated methods, choose Tools | Templates.
     }
     
-        public SanPham getSelectedRow(int row) {
+    public SanPham getSelectedRow(int row) {
         if(row < data.size() && row > -1)
                 return data.get(row);
         return null;
