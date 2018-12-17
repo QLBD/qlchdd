@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.HoaDonMua;
@@ -15,9 +16,9 @@ import model.entities.HoaDonMua;
  */
 public class HoaDonMuaModelTable extends AbstractTableModel{
     private List<HoaDonMua> data;
-    private String[] columns = {"Mã NCC",
+    private String[] columns = {"Số hóa đơn mua",
                                 "Ngày nhập",
-                                "Số hóa đơn mua",
+                                "Mã NCC",
                                 "Tổng tiền mua"
     };
     
@@ -57,6 +58,24 @@ public class HoaDonMuaModelTable extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        HoaDonMua hdMua = data.get(rowIndex);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        
+        switch (columnIndex) {
+            case 0:
+                return hdMua.getSohdMua();
+            case 1:
+                String ngayNhap = dateFormat.format(hdMua.getNgayNhap());
+                return ngayNhap;
+            case 2:
+                return hdMua.getNhacungcap().getMaNcc();
+            case 3:
+                return hdMua.getTongtienMua();
+            default:
+                return null;
+        }
     }
 }

@@ -7,32 +7,31 @@ package model;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.entities.HoaHong;
+import model.entities.PhanQuyen;
 
 /**
  *
- * @author ACER
+ * @author THAITHANG
  */
-public class HoaHongModelTable extends AbstractTableModel{
-    private List<HoaHong> data;
-    private String[] columns = {"Mã NV",
-                                "Năm",
-                                "Tháng",
-                                "Tiền hoa hồng"
+public class PhanQuyenModelTable extends AbstractTableModel{
+
+    private List<PhanQuyen> data;
+    private String[] columns = {"Mã Phân Quyền",
+                                "Quyền Truy Câp",
     };
-    
-      public HoaHongModelTable(List<HoaHong> data) {
+
+    public PhanQuyenModelTable(List<PhanQuyen> data) {
         this.data = data;
     }
-
-    public List<HoaHong> getData() {
+    
+    public List<PhanQuyen> getData() {
         return data;
     }
 
-    public void setData(List<HoaHong> data) {
+    public void setData(List<PhanQuyen> data) {
         this.data = data;
     }
-
+    
     @Override
     public int getRowCount() {
         return data.size();
@@ -40,16 +39,15 @@ public class HoaHongModelTable extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-         //To change body of generated methods, choose Tools | Templates.
         return columns.length;
     }
 
     @Override
     public String getColumnName(int col) {
-        return columns[col]; //To change body of generated methods, choose Tools | Templates.
+        return columns[col];
     }
     
-    public HoaHong getSelectedRow(int row) {
+    public PhanQuyen getSelectedRow(int row) {
         if(row < data.size() && row > -1)
                 return data.get(row);
         return null;
@@ -60,18 +58,17 @@ public class HoaHongModelTable extends AbstractTableModel{
         if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
             return null;
         }
-        HoaHong hh = data.get(rowIndex);
+         
+        PhanQuyen pq = data.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return hh.getId().getMaNv();
+                return pq.getMaPhanQuyen();
             case 1:
-                return  hh.getId().getNam();
-            case 2:
-                return hh.getId().getThang();
-            case 3:
-                return hh.getTienHh();
+                return pq.getQuyentruycap();
             default:
                 return null;
         }
     }
+    
+    
 }

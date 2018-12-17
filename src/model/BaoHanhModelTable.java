@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.BaoHanh;
@@ -62,6 +63,33 @@ public class BaoHanhModelTable extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        BaoHanh bh = data.get(rowIndex);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+        
+        switch (columnIndex) {
+            case 0:
+                return bh.getMaBh();
+            case 1:
+                return bh.getSanpham().getMaSp();
+            case 2:
+                String ngayNhan = dateFormat.format(bh.getNgaynhan());
+                return ngayNhan;
+            case 3:
+                String ngayTra = dateFormat.format(bh.getNgaytra());
+                return ngayTra;
+            case 4:
+                return bh.getSerial();
+            case 5:
+                return bh.getHoadonban().getSohdBan();
+            case 6:
+                return bh.getTinhtrang();
+            case 7:
+                return bh.getYeucauBh();
+            default:
+                return null;
+        }
     }
 }

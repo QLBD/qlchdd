@@ -15,10 +15,10 @@ import model.entities.CthdBan;
  */
 public class CTHDBanModelTable extends AbstractTableModel{
     private List<CthdBan> data;
-    private String[] columns = {"Mã KM",
+    private String[] columns = {"Số hóa đơn bán",
                                 "Mã SP",
                                 "Số lượng",
-                                "Số hóa đơn bán",
+                                "Mã KM",
                                 "Thành tiền"
     };
     
@@ -58,6 +58,23 @@ public class CTHDBanModelTable extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        CthdBan ctBan = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return ctBan.getId().getSohdBan();
+            case 1:
+                return  ctBan.getId().getMaSp();
+            case 2:
+                return ctBan.getSl();
+            case 3:
+                return ctBan.getKhuyenmai().getMaKm();
+            case 4:
+                return ctBan.getThanhtien();
+            default:
+                return null;
+        }
     }
 }

@@ -15,9 +15,9 @@ import model.entities.CthdMua;
  */
 public class CTHDMuaModelTable extends AbstractTableModel{
     private List<CthdMua> data;
-    private String[] columns = {"Mã SP",
+    private String[] columns = {"Số hóa đơn mua",
+                                "Mã SP",
                                 "Số lượng",
-                                "Số hóa đơn mua",
                                 "Thành tiền"
     };
     
@@ -40,13 +40,12 @@ public class CTHDMuaModelTable extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-         //To change body of generated methods, choose Tools | Templates.
         return columns.length;
     }
 
     @Override
     public String getColumnName(int col) {
-        return columns[col]; //To change body of generated methods, choose Tools | Templates.
+        return columns[col];
     }
     
     public CthdMua getSelectedRow(int row) {
@@ -57,6 +56,21 @@ public class CTHDMuaModelTable extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+            return null;
+        }
+        CthdMua ctMua = data.get(rowIndex);
+        switch (columnIndex) {
+            case 0:
+                return ctMua.getId().getSohdMua();
+            case 1:
+                return  ctMua.getId().getMaSp();
+            case 2:
+                return ctMua.getSl();
+            case 3:
+                return ctMua.getThanhtien();
+            default:
+                return null;
+        }
     }
 }

@@ -37,17 +37,14 @@ public class NhaSanXuatModelTable extends AbstractTableModel{
         return data.size();
     }
 
-
-
     @Override
     public int getColumnCount() {
-         //To change body of generated methods, choose Tools | Templates.
         return columns.length;
     }
 
     @Override
     public String getColumnName(int col) {
-        return columns[col]; //To change body of generated methods, choose Tools | Templates.
+        return columns[col];
     }
     
         public NhaSanXuat getSelectedRow(int row) {
@@ -58,7 +55,7 @@ public class NhaSanXuatModelTable extends AbstractTableModel{
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-         if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
+        if (rowIndex > getRowCount() || columnIndex > getColumnCount()) {
             return null;
         }
          
