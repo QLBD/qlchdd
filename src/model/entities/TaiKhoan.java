@@ -21,6 +21,11 @@ import javax.persistence.Table;
     name = "USP_Login",
     query = "CALL USP_Login(:tenDangNhap, :matKhau)",
     resultClass = TaiKhoan.class
+    ),
+    @NamedNativeQuery(
+    name = "USP_ResetPasswordtAccount ",
+    query = "CALL USP_ResetPasswordtAccount(:tenDangNhap)",
+    resultClass = TaiKhoan.class
     )
 })
 
@@ -40,10 +45,9 @@ public class TaiKhoan implements java.io.Serializable {
 		this.tenDangNhap = tenDangNhap;
 	}
 
-	public TaiKhoan(String tenDangNhap, PhanQuyen phanquyen, String matkhauDangNhap) {
+	public TaiKhoan(String tenDangNhap, PhanQuyen phanquyen) {
 		this.tenDangNhap = tenDangNhap;
 		this.phanquyen = phanquyen;
-		this.matkhauDangNhap = matkhauDangNhap;
 	}
 
 	@Id

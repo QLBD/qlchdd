@@ -5,14 +5,12 @@
  */
 package view.quanli;
 
-import java.util.List;
-import model.NhanVienModelTable;
-import model.entities.NhanVien;
+import model.BaoHanhModelTable;
 
 /**
  *
  * @author THAITHANG
  */
-public interface iQuanLiNhanVien {
-    void hienThiDuLieuLenTable(NhanVienModelTable modelTable);
+public interface iQuanLyBaoHanh {
+    void hienThiDuLieuLenTable(BaoHanhModelTable modelTable);
 }

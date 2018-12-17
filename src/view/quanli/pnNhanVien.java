@@ -29,12 +29,13 @@ import model.dao.TaiKhoanDAO;
 import model.entities.NhanVien;
 import model.entities.TaiKhoan;
 import org.hibernate.event.spi.LoadEventListener;
+import view.iMessageView;
 
 /**
  *
  * @author THAITHANG
  */
-public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
+public class pnNhanVien extends JPanel implements iQuanLiNhanVien, iMessageView{
     
     private JPanel pnThongTin;
     
@@ -59,7 +60,7 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
     
     private JTable tableNhanVien;
     
-    private NhanVienController controller = new NhanVienController(this);
+    private NhanVienController controller = NhanVienController.getInstance();
     
     private int count = 0;
     
@@ -180,7 +181,7 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
             
             NhanVien nhanVien = new NhanVien(maNv, tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang);
             
-            controller.themNhanVien(nhanVien);
+            controller.themNhanVien(nhanVien,this);
         });
         
         btnXem.addActionListener(new ActionListener() {
@@ -211,14 +212,7 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
     }
 
     private void loadData() {
-        controller.layToanBoNhanVien();
-    }
-
-    @Override
-    public void thayDoiDuLieu(String message, boolean success) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        if(success)
-            loadData();
+        controller.layToanBoNhanVien(this);
     }
 
     private void reload() {
@@ -230,5 +224,12 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien{
     @Override
     public void hienThiDuLieuLenTable(NhanVienModelTable modelTable) {
         tableNhanVien.setModel(modelTable);
+    }
+
+    @Override
+    public void showMessageAndReloadData(String message, boolean isLoadData) {
+        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
+        if(isLoadData)
+            loadData();
     }
 }

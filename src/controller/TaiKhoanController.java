@@ -53,4 +53,8 @@ public class TaiKhoanController {
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
         callBack.hienThiDuLieuLenCboNhanVien(data);
     }
+    
+    public void resetMatKhau(){
+        
+    }
 }

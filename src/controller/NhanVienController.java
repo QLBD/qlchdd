@@ -12,30 +12,37 @@ import model.dao.NhanVienDAO;
 import model.dao.TaiKhoanDAO;
 import view.quanli.iQuanLiNhanVien;
 import model.entities.*;
+import view.iMessageView;
 
 /**
  *
  * @author THAITHANG
  */
 public class NhanVienController {
-    private iQuanLiNhanVien callBack;
 
-    public NhanVienController(iQuanLiNhanVien callBack) {
-        this.callBack = callBack;
+    private static NhanVienController instance;
+
+    public static NhanVienController getInstance() {
+        if(instance == null) 
+            instance = new NhanVienController();
+        return instance;
     }
     
-    public void layToanBoNhanVien(){
+    private NhanVienController() {
+    }
+    
+    public void layToanBoNhanVien(iQuanLiNhanVien callBack){
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
         NhanVienModelTable modelTable = new NhanVienModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
     }
     
-    public void themNhanVien(NhanVien nhanVien){
+    public void themNhanVien(NhanVien nhanVien, iMessageView callBack){
         boolean result = NhanVienDAO.themNhanVien(nhanVien);
         if(result)
-            callBack.thayDoiDuLieu("Thêm Nhân Viên Thành Công", result);
+            callBack.showMessageAndReloadData("Thêm Nhân Viên Thành Công", result);
         else
-            callBack.thayDoiDuLieu("Thêm Nhân Viên Thất Bại", result);
+            callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", result);
     }
     
 //    public void xoaNhanVien(int maNv){

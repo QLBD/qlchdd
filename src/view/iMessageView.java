@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.quanli;
-
-import java.util.List;
-import model.NhanVienModelTable;
-import model.entities.NhanVien;
+package view;
 
 /**
  *
  * @author THAITHANG
  */
-public interface iQuanLiNhanVien {
-    void hienThiDuLieuLenTable(NhanVienModelTable modelTable);
+public interface iMessageView {
+    void showMessageAndReloadData(String message, boolean isLoadData);
 }

@@ -10,5 +10,16 @@ package controller;
  * @author THAITHANG
  */
 public class BanHangController {
+    private static BanHangController instance;
+
+    public static BanHangController getInstance() {
+        if(instance == null) 
+            instance = new BanHangController();
+        return instance;
+    }
+    
+    private BanHangController() {
+    }
+    
     
 }

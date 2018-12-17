@@ -68,6 +68,10 @@ public class TaiKhoanDAO {
             return false;
         }
         boolean kq = true;
+        if(tk.getPhanquyen().getMaPhanQuyen() == 1)
+            tk.setMatkhauDangNhap("C31F804A0E4A8943A7A5577A292F2321");
+        else if(tk.getPhanquyen().getMaPhanQuyen() == 2)
+            tk.setMatkhauDangNhap("9B84756F9A50CC0D8223B9A03842CAC4");
         try {
             session.beginTransaction();
 
@@ -170,5 +174,34 @@ public class TaiKhoanDAO {
             session.close();
         }
         return tk;
+    }
+    
+    public static int resetMatKhau(String tenDN){
+        int result = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+//            Query query = session.createSQLQuery("CALL USP_Login(:tenDangNhap, :matKhau)")
+//                    .addEntity(TaiKhoan.class)
+//                    .setParameter("tenDangNhap", tenDN)
+//                    .setParameter("matKhau", matKhau);
+
+            Query query = session.getNamedQuery("USP_ResetPasswordtAccount")
+            .setParameter("tenDangNhap", tenDN);
+            
+            result = query.list().size();
+
+            session.getTransaction().commit();
+
+            System.out.println("Cập nhật tài khoản thành công!");
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            session.flush();
+            session.close();
+        }
+        return result;
     }
 }
