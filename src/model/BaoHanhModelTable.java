@@ -11,23 +11,9 @@ import model.entities.BaoHanh;
 
 /**
  *
-<<<<<<< HEAD
  * @author THAITHANG
  */
-public class BaoHanhModelTable extends AbstractTableModel{
 
-    private List<BaoHanh> data;
-
-    public BaoHanhModelTable(List<BaoHanh> data) {
-        this.data = data;
-    }
-    
-    @Override
-    public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-=======
- * @author ACER
- */
 public class BaoHanhModelTable extends AbstractTableModel{
     private List<BaoHanh> data;
     private String[] columns = {"Mã BH",
@@ -55,14 +41,10 @@ public class BaoHanhModelTable extends AbstractTableModel{
     @Override
     public int getRowCount() {
         return data.size();
->>>>>>> thao
     }
 
     @Override
     public int getColumnCount() {
-<<<<<<< HEAD
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-=======
          //To change body of generated methods, choose Tools | Templates.
         return columns.length;
     }
@@ -76,15 +58,10 @@ public class BaoHanhModelTable extends AbstractTableModel{
         if(row < data.size() && row > -1)
                 return data.get(row);
         return null;
->>>>>>> thao
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> thao
 }
