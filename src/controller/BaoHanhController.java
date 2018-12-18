@@ -9,8 +9,9 @@ import java.util.List;
 import model.BaoHanhModelTable;
 import model.dao.BaoHanhDAO;
 import model.entities.BaoHanh;
-import view.iMessageView;
-import view.quanli.iQuanLyBaoHanh;
+import view.interfaceView.iMessageView;
+import view.interfaceView.iModelTable;
+import view.interfaceView.iQuanLyBaoHanh;
 
 /**
  *
@@ -28,7 +29,7 @@ public class BaoHanhController {
     private BaoHanhController() {
     }
     
-    public void layToanBoDanhSach(iQuanLyBaoHanh callBack){
+    public void layToanBoDuLieuLenTable(iModelTable callBack){
         List<BaoHanh> data = BaoHanhDAO.getDSBaoHanh();
         BaoHanhModelTable modelTable = new BaoHanhModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);

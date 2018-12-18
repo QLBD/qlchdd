@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.dao;
+package view.interfaceView;
+
 import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import utils.HibernateUtil;
-import model.entities.*;
+import model.entities.PhanQuyen;
+
 /**
  *
- * @author ACER
+ * @author THAITHANG
  */
-public class CTKMDAO {
-    
+public interface iModelComBox {
+    void hienThiDuLieuLenComBox(List data, Object object);
 }

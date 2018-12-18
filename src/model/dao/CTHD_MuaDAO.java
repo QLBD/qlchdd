@@ -5,7 +5,7 @@
  */
 package model.dao;
 import java.util.List;
-import model.HibernateUtil;
+import utils.HibernateUtil;
 import model.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

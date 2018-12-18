@@ -5,9 +5,11 @@
  */
 package controller;
 
+import java.util.List;
 import model.dao.SanPhamDAO;
 import model.entities.SanPham;
-import view.quanli.iQuanLySanPham;
+import view.interfaceView.iMessageView;
+import view.interfaceView.iModelComBox;
 
 /**
  *
@@ -15,21 +17,39 @@ import view.quanli.iQuanLySanPham;
  */
 public class SanPhamController {
     
-    private iQuanLySanPham callBack;
-    
-    public void themSP(SanPham sp){
-        boolean result = SanPhamDAO.themSanPham(sp);
-        if(result)
-            callBack.thayDoiDuLieu("Thêm Sản Phẩm Thành Công", result);
-        else
-            callBack.thayDoiDuLieu("Thêm Sản Phẩm Thất Bại", result);
+    private static SanPhamController instance;
+
+    public static SanPhamController getInstance() {
+        if(instance == null) 
+            instance = new SanPhamController();
+        return instance;
     }
     
-    public void capNhatSanPham(SanPham sp){
-        boolean result = SanPhamDAO.themSanPham(sp);
-        if(result)
-            callBack.thayDoiDuLieu("Cập nhật Sản Phẩm Thành Công", result);
-        else
-            callBack.thayDoiDuLieu("Cập nhật Phẩm Thất Bại", result);
+    private SanPhamController() {
     }
+    
+    public void layToanBoDuLieuLenComBox(iModelComBox callBack){
+        List<SanPham> data = SanPhamDAO.getDSSanPham();
+        callBack.hienThiDuLieuLenComBox(data,new SanPham());
+    }
+    
+    public void themTaiKhoan(SanPham sp, iMessageView callBack){
+        boolean result = SanPhamDAO.themSanPham(sp);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Thêm Sản Phẩm Thành Công", result);
+        else
+            callBack.showMessageAndReloadData("Thêm Sản Phẩm Thất Bại", result);
+    }
+    
+    public void capNhatSanPham(SanPham sp, iMessageView callBack){
+        boolean result = SanPhamDAO.capNhatSanPham(sp);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thành Công", result);
+        else
+            callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thất Bại", result);
+    }
+    
+    
 }

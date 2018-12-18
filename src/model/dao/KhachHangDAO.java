@@ -5,12 +5,15 @@
  */
 package model.dao;
 
+import java.io.Serializable;
 import java.util.List;
-import model.HibernateUtil;
+import utils.HibernateUtil;
 import model.entities.*;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -131,5 +134,27 @@ public class KhachHangDAO {
 //            session.close();
 //        }
 //        return kq;
-//    }    
+//    }
+
+    public static KhachHang timKhachHang(String propertyName, Object value){
+        KhachHang kh = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        try{
+            Criteria cr = session.createCriteria(KhachHang.class);
+            cr.add(Restrictions.eq(propertyName, value));
+            kh = (KhachHang) cr.list().get(0);
+        }
+        catch(HibernateException e){
+            session.getTransaction().rollback();
+            System.err.println(e);
+        }
+        finally{
+            session.flush();
+            session.close();
+        }
+        return kh;
+    }
+    
+    
 }

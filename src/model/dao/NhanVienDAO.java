@@ -6,7 +6,7 @@
 package model.dao;
 
 import java.util.List;
-import model.HibernateUtil;
+import utils.HibernateUtil;
 import model.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,9 +25,6 @@ public class NhanVienDAO {
             String sql = "from NhanVien";
             Query query = session.createQuery(sql);
             ds = query.list();
-            for(NhanVien nhanVien : ds){
-            System.out.println(nhanVien.getMaNv());
-            }
         }
         catch(HibernateException e){
             e.printStackTrace();

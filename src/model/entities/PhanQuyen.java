@@ -62,4 +62,8 @@ public class PhanQuyen implements java.io.Serializable {
 		this.taikhoans = taikhoans;
 	}
 
+    @Override
+    public String toString() {
+        return quyentruycap;
+    }
 }

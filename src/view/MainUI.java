@@ -5,7 +5,7 @@
  */
 package view;
 
-import model.HibernateUtil;
+import utils.HibernateUtil;
 import model.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

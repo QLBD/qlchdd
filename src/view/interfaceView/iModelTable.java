@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.quanli;
+package view.interfaceView;
+
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author THAITHANG
  */
-public interface iQuanLySanPham {
-    void thayDoiDuLieu(String message, boolean success);
+public interface iModelTable {
+    void hienThiDuLieuLenTable(AbstractTableModel tableModel);
 }

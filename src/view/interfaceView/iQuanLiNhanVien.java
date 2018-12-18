@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.interfaceView;
+
+import java.util.List;
+import model.NhanVienModelTable;
+import model.entities.NhanVien;
 
 /**
  *
  * @author THAITHANG
  */
-public interface iMessageView {
-    void showMessageAndReloadData(String message, boolean isLoadData);
+public interface iQuanLiNhanVien {
+    void hienThiDuLieuLenTable(NhanVienModelTable modelTable);
 }

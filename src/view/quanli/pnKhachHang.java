@@ -5,7 +5,10 @@
  */
 package view.quanli;
 
+import controller.KhachHangController;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,12 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.entities.KhachHang;
+import view.interfaceView.iQuanLyKhachHang;
 
 /**
  *
  * @author RanRan
  */
-public class pnKhachHang extends JPanel {
+public class pnKhachHang extends JPanel implements iQuanLyKhachHang{
         private JPanel pnThongTin;
         
         private JLabel lblMaKH;
@@ -41,6 +46,7 @@ public class pnKhachHang extends JPanel {
         
         public pnKhachHang(){
             initComponents();
+            initEvent();
         }
     
         private void initComponents(){
@@ -132,6 +138,21 @@ public class pnKhachHang extends JPanel {
 
         //Add the scroll pane to this panel.
         add(scrollPane);
+    }
+
+    @Override
+    public void timKiemKhacHang(KhachHang kh) {
+        if(kh != null)
+            System.out.println(kh.getTenKh());
+    }
+
+    private void initEvent() {
+        btnXem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KhachHangController.getInstance().timKhachHangTheoCMND(321643275, pnKhachHang.this);
+            }
+        });
     }
             
 }

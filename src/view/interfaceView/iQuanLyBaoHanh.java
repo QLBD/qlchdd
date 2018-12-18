@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.dao;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import utils.HibernateUtil;
-import model.entities.*;
+package view.interfaceView;
+
+import model.BaoHanhModelTable;
+
 /**
  *
- * @author ACER
+ * @author THAITHANG
  */
-public class CTKMDAO {
-    
+public interface iQuanLyBaoHanh {
+    void hienThiDuLieuLenTable(BaoHanhModelTable modelTable);
 }

@@ -172,4 +172,9 @@ public class NhanVien implements java.io.Serializable {
         public void setTaikhoan(TaiKhoan taikhoan) {
             this.taikhoan = taikhoan;
         }
+
+    @Override
+    public String toString() {
+        return maNv +"";
+    }
 }

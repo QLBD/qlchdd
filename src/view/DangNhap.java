@@ -5,7 +5,8 @@
  */
 package view;
 
-import controller.DangNhapController;
+import view.interfaceView.iDangNhapView;
+import controller.TaiKhoanController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -31,7 +32,7 @@ public class DangNhap extends JFrame implements iDangNhapView{
     private JPasswordField pfMatKhau;
     private JTextField tfTaiKhoan;
     
-    private DangNhapController controller = new DangNhapController(this);
+    private TaiKhoanController controller = TaiKhoanController.getInstance();
     
     public DangNhap(){
         setTitle("Đăng Nhập");
@@ -73,7 +74,7 @@ public class DangNhap extends JFrame implements iDangNhapView{
                 
                 if(taiKhoan.isEmpty() || matKhau.isEmpty())
                     return;
-                controller.dangNhap(taiKhoan, matKhau);
+                controller.dangNhap(taiKhoan, matKhau, DangNhap.this);
             }
         });
         
@@ -114,6 +115,5 @@ public class DangNhap extends JFrame implements iDangNhapView{
     public void dangNhapThatBai() {
         JOptionPane.showMessageDialog(null,"Đăng nhập thất bại" ,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
     }
-    
     
 }

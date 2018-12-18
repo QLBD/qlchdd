@@ -10,9 +10,10 @@ import java.util.Vector;
 import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
 import model.dao.TaiKhoanDAO;
-import view.quanli.iQuanLiNhanVien;
+import view.interfaceView.iQuanLiNhanVien;
 import model.entities.*;
-import view.iMessageView;
+import view.interfaceView.iMessageView;
+import view.interfaceView.iModelComBox;
 
 /**
  *
@@ -33,6 +34,7 @@ public class NhanVienController {
     
     public void layToanBoNhanVien(iQuanLiNhanVien callBack){
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
+        
         NhanVienModelTable modelTable = new NhanVienModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
     }
@@ -52,4 +54,9 @@ public class NhanVienController {
 //        else
 //            callBack.thayDoiDuLieu("Xóa Nhân Viên Thất Bại", result);
 //    }
+    
+    public void layToanBoDuLieuLenComBox(iModelComBox callBack){
+        List<NhanVien> data = NhanVienDAO.getDSNhanVien();
+        callBack.hienThiDuLieuLenComBox(data,new NhanVien());
+    }
 }

@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.quanli;
-
-import model.BaoHanhModelTable;
+package view.interfaceView;
 
 /**
  *
  * @author THAITHANG
  */
-public interface iQuanLyBaoHanh {
-    void hienThiDuLieuLenTable(BaoHanhModelTable modelTable);
+public interface iMessageView {
+    void showMessageAndReloadData(String message, boolean isLoadData);
 }

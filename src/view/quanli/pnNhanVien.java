@@ -5,6 +5,7 @@
  */
 package view.quanli;
 
+import view.interfaceView.iQuanLiNhanVien;
 import controller.NhanVienController;
 import java.awt.Button;
 import java.awt.Color;
@@ -29,7 +30,7 @@ import model.dao.TaiKhoanDAO;
 import model.entities.NhanVien;
 import model.entities.TaiKhoan;
 import org.hibernate.event.spi.LoadEventListener;
-import view.iMessageView;
+import view.interfaceView.iMessageView;
 
 /**
  *

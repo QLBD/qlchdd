@@ -5,9 +5,13 @@
  */
 package view.quanli;
 
+import controller.NhanVienController;
+import controller.PhanQuyenController;
+import view.interfaceView.iQuanLyTaiKhoan;
 import controller.TaiKhoanController;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,17 +24,21 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import model.TaiKhoanModelTable;
 import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
+import view.interfaceView.iMessageView;
+import view.interfaceView.iModelComBox;
+import view.interfaceView.iModelTable;
 
 /**
  *
  * @author THAITHANG
  */
-public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
+public class pnTaiKhoan extends JPanel implements iModelComBox, iMessageView, iModelTable{
 
     private JTable table;
     private JTextField tfTenDangNhap;
@@ -49,11 +57,11 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
     private JPanel panel_1;
     private JScrollPane scrollPane;
 
-    private TaiKhoanController controller = new TaiKhoanController(this);
+    private TaiKhoanController controller = TaiKhoanController.getInstance();
 
     public pnTaiKhoan() {
         initComponents();
-        loadData();
+        initData();
         initEvent();
     }
 
@@ -132,22 +140,10 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
         scrollPane.setViewportView(table);
     }
 
-    @Override
-    public void hienThiDuLieuLenTable(TaiKhoanModelTable modelTable) {
-        table.setModel(modelTable);
-    }
-
-    @Override
-    public void thayDoiDuLieu(String message, boolean success) {
-        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        if (success) {
-            loadData();
-        }
-    }
-
-    private void loadData() {
-        controller.getDSTaiKhoan();
-        controller.getDSPhanQuyen();
+    private void initData() {
+        loadDataTable();
+        loadDataCboPhanQuyen();
+        loadDataCboNhanVien();
     }
 
     private void initEvent() {
@@ -172,21 +168,51 @@ public class pnTaiKhoan extends JPanel implements iQuanLyTaiKhoan {
     }
 
     @Override
-    public void hienThiDuLieuLenCboPhanQuyen(List<PhanQuyen> data) {
-        cboPhanQuyen.removeAllItems();
-        for(PhanQuyen pq : data){
-            cboPhanQuyen.addItem(pq);
+    public void hienThiDuLieuLenComBox(List data, Object object) {
+        if(object instanceof PhanQuyen){
+            cboPhanQuyen.removeAllItems();
+            for (Iterator it = data.iterator(); it.hasNext();) {
+                PhanQuyen pq = (PhanQuyen) it.next();
+                cboPhanQuyen.addItem(pq);
+            }
+            cboPhanQuyen.setSelectedIndex(-1);
+            System.out.println("phan quyền " + cboPhanQuyen.getItemCount());
         }
-        cboPhanQuyen.setSelectedIndex(-1);
+        else if(object instanceof NhanVien){
+            cboMaNV.removeAllItems();
+            for (Iterator it = data.iterator(); it.hasNext();) {
+                NhanVien nv = (NhanVien) it.next();
+                cboMaNV.addItem(nv);
+            }
+            cboMaNV.setSelectedIndex(-1);
+            System.out.println("nhan vien " + cboMaNV.getItemCount());
+            
+        }
     }
 
     @Override
-    public void hienThiDuLieuLenCboNhanVien(List<NhanVien> data) {
-        cboMaNV.removeAllItems();
-        for(NhanVien nv : data){
-            cboMaNV.addItem(nv);
+    public void showMessageAndReloadData(String message, boolean isLoadData) {
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        if (isLoadData) {
+            loadDataTable();
         }
-        cboMaNV.setSelectedIndex(-1);
+    }
+
+    private void loadDataTable() {
+        controller.layToanBoDuLieuLenTable(this);
+    }
+
+    private void loadDataCboPhanQuyen() {
+        PhanQuyenController.getInstance().layToanBoDuLieuLenComBox(this);
+    }
+
+    private void loadDataCboNhanVien(){
+        NhanVienController.getInstance().layToanBoDuLieuLenComBox(this);
+    }
+
+    @Override
+    public void hienThiDuLieuLenTable(AbstractTableModel tableModel) {
+        table.setModel(tableModel);
     }
 
 }
