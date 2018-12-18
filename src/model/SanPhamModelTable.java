@@ -109,4 +109,30 @@ public class SanPhamModelTable extends AbstractTableModel{
         }
     }
     
+    public void addRow(SanPham object) {
+        data.add(object);
+        fireTableDataChanged();
+    }
+
+    public void addRow(int row, SanPham object){
+        data.add(row, object);
+        fireTableDataChanged();
+    }
+    
+    public boolean removeRow(int row) {
+        boolean result;
+        if(row < data.size()) {
+            data.remove(row);
+            fireTableDataChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeRow(SanPham object) {
+        boolean result = data.remove(object);
+        fireTableDataChanged();
+        return result;
+    }
+    
 }

@@ -6,11 +6,12 @@
 package view.interfaceView;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author THAITHANG
  */
 public interface iModelTable {
-    void hienThiDuLieuLenTable(AbstractTableModel tableModel);
+    void hienThiDuLieuLenTable(TableModel tableModel);
 }

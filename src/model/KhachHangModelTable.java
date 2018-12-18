@@ -41,8 +41,6 @@ public class KhachHangModelTable extends AbstractTableModel{
         return data.size();
     }
 
-
-
     @Override
     public int getColumnCount() {
          //To change body of generated methods, choose Tools | Templates.
@@ -82,6 +80,32 @@ public class KhachHangModelTable extends AbstractTableModel{
             default:
                 return null;
         }
+    }
+    
+    public void addRow(KhachHang object) {
+        data.add(object);
+        fireTableDataChanged();
+    }
+
+    public void addRow(int row, KhachHang object){
+        data.add(row, object);
+        fireTableDataChanged();
+    }
+    
+    public boolean removeRow(int row) {
+        boolean result;
+        if(row < data.size()) {
+            data.remove(row);
+            fireTableDataChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeRow(KhachHang object) {
+        boolean result = data.remove(object);
+        fireTableDataChanged();
+        return result;
     }
     
 }

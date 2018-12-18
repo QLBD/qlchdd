@@ -101,4 +101,29 @@ public class NhanVienModelTable extends AbstractTableModel{
         }
     }
     
+    public void addRow(NhanVien object) {
+        data.add(object);
+        fireTableDataChanged();
+    }
+
+    public void addRow(int row, NhanVien object){
+        data.add(row, object);
+        fireTableDataChanged();
+    }
+    
+    public boolean removeRow(int row) {
+        boolean result;
+        if(row < data.size()) {
+            data.remove(row);
+            fireTableDataChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeRow(NhanVien object) {
+        boolean result = data.remove(object);
+        fireTableDataChanged();
+        return result;
+    }
 }

@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.TaiKhoanModelTable;
 import model.entities.NhanVien;
 import model.entities.PhanQuyen;
@@ -211,7 +212,7 @@ public class pnTaiKhoan extends JPanel implements iModelComBox, iMessageView, iM
     }
 
     @Override
-    public void hienThiDuLieuLenTable(AbstractTableModel tableModel) {
+    public void hienThiDuLieuLenTable(TableModel tableModel) {
         table.setModel(tableModel);
     }
 

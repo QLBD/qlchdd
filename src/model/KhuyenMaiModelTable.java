@@ -84,4 +84,30 @@ public class KhuyenMaiModelTable extends AbstractTableModel{
                 return null;
         }
     }
+    
+    public void addRow(KhuyenMai object) {
+        data.add(object);
+        fireTableDataChanged();
+    }
+
+    public void addRow(int row, KhuyenMai object){
+        data.add(row, object);
+        fireTableDataChanged();
+    }
+    
+    public boolean removeRow(int row) {
+        boolean result;
+        if(row < data.size()) {
+            data.remove(row);
+            fireTableDataChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeRow(KhuyenMai object) {
+        boolean result = data.remove(object);
+        fireTableDataChanged();
+        return result;
+    }
 }
