@@ -48,6 +48,27 @@ SELECT nv.ma_NV, nv.ten_NV,Month(hdb.ngay_Ban) Thang, Year(hdb.ngay_Ban)Nam, SUM
 	GROUP BY nv.ma_NV, Thang, Nam
     ORDER BY nv.ma_NV$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongNam` (IN `nam` INT)  NO SQL
+SELECT sp.ma_SP, sp.ten_SP, SUM(ct.sl) AS SL
+FROM sanpham sp, cthd_ban ct, hoadonban hd
+WHERE ct.sohd_Ban = hd.sohd_Ban and sp.ma_SP = ct.ma_SP and
+	year(hd.ngay_Ban) = nam and sp.tinhtrang = 1
+GROUP BY sp.ma_SP, sp.ten_SP$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongQuy` (IN `quy` INT, IN `nam` INT)  NO SQL
+SELECT sp.ma_SP , sp.ten_SP , SUM(ct.sl) AS SL
+FROM sanpham sp, cthd_ban ct, hoadonban hd
+WHERE ct.sohd_Ban = hd.sohd_Ban and sp.ma_SP = ct.ma_SP and
+	year(hd.ngay_Ban) = nam and sp.tinhtrang = 1 and quarter(hd.ngay_Ban) = quy
+GROUP BY sp.ma_SP, sp.ten_SP$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongThang` (IN `thang` INT, IN `nam` INT)  NO SQL
+SELECT sp.ma_SP , sp.ten_SP , SUM(ct.sl) AS SL
+FROM sanpham sp, cthd_ban ct, hoadonban hd
+WHERE ct.sohd_Ban = hd.sohd_Ban and sp.ma_SP = ct.ma_SP and
+	year(hd.ngay_Ban) = nam and sp.tinhtrang = 1 and month(hd.ngay_Ban) = thang
+GROUP BY sp.ma_SP, sp.ten_SP$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongThang-Nam` (IN `th` INT(11), IN `n` INT(11))  NO SQL
 SELECT sp.ma_SP, sp.ten_SP, sum(db.sl) sl
 FROM sanpham sp LEFT JOIN (SELECT ct.ma_SP FROM cthd_ban ct, hoadonban hd WHERE ct.sohd_Ban = hd.sohd_Ban and Month(hd.ngay_Ban) = th and year(hd.ngay_Ban) = n) as db ON sp.ma_SP = db.ma_SP
@@ -66,6 +87,11 @@ LIMIT 5$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `USP_Login` (IN `tenDangNhap` VARCHAR(45), IN `matKhau` VARCHAR(45))  NO SQL
 SELECT * FROM taikhoan WHERE taikhoan.ten_DangNhap = tenDangNhap AND taikhoan.matkhau_DangNhap = matKhau$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `XuatHoaDon` (IN `sohd` INT)  NO SQL
+SELECT sanpham.ten_SP, cthd_ban.sl, cthd_ban.gia_Goc , cthd_ban.tien_Giam, cthd_ban.thanhtien
+FROM hoadonban, cthd_ban, sanpham
+WHERE hoadonban.sohd_Ban = cthd_ban.sohd_Ban AND cthd_ban.ma_SP = sanpham.ma_SP AND hoadonban.sohd_Ban = sohd$$
 
 DELIMITER ;
 
@@ -86,14 +112,6 @@ CREATE TABLE `baohanh` (
   `ngaytra` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `baohanh`
---
-
-INSERT INTO `baohanh` (`ma_BH`, `sohd_Ban`, `ma_SP`, `serial`, `yeucau_BH`, `ngaynhan`, `tinhtrang`, `ngaytra`) VALUES
-(1, 1, 1, 12345, '', '2018-12-14 00:00:00', 0, '2018-12-19 00:00:00'),
-(2, 2, 2, 3456, '', '2018-12-13 00:00:00', 0, '2018-12-17 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -104,18 +122,11 @@ CREATE TABLE `cthd_ban` (
   `sohd_Ban` int(11) NOT NULL,
   `ma_SP` int(11) NOT NULL,
   `sl` int(11) DEFAULT NULL,
-  `ma_KM` int(11) NOT NULL,
+  `ma_KM` int(11) DEFAULT NULL,
+  `gia_Goc` double DEFAULT NULL,
+  `tien_Giam` double DEFAULT NULL,
   `thanhtien` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cthd_ban`
---
-
-INSERT INTO `cthd_ban` (`sohd_Ban`, `ma_SP`, `sl`, `ma_KM`, `thanhtien`) VALUES
-(1, 1, 1, 1, NULL),
-(2, 2, 2, 1, 25000000),
-(2, 3, 1, 1, 16000000);
 
 -- --------------------------------------------------------
 
@@ -129,15 +140,6 @@ CREATE TABLE `cthd_mua` (
   `sl` int(11) DEFAULT NULL,
   `thanhtien` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cthd_mua`
---
-
-INSERT INTO `cthd_mua` (`sohd_Mua`, `ma_SP`, `sl`, `thanhtien`) VALUES
-(1, 1, 10, 68000000),
-(2, 2, 20, 200000000),
-(3, 3, 10, 145000000);
 
 -- --------------------------------------------------------
 
@@ -155,12 +157,26 @@ CREATE TABLE `ctkm` (
 --
 
 INSERT INTO `ctkm` (`ma_KM`, `ma_SP`) VALUES
-(1, 1),
-(1, 2),
 (1, 3),
-(3, 1),
+(4, 1),
 (4, 2),
-(4, 3);
+(4, 3),
+(4, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doanhthu`
+--
+
+CREATE TABLE `doanhthu` (
+  `thang` int(11) NOT NULL,
+  `nam` int(11) NOT NULL,
+  `tienban_SP` double NOT NULL,
+  `tienmua_SP` double NOT NULL,
+  `tienluong_NV` double NOT NULL,
+  `tienloi` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -173,19 +189,40 @@ CREATE TABLE `hoadonban` (
   `ngay_Ban` date DEFAULT NULL,
   `ma_NV` int(11) DEFAULT NULL,
   `ma_KH` int(11) DEFAULT NULL,
-  `tongtien_Ban` double DEFAULT NULL
+  `tongtien_Ban` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `hoadonban`
+-- Triggers `hoadonban`
 --
-
-INSERT INTO `hoadonban` (`sohd_Ban`, `ngay_Ban`, `ma_NV`, `ma_KH`, `tongtien_Ban`) VALUES
-(1, '2018-12-10', 4, 2, NULL),
-(2, '2018-12-10', 1, 4, NULL),
-(3, '2018-12-11', 1, 1, NULL),
-(4, '2018-12-13', 5, 3, NULL),
-(5, '2018-11-29', 1, 4, NULL);
+DELIMITER $$
+CREATE TRIGGER `insert_hoahong_tienhh` AFTER INSERT ON `hoadonban` FOR EACH ROW BEGIN
+	DECLARE flag INT;
+    DECLARE nam INT;
+    DECLARE thang INT;
+    DECLARE tienhh DOUBLE;
+    
+    SET nam = year(NEW.ngay_Ban), thang = month(NEW.ngay_Ban);
+    
+    
+    SELECT COUNT(*) INTO flag FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
+    
+    IF(flag = 0) THEN
+    BEGIN
+    	INSERT INTO `hoahong` (`ma_NV`, `thang`, `nam`, `tien_HH`) VALUES (NEW.ma_NV, thang, nam, NEW.tongtien_Ban); 
+    END;
+    ELSE
+    BEGIN
+    	SELECT hoahong.tien_HH INTO tienhh FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
+        
+        SET tienhh = tienhh + NEW.tongtien_Ban;
+        
+        UPDATE hoahong SET hoahong.tien_HH = tienhh  WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
+    END;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -197,18 +234,8 @@ CREATE TABLE `hoadonmua` (
   `sohd_Mua` int(11) NOT NULL,
   `ngay_Nhap` date DEFAULT NULL,
   `ma_NCC` int(11) DEFAULT NULL,
-  `tongtien_Mua` double DEFAULT NULL
+  `tongtien_Mua` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `hoadonmua`
---
-
-INSERT INTO `hoadonmua` (`sohd_Mua`, `ngay_Nhap`, `ma_NCC`, `tongtien_Mua`) VALUES
-(1, '2018-12-04', 3, NULL),
-(2, '2018-12-10', 2, NULL),
-(3, '2018-12-11', 4, NULL),
-(4, '2018-12-15', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -222,15 +249,6 @@ CREATE TABLE `hoahong` (
   `nam` int(4) NOT NULL,
   `tien_HH` double(255,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `hoahong`
---
-
-INSERT INTO `hoahong` (`ma_NV`, `thang`, `nam`, `tien_HH`) VALUES
-(1, 8, 2018, NULL),
-(4, 11, 2018, NULL),
-(5, 11, 2018, NULL);
 
 -- --------------------------------------------------------
 
@@ -277,7 +295,7 @@ CREATE TABLE `khuyenmai` (
 --
 
 INSERT INTO `khuyenmai` (`ma_KM`, `ten_KM`, `hs_KM`, `ngay_BD`, `ngay_KT`) VALUES
-(1, 'Không KM', 0, '2000-01-01', '2050-12-31'),
+(1, 'Quốc Khánh', 0, '2018-09-02', '2018-09-02'),
 (2, '30/4 - 1/5', 0.1, '2018-04-29', '2018-05-01'),
 (3, '20/11/2018', 0.05, '2018-11-19', '2018-11-20'),
 (4, 'Noel 2018', 0.07, '2018-12-23', '2018-12-25'),
@@ -397,19 +415,18 @@ CREATE TABLE `sanpham` (
   `bonho` varchar(45) DEFAULT NULL,
   `kichthuoc` varchar(45) DEFAULT NULL,
   `anh` longblob,
-  `tinhtrang` int(11) DEFAULT NULL,
-  `heso_HH` double NOT NULL
+  `tinhtrang` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `sanpham` (`ma_SP`, `ten_SP`, `ma_nsx`, `sl`, `nam_SX`, `thue_VAT`, `gia_BanRa`, `thoigian_BH`, `xuatxu`, `mau`, `bonho`, `kichthuoc`, `anh`, `tinhtrang`, `heso_HH`) VALUES
-(1, 'iPhone 6 32GB', 1, 7, 2017, 0.1, 7000000, 12, 'Trung Quốc', 'Hồng', '32G', NULL, NULL, NULL, 0.06),
-(2, 'Samsung Galaxy A9', 3, 10, 2018, 0.2, 12500000, 12, NULL, 'Đen', '128GB', '6.3 inch Full HD+ (1080 x 2220 Pixels)', NULL, NULL, 0.05),
-(3, 'Samsung Galaxy S8', 2, 8, 2018, 0.2, 16000000, 12, NULL, 'Xanh', '64GB', '2K+ (1440 x 2960 Pixels)', NULL, 1, 0.06),
-(4, 'Oppo neo 9', 1, 5, 2017, 0.03, 5000000, 12, NULL, NULL, NULL, NULL, NULL, 1, 0.03);
+INSERT INTO `sanpham` (`ma_SP`, `ten_SP`, `ma_nsx`, `sl`, `nam_SX`, `thue_VAT`, `gia_BanRa`, `thoigian_BH`, `xuatxu`, `mau`, `bonho`, `kichthuoc`, `anh`, `tinhtrang`) VALUES
+(1, 'iPhone 6 32GB', 1, 7, 2017, 0.1, 7000000, 12, 'Trung Quốc', 'Hồng', '32G', NULL, NULL, 1),
+(2, 'Samsung Galaxy A9', 3, 10, 2018, 0.2, 12500000, 12, NULL, 'Đen', '128GB', '6.3 inch Full HD+ (1080 x 2220 Pixels)', NULL, 1),
+(3, 'Samsung Galaxy S8', 2, 8, 2018, 0.2, 16000000, 12, NULL, 'Xanh', '64GB', '2K+ (1440 x 2960 Pixels)', NULL, 1),
+(4, 'Oppo neo 9', 1, 5, 2017, 0.03, 5000000, 12, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -465,6 +482,12 @@ ALTER TABLE `cthd_mua`
 ALTER TABLE `ctkm`
   ADD PRIMARY KEY (`ma_KM`,`ma_SP`),
   ADD KEY `fk_CTKM_SP` (`ma_SP`);
+
+--
+-- Indexes for table `doanhthu`
+--
+ALTER TABLE `doanhthu`
+  ADD PRIMARY KEY (`thang`,`nam`);
 
 --
 -- Indexes for table `hoadonban`

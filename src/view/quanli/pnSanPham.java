@@ -5,20 +5,38 @@
  */
 package view.quanli;
 
+import controller.KhuyenMaiController;
+import controller.NhaSanXuatController;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.entities.KhuyenMai;
+import model.entities.NhaSanXuat;
+import model.entities.SanPham;
+import view.interfaceView.iBanHangView;
+import view.interfaceView.iModelComBox;
 
 /**
  *
  * @author THAITHANG
  */
-public class pnSanPham extends JPanel{
+public class pnSanPham extends JPanel implements iModelComBox, iBanHangView{
     
     private JPanel pnThongTin;
     
@@ -30,9 +48,9 @@ public class pnSanPham extends JPanel{
     private JLabel lblGiaBan;
     private JLabel lblSoLuong;
     
-    private JTextField tfMaSP;
+    private JComboBox cboMaSP;
     private JTextField tflTenSP;
-    private JTextField tfHang;
+    private JComboBox cboHang;
     private JTextField tfGiaNhap;
     private JTextField tfXuatXu;
     private JTextField tfGiaBan;
@@ -46,6 +64,8 @@ public class pnSanPham extends JPanel{
     private JTable tableSanPham;
     public pnSanPham(){
         initComponents();
+        initData();
+        initEvent();
     }
 
     private void initComponents() {
@@ -85,17 +105,17 @@ public class pnSanPham extends JPanel{
         lblSoLuong.setBounds(356, 98, 62, 18);
         pnThongTin.add(lblSoLuong);
         
-        tfMaSP = new JTextField();
-        tfMaSP.setBounds(98, 24, 240, 24);
-        pnThongTin.add(tfMaSP);
+        cboMaSP = new JComboBox();
+        cboMaSP.setBounds(98, 24, 240, 24);
+        pnThongTin.add(cboMaSP);
         
         tflTenSP = new JTextField();
         tflTenSP.setBounds(98, 60, 240, 24);
         pnThongTin.add(tflTenSP);
         
-        tfHang = new JTextField();
-        tfHang.setBounds(98, 96, 240, 24);
-        pnThongTin.add(tfHang);
+        cboHang = new JComboBox();
+        cboHang.setBounds(98, 96, 240, 24);
+        pnThongTin.add(cboHang);
         
         tfGiaNhap = new JTextField();
         tfGiaNhap.setBounds(98, 134, 240, 24);
@@ -161,5 +181,78 @@ public class pnSanPham extends JPanel{
 
         //Add the scroll pane to this panel.
         add(scrollPane);
+    }
+
+    private void initData() {
+        loadDataCboHang();
+    }
+
+    private void loadDataCboHang() {
+        NhaSanXuatController.getInstance().layToanBoDuLieuLenComBox(this);
+    }
+
+    @Override
+    public void hienThiDuLieuLenComBox(List data, Object object) {
+        if(object instanceof NhaSanXuat){
+            cboHang.removeAllItems();
+            for (Iterator it = data.iterator(); it.hasNext();) {
+                
+                NhaSanXuat nsx = (NhaSanXuat) it.next();
+                cboHang.addItem(nsx);
+            }
+            cboHang.setSelectedIndex(-1);
+        }
+    }
+
+    private void initEvent() {
+        cboHang.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(cboHang.getSelectedIndex() != -1){
+                    NhaSanXuat nsx = (NhaSanXuat) cboHang.getSelectedItem();
+                    loadDataCboSanPham(nsx);
+                }
+            }
+        });
+        
+        cboMaSP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                System.out.println(e.toString());
+//                System.out.println(cboMaSP.getSelectedIndex());
+                if(cboMaSP.isValid()){
+                    if(cboMaSP.getSelectedIndex() != -1){
+                        SanPham sanPham = (SanPham) cboMaSP.getSelectedItem();
+                        System.out.println(sanPham.getTenSp());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(2018, 11, 23,0,0,0);
+                        KhuyenMaiController.getInstance().kiemTraKhuyenMai(calendar.getTime(), sanPham, pnSanPham.this);
+                        
+                        //sanPham.getKhuyenmais().forEach(c -> System.out.println(c.getTenKm()));    
+                    }
+                }
+            }
+        });
+    }
+    
+    private void loadDataCboSanPham(NhaSanXuat nsx){
+        cboMaSP.removeAllItems();
+        for(SanPham sp : nsx.getSanphams()){
+            if(sp.getTinhtrang() == 1){
+                cboMaSP.addItem(sp);
+            }
+        }
+        cboMaSP.setSelectedIndex(-1);
+    }
+
+    @Override
+    public void capNhatKhuyenMaiSanPham(KhuyenMai km) {
+        if(km != null){
+            System.out.println(km.getTenKm());
+            System.out.println(km.getNgayBd().toString());
+            System.out.println(km.getNgayKt().toString());
+        }
+        else
+            System.out.println("Không có khuyến mãi");
     }
 }

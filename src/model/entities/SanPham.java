@@ -3,11 +3,13 @@ package model.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -222,7 +224,7 @@ public class SanPham implements java.io.Serializable {
         
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "sanphams")
 	public Set<KhuyenMai> getKhuyenmais() {
-		return this.khuyenmais;
+            return this.khuyenmais;
 	}
 
 	public void setKhuyenmais(Set<KhuyenMai> khuyenmais) {
@@ -256,5 +258,11 @@ public class SanPham implements java.io.Serializable {
         public void setBaohanhs(Set<BaoHanh> baohanhs) {
             this.baohanhs = baohanhs;
         }
+
+        @Override
+        public String toString() {
+            return tenSp;
+        }
+        
         
 }

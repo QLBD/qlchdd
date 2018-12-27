@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import utils.HibernateUtil;
 
@@ -61,6 +62,11 @@ public class TimKiemDAO {
         return this;
     }
     
+    public TimKiemDAO lessThan(String propertyName, Object value){
+        criteria.add(getLessThan(propertyName, value));
+        return this;
+    }
+    
     public TimKiemDAO lessThanOrEqual(String propertyName, Object value){
         criteria.add(getLessThanOrEqual(propertyName, value));
         return this;
@@ -68,6 +74,11 @@ public class TimKiemDAO {
     
     public TimKiemDAO greaterThan(String propertyName, Object value){
         criteria.add(getGreaterThan(propertyName, value));
+        return this;
+    }
+    
+    public TimKiemDAO greaterThanOrEqual(String propertyName, Object value){
+        criteria.add(getGreaterThanOrEqual(propertyName, value));
         return this;
     }
     
@@ -123,6 +134,36 @@ public class TimKiemDAO {
         return this;
     }
     
+    public TimKiemDAO getTotalRowCount(){
+        criteria.setProjection(Projections.rowCount());
+        return this;
+    }
+    
+    public TimKiemDAO getAverageOfProperty(String propertyName){
+        criteria.setProjection(Projections.avg(propertyName));
+        return this;
+    }
+    
+    public TimKiemDAO getDistinctCountOfProperty(String propertyName){
+        criteria.setProjection(Projections.countDistinct(propertyName));
+        return this;
+    }
+    
+    public TimKiemDAO getMaximumOfProperty(String propertyName){
+        criteria.setProjection(Projections.max(propertyName));
+        return this;
+    }
+    
+    public TimKiemDAO getMinimumOfProperty(String propertyName){
+        criteria.setProjection(Projections.min(propertyName));
+        return this;
+    }
+    
+    public TimKiemDAO getSumOfProperty(String propertyName){
+        criteria.setProjection(Projections.sum(propertyName));
+        return this;
+    }
+    
     public static Criterion getEqual(String propertyName, Object value){
         return Restrictions.eq(propertyName, value);
     }
@@ -143,12 +184,20 @@ public class TimKiemDAO {
         return Restrictions.like(propertyName, value);
     }
     
-    public static Criterion getLessThanOrEqual(String propertyName, Object value){
+    public static Criterion getLessThan(String propertyName, Object value){
         return Restrictions.lt(propertyName, value);
+    }
+    
+    public static Criterion getLessThanOrEqual(String propertyName, Object value){
+        return Restrictions.le(propertyName, value);
     }
     
     public static Criterion getGreaterThan(String propertyName, Object value){
         return Restrictions.gt(propertyName, value);
+    }
+    
+    public static Criterion getGreaterThanOrEqual(String propertyName, Object value){
+        return Restrictions.ge(propertyName, value);
     }
     
     public static Criterion getIsNotNull(String propertyName){

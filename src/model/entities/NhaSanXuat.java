@@ -71,4 +71,9 @@ public class NhaSanXuat implements java.io.Serializable {
         public void setSanphams(Set<SanPham> sanphams) {
             this.sanphams = sanphams;
         }
+
+    @Override
+    public String toString() {
+        return tenNsx;
+    }
 }

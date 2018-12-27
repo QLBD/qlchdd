@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
 import model.dao.TaiKhoanDAO;
@@ -31,12 +32,13 @@ import model.entities.NhanVien;
 import model.entities.TaiKhoan;
 import org.hibernate.event.spi.LoadEventListener;
 import view.interfaceView.iMessageView;
+import view.interfaceView.iModelTable;
 
 /**
  *
  * @author THAITHANG
  */
-public class pnNhanVien extends JPanel implements iQuanLiNhanVien, iMessageView{
+public class pnNhanVien extends JPanel implements iModelTable, iMessageView{
     
     private JPanel pnThongTin;
     
@@ -213,7 +215,7 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien, iMessageView{
     }
 
     private void loadData() {
-        controller.layToanBoNhanVien(this);
+        controller.layToanBoDuLieuLenTable(this);
     }
 
     private void reload() {
@@ -223,14 +225,14 @@ public class pnNhanVien extends JPanel implements iQuanLiNhanVien, iMessageView{
     }
 
     @Override
-    public void hienThiDuLieuLenTable(NhanVienModelTable modelTable) {
-        tableNhanVien.setModel(modelTable);
-    }
-
-    @Override
     public void showMessageAndReloadData(String message, boolean isLoadData) {
         JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
         if(isLoadData)
             loadData();
+    }
+
+    @Override
+    public void hienThiDuLieuLenTable(TableModel tableModel) {
+        tableNhanVien.setModel(tableModel);
     }
 }

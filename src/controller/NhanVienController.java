@@ -6,14 +6,12 @@
 package controller;
 
 import java.util.List;
-import java.util.Vector;
 import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
-import model.dao.TaiKhoanDAO;
-import view.interfaceView.iQuanLiNhanVien;
 import model.entities.*;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
+import view.interfaceView.iModelTable;
 
 /**
  *
@@ -32,7 +30,7 @@ public class NhanVienController {
     private NhanVienController() {
     }
     
-    public void layToanBoNhanVien(iQuanLiNhanVien callBack){
+    public void layToanBoDuLieuLenTable(iModelTable callBack){
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
         
         NhanVienModelTable modelTable = new NhanVienModelTable(data);

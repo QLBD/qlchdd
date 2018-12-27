@@ -115,6 +115,7 @@ public class pnKhuyenMai extends JPanel {
             pnThongTin.add(lblTuNgay);
             
             dtpTuNgay = new JDateChooser();
+            dtpTuNgay.setDateFormatString("dd-MM-yyyy");
             dtpTuNgay.setBounds(95, 145, 220, 25);
             pnThongTin.add(dtpTuNgay);
             
@@ -123,6 +124,7 @@ public class pnKhuyenMai extends JPanel {
             pnThongTin.add(lblDenNgay);
             
             dtpDenNgay = new JDateChooser();
+            dtpDenNgay.setDateFormatString("dd-MM-yyyy");
             dtpDenNgay.setBounds(475, 145, 220, 25);
             pnThongTin.add(dtpDenNgay);
             

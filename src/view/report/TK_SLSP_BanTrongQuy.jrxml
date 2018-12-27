@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Thống Kê Số Lượng Bán Ra Theo Quý" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab60c5b6-0829-46f6-8506-d99711fc41cd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nam" class="java.lang.Integer"/>
+	<parameter name="quy" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[CALL `TK_SLSP_BanTrongQuy`($P{quy}, $P{nam});]]>
+	</queryString>
+	<field name="ma_SP" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ten_SP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SL" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="133" y="41" width="100" height="20" uuid="0d084fb8-0e72-4dea-b59f-8d155b36fc72"/>
+				<text><![CDATA[ma_SP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="41" width="100" height="20" uuid="28e49de9-1642-4246-b886-48b45bc69f7f"/>
+				<text><![CDATA[ten_SP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="41" width="100" height="20" uuid="93982583-e6ce-402c-a884-bba2046d99c3"/>
+				<text><![CDATA[SL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="133" y="0" width="100" height="20" uuid="902de714-f4c1-474d-bffa-4a46b0c10ea8"/>
+				<textFieldExpression><![CDATA[$F{ma_SP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="0" width="100" height="20" uuid="67d0c86d-7a41-446a-818b-1a8fde573725"/>
+				<textFieldExpression><![CDATA[$F{ten_SP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="100" height="20" uuid="d31561dc-dec9-4916-a810-0adf999cce39"/>
+				<textFieldExpression><![CDATA[$F{SL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -4,6 +4,7 @@ package model.entities;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -104,12 +105,12 @@ public class KhuyenMai implements java.io.Serializable {
 		this.cthdBans = cthdBans;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = SanPham.class, cascade = CascadeType.ALL)
 	@JoinTable(name = "ctkm", catalog = "qlchdd", joinColumns = {
 			@JoinColumn(name = "ma_KM", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "ma_SP", nullable = false, updatable = false) })
 	public Set<SanPham> getSanphams() {
-		return this.sanphams;
+            return this.sanphams;
 	}
 
 	public void setSanphams(Set<SanPham> sanphams) {

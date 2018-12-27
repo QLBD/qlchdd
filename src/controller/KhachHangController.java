@@ -6,7 +6,6 @@
 package controller;
 
 import java.util.List;
-import model.BaoHanhModelTable;
 import model.KhachHangModelTable;
 import model.dao.KhachHangDAO;
 import model.dao.TimKiemDAO;
@@ -43,9 +42,12 @@ public class KhachHangController {
                             .equal("soCmndKh",soCmndKhm)
                             .timKiem();
         
-        KhachHang kh = (KhachHang)results.get(0);
-        
-        callBack.timKiemKhacHang(kh);
+        if(results.size() != 0){
+            KhachHang kh = (KhachHang)results.get(0);
+            callBack.timKiemKhacHang(kh);
+        }
+        else
+            callBack.timKiemKhacHang(null);
     }
     
     public void themKhachHang(KhachHang kh, iMessageView callBack){

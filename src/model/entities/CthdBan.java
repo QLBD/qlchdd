@@ -23,6 +23,8 @@ public class CthdBan implements java.io.Serializable {
 	private KhuyenMai khuyenmai;
 	private SanPham sanpham;
 	private Integer sl;
+        private Double giaGoc;
+        private Double tienGiam;
 	private Double thanhtien;
 
 	public CthdBan() {
@@ -96,6 +98,24 @@ public class CthdBan implements java.io.Serializable {
 		this.sl = sl;
 	}
 
+        @Column(name = "gia_Goc", precision = 22, scale = 0)
+        public Double getGiaGoc() {
+            return giaGoc;
+        }
+
+        public void setGiaGoc(Double giaGoc) {
+            this.giaGoc = giaGoc;
+        }
+
+        @Column(name = "tien_Giam", precision = 22, scale = 0)
+        public Double getTienGiam() {
+            return tienGiam;
+        }
+
+        public void setTienGiam(Double tienGiam) {
+            this.tienGiam = tienGiam;
+        }
+        
 	@Column(name = "thanhtien", precision = 22, scale = 0)
 	public Double getThanhtien() {
 		return this.thanhtien;

@@ -7,6 +7,7 @@ package controller;
 
 import java.util.List;
 import model.dao.SanPhamDAO;
+import model.dao.TimKiemDAO;
 import model.entities.SanPham;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
@@ -31,6 +32,12 @@ public class SanPhamController {
     public void layToanBoDuLieuLenComBox(iModelComBox callBack){
         List<SanPham> data = SanPhamDAO.getDSSanPham();
         callBack.hienThiDuLieuLenComBox(data,new SanPham());
+    }
+    
+    public void layDuLieuTheoNSXLenComBox(iModelComBox callBack){
+        //List data = TimKiemDAO.
+        //List<SanPham> data = SanPhamDAO.getDSSanPham();
+        //callBack.hienThiDuLieuLenComBox(data,new SanPham());
     }
     
     public void themTaiKhoan(SanPham sp, iMessageView callBack){
