@@ -8,7 +8,7 @@ USE `qlchdd` ;
 
 DELIMITER $$
 --
--- Procedures
+-- Thủ tục
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `DoanhThu_Nam` ()  NO SQL
 SELECT Year(hoadonban.ngay_Ban) AS Nam, SUM(hoadonban.tongtien_Ban) AS TongDoanhThu
@@ -98,7 +98,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `baohanh`
+-- Cấu trúc bảng cho bảng `baohanh`
 --
 
 CREATE TABLE `baohanh` (
@@ -113,7 +113,7 @@ CREATE TABLE `baohanh` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `baohanh`
+-- Bẫy `baohanh`
 --
 DELIMITER $$
 CREATE TRIGGER `insert_BaoHanh` BEFORE INSERT ON `baohanh` FOR EACH ROW BEGIN
@@ -139,7 +139,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cthd_ban`
+-- Cấu trúc bảng cho bảng `cthd_ban`
 --
 
 CREATE TABLE `cthd_ban` (
@@ -153,7 +153,14 @@ CREATE TABLE `cthd_ban` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `cthd_ban`
+-- Đang đổ dữ liệu cho bảng `cthd_ban`
+--
+
+INSERT INTO `cthd_ban` (`sohd_Ban`, `ma_SP`, `sl`, `ma_KM`, `gia_Goc`, `tien_Giam`, `thanhtien`) VALUES
+(7, 1, 3, NULL, 7000000, 0, 21000000);
+
+--
+-- Bẫy `cthd_ban`
 --
 DELIMITER $$
 CREATE TRIGGER `insert_CTHDB` BEFORE INSERT ON `cthd_ban` FOR EACH ROW BEGIN
@@ -164,16 +171,18 @@ CREATE TRIGGER `insert_CTHDB` BEFORE INSERT ON `cthd_ban` FOR EACH ROW BEGIN
     DECLARE thanhtien DOUBLE;
     DECLARE tongtien DOUBLE;
     
-    SELECT km.hs_KM INTO heso FROM khuyenmai km WHERE
-    km.ma_KM = NEW.ma_KM;
-    
+    IF (NEW.ma_KM IS NULL) THEN
+    	SET heso = 0;
+    ELSE
+    	SELECT km.hs_KM INTO heso FROM khuyenmai km WHERE km.ma_KM = NEW.ma_KM;
+    END IF;
     SELECT sanpham.gia_BanRa INTO giabangoc FROM sanpham WHERE sanpham.ma_SP = NEW.ma_SP;
     
     SET tiengiam =  giabangoc * heso;
     SET thanhtien =  (giabangoc - tiengiam)*NEW.sl;
     
-    INSERT INTO cthd_ban VALUES(NEW.sohd_Ban, NEW.ma_SP, NEW.sl, NEW.ma_KM, giabangoc, tiengiam, thanhtien);
-
+    SET NEW.gia_Goc = giabangoc, NEW.tien_Giam = tiengiam, NEW.thanhtien = thanhtien;
+    
     SELECT hoadonban.tongtien_Ban INTO tongtien FROM hoadonban WHERE
     hoadonban.sohd_Ban = NEW.sohd_Ban;
     SET tongtien =  tongtien + NEW.thanhtien;
@@ -185,7 +194,7 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_CTHDB` AFTER UPDATE ON `cthd_ban` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_CTHDB` BEFORE UPDATE ON `cthd_ban` FOR EACH ROW BEGIN
 	DECLARE giaban DOUBLE;
     DECLARE heso FLOAT;
     DECLARE giabangoc DOUBLE;
@@ -193,15 +202,17 @@ CREATE TRIGGER `update_CTHDB` AFTER UPDATE ON `cthd_ban` FOR EACH ROW BEGIN
     DECLARE thanhtien DOUBLE;
     DECLARE tongtien DOUBLE;
     
-    SELECT km.hs_KM INTO heso FROM khuyenmai km WHERE
-    km.ma_KM = NEW.ma_KM;
-    
+    IF (NEW.ma_KM IS NULL) THEN
+    	SET heso = 0;
+    ELSE
+    	SELECT km.hs_KM INTO heso FROM khuyenmai km WHERE km.ma_KM = NEW.ma_KM;
+    END IF;
     SELECT sanpham.gia_BanRa INTO giabangoc FROM sanpham WHERE sanpham.ma_SP = NEW.ma_SP;
     
     SET tiengiam =  giabangoc * heso;
     SET thanhtien =  (giabangoc - tiengiam)*NEW.sl;
     
-    INSERT INTO cthd_ban VALUES(NEW.sohd_Ban, NEW.ma_SP, NEW.sl, NEW.ma_KM, giabangoc, tiengiam, thanhtien);
+    SET NEW.gia_Goc = giabangoc, NEW.tien_Giam = tiengiam, NEW.thanhtien = thanhtien;
     
     SELECT hoadonban.tongtien_Ban INTO tongtien FROM hoadonban WHERE
     hoadonban.sohd_Ban = NEW.sohd_Ban;
@@ -217,24 +228,34 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cthd_mua`
+-- Cấu trúc bảng cho bảng `cthd_mua`
 --
 
 CREATE TABLE `cthd_mua` (
   `sohd_Mua` int(11) NOT NULL,
   `ma_SP` int(11) NOT NULL,
-  `sl` int(11) DEFAULT NULL,
-  `thanhtien` double DEFAULT NULL
+  `sl` int(11) NOT NULL,
+  `dongia_SP` double NOT NULL,
+  `thanhtien` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `cthd_mua`
+-- Đang đổ dữ liệu cho bảng `cthd_mua`
+--
+
+INSERT INTO `cthd_mua` (`sohd_Mua`, `ma_SP`, `sl`, `dongia_SP`, `thanhtien`) VALUES
+(13, 1, 3, 5000000, 15000000);
+
+--
+-- Bẫy `cthd_mua`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_cthdMua_HoaDonMua` AFTER INSERT ON `cthd_mua` FOR EACH ROW BEGIN
+CREATE TRIGGER `insert_CTHDM` BEFORE INSERT ON `cthd_mua` FOR EACH ROW BEGIN
 	DECLARE tongtien INT;
     
     SELECT hoadonmua.tongtien_Mua INTO tongtien FROM hoadonmua WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+    
+    SET NEW.thanhtien = NEW.sl*NEW.dongia_SP;
     
     SET tongtien = tongtien + NEW.thanhtien;
     
@@ -243,10 +264,12 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_cthdMua_HoaDonMua` AFTER UPDATE ON `cthd_mua` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_CTHDM` BEFORE UPDATE ON `cthd_mua` FOR EACH ROW BEGIN
 	DECLARE tongtien INT;
     
     SELECT hoadonmua.tongtien_Mua INTO tongtien FROM hoadonmua WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+    
+    SET NEW.thanhtien = NEW.sl*NEW.dongia_SP;
     
     SET tongtien = tongtien + NEW.thanhtien - OLD.thanhtien;
     
@@ -258,7 +281,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ctkm`
+-- Cấu trúc bảng cho bảng `ctkm`
 --
 
 CREATE TABLE `ctkm` (
@@ -267,7 +290,7 @@ CREATE TABLE `ctkm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `ctkm`
+-- Đang đổ dữ liệu cho bảng `ctkm`
 --
 
 INSERT INTO `ctkm` (`ma_KM`, `ma_SP`) VALUES
@@ -280,7 +303,7 @@ INSERT INTO `ctkm` (`ma_KM`, `ma_SP`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doanhthu`
+-- Cấu trúc bảng cho bảng `doanhthu`
 --
 
 CREATE TABLE `doanhthu` (
@@ -293,21 +316,27 @@ CREATE TABLE `doanhthu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `doanhthu`
+-- Đang đổ dữ liệu cho bảng `doanhthu`
+--
+
+INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES
+(12, 2018, 21000000, 15000000, 634123, 5365877);
+
+--
+-- Bẫy `doanhthu`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_doanhthu` AFTER INSERT ON `doanhthu` FOR EACH ROW BEGIN
-	DECLARE tongtien DOUBLE;
-    SET tongtien = NEW.tienban_SP - NEW.tienmua_SP - NEW.tienluong_NV;
-	UPDATE doanhthu SET doanhthu.tienloi = tongtien WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+CREATE TRIGGER `insert_doanhthu` BEFORE INSERT ON `doanhthu` FOR EACH ROW BEGIN
+	DECLARE luong DOUBLE;
+    SELECT SUM(nhanvien.luong_CB) INTO luong FROM nhanvien WHERE nhanvien.tinh_trang = 1;
+    SET NEW.tienluong_NV = luong + NEW.tienluong_NV;
+    SET NEW.tienloi = NEW.tienban_SP - NEW.tienmua_SP - NEW.tienluong_NV;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_doanhthu` AFTER UPDATE ON `doanhthu` FOR EACH ROW BEGIN
-	DECLARE tongtien DOUBLE;
-    SET tongtien = NEW.tienban_SP - NEW.tienmua_SP - NEW.tienluong_NV;
-	UPDATE doanhthu SET doanhthu.tienloi = tongtien WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+CREATE TRIGGER `update_doanhthu` BEFORE UPDATE ON `doanhthu` FOR EACH ROW BEGIN
+    SET NEW.tienloi = NEW.tienban_SP - NEW.tienmua_SP - NEW.tienluong_NV;
 END
 $$
 DELIMITER ;
@@ -315,7 +344,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hoadonban`
+-- Cấu trúc bảng cho bảng `hoadonban`
 --
 
 CREATE TABLE `hoadonban` (
@@ -327,10 +356,17 @@ CREATE TABLE `hoadonban` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `hoadonban`
+-- Đang đổ dữ liệu cho bảng `hoadonban`
+--
+
+INSERT INTO `hoadonban` (`sohd_Ban`, `ngay_Ban`, `ma_NV`, `ma_KH`, `tongtien_Ban`) VALUES
+(7, '2018-12-28', 3, 1, 21000000);
+
+--
+-- Bẫy `hoadonban`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_hoadonban_hoahong_doanhthu` AFTER INSERT ON `hoadonban` FOR EACH ROW BEGIN
+CREATE TRIGGER `insert_hoadonban` AFTER INSERT ON `hoadonban` FOR EACH ROW BEGIN
 	DECLARE flag1 INT;
     DECLARE flag2 INT;
     DECLARE nam INT;
@@ -338,9 +374,11 @@ CREATE TRIGGER `insert_hoadonban_hoahong_doanhthu` AFTER INSERT ON `hoadonban` F
     DECLARE tienhh DOUBLE;
     DECLARE hs DOUBLE DEFAULT 0.05;
     DECLARE tienban DOUBLE;
+    DECLARE tienmua DOUBLE;
+    DECLARE luong DOUBLE;
+    DECLARE tienloi DOUBLE;
     
     SET nam = year(NEW.ngay_Ban), thang = month(NEW.ngay_Ban);
-    
     
     SELECT COUNT(*) INTO flag1 FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
     
@@ -362,26 +400,31 @@ CREATE TRIGGER `insert_hoadonban_hoahong_doanhthu` AFTER INSERT ON `hoadonban` F
     
     IF(flag2 = 0) THEN
     BEGIN
-    	INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES (thang, nam, NEW.tongtien_Ban, '0', '0', '0');
+    	SELECT SUM(nhanvien.luong_CB) INTO luong FROM nhanvien WHERE nhanvien.tinh_trang = 1;
+        SET tienloi = NEW.tongtien_Ban - luong;
+    	INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES (thang, nam, NEW.tongtien_Ban, '0', luong, tienloi);
     END;
     ELSE
     BEGIN
     	SELECT doanhthu.tienban_SP INTO tienban FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        SELECT doanhthu.tienmua_SP INTO tienmua FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        SELECT doanhthu.tienluong_NV INTO luong FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
         
         SET tienban = tienban + NEW.tongtien_Ban;
+        SET tienloi = tienban - tienmua - luong;
         
-        UPDATE doanhthu SET doanhthu.tienban_SP = tienban WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        UPDATE doanhthu SET doanhthu.tienban_SP = tienban, doanhthu.tienloi = tienloi WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
     END;
     END IF;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_hoadonban_hoahong_doanhthu` AFTER UPDATE ON `hoadonban` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_hoadonban` AFTER UPDATE ON `hoadonban` FOR EACH ROW BEGIN
     DECLARE nam INT;
     DECLARE thang INT;
     DECLARE tienhh DOUBLE;
-    DECLARE hs DOUBLE DEFAULT 0.05;
+    DECLARE hs DOUBLE DEFAULT 0.03;
     DECLARE tienban DOUBLE;
     
     SET nam = year(NEW.ngay_Ban), thang = month(NEW.ngay_Ban);
@@ -404,21 +447,29 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hoadonmua`
+-- Cấu trúc bảng cho bảng `hoadonmua`
 --
 
 CREATE TABLE `hoadonmua` (
   `sohd_Mua` int(11) NOT NULL,
   `ngay_Nhap` date DEFAULT NULL,
   `ma_NCC` int(11) DEFAULT NULL,
+  `ma_NV` int(11) NOT NULL,
   `tongtien_Mua` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `hoadonmua`
+-- Đang đổ dữ liệu cho bảng `hoadonmua`
+--
+
+INSERT INTO `hoadonmua` (`sohd_Mua`, `ngay_Nhap`, `ma_NCC`, `ma_NV`, `tongtien_Mua`) VALUES
+(13, '2018-12-28', 2, 2, 30000000);
+
+--
+-- Bẫy `hoadonmua`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_hoadonmua_doanhthu` AFTER INSERT ON `hoadonmua` FOR EACH ROW BEGIN
+CREATE TRIGGER `insert_hoadonmua` AFTER INSERT ON `hoadonmua` FOR EACH ROW BEGIN
 	DECLARE flag INT;
     DECLARE nam INT;
     DECLARE thang INT;
@@ -445,7 +496,7 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_hoadonmua_doanhthu` AFTER UPDATE ON `hoadonmua` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_hoadonmua` AFTER UPDATE ON `hoadonmua` FOR EACH ROW BEGIN
     DECLARE nam INT;
     DECLARE thang INT;
     DECLARE tienmua DOUBLE;
@@ -454,7 +505,7 @@ CREATE TRIGGER `update_hoadonmua_doanhthu` AFTER UPDATE ON `hoadonmua` FOR EACH 
     
     SELECT doanhthu.tienmua_SP INTO tienmua FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
         
-    SET tienmua = tienmua + NEW.tongtien_Mua - NEW.tongtien_Mua;
+    SET tienmua = tienmua + NEW.tongtien_Mua - OLD.tongtien_Mua;
         
     UPDATE doanhthu SET doanhthu.tienmua_SP = tienmua WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
 END
@@ -464,7 +515,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hoahong`
+-- Cấu trúc bảng cho bảng `hoahong`
 --
 
 CREATE TABLE `hoahong` (
@@ -475,18 +526,22 @@ CREATE TABLE `hoahong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Triggers `hoahong`
+-- Đang đổ dữ liệu cho bảng `hoahong`
+--
+
+INSERT INTO `hoahong` (`ma_NV`, `thang`, `nam`, `tien_HH`) VALUES
+(3, 12, 2018, 630000);
+
+--
+-- Bẫy `hoahong`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_hoahong_doanhthu` AFTER INSERT ON `hoahong` FOR EACH ROW BEGIN
+CREATE TRIGGER `insert_hoahong` AFTER INSERT ON `hoahong` FOR EACH ROW BEGIN
 	DECLARE flag INT;
     DECLARE tongluong DOUBLE;
-    DECLARE luongcb DOUBLE;
     DECLARE luong DOUBLE;
     
-    SELECT nhanvien.luong_CB INTO luongcb FROM nhanvien WHERE nhanvien.ma_NV = NEW.ma_NV;
-    
-    SET luong = luongcb + NEW.tien_HH;
+    SET luong = NEW.tien_HH;
     
     SELECT COUNT(*) INTO flag FROM doanhthu WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
     
@@ -507,21 +562,14 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_hoahong_doanhthu` AFTER UPDATE ON `hoahong` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_hoahong` AFTER UPDATE ON `hoahong` FOR EACH ROW BEGIN
     DECLARE tongluong DOUBLE;
-    DECLARE luongcb DOUBLE;
-    DECLARE luongMoi DOUBLE;
-    DECLARE luongCu DOUBLE;
-    
-    SELECT nhanvien.luong_CB INTO luongcb FROM nhanvien WHERE nhanvien.ma_NV = NEW.ma_NV;
-    
-    SET luongMoi = luongcb + NEW.tien_HH, luongCu = luongcb + OLD.tien_HH;
     
     SELECT doanhthu.tienluong_NV INTO tongluong FROM doanhthu WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
         
-	SET tongluong = tongluong + luongMoi - luongCu;
-	
-	UPDATE doanhthu SET doanhthu.tienluong_NV = tongluong WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+    SET tongluong = tongluong + NEW.tien_HH - OLD.tien_HH;
+        
+    UPDATE doanhthu SET doanhthu.tienluong_NV = tongluong WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
 END
 $$
 DELIMITER ;
@@ -529,7 +577,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `khachhang`
+-- Cấu trúc bảng cho bảng `khachhang`
 --
 
 CREATE TABLE `khachhang` (
@@ -542,7 +590,7 @@ CREATE TABLE `khachhang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `khachhang`
+-- Đang đổ dữ liệu cho bảng `khachhang`
 --
 
 INSERT INTO `khachhang` (`ma_KH`, `ten_KH`, `soCMND_KH`, `diachi_KH`, `soDT_KH`, `email`) VALUES
@@ -555,7 +603,7 @@ INSERT INTO `khachhang` (`ma_KH`, `ten_KH`, `soCMND_KH`, `diachi_KH`, `soDT_KH`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `khuyenmai`
+-- Cấu trúc bảng cho bảng `khuyenmai`
 --
 
 CREATE TABLE `khuyenmai` (
@@ -567,7 +615,7 @@ CREATE TABLE `khuyenmai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `khuyenmai`
+-- Đang đổ dữ liệu cho bảng `khuyenmai`
 --
 
 INSERT INTO `khuyenmai` (`ma_KM`, `ten_KM`, `hs_KM`, `ngay_BD`, `ngay_KT`) VALUES
@@ -578,7 +626,7 @@ INSERT INTO `khuyenmai` (`ma_KM`, `ten_KM`, `hs_KM`, `ngay_BD`, `ngay_KT`) VALUE
 (5, 'Tết dương lịch 2019', 0.15, '2018-12-29', '2019-01-01');
 
 --
--- Triggers `khuyenmai`
+-- Bẫy `khuyenmai`
 --
 DELIMITER $$
 CREATE TRIGGER `insert_KhuyenMai` BEFORE INSERT ON `khuyenmai` FOR EACH ROW BEGIN
@@ -604,7 +652,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nhacungcap`
+-- Cấu trúc bảng cho bảng `nhacungcap`
 --
 
 CREATE TABLE `nhacungcap` (
@@ -616,7 +664,7 @@ CREATE TABLE `nhacungcap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `nhacungcap`
+-- Đang đổ dữ liệu cho bảng `nhacungcap`
 --
 
 INSERT INTO `nhacungcap` (`ma_NCC`, `ten_NCC`, `diachi_NCC`, `soDT_NCC`, `tinh_trang`) VALUES
@@ -628,7 +676,7 @@ INSERT INTO `nhacungcap` (`ma_NCC`, `ten_NCC`, `diachi_NCC`, `soDT_NCC`, `tinh_t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nhanvien`
+-- Cấu trúc bảng cho bảng `nhanvien`
 --
 
 CREATE TABLE `nhanvien` (
@@ -645,18 +693,18 @@ CREATE TABLE `nhanvien` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `nhanvien`
+-- Đang đổ dữ liệu cho bảng `nhanvien`
 --
 
 INSERT INTO `nhanvien` (`ma_NV`, `ten_NV`, `soCMND_NV`, `gioitinh`, `ngaysinh_NV`, `diachi_NV`, `soDT_NV`, `ngay_VaoLam`, `luong_CB`, `tinh_trang`) VALUES
 (1, 'thang', 147258369, 1, '2018-12-06', 'sdfsadfsd', 926528212, '2018-12-07', 123, 1),
 (2, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1),
 (3, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1),
-(4, 'Loui Pasteur', 345345, 1, '1822-12-27', 'Pháp', 123456, '2018-11-01', 2500000, 1),
-(5, 'Thomas Alva Edison', 7878, 1, '1847-02-11', 'Mỹ', 567432, '2018-01-01', 3000000, 1);
+(4, 'Loui Pasteur', 345345, 1, '1822-12-27', 'Pháp', 123456, '2018-11-01', 1000, 1),
+(5, 'Thomas Alva Edison', 7878, 1, '1847-02-11', 'Mỹ', 567432, '2018-01-01', 1000, 1);
 
 --
--- Triggers `nhanvien`
+-- Bẫy `nhanvien`
 --
 DELIMITER $$
 CREATE TRIGGER `insert_NhanVien` BEFORE INSERT ON `nhanvien` FOR EACH ROW BEGIN
@@ -682,7 +730,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nhasanxuat`
+-- Cấu trúc bảng cho bảng `nhasanxuat`
 --
 
 CREATE TABLE `nhasanxuat` (
@@ -692,7 +740,7 @@ CREATE TABLE `nhasanxuat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `nhasanxuat`
+-- Đang đổ dữ liệu cho bảng `nhasanxuat`
 --
 
 INSERT INTO `nhasanxuat` (`ma_nsx`, `ten_nsx`, `thongtin`) VALUES
@@ -703,7 +751,7 @@ INSERT INTO `nhasanxuat` (`ma_nsx`, `ten_nsx`, `thongtin`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `phanquyen`
+-- Cấu trúc bảng cho bảng `phanquyen`
 --
 
 CREATE TABLE `phanquyen` (
@@ -712,7 +760,7 @@ CREATE TABLE `phanquyen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `phanquyen`
+-- Đang đổ dữ liệu cho bảng `phanquyen`
 --
 
 INSERT INTO `phanquyen` (`ma_PhanQuyen`, `quyentruycap`) VALUES
@@ -722,7 +770,7 @@ INSERT INTO `phanquyen` (`ma_PhanQuyen`, `quyentruycap`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanpham`
+-- Cấu trúc bảng cho bảng `sanpham`
 --
 
 CREATE TABLE `sanpham` (
@@ -731,7 +779,6 @@ CREATE TABLE `sanpham` (
   `ma_nsx` int(45) DEFAULT NULL,
   `sl` int(11) DEFAULT NULL,
   `nam_SX` int(4) DEFAULT NULL,
-  `thue_VAT` double DEFAULT NULL,
   `gia_BanRa` double DEFAULT NULL,
   `thoigian_BH` int(11) DEFAULT NULL,
   `xuatxu` varchar(45) DEFAULT NULL,
@@ -743,19 +790,19 @@ CREATE TABLE `sanpham` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `sanpham`
+-- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`ma_SP`, `ten_SP`, `ma_nsx`, `sl`, `nam_SX`, `thue_VAT`, `gia_BanRa`, `thoigian_BH`, `xuatxu`, `mau`, `bonho`, `kichthuoc`, `anh`, `tinhtrang`) VALUES
-(1, 'iPhone 6 32GB', 1, 7, 2017, 0.1, 7000000, 12, 'Trung Quốc', 'Hồng', '32G', NULL, NULL, 1),
-(2, 'Samsung Galaxy A9', 3, 10, 2018, 0.2, 12500000, 12, NULL, 'Đen', '128GB', '6.3 inch Full HD+ (1080 x 2220 Pixels)', NULL, 1),
-(3, 'Samsung Galaxy S8', 2, 8, 2018, 0.2, 16000000, 12, NULL, 'Xanh', '64GB', '2K+ (1440 x 2960 Pixels)', NULL, 1),
-(4, 'Oppo neo 9', 1, 5, 2017, 0.03, 5000000, 12, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `sanpham` (`ma_SP`, `ten_SP`, `ma_nsx`, `sl`, `nam_SX`, `gia_BanRa`, `thoigian_BH`, `xuatxu`, `mau`, `bonho`, `kichthuoc`, `anh`, `tinhtrang`) VALUES
+(1, 'iPhone 6 32GB', 1, 7, 2017, 7000000, 12, 'Trung Quốc', 'Hồng', '32G', NULL, NULL, 1),
+(2, 'Samsung Galaxy A9', 3, 10, 2018, 12500000, 12, NULL, 'Đen', '128GB', '6.3 inch Full HD+ (1080 x 2220 Pixels)', NULL, 1),
+(3, 'Samsung Galaxy S8', 2, 8, 2018, 16000000, 12, NULL, 'Xanh', '64GB', '2K+ (1440 x 2960 Pixels)', NULL, 1),
+(4, 'Oppo neo 9', 1, 5, 2017, 5000000, 12, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taikhoan`
+-- Cấu trúc bảng cho bảng `taikhoan`
 --
 
 CREATE TABLE `taikhoan` (
@@ -766,7 +813,7 @@ CREATE TABLE `taikhoan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `taikhoan`
+-- Đang đổ dữ liệu cho bảng `taikhoan`
 --
 
 INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_NV`) VALUES
@@ -774,11 +821,11 @@ INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_
 ('nhanvien', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 5);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `baohanh`
+-- Chỉ mục cho bảng `baohanh`
 --
 ALTER TABLE `baohanh`
   ADD PRIMARY KEY (`ma_BH`),
@@ -786,7 +833,7 @@ ALTER TABLE `baohanh`
   ADD KEY `ma_SP` (`ma_SP`);
 
 --
--- Indexes for table `cthd_ban`
+-- Chỉ mục cho bảng `cthd_ban`
 --
 ALTER TABLE `cthd_ban`
   ADD PRIMARY KEY (`sohd_Ban`,`ma_SP`),
@@ -794,27 +841,27 @@ ALTER TABLE `cthd_ban`
   ADD KEY `fk_CTHDB_SP` (`ma_SP`);
 
 --
--- Indexes for table `cthd_mua`
+-- Chỉ mục cho bảng `cthd_mua`
 --
 ALTER TABLE `cthd_mua`
   ADD PRIMARY KEY (`sohd_Mua`,`ma_SP`),
   ADD KEY `fk_CTHDM_SP` (`ma_SP`);
 
 --
--- Indexes for table `ctkm`
+-- Chỉ mục cho bảng `ctkm`
 --
 ALTER TABLE `ctkm`
   ADD PRIMARY KEY (`ma_KM`,`ma_SP`),
   ADD KEY `fk_CTKM_SP` (`ma_SP`);
 
 --
--- Indexes for table `doanhthu`
+-- Chỉ mục cho bảng `doanhthu`
 --
 ALTER TABLE `doanhthu`
   ADD PRIMARY KEY (`thang`,`nam`);
 
 --
--- Indexes for table `hoadonban`
+-- Chỉ mục cho bảng `hoadonban`
 --
 ALTER TABLE `hoadonban`
   ADD PRIMARY KEY (`sohd_Ban`),
@@ -822,64 +869,65 @@ ALTER TABLE `hoadonban`
   ADD KEY `fk_hd_nv` (`ma_NV`);
 
 --
--- Indexes for table `hoadonmua`
+-- Chỉ mục cho bảng `hoadonmua`
 --
 ALTER TABLE `hoadonmua`
   ADD PRIMARY KEY (`sohd_Mua`),
-  ADD KEY `fk_HDM_NCC` (`ma_NCC`);
+  ADD KEY `fk_HDM_NCC` (`ma_NCC`),
+  ADD KEY `ma_NV` (`ma_NV`);
 
 --
--- Indexes for table `hoahong`
+-- Chỉ mục cho bảng `hoahong`
 --
 ALTER TABLE `hoahong`
   ADD PRIMARY KEY (`ma_NV`,`thang`,`nam`),
   ADD KEY `ma_NV` (`ma_NV`);
 
 --
--- Indexes for table `khachhang`
+-- Chỉ mục cho bảng `khachhang`
 --
 ALTER TABLE `khachhang`
   ADD PRIMARY KEY (`ma_KH`);
 
 --
--- Indexes for table `khuyenmai`
+-- Chỉ mục cho bảng `khuyenmai`
 --
 ALTER TABLE `khuyenmai`
   ADD PRIMARY KEY (`ma_KM`);
 
 --
--- Indexes for table `nhacungcap`
+-- Chỉ mục cho bảng `nhacungcap`
 --
 ALTER TABLE `nhacungcap`
   ADD PRIMARY KEY (`ma_NCC`);
 
 --
--- Indexes for table `nhanvien`
+-- Chỉ mục cho bảng `nhanvien`
 --
 ALTER TABLE `nhanvien`
   ADD PRIMARY KEY (`ma_NV`);
 
 --
--- Indexes for table `nhasanxuat`
+-- Chỉ mục cho bảng `nhasanxuat`
 --
 ALTER TABLE `nhasanxuat`
   ADD PRIMARY KEY (`ma_nsx`);
 
 --
--- Indexes for table `phanquyen`
+-- Chỉ mục cho bảng `phanquyen`
 --
 ALTER TABLE `phanquyen`
   ADD PRIMARY KEY (`ma_PhanQuyen`);
 
 --
--- Indexes for table `sanpham`
+-- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`ma_SP`),
   ADD KEY `ma_nsx` (`ma_nsx`);
 
 --
--- Indexes for table `taikhoan`
+-- Chỉ mục cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
   ADD PRIMARY KEY (`ten_DangNhap`),
@@ -887,88 +935,88 @@ ALTER TABLE `taikhoan`
   ADD KEY `fk_TK_PQ` (`ma_PhanQuyen`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `baohanh`
+-- AUTO_INCREMENT cho bảng `baohanh`
 --
 ALTER TABLE `baohanh`
   MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ctkm`
+-- AUTO_INCREMENT cho bảng `ctkm`
 --
 ALTER TABLE `ctkm`
   MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `hoadonban`
+-- AUTO_INCREMENT cho bảng `hoadonban`
 --
 ALTER TABLE `hoadonban`
-  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `hoadonmua`
+-- AUTO_INCREMENT cho bảng `hoadonmua`
 --
 ALTER TABLE `hoadonmua`
-  MODIFY `sohd_Mua` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sohd_Mua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `khachhang`
+-- AUTO_INCREMENT cho bảng `khachhang`
 --
 ALTER TABLE `khachhang`
   MODIFY `ma_KH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `khuyenmai`
+-- AUTO_INCREMENT cho bảng `khuyenmai`
 --
 ALTER TABLE `khuyenmai`
   MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `nhacungcap`
+-- AUTO_INCREMENT cho bảng `nhacungcap`
 --
 ALTER TABLE `nhacungcap`
   MODIFY `ma_NCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `nhanvien`
+-- AUTO_INCREMENT cho bảng `nhanvien`
 --
 ALTER TABLE `nhanvien`
   MODIFY `ma_NV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `nhasanxuat`
+-- AUTO_INCREMENT cho bảng `nhasanxuat`
 --
 ALTER TABLE `nhasanxuat`
   MODIFY `ma_nsx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `phanquyen`
+-- AUTO_INCREMENT cho bảng `phanquyen`
 --
 ALTER TABLE `phanquyen`
   MODIFY `ma_PhanQuyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `sanpham`
+-- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   MODIFY `ma_SP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `baohanh`
+-- Các ràng buộc cho bảng `baohanh`
 --
 ALTER TABLE `baohanh`
   ADD CONSTRAINT `baohanh_ibfk_1` FOREIGN KEY (`sohd_Ban`) REFERENCES `hoadonban` (`sohd_Ban`),
   ADD CONSTRAINT `baohanh_ibfk_2` FOREIGN KEY (`ma_SP`) REFERENCES `sanpham` (`ma_SP`);
 
 --
--- Constraints for table `cthd_ban`
+-- Các ràng buộc cho bảng `cthd_ban`
 --
 ALTER TABLE `cthd_ban`
   ADD CONSTRAINT `cthd_ban_ibfk_1` FOREIGN KEY (`sohd_Ban`) REFERENCES `hoadonban` (`sohd_Ban`),
@@ -976,46 +1024,47 @@ ALTER TABLE `cthd_ban`
   ADD CONSTRAINT `cthd_ban_ibfk_3` FOREIGN KEY (`ma_KM`) REFERENCES `khuyenmai` (`ma_KM`);
 
 --
--- Constraints for table `cthd_mua`
+-- Các ràng buộc cho bảng `cthd_mua`
 --
 ALTER TABLE `cthd_mua`
   ADD CONSTRAINT `cthd_mua_ibfk_1` FOREIGN KEY (`sohd_Mua`) REFERENCES `hoadonmua` (`sohd_Mua`),
   ADD CONSTRAINT `cthd_mua_ibfk_2` FOREIGN KEY (`ma_SP`) REFERENCES `sanpham` (`ma_SP`);
 
 --
--- Constraints for table `ctkm`
+-- Các ràng buộc cho bảng `ctkm`
 --
 ALTER TABLE `ctkm`
   ADD CONSTRAINT `ctkm_ibfk_1` FOREIGN KEY (`ma_SP`) REFERENCES `sanpham` (`ma_SP`),
   ADD CONSTRAINT `ctkm_ibfk_2` FOREIGN KEY (`ma_KM`) REFERENCES `khuyenmai` (`ma_KM`);
 
 --
--- Constraints for table `hoadonban`
+-- Các ràng buộc cho bảng `hoadonban`
 --
 ALTER TABLE `hoadonban`
   ADD CONSTRAINT `hoadonban_ibfk_1` FOREIGN KEY (`ma_NV`) REFERENCES `nhanvien` (`ma_NV`),
   ADD CONSTRAINT `hoadonban_ibfk_2` FOREIGN KEY (`ma_KH`) REFERENCES `khachhang` (`ma_KH`);
 
 --
--- Constraints for table `hoadonmua`
+-- Các ràng buộc cho bảng `hoadonmua`
 --
 ALTER TABLE `hoadonmua`
-  ADD CONSTRAINT `hoadonmua_ibfk_1` FOREIGN KEY (`ma_NCC`) REFERENCES `nhacungcap` (`ma_NCC`);
+  ADD CONSTRAINT `hoadonmua_ibfk_1` FOREIGN KEY (`ma_NCC`) REFERENCES `nhacungcap` (`ma_NCC`),
+  ADD CONSTRAINT `hoadonmua_ibfk_2` FOREIGN KEY (`ma_NV`) REFERENCES `nhanvien` (`ma_NV`);
 
 --
--- Constraints for table `hoahong`
+-- Các ràng buộc cho bảng `hoahong`
 --
 ALTER TABLE `hoahong`
   ADD CONSTRAINT `hoahong_ibfk_1` FOREIGN KEY (`ma_NV`) REFERENCES `nhanvien` (`ma_NV`);
 
 --
--- Constraints for table `sanpham`
+-- Các ràng buộc cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`ma_nsx`) REFERENCES `nhasanxuat` (`ma_nsx`);
 
 --
--- Constraints for table `taikhoan`
+-- Các ràng buộc cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
   ADD CONSTRAINT `taikhoan_ibfk_1` FOREIGN KEY (`ma_NV`) REFERENCES `nhanvien` (`ma_NV`),
