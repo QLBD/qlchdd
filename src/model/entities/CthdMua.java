@@ -27,18 +27,9 @@ public class CthdMua implements java.io.Serializable {
 	public CthdMua() {
 	}
 
-	public CthdMua(CthdMuaId id, HoaDonMua hoadonmua, SanPham sanpham) {
+	public CthdMua(CthdMuaId id, Integer sl) {
 		this.id = id;
-		this.hoadonmua = hoadonmua;
-		this.sanpham = sanpham;
-	}
-
-	public CthdMua(CthdMuaId id, HoaDonMua hoadonmua, SanPham sanpham, Integer sl, Double thanhtien) {
-		this.id = id;
-		this.hoadonmua = hoadonmua;
-		this.sanpham = sanpham;
 		this.sl = sl;
-		this.thanhtien = thanhtien;
 	}
 
 	@EmbeddedId

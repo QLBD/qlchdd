@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,20 +35,15 @@ public class HoaDonBan implements java.io.Serializable {
 	public HoaDonBan() {
 	}
 
-	public HoaDonBan(int sohdBan) {
-		this.sohdBan = sohdBan;
-	}
-
-	public HoaDonBan(int sohdBan, KhachHang khachhang, NhanVien nhanvien, Date ngayBan, Double tongtienBan) {
+	public HoaDonBan(int sohdBan, KhachHang khachhang, NhanVien nhanvien, Date ngayBan) {
 		this.sohdBan = sohdBan;
 		this.khachhang = khachhang;
 		this.nhanvien = nhanvien;
 		this.ngayBan = ngayBan;
-		this.tongtienBan = tongtienBan;
 	}
 
 	@Id
-
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sohd_Ban", unique = true, nullable = false)
 	public int getSohdBan() {
 		return this.sohdBan;
@@ -86,7 +83,7 @@ public class HoaDonBan implements java.io.Serializable {
 		this.ngayBan = ngayBan;
 	}
 
-	@Column(name = "tongtien_Ban", precision = 22, scale = 0)
+	@Column(name = "tongtien_Ban", precision = 22, scale = 0, columnDefinition = "double default 0")
 	public Double getTongtienBan() {
 		return this.tongtienBan;
 	}

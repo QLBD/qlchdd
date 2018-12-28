@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,19 +33,14 @@ public class HoaDonMua implements java.io.Serializable {
 	public HoaDonMua() {
 	}
 
-	public HoaDonMua(int sohdMua) {
-		this.sohdMua = sohdMua;
-	}
-
-	public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap, Double tongtienMua) {
+	public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap) {
 		this.sohdMua = sohdMua;
 		this.nhacungcap = nhacungcap;
 		this.ngayNhap = ngayNhap;
-		this.tongtienMua = tongtienMua;
 	}
 
 	@Id
-
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sohd_Mua", unique = true, nullable = false)
 	public int getSohdMua() {
 		return this.sohdMua;
@@ -73,7 +70,7 @@ public class HoaDonMua implements java.io.Serializable {
 		this.ngayNhap = ngayNhap;
 	}
 
-	@Column(name = "tongtien_Mua", precision = 22, scale = 0)
+	@Column(name = "tongtien_Mua", precision = 22, scale = 0, columnDefinition = "double default 0")
 	public Double getTongtienMua() {
 		return this.tongtienMua;
 	}

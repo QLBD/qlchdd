@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,17 +26,13 @@ public class PhanQuyen implements java.io.Serializable {
 	public PhanQuyen() {
 	}
 
-	public PhanQuyen(int maPhanQuyen) {
-		this.maPhanQuyen = maPhanQuyen;
-	}
-
 	public PhanQuyen(int maPhanQuyen, String quyentruycap) {
 		this.maPhanQuyen = maPhanQuyen;
 		this.quyentruycap = quyentruycap;
 	}
 
 	@Id
-
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_PhanQuyen", unique = true, nullable = false)
 	public int getMaPhanQuyen() {
 		return this.maPhanQuyen;

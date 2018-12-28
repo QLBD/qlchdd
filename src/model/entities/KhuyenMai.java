@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -48,7 +50,7 @@ public class KhuyenMai implements java.io.Serializable {
 	}
 
 	@Id
-
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_KM", unique = true, nullable = false)
 	public int getMaKm() {
 		return this.maKm;

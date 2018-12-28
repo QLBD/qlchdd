@@ -109,8 +109,32 @@ CREATE TABLE `baohanh` (
   `yeucau_BH` varchar(45) NOT NULL,
   `ngaynhan` datetime NOT NULL,
   `tinhtrang` int(11) NOT NULL,
-  `ngaytra` datetime NOT NULL
+  `ngaytra` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `baohanh`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_BaoHanh` BEFORE INSERT ON `baohanh` FOR EACH ROW BEGIN
+IF(NEW.ngaytra < NEW.ngaynhan)
+THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Ngày nhận bảo hành phải bé hơn hoặc bằng ngày trả';
+END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_BaoHanh` BEFORE UPDATE ON `baohanh` FOR EACH ROW BEGIN
+IF(NEW.ngaytra < NEW.ngaynhan)
+THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Ngày nhận bảo hành phải bé hơn hoặc bằng ngày trả';
+END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -128,6 +152,68 @@ CREATE TABLE `cthd_ban` (
   `thanhtien` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Triggers `cthd_ban`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_CTHDB` BEFORE INSERT ON `cthd_ban` FOR EACH ROW BEGIN
+	DECLARE giaban DOUBLE;
+    DECLARE heso FLOAT;
+    DECLARE giabangoc DOUBLE;
+    DECLARE tiengiam DOUBLE;
+    DECLARE thanhtien DOUBLE;
+    DECLARE tongtien DOUBLE;
+    
+    SELECT km.hs_KM INTO heso FROM khuyenmai km WHERE
+    km.ma_KM = NEW.ma_KM;
+    
+    SELECT sanpham.gia_BanRa INTO giabangoc FROM sanpham WHERE sanpham.ma_SP = NEW.ma_SP;
+    
+    SET tiengiam =  giabangoc * heso;
+    SET thanhtien =  (giabangoc - tiengiam)*NEW.sl;
+    
+    INSERT INTO cthd_ban VALUES(NEW.sohd_Ban, NEW.ma_SP, NEW.sl, NEW.ma_KM, giabangoc, tiengiam, thanhtien);
+
+    SELECT hoadonban.tongtien_Ban INTO tongtien FROM hoadonban WHERE
+    hoadonban.sohd_Ban = NEW.sohd_Ban;
+    SET tongtien =  tongtien + NEW.thanhtien;
+    
+    UPDATE hoadonban
+    SET hoadonban.tongtien_Ban = tongtien
+    WHERE hoadonban.sohd_Ban = NEW.sohd_Ban;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_CTHDB` AFTER UPDATE ON `cthd_ban` FOR EACH ROW BEGIN
+	DECLARE giaban DOUBLE;
+    DECLARE heso FLOAT;
+    DECLARE giabangoc DOUBLE;
+    DECLARE tiengiam DOUBLE;
+    DECLARE thanhtien DOUBLE;
+    DECLARE tongtien DOUBLE;
+    
+    SELECT km.hs_KM INTO heso FROM khuyenmai km WHERE
+    km.ma_KM = NEW.ma_KM;
+    
+    SELECT sanpham.gia_BanRa INTO giabangoc FROM sanpham WHERE sanpham.ma_SP = NEW.ma_SP;
+    
+    SET tiengiam =  giabangoc * heso;
+    SET thanhtien =  (giabangoc - tiengiam)*NEW.sl;
+    
+    INSERT INTO cthd_ban VALUES(NEW.sohd_Ban, NEW.ma_SP, NEW.sl, NEW.ma_KM, giabangoc, tiengiam, thanhtien);
+    
+    SELECT hoadonban.tongtien_Ban INTO tongtien FROM hoadonban WHERE
+    hoadonban.sohd_Ban = NEW.sohd_Ban;
+    SET tongtien =  tongtien + NEW.thanhtien - OLD.thanhtien;
+    
+    UPDATE hoadonban
+    SET hoadonban.tongtien_Ban = tongtien
+    WHERE hoadonban.sohd_Ban = NEW.sohd_Ban;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -140,6 +226,34 @@ CREATE TABLE `cthd_mua` (
   `sl` int(11) DEFAULT NULL,
   `thanhtien` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `cthd_mua`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_cthdMua_HoaDonMua` AFTER INSERT ON `cthd_mua` FOR EACH ROW BEGIN
+	DECLARE tongtien INT;
+    
+    SELECT hoadonmua.tongtien_Mua INTO tongtien FROM hoadonmua WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+    
+    SET tongtien = tongtien + NEW.thanhtien;
+    
+    UPDATE hoadonmua SET hoadonmua.tongtien_Mua = tongtien WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_cthdMua_HoaDonMua` AFTER UPDATE ON `cthd_mua` FOR EACH ROW BEGIN
+	DECLARE tongtien INT;
+    
+    SELECT hoadonmua.tongtien_Mua INTO tongtien FROM hoadonmua WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+    
+    SET tongtien = tongtien + NEW.thanhtien - OLD.thanhtien;
+    
+    UPDATE hoadonmua SET hoadonmua.tongtien_Mua = tongtien WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -172,11 +286,31 @@ INSERT INTO `ctkm` (`ma_KM`, `ma_SP`) VALUES
 CREATE TABLE `doanhthu` (
   `thang` int(11) NOT NULL,
   `nam` int(11) NOT NULL,
-  `tienban_SP` double NOT NULL,
-  `tienmua_SP` double NOT NULL,
-  `tienluong_NV` double NOT NULL,
-  `tienloi` double NOT NULL
+  `tienban_SP` double DEFAULT '0',
+  `tienmua_SP` double DEFAULT '0',
+  `tienluong_NV` double DEFAULT '0',
+  `tienloi` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `doanhthu`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_doanhthu` AFTER INSERT ON `doanhthu` FOR EACH ROW BEGIN
+	DECLARE tongtien DOUBLE;
+    SET tongtien = NEW.tienban_SP - NEW.tienmua_SP - NEW.tienluong_NV;
+	UPDATE doanhthu SET doanhthu.tienloi = tongtien WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_doanhthu` AFTER UPDATE ON `doanhthu` FOR EACH ROW BEGIN
+	DECLARE tongtien DOUBLE;
+    SET tongtien = NEW.tienban_SP - NEW.tienmua_SP - NEW.tienluong_NV;
+	UPDATE doanhthu SET doanhthu.tienloi = tongtien WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -186,7 +320,7 @@ CREATE TABLE `doanhthu` (
 
 CREATE TABLE `hoadonban` (
   `sohd_Ban` int(11) NOT NULL,
-  `ngay_Ban` date DEFAULT NULL,
+  `ngay_Ban` date NOT NULL,
   `ma_NV` int(11) DEFAULT NULL,
   `ma_KH` int(11) DEFAULT NULL,
   `tongtien_Ban` double DEFAULT '0'
@@ -196,18 +330,21 @@ CREATE TABLE `hoadonban` (
 -- Triggers `hoadonban`
 --
 DELIMITER $$
-CREATE TRIGGER `insert_hoahong_tienhh` AFTER INSERT ON `hoadonban` FOR EACH ROW BEGIN
-	DECLARE flag INT;
+CREATE TRIGGER `insert_hoadonban_hoahong_doanhthu` AFTER INSERT ON `hoadonban` FOR EACH ROW BEGIN
+	DECLARE flag1 INT;
+    DECLARE flag2 INT;
     DECLARE nam INT;
     DECLARE thang INT;
     DECLARE tienhh DOUBLE;
+    DECLARE hs DOUBLE DEFAULT 0.05;
+    DECLARE tienban DOUBLE;
     
     SET nam = year(NEW.ngay_Ban), thang = month(NEW.ngay_Ban);
     
     
-    SELECT COUNT(*) INTO flag FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
+    SELECT COUNT(*) INTO flag1 FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
     
-    IF(flag = 0) THEN
+    IF(flag1 = 0) THEN
     BEGIN
     	INSERT INTO `hoahong` (`ma_NV`, `thang`, `nam`, `tien_HH`) VALUES (NEW.ma_NV, thang, nam, NEW.tongtien_Ban); 
     END;
@@ -215,11 +352,51 @@ CREATE TRIGGER `insert_hoahong_tienhh` AFTER INSERT ON `hoadonban` FOR EACH ROW 
     BEGIN
     	SELECT hoahong.tien_HH INTO tienhh FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
         
-        SET tienhh = tienhh + NEW.tongtien_Ban;
+        SET tienhh = tienhh + NEW.tongtien_Ban*hs;
         
         UPDATE hoahong SET hoahong.tien_HH = tienhh  WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
     END;
     END IF;
+    
+    SELECT COUNT(*) INTO flag2 FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+    
+    IF(flag2 = 0) THEN
+    BEGIN
+    	INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES (thang, nam, NEW.tongtien_Ban, '0', '0', '0');
+    END;
+    ELSE
+    BEGIN
+    	SELECT doanhthu.tienban_SP INTO tienban FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        
+        SET tienban = tienban + NEW.tongtien_Ban;
+        
+        UPDATE doanhthu SET doanhthu.tienban_SP = tienban WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+    END;
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_hoadonban_hoahong_doanhthu` AFTER UPDATE ON `hoadonban` FOR EACH ROW BEGIN
+    DECLARE nam INT;
+    DECLARE thang INT;
+    DECLARE tienhh DOUBLE;
+    DECLARE hs DOUBLE DEFAULT 0.05;
+    DECLARE tienban DOUBLE;
+    
+    SET nam = year(NEW.ngay_Ban), thang = month(NEW.ngay_Ban);
+    
+    SELECT hoahong.tien_HH INTO tienhh FROM hoahong WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
+        
+    SET tienhh = tienhh + (NEW.tongtien_Ban - OLD.tongtien_Ban)*hs;
+        
+    UPDATE hoahong SET hoahong.tien_HH = tienhh  WHERE hoahong.nam = nam AND hoahong.thang = thang AND hoahong.ma_NV = NEW.ma_NV;
+    
+    SELECT doanhthu.tienban_SP INTO tienban FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        
+    SET tienban = tienban + NEW.tongtien_Ban - OLD.tongtien_Ban;
+        
+    UPDATE doanhthu SET doanhthu.tienban_SP = tienban WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
 END
 $$
 DELIMITER ;
@@ -237,6 +414,53 @@ CREATE TABLE `hoadonmua` (
   `tongtien_Mua` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Triggers `hoadonmua`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_hoadonmua_doanhthu` AFTER INSERT ON `hoadonmua` FOR EACH ROW BEGIN
+	DECLARE flag INT;
+    DECLARE nam INT;
+    DECLARE thang INT;
+    DECLARE tienmua DOUBLE;
+    
+    SET thang = month(NEW.ngay_Nhap), nam = year(NEW.ngay_Nhap);
+    
+    SELECT COUNT(*) INTO flag FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+    
+    IF(flag = 0) THEN
+    BEGIN
+    	INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES (thang, nam, '0', NEW.tongtien_Mua, '0', '0');
+    END;
+    ELSE
+    BEGIN
+    	SELECT doanhthu.tienmua_SP INTO tienmua FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        
+        SET tienmua = tienmua + NEW.tongtien_Mua;
+        
+        UPDATE doanhthu SET doanhthu.tienmua_SP = tienmua WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+    END;
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_hoadonmua_doanhthu` AFTER UPDATE ON `hoadonmua` FOR EACH ROW BEGIN
+    DECLARE nam INT;
+    DECLARE thang INT;
+    DECLARE tienmua DOUBLE;
+    
+    SET thang = month(NEW.ngay_Nhap), nam = year(NEW.ngay_Nhap);
+    
+    SELECT doanhthu.tienmua_SP INTO tienmua FROM doanhthu WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+        
+    SET tienmua = tienmua + NEW.tongtien_Mua - NEW.tongtien_Mua;
+        
+    UPDATE doanhthu SET doanhthu.tienmua_SP = tienmua WHERE doanhthu.thang = thang AND doanhthu.nam = nam;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -249,6 +473,58 @@ CREATE TABLE `hoahong` (
   `nam` int(4) NOT NULL,
   `tien_HH` double(255,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `hoahong`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_hoahong_doanhthu` AFTER INSERT ON `hoahong` FOR EACH ROW BEGIN
+	DECLARE flag INT;
+    DECLARE tongluong DOUBLE;
+    DECLARE luongcb DOUBLE;
+    DECLARE luong DOUBLE;
+    
+    SELECT nhanvien.luong_CB INTO luongcb FROM nhanvien WHERE nhanvien.ma_NV = NEW.ma_NV;
+    
+    SET luong = luongcb + NEW.tien_HH;
+    
+    SELECT COUNT(*) INTO flag FROM doanhthu WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+    
+    IF(flag = 0) THEN
+    BEGIN
+    	INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES (NEW.thang, NEW.nam, '0', '0', luong, '0');
+    END;
+    ELSE
+    BEGIN
+    	SELECT doanhthu.tienluong_NV INTO tongluong FROM doanhthu WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+        
+        SET tongluong = tongluong + luong;
+        
+        UPDATE doanhthu SET doanhthu.tienluong_NV = tongluong WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+    END;
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_hoahong_doanhthu` AFTER UPDATE ON `hoahong` FOR EACH ROW BEGIN
+    DECLARE tongluong DOUBLE;
+    DECLARE luongcb DOUBLE;
+    DECLARE luongMoi DOUBLE;
+    DECLARE luongCu DOUBLE;
+    
+    SELECT nhanvien.luong_CB INTO luongcb FROM nhanvien WHERE nhanvien.ma_NV = NEW.ma_NV;
+    
+    SET luongMoi = luongcb + NEW.tien_HH, luongCu = luongcb + OLD.tien_HH;
+    
+    SELECT doanhthu.tienluong_NV INTO tongluong FROM doanhthu WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+        
+	SET tongluong = tongluong + luongMoi - luongCu;
+	
+	UPDATE doanhthu SET doanhthu.tienluong_NV = tongluong WHERE doanhthu.thang = NEW.thang AND doanhthu.nam = NEW.nam;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -284,10 +560,10 @@ INSERT INTO `khachhang` (`ma_KH`, `ten_KH`, `soCMND_KH`, `diachi_KH`, `soDT_KH`,
 
 CREATE TABLE `khuyenmai` (
   `ma_KM` int(11) NOT NULL,
-  `ten_KM` varchar(45) DEFAULT NULL,
-  `hs_KM` float DEFAULT NULL,
-  `ngay_BD` date DEFAULT NULL,
-  `ngay_KT` date DEFAULT NULL
+  `ten_KM` varchar(45) NOT NULL,
+  `hs_KM` float NOT NULL,
+  `ngay_BD` date NOT NULL,
+  `ngay_KT` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -301,6 +577,30 @@ INSERT INTO `khuyenmai` (`ma_KM`, `ten_KM`, `hs_KM`, `ngay_BD`, `ngay_KT`) VALUE
 (4, 'Noel 2018', 0.07, '2018-12-23', '2018-12-25'),
 (5, 'Tết dương lịch 2019', 0.15, '2018-12-29', '2019-01-01');
 
+--
+-- Triggers `khuyenmai`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_KhuyenMai` BEFORE INSERT ON `khuyenmai` FOR EACH ROW BEGIN
+IF(NEW.ngay_KT < NEW.ngay_BD)
+THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Ngày bắt đầu khuyến mãi phải bé hơn hoặc bằng ngày kết thúc';
+END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_KhuyenMai` BEFORE UPDATE ON `khuyenmai` FOR EACH ROW BEGIN
+IF(NEW.ngay_KT < NEW.ngay_BD)
+THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Ngày bắt đầu khuyến mãi phải bé hơn hoặc bằng ngày kết thúc';
+END IF;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -309,10 +609,10 @@ INSERT INTO `khuyenmai` (`ma_KM`, `ten_KM`, `hs_KM`, `ngay_BD`, `ngay_KT`) VALUE
 
 CREATE TABLE `nhacungcap` (
   `ma_NCC` int(11) NOT NULL,
-  `ten_NCC` varchar(45) DEFAULT NULL,
-  `diachi_NCC` varchar(45) DEFAULT NULL,
-  `soDT_NCC` int(11) DEFAULT NULL,
-  `tinh_trang` int(11) DEFAULT NULL
+  `ten_NCC` varchar(45) NOT NULL,
+  `diachi_NCC` varchar(45) NOT NULL,
+  `soDT_NCC` int(11) NOT NULL,
+  `tinh_trang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -333,15 +633,15 @@ INSERT INTO `nhacungcap` (`ma_NCC`, `ten_NCC`, `diachi_NCC`, `soDT_NCC`, `tinh_t
 
 CREATE TABLE `nhanvien` (
   `ma_NV` int(11) NOT NULL,
-  `ten_NV` varchar(255) DEFAULT NULL,
+  `ten_NV` varchar(255) NOT NULL,
   `soCMND_NV` int(9) DEFAULT NULL,
-  `gioitinh` tinyint(1) DEFAULT NULL,
-  `ngaysinh_NV` date DEFAULT NULL,
+  `gioitinh` tinyint(1) NOT NULL,
+  `ngaysinh_NV` date NOT NULL,
   `diachi_NV` varchar(45) DEFAULT NULL,
   `soDT_NV` int(11) DEFAULT NULL,
   `ngay_VaoLam` date DEFAULT NULL,
-  `luong_CB` double DEFAULT NULL,
-  `tinh_trang` int(11) DEFAULT NULL
+  `luong_CB` double NOT NULL,
+  `tinh_trang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -354,6 +654,30 @@ INSERT INTO `nhanvien` (`ma_NV`, `ten_NV`, `soCMND_NV`, `gioitinh`, `ngaysinh_NV
 (3, 'Hồ Thái Thăng', 123456789, 1, '3898-02-01', 'ko có', 123456, '3918-11-01', 1000, 1),
 (4, 'Loui Pasteur', 345345, 1, '1822-12-27', 'Pháp', 123456, '2018-11-01', 2500000, 1),
 (5, 'Thomas Alva Edison', 7878, 1, '1847-02-11', 'Mỹ', 567432, '2018-01-01', 3000000, 1);
+
+--
+-- Triggers `nhanvien`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_NhanVien` BEFORE INSERT ON `nhanvien` FOR EACH ROW BEGIN
+IF TIMESTAMPDIFF(YEAR,NEW.ngaysinh_NV,NEW.ngay_VaoLam) < 18
+THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Nhân viên phải đủ 18 tuổi';
+END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_NhanVien` BEFORE UPDATE ON `nhanvien` FOR EACH ROW BEGIN
+IF TIMESTAMPDIFF(YEAR,NEW.ngaysinh_NV,NEW.ngay_VaoLam) < 18
+THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Nhân viên phải đủ 18 tuổi';
+END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -447,7 +771,7 @@ CREATE TABLE `taikhoan` (
 
 INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_NV`) VALUES
 ('admin', 'C31F804A0E4A8943A7A5577A292F2321', 1, NULL),
-('nhanvien', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 1);
+('nhanvien', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 5);
 
 --
 -- Indexes for dumped tables
@@ -570,7 +894,7 @@ ALTER TABLE `taikhoan`
 -- AUTO_INCREMENT for table `baohanh`
 --
 ALTER TABLE `baohanh`
-  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ctkm`
@@ -582,13 +906,13 @@ ALTER TABLE `ctkm`
 -- AUTO_INCREMENT for table `hoadonban`
 --
 ALTER TABLE `hoadonban`
-  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hoadonmua`
 --
 ALTER TABLE `hoadonmua`
-  MODIFY `sohd_Mua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sohd_Mua` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
@@ -612,7 +936,7 @@ ALTER TABLE `nhacungcap`
 -- AUTO_INCREMENT for table `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `ma_NV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ma_NV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `nhasanxuat`

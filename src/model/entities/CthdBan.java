@@ -30,22 +30,10 @@ public class CthdBan implements java.io.Serializable {
 	public CthdBan() {
 	}
 
-	public CthdBan(CthdBanId id, HoaDonBan hoadonban, KhuyenMai khuyenmai, SanPham sanpham) {
-		this.id = id;
-		this.hoadonban = hoadonban;
-		this.khuyenmai = khuyenmai;
-		this.sanpham = sanpham;
-	}
-
-	public CthdBan(CthdBanId id, HoaDonBan hoadonban, KhuyenMai khuyenmai, SanPham sanpham, Integer sl,
-			Double thanhtien) {
-		this.id = id;
-		this.hoadonban = hoadonban;
-		this.khuyenmai = khuyenmai;
-		this.sanpham = sanpham;
-		this.sl = sl;
-		this.thanhtien = thanhtien;
-	}
+        public CthdBan(CthdBanId id, Integer sl) {
+            this.id = id;
+            this.sl = sl;
+        }
 
 	@EmbeddedId
 

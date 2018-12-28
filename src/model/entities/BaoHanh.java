@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +35,7 @@ public class BaoHanh implements java.io.Serializable {
 	public BaoHanh() {
 	}
 
-        public BaoHanh(int maBh, HoaDonBan hoadonban, SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
+        public BaoHanh(int maBh, HoaDonBan hoadonban, SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang) {
             this.maBh = maBh;
             this.hoadonban = hoadonban;
             this.sanpham = sanpham;
@@ -41,11 +43,10 @@ public class BaoHanh implements java.io.Serializable {
             this.yeucauBh = yeucauBh;
             this.ngaynhan = ngaynhan;
             this.tinhtrang = tinhtrang;
-            this.ngaytra = ngaytra;
         }
 
 	@Id
-
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_BH", unique = true, nullable = false)
 	public int getMaBh() {
 		return this.maBh;

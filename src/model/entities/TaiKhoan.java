@@ -41,10 +41,6 @@ public class TaiKhoan implements java.io.Serializable {
 	public TaiKhoan() {
 	}
 
-	public TaiKhoan(String tenDangNhap) {
-		this.tenDangNhap = tenDangNhap;
-	}
-
 	public TaiKhoan(String tenDangNhap, PhanQuyen phanquyen) {
 		this.tenDangNhap = tenDangNhap;
 		this.phanquyen = phanquyen;
