@@ -18,6 +18,7 @@ public class CTHDMuaModelTable extends AbstractTableModel{
     private String[] columns = {"Số hóa đơn mua",
                                 "Mã SP",
                                 "Số lượng",
+                                "Đơn Giá Sản Phẩm",
                                 "Thành tiền"
     };
     
@@ -68,6 +69,8 @@ public class CTHDMuaModelTable extends AbstractTableModel{
             case 2:
                 return ctMua.getSl();
             case 3:
+                return ctMua.getDongiaSp();
+            case 4:
                 return ctMua.getThanhtien();
             default:
                 return null;

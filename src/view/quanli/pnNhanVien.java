@@ -171,7 +171,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iMessageView{
     
     private void event() {
         btnThem.addActionListener((ActionEvent e) -> {
-            int maNv = 3;
             String tenNv = "Hồ Thái Thăng";
             int soCmndNv = 123456789;
             boolean gioiTinh = true;
@@ -182,7 +181,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iMessageView{
             double luongCb = 1000;
             int tinhTrang = 1;
             
-            NhanVien nhanVien = new NhanVien(maNv, tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang);
+            NhanVien nhanVien = new NhanVien(tenNv, soCmndNv, gioiTinh, ngaysinhNv, diachiNv, soDtNv, ngayVaoLam, luongCb, tinhTrang);
             
             controller.themNhanVien(nhanVien,this);
         });

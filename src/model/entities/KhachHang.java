@@ -30,8 +30,7 @@ public class KhachHang implements java.io.Serializable {
 	public KhachHang() {
 	}
 
-	public KhachHang(int maKh, String tenKh, Integer soCmndKh, String diachiKh, Integer soDtKh, String email) {
-		this.maKh = maKh;
+	public KhachHang(String tenKh, Integer soCmndKh, String diachiKh, Integer soDtKh, String email) {
 		this.tenKh = tenKh;
 		this.soCmndKh = soCmndKh;
 		this.diachiKh = diachiKh;

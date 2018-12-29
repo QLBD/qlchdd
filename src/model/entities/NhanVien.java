@@ -36,13 +36,14 @@ public class NhanVien implements java.io.Serializable {
 	private Set<HoaDonBan> hoadonbans = new HashSet<HoaDonBan>(0);
 	private Set<HoaHong> hoahongs = new HashSet<HoaHong>(0);
         private TaiKhoan taikhoan;
+        private Set<BaoHanh> baohanhsForNhanvienTra = new HashSet<BaoHanh>(0);
+	private Set<BaoHanh> baohanhsForNhanvienNhan = new HashSet<BaoHanh>(0);
 
 	public NhanVien() {
 	}
 
-	public NhanVien(int maNv, String tenNv, Integer soCmndNv, Boolean gioitinh, Date ngaysinhNv, String diachiNv,
+	public NhanVien(String tenNv, Integer soCmndNv, Boolean gioitinh, Date ngaysinhNv, String diachiNv,
 			Integer soDtNv, Date ngayVaoLam, Double luongCb, Integer tinhTrang) {
-            this.maNv = maNv;
             this.tenNv = tenNv;
             this.soCmndNv = soCmndNv;
             this.gioitinh = gioitinh;
@@ -175,8 +176,26 @@ public class NhanVien implements java.io.Serializable {
             this.taikhoan = taikhoan;
         }
 
-    @Override
-    public String toString() {
-        return maNv +"";
-    }
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvienByNhanvienTra")
+	public Set<BaoHanh> getBaohanhsForNhanvienTra() {
+		return this.baohanhsForNhanvienTra;
+	}
+
+	public void setBaohanhsForNhanvienTra(Set<BaoHanh> baohanhsForNhanvienTra) {
+		this.baohanhsForNhanvienTra = baohanhsForNhanvienTra;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvienByNhanvienNhan")
+	public Set<BaoHanh> getBaohanhsForNhanvienNhan() {
+		return this.baohanhsForNhanvienNhan;
+	}
+
+	public void setBaohanhsForNhanvienNhan(Set<BaoHanh> baohanhsForNhanvienNhan) {
+		this.baohanhsForNhanvienNhan = baohanhsForNhanvienNhan;
+	}
+        
+        @Override
+        public String toString() {
+            return maNv +"";
+        }
 }

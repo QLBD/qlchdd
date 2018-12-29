@@ -8,6 +8,7 @@ package controller;
 import java.util.List;
 import model.NhaCungCapModelTable;
 import model.dao.NhaCungCapDAO;
+import model.dao.TimKiemDAO;
 import model.entities.NhaCungCap;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
@@ -30,6 +31,11 @@ public class NhaCungCapController {
     
     public void layToanBoDuLieuLenComBox(iModelComBox callBack){
         List<NhaCungCap> data = NhaCungCapDAO.getDSNhaCungCap();
+        callBack.hienThiDuLieuLenComBox(data, new NhaCungCap());
+    }
+    
+    public void layDuLieuTheoTinhTrangLenComBox(iModelComBox callBack, Integer tinhTrang){
+        List data = new TimKiemDAO(NhaCungCap.class).equal("tinhTrang", tinhTrang).timKiem();
         callBack.hienThiDuLieuLenComBox(data, new NhaCungCap());
     }
     

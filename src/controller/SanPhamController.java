@@ -6,11 +6,14 @@
 package controller;
 
 import java.util.List;
+import model.SanPhamModelTable;
 import model.dao.SanPhamDAO;
 import model.dao.TimKiemDAO;
+import model.entities.NhaSanXuat;
 import model.entities.SanPham;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
+import view.interfaceView.iModelTable;
 
 /**
  *
@@ -29,15 +32,26 @@ public class SanPhamController {
     private SanPhamController() {
     }
     
+    public void layToanBoDuLieuLenTable(iModelTable callBack){
+        List<SanPham> data = SanPhamDAO.getDSSanPham();
+        SanPhamModelTable modelTable = new SanPhamModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void layDuLieuTheoTinhTrangLenTable(iModelTable callBack, Integer tinhtrang){
+        List data = new TimKiemDAO(SanPham.class).equal("tinhtrang", tinhtrang).timKiem();
+        SanPhamModelTable modelTable = new SanPhamModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
     public void layToanBoDuLieuLenComBox(iModelComBox callBack){
         List<SanPham> data = SanPhamDAO.getDSSanPham();
         callBack.hienThiDuLieuLenComBox(data,new SanPham());
     }
     
-    public void layDuLieuTheoNSXLenComBox(iModelComBox callBack){
-        //List data = TimKiemDAO.
-        //List<SanPham> data = SanPhamDAO.getDSSanPham();
-        //callBack.hienThiDuLieuLenComBox(data,new SanPham());
+    public void layDuLieuTheoNSXLenComBox(iModelComBox callBack, NhaSanXuat nhasanxuat, Integer tinhtrang){
+        List data = new TimKiemDAO(SanPham.class).addAnd(TimKiemDAO.getEqual("nhasanxuat", nhasanxuat), TimKiemDAO.getEqual("tinhtrang", tinhtrang)).timKiem();
+        callBack.hienThiDuLieuLenComBox(data,new SanPham());
     }
     
     public void themTaiKhoan(SanPham sp, iMessageView callBack){
@@ -57,6 +71,4 @@ public class SanPhamController {
         else
             callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thất Bại", result);
     }
-    
-    
 }

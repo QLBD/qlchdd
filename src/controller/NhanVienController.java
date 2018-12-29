@@ -8,6 +8,7 @@ package controller;
 import java.util.List;
 import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
+import model.dao.TimKiemDAO;
 import model.entities.*;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
@@ -33,6 +34,12 @@ public class NhanVienController {
     public void layToanBoDuLieuLenTable(iModelTable callBack){
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
         
+        NhanVienModelTable modelTable = new NhanVienModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void layDuLieuTheoTinhTrangLenTable(iModelTable callBack, Integer tinhTrang){
+        List data = new TimKiemDAO(NhanVien.class).equal("tinhTrang", tinhTrang).timKiem();
         NhanVienModelTable modelTable = new NhanVienModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
     }

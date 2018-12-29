@@ -37,12 +37,7 @@ public class KhuyenMai implements java.io.Serializable {
 	public KhuyenMai() {
 	}
 
-	public KhuyenMai(int maKm) {
-		this.maKm = maKm;
-	}
-
-	public KhuyenMai(int maKm, String tenKm, Float hsKm, Date ngayBd, Date ngayKt) {
-            this.maKm = maKm;
+	public KhuyenMai(String tenKm, Float hsKm, Date ngayBd, Date ngayKt) {
             this.tenKm = tenKm;
             this.hsKm = hsKm;
             this.ngayBd = ngayBd;

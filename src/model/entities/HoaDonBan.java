@@ -35,11 +35,11 @@ public class HoaDonBan implements java.io.Serializable {
 	public HoaDonBan() {
 	}
 
-	public HoaDonBan(int sohdBan, KhachHang khachhang, NhanVien nhanvien, Date ngayBan) {
-		this.sohdBan = sohdBan;
+	public HoaDonBan(KhachHang khachhang, NhanVien nhanvien, Date ngayBan) {
 		this.khachhang = khachhang;
 		this.nhanvien = nhanvien;
 		this.ngayBan = ngayBan;
+                this.tongtienBan = 0.0D;
 	}
 
 	@Id

@@ -29,8 +29,7 @@ public class NhaSanXuat implements java.io.Serializable {
 	public NhaSanXuat() {
 	}
 
-	public NhaSanXuat(int maNsx, String tenNsx, String thongtin) {
-		this.maNsx = maNsx;
+	public NhaSanXuat(String tenNsx, String thongtin) {
 		this.tenNsx = tenNsx;
 		this.thongtin = thongtin;
 	}

@@ -22,15 +22,20 @@ public class CthdMua implements java.io.Serializable {
 	private HoaDonMua hoadonmua;
 	private SanPham sanpham;
 	private Integer sl;
+        private Double dongiaSp;
 	private Double thanhtien;
 
 	public CthdMua() {
 	}
 
-	public CthdMua(CthdMuaId id, Integer sl) {
-		this.id = id;
-		this.sl = sl;
-	}
+        public CthdMua(CthdMuaId id, HoaDonMua hoadonmua, SanPham sanpham, Integer sl, Double dongiaSp) {
+            this.id = id;
+            this.hoadonmua = hoadonmua;
+            this.sanpham = sanpham;
+            this.sl = sl;
+            this.dongiaSp = dongiaSp;
+            this.thanhtien = 0.0D;
+        }
 
 	@EmbeddedId
 
@@ -73,6 +78,15 @@ public class CthdMua implements java.io.Serializable {
 		this.sl = sl;
 	}
 
+        @Column(name = "dongia_SP", nullable = false, precision = 22, scale = 0)
+	public double getDongiaSp() {
+		return this.dongiaSp;
+	}
+
+	public void setDongiaSp(Double dongiaSp) {
+		this.dongiaSp = dongiaSp;
+	}
+        
 	@Column(name = "thanhtien", precision = 22, scale = 0)
 	public Double getThanhtien() {
 		return this.thanhtien;

@@ -29,12 +29,7 @@ public class NhaCungCap implements java.io.Serializable {
 	public NhaCungCap() {
 	}
 
-	public NhaCungCap(int maNcc) {
-		this.maNcc = maNcc;
-	}
-
-	public NhaCungCap(int maNcc, String tenNcc, String diachiNcc, Integer soDtNcc, Integer tinhTrang) {
-            this.maNcc = maNcc;
+	public NhaCungCap(String tenNcc, String diachiNcc, Integer soDtNcc, Integer tinhTrang) {
             this.tenNcc = tenNcc;
             this.diachiNcc = diachiNcc;
             this.soDtNcc = soDtNcc;

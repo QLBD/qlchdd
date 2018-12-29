@@ -18,13 +18,15 @@ import model.entities.BaoHanh;
 public class BaoHanhModelTable extends AbstractTableModel{
     private List<BaoHanh> data;
     private String[] columns = {"Mã BH",
-                                "Mã SP",
-                                "Ngày nhận",
-                                "Ngày trả",
-                                "Serial",
                                 "Số hóa đơn bán",
+                                "Mã SP",
+                                "Serial",
+                                "Yêu cầu bảo hành",
+                                "Nhân viên nhận",
+                                "Ngày nhận",
                                 "Tình trạng",
-                                "Yêu cầu bảo hành"
+                                "Nhân viên trả",
+                                "Ngày trả"                
     };
     
       public BaoHanhModelTable(List<BaoHanh> data) {
@@ -72,6 +74,8 @@ public class BaoHanhModelTable extends AbstractTableModel{
         switch (columnIndex) {
             case 0:
                 return bh.getMaBh();
+            case 5:
+                return bh.getHoadonban().getSohdBan();
             case 1:
                 return bh.getSanpham().getMaSp();
             case 2:
@@ -82,8 +86,7 @@ public class BaoHanhModelTable extends AbstractTableModel{
                 return ngayTra;
             case 4:
                 return bh.getSerial();
-            case 5:
-                return bh.getHoadonban().getSohdBan();
+            
             case 6:
                 return bh.getTinhtrang();
             case 7:

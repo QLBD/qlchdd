@@ -26,8 +26,7 @@ public class PhanQuyen implements java.io.Serializable {
 	public PhanQuyen() {
 	}
 
-	public PhanQuyen(int maPhanQuyen, String quyentruycap) {
-		this.maPhanQuyen = maPhanQuyen;
+	public PhanQuyen(String quyentruycap) {
 		this.quyentruycap = quyentruycap;
 	}
 

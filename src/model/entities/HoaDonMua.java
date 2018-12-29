@@ -33,10 +33,10 @@ public class HoaDonMua implements java.io.Serializable {
 	public HoaDonMua() {
 	}
 
-	public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap) {
-		this.sohdMua = sohdMua;
+	public HoaDonMua(NhaCungCap nhacungcap, Date ngayNhap) {
 		this.nhacungcap = nhacungcap;
 		this.ngayNhap = ngayNhap;
+                this.tongtienMua = 0.0D;
 	}
 
 	@Id
