@@ -132,11 +132,6 @@ CREATE TABLE `baohanh` (
 -- Dumping data for table `baohanh`
 --
 
-INSERT INTO `baohanh` (`ma_BH`, `sohd_Ban`, `ma_SP`, `serial`, `yeucau_BH`, `nhanvien_Nhan`, `ngaynhan`, `tinhtrang`, `nhanvien_Tra`, `ngaytra`) VALUES
-(2, 7, 1, 123456, 'hư loa', 4, '2018-12-29', 0, 4, NULL),
-(11, 7, 1, 123456, 'ewqrưe', 5, '2018-12-30', 0, NULL, NULL),
-(12, 7, 1, 123, 'sdDA', 5, '2018-12-30', 2, 5, '2018-12-30');
-
 --
 -- Triggers `baohanh`
 --
@@ -181,14 +176,21 @@ CREATE TABLE `cthd_ban` (
 -- Dumping data for table `cthd_ban`
 --
 
-INSERT INTO `cthd_ban` (`sohd_Ban`, `ma_SP`, `sl`, `ma_KM`, `gia_Goc`, `tien_Giam`, `thanhtien`) VALUES
-(7, 1, 3, NULL, 7000000, 0, 21000000),
-(11, 3, 1, 5, 16000000, 2400000.0953674316, 13599999.904632568),
-(11, 4, 1, 5, 5000000, 750000.0298023224, 4249999.970197678);
-
 --
 -- Triggers `cthd_ban`
 --
+DELIMITER $$
+CREATE TRIGGER `delete_CTHDB` AFTER DELETE ON `cthd_ban` FOR EACH ROW BEGIN
+    UPDATE hoadonban
+    SET hoadonban.tongtien_Ban = hoadonban.tongtien_Ban - OLD.thanhtien
+    WHERE hoadonban.sohd_Ban = OLD.sohd_Ban;
+    
+	UPDATE sanpham
+	SET sanpham.sl = sanpham.sl + OLD.sl
+	WHERE sanpham.ma_SP = OLD.ma_SP;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_CTHDB` BEFORE INSERT ON `cthd_ban` FOR EACH ROW BEGIN
 	DECLARE giaban DOUBLE;
@@ -217,6 +219,10 @@ CREATE TRIGGER `insert_CTHDB` BEFORE INSERT ON `cthd_ban` FOR EACH ROW BEGIN
     UPDATE hoadonban
     SET hoadonban.tongtien_Ban = tongtien
     WHERE hoadonban.sohd_Ban = NEW.sohd_Ban;
+    
+    UPDATE sanpham
+    SET sanpham.sl = sanpham.sl - NEW.sl
+    WHERE sanpham.ma_SP = NEW.ma_SP;
 END
 $$
 DELIMITER ;
@@ -248,6 +254,10 @@ CREATE TRIGGER `update_CTHDB` BEFORE UPDATE ON `cthd_ban` FOR EACH ROW BEGIN
     UPDATE hoadonban
     SET hoadonban.tongtien_Ban = tongtien
     WHERE hoadonban.sohd_Ban = NEW.sohd_Ban;
+    
+    UPDATE sanpham
+    SET sanpham.sl = sanpham.sl + NEW.sl - OLD.sl
+    WHERE sanpham.ma_SP = NEW.ma_SP;
 END
 $$
 DELIMITER ;
@@ -270,12 +280,21 @@ CREATE TABLE `cthd_mua` (
 -- Dumping data for table `cthd_mua`
 --
 
-INSERT INTO `cthd_mua` (`sohd_Mua`, `ma_SP`, `sl`, `dongia_SP`, `thanhtien`) VALUES
-(13, 1, 3, 5000000, 15000000);
-
 --
 -- Triggers `cthd_mua`
 --
+DELIMITER $$
+CREATE TRIGGER `delete_CTHDM` BEFORE DELETE ON `cthd_mua` FOR EACH ROW BEGIN
+    UPDATE hoadonmua
+    SET hoadonmua.tongtien_Mua = hoadonmua.tongtien_Mua - OLD.thanhtien
+    WHERE hoadonmua.sohd_Mua = OLD.sohd_Mua;
+    
+	UPDATE sanpham
+	SET sanpham.sl = sanpham.sl - OLD.sl
+	WHERE sanpham.ma_SP = OLD.ma_SP;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_CTHDM` BEFORE INSERT ON `cthd_mua` FOR EACH ROW BEGIN
 	DECLARE tongtien INT;
@@ -287,6 +306,10 @@ CREATE TRIGGER `insert_CTHDM` BEFORE INSERT ON `cthd_mua` FOR EACH ROW BEGIN
     SET tongtien = tongtien + NEW.thanhtien;
     
     UPDATE hoadonmua SET hoadonmua.tongtien_Mua = tongtien WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+    
+    UPDATE sanpham
+    SET sanpham.sl = sanpham.sl + NEW.sl
+    WHERE sanpham.ma_SP = NEW.ma_SP;
 END
 $$
 DELIMITER ;
@@ -301,6 +324,10 @@ CREATE TRIGGER `update_CTHDM` BEFORE UPDATE ON `cthd_mua` FOR EACH ROW BEGIN
     SET tongtien = tongtien + NEW.thanhtien - OLD.thanhtien;
     
     UPDATE hoadonmua SET hoadonmua.tongtien_Mua = tongtien WHERE hoadonmua.sohd_Mua = NEW.sohd_Mua;
+    
+    UPDATE sanpham
+    SET sanpham.sl = sanpham.sl + NEW.sl - OLD.sl
+    WHERE sanpham.ma_SP = NEW.ma_SP;
 END
 $$
 DELIMITER ;
@@ -350,10 +377,6 @@ CREATE TABLE `doanhthu` (
 -- Dumping data for table `doanhthu`
 --
 
-INSERT INTO `doanhthu` (`thang`, `nam`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES
-(11, 2018, 0, 0, 4123, -4123),
-(12, 2018, 248599999.1774559, 15000000, 7462123, 226137876.1774559);
-
 --
 -- Triggers `doanhthu`
 --
@@ -390,10 +413,6 @@ CREATE TABLE `hoadonban` (
 --
 -- Dumping data for table `hoadonban`
 --
-
-INSERT INTO `hoadonban` (`sohd_Ban`, `ngay_Ban`, `ma_NV`, `ma_KH`, `tongtien_Ban`) VALUES
-(7, '2018-12-28', 5, 1, 21000000),
-(11, '2018-12-31', 5, 6, 17849999.874830246);
 
 --
 -- Triggers `hoadonban`
@@ -494,9 +513,6 @@ CREATE TABLE `hoadonmua` (
 --
 -- Dumping data for table `hoadonmua`
 --
-
-INSERT INTO `hoadonmua` (`sohd_Mua`, `ngay_Nhap`, `ma_NCC`, `ma_NV`, `tongtien_Mua`) VALUES
-(13, '2018-12-28', 2, 4, 30000000);
 
 --
 -- Triggers `hoadonmua`

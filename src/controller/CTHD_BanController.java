@@ -43,7 +43,19 @@ public class CTHD_BanController {
     }
     
     public void themCTHD_BanVaoHoaDonBan(CthdBan cthdBan, iBanHangView callBack){
-        boolean result = CTHD_BanDAO.themCTHD_Ban(cthdBan);
+        
+        CthdBan ban = CTHD_BanDAO.getCTHD_Ban(cthdBan.getId());
+        
+        boolean result;
+        
+        if(ban != null){
+            cthdBan.setSl(ban.getSl()+cthdBan.getSl());
+            result = CTHD_BanDAO.capNhatCTHD_Ban(cthdBan);
+        }
+        else{
+            result = CTHD_BanDAO.themCTHD_Ban(cthdBan);
+        }
+        
         callBack.capNhatSanPhamVaoHoaDon(result, cthdBan);
     }
     

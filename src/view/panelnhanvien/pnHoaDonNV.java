@@ -538,7 +538,10 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
                         
                         int sl = sanPham.getSl();
                         spinnerNumberModel.setMaximum(sl);
-                        spinnerNumberModel.setValue(1);
+                        if(sl == 0) 
+                            spinnerNumberModel.setValue(0);
+                        else
+                            spinnerNumberModel.setValue(1);
                     }
                 }
             }
@@ -614,10 +617,11 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
         cbbTimHang.removeAllItems();
-            for (Iterator it = data.iterator(); it.hasNext();) {
-                NhaSanXuat nsx = (NhaSanXuat) it.next();
-                cbbTimHang.addItem(nsx);
-            }
+        cbbTimTenSP.removeAllItems();
+        for (Iterator it = data.iterator(); it.hasNext();) {
+            NhaSanXuat nsx = (NhaSanXuat) it.next();
+            cbbTimHang.addItem(nsx);
+        }
         cbbTimHang.setSelectedIndex(-1);
     }
 
@@ -645,7 +649,14 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             String mau = sanPham.getMau();
             String theNho = sanPham.getBonho();
             String kichThuoc = sanPham.getKichthuoc();
-            String sl = sanPham.getSl()+"";
+            String sl;
+            if(sanPham.getSl() == 0){
+                sl = "Hết Hàng!";
+            }
+            else{
+                sl = sanPham.getSl()+"";
+            }
+            
             String namSX = sanPham.getNamSx()+"";
             
             if(sanPham.getAnh() != null){
@@ -701,6 +712,10 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private void themCTHDBan() {
         
         int sl = (int) spinnerSoLuong.getValue();
+        
+        if(sl == 0 ){
+            showMessageAndReloadData("Sản phẩm đã hết hàng!!!", NONE);
+        }
 
         CthdBanId id = new CthdBanId(hdb.getSohdBan(), sanPham.getMaSp());
         
@@ -714,11 +729,24 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         if(result){
             //cập nhật lại đơn hàng từ hệ thống về
             ban = CTHD_BanDAO.getCTHD_Ban(ban.getId());
-            modelTable.addRow(ban);
+            
+            int row = modelTable.containID(ban.getId());
+            
+            if(row != -1){
+                modelTable.removeRow(row);
+                modelTable.addRow(row, ban);
+            }
+            else{
+                modelTable.addRow(ban);
+            }
+            
             hdb = HoaDonBanDAO.getHoaDonBan(hdb.getSohdBan());
             
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thành Công", iMessageView.NONE);
             capGiaTien();
+            
+            //load lại cboHãng
+            loadDataCbbTimHang();
             
             //reset màn hình thông tin sản phầm
         }
@@ -818,6 +846,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             }catch(NumberFormatException ex){
                 ex.printStackTrace();
             }
+            //kt điều kiện thoát
             KhachHang kh = new KhachHang(hoTen, cmndKH, diaChi, sdt, email);
             hdb.setKhachhang(kh);
         }

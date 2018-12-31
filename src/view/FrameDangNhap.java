@@ -38,8 +38,8 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
     public FrameDangNhap() {
         initComponent();
         initEvent();
-        tfTaiKhoan.setText("admin");
-        pwfMatKhau.setText("admin");
+        tfTaiKhoan.setText("nhanvien");
+        pwfMatKhau.setText("1");
     }
 
     private void initComponent() {

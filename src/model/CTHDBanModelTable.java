@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.CthdBan;
+import model.entities.CthdBanId;
 
 /**
  *
@@ -121,5 +122,15 @@ public class CTHDBanModelTable extends AbstractTableModel{
     public void clearData(){
         data.clear();
         fireTableDataChanged();
+    }
+    
+    public int containID(CthdBanId id){
+        for(int  i = 0; i< data.size(); i++){
+            if(data.get(i).getId().equals(id)){
+                return i;
+            }
+        }
+        
+        return -1;
     }
 }
