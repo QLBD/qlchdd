@@ -13,6 +13,8 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import view.panelquanly.hoadon.pnHDBanHang;
 import view.panelquanly.hoadon.pnHDNhapHang;
 
@@ -27,8 +29,13 @@ public class pnHoaDonQL extends JPanel{
     private pnHDBanHang pnhdBanHang = new pnHDBanHang();
     private pnHDNhapHang pnhdNhapHang = new pnHDNhapHang();
     
+    private int tabIndex;
+    
     public pnHoaDonQL(){
         initComponent();
+        initEvent();
+        tabIndex = 1;
+        chuyenTab();
     }
 
     private void initComponent() {
@@ -58,6 +65,82 @@ public class pnHoaDonQL extends JPanel{
                 
                 pnCardLayout.add(pnhdBanHang);
                 pnCardLayout.add(pnhdNhapHang);
+    }
+    
+    private void initEvent() {
+        lblHoaDonBan.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 1;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblHoaDonMua.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 2;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+    }    
+    private void chuyenTab() {
+        switch(tabIndex){
+            case 1:
+                pnhdBanHang.setVisible(true);
+                pnhdNhapHang.setVisible(false);
+                
+                lblHoaDonBan.setForeground(Color.YELLOW);
+                lblHoaDonMua.setForeground(Color.WHITE);
+                break;
+            case 2:    
+                pnhdBanHang.setVisible(false);
+                pnhdNhapHang.setVisible(true);
+                
+                lblHoaDonBan.setForeground(Color.WHITE);
+                lblHoaDonMua.setForeground(Color.YELLOW);
+                break;
+        }
     }
     
 }

@@ -38,6 +38,8 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
     public FrameDangNhap() {
         initComponent();
         initEvent();
+        tfTaiKhoan.setText("admin");
+        pwfMatKhau.setText("admin");
     }
 
     private void initComponent() {
@@ -89,8 +91,7 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
         tfTaiKhoan.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfTaiKhoan.setColumns(15);
         panel_6.add(tfTaiKhoan);
-        tfTaiKhoan.setText("nhanvien");
-
+        
         JPanel panel_7 = new JPanel();
         panel_4.add(panel_7);
 
@@ -102,8 +103,7 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
         pwfMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pwfMatKhau.setColumns(15);
         panel_7.add(pwfMatKhau);
-        pwfMatKhau.setText("1");
-
+        
         JPanel panel_8 = new JPanel();
         FlowLayout flowLayout = (FlowLayout) panel_8.getLayout();
         flowLayout.setVgap(10);

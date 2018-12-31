@@ -10,6 +10,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.entities.NhanVien;
@@ -26,11 +28,17 @@ public class pnBaoHanhNV extends JPanel {
     private JLabel lblTraBaoHanh;
     private pnGuiBaoHanh pnguiBH;
     private pnTraBaoHanh pntraBH;
+    
+    private int tabIndex;
 
     public pnBaoHanhNV(NhanVien nhanVien) {
         pnguiBH = new pnGuiBaoHanh(nhanVien);
         pntraBH = new pnTraBaoHanh(nhanVien);
+        
         initComponent();
+        initEvent();
+        tabIndex = 1;
+        chuyenTab();
     }
 
     private void initComponent() {
@@ -56,8 +64,85 @@ public class pnBaoHanhNV extends JPanel {
         add(pnCardLayout, BorderLayout.CENTER);
         pnCardLayout.setLayout(new CardLayout(0, 0));
 
-        //pnCardLayout.add(pnguiBH);
+        pnCardLayout.add(pnguiBH);
         pnCardLayout.add(pntraBH);
+    }
+
+    private void initEvent() {
+        lblGuiBaoHanh.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 1;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblTraBaoHanh.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 2;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+    }
+
+    private void chuyenTab() {
+        switch(tabIndex){
+            case 1:
+                pnguiBH.setVisible(true);
+                pntraBH.setVisible(false);
+                
+                lblGuiBaoHanh.setForeground(Color.YELLOW);
+                lblTraBaoHanh.setForeground(Color.WHITE);
+                break;
+            case 2:    
+                pnguiBH.setVisible(false);
+                pntraBH.setVisible(true);
+                
+                lblGuiBaoHanh.setForeground(Color.WHITE);
+                lblTraBaoHanh.setForeground(Color.YELLOW);
+                break;
+        }
     }
 
 }
