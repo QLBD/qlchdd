@@ -6,6 +6,10 @@ DROP DATABASE IF EXISTS qlchdd;
 CREATE SCHEMA IF NOT EXISTS `qlchdd` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `qlchdd` ;
 
+DELIMITER $$
+--
+-- Procedures
+--
 CREATE DEFINER=`root`@`localhost` PROCEDURE `DoanhThu` (IN `nam` INT)  NO SQL
 SELECT * FROM doanhthu WHERE doanhthu.nam = nam
 ORDER BY doanhthu.thang$$
