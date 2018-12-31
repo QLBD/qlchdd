@@ -179,7 +179,7 @@ public class FrameBangDieuKhien extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 PhanQuyen phanquyen = tk.getPhanquyen();
                 if(phanquyen.getMaPhanQuyen() == 1){
-                    new QuanLi().setVisible(true);
+                    new FrameQuanLy().setVisible(true);
                 }
                 else if(phanquyen.getMaPhanQuyen() == 2){
                     //new FrameBanHang(tk).setVisible(true);
