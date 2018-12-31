@@ -17,4 +17,5 @@ public interface iBanHangView {
     void capNhatKhuyenMaiSanPham(KhuyenMai km);
     void capNhatSanPhamVaoHoaDon(boolean result, CthdBan ban);
     void capNhatThongTinKhachHang(boolean result, KhachHang khachHang);
+    void xoaSanPhamRaKhoiHoaDon(boolean result, int row);
 }

@@ -35,6 +35,7 @@ public class PhanQuyenModelTable extends AbstractTableModel{
 
     public void setData(List<PhanQuyen> data) {
         this.data = data;
+        fireTableDataChanged();
     }
     
     @Override
@@ -101,4 +102,8 @@ public class PhanQuyenModelTable extends AbstractTableModel{
         return result;
     }
     
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
+    }
 }

@@ -267,4 +267,9 @@ public class pnSanPham extends JPanel implements iModelComBox, iBanHangView{
     public void capNhatThongTinKhachHang(boolean result, KhachHang khachHang) {
         
     }
+
+    @Override
+    public void xoaSanPhamRaKhoiHoaDon(boolean result, int row) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

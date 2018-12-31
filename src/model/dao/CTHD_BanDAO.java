@@ -90,35 +90,35 @@ public class CTHD_BanDAO
         return kq;
     }
     
-//    public static boolean xoaCTHD_Ban(CthdBanId id)
-//    {
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        CthdBan ct = CTHD_BanDAO.getCTHD_Ban(id);
-//        if(ct == null)
-//        {
-//            return false;
-//        }
-//        boolean kq = true;
-//        try
-//        {
-//            session.beginTransaction();
-//            session.delete(ct);
-//            session.getTransaction().commit();
-//            System.out.println("Xóa chi tiết hóa đơn bán thành công!");
-//        }
-//        catch(RuntimeException e)
-//        {
-//            session.getTransaction().rollback();
-//            e.printStackTrace();
-//            kq = false;
-//        }
-//        finally
-//        {
-//            session.flush();
-//            session.close();
-//        }
-//        return kq;
-//    }
+    public static boolean xoaCTHD_Ban(CthdBanId id)
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        CthdBan ct = CTHD_BanDAO.getCTHD_Ban(id);
+        if(ct == null)
+        {
+            return false;
+        }
+        boolean kq = true;
+        try
+        {
+            session.beginTransaction();
+            session.delete(ct);
+            session.getTransaction().commit();
+            System.out.println("Xóa chi tiết hóa đơn bán thành công!");
+        }
+        catch(RuntimeException e)
+        {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            kq = false;
+        }
+        finally
+        {
+            session.flush();
+            session.close();
+        }
+        return kq;
+    }
     
     public static boolean capNhatCTHD_Ban(CthdBan ct)
     {

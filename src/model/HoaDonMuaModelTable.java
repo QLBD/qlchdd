@@ -37,6 +37,7 @@ public class HoaDonMuaModelTable extends AbstractTableModel{
 
     public void setData(List<HoaDonMua> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -108,5 +109,10 @@ public class HoaDonMuaModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

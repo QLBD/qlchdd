@@ -39,6 +39,7 @@ public class KhachHangModelTable extends AbstractTableModel{
 
     public void setData(List<KhachHang> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -113,4 +114,8 @@ public class KhachHangModelTable extends AbstractTableModel{
         return result;
     }
     
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
+    }
 }

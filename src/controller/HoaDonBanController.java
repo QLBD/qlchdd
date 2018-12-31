@@ -45,9 +45,9 @@ public class HoaDonBanController {
         boolean result = HoaDonBanDAO.themHoaDonBan(hoaDonBan);
         
         if(result)
-            callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán Thành Công", iMessageView.SUCCESS);
+            callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán Thành Công", iMessageView.NONE);
         else
-            callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán Thất Bại", iMessageView.FAIL);
+            callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán Thất Bại", iMessageView.NONE);
     }
     
     
@@ -100,5 +100,14 @@ public class HoaDonBanController {
         }
         else
             callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán thất bại",iMessageView.FAIL);
+    }
+    
+    public void xoaHoaDonBanHang(HoaDonBan hoaDonBan, iMessageView callBack){
+        boolean result = HoaDonBanDAO.xoaHoaDonBan(hoaDonBan.getSohdBan());
+        
+        if(result)
+            callBack.showMessageAndReloadData("Xoá Hóa Đơn Bán Thành Công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Xóa Hóa Đơn Bán Thất Bại", iMessageView.FAIL);
     }
 }

@@ -44,6 +44,7 @@ public class NhanVienModelTable extends AbstractTableModel{
 
     public void setData(List<NhanVien> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -130,5 +131,10 @@ public class NhanVienModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

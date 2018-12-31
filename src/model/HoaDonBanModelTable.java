@@ -38,6 +38,7 @@ public class HoaDonBanModelTable extends AbstractTableModel{
 
     public void setData(List<HoaDonBan> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -114,4 +115,8 @@ public class HoaDonBanModelTable extends AbstractTableModel{
         return result;
     }
     
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
+    }
 }

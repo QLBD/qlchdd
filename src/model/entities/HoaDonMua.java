@@ -4,6 +4,7 @@ package model.entities;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -86,7 +87,7 @@ public class HoaDonMua implements java.io.Serializable {
 		this.tongtienMua = tongtienMua;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hoadonmua")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hoadonmua", cascade = CascadeType.ALL)
 	public Set<CthdMua> getCthdMuas() {
 		return this.cthdMuas;
 	}

@@ -39,6 +39,7 @@ public class NhaCungCapModelTable extends AbstractTableModel{
 
     public void setData(List<NhaCungCap> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -110,5 +111,10 @@ public class NhaCungCapModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

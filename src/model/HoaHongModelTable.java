@@ -36,6 +36,7 @@ public class HoaHongModelTable extends AbstractTableModel{
 
     public void setData(List<HoaHong> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -104,5 +105,10 @@ public class HoaHongModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

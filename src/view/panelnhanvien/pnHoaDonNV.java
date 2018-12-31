@@ -26,6 +26,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -74,6 +75,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private JComboBox cbbTimTenSP;
     private JTextField tfTongTien;
     private JTextField tfGiamGia;
+    private JTextField tfThanhTien;
     private JButton btnTimSP;
     private JLabel lblHASP;
     private JLabel lblLoadMaSP;
@@ -87,8 +89,6 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private JLabel lblLoadNamSX;
     private JLabel lblLoadSoLuongSanCo;
     private JButton btnThemSPBan;
-    private Object pnCTHD;
-    private JTextField tfThanhTien;
     private JButton btnXoaSP;
     private JButton btnReset;
     private JScrollPane scrollPaneTableCTHD;
@@ -99,23 +99,21 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private JButton btnHuyBanHang;
     private JSpinner spinnerSoLuong;
     private SpinnerNumberModel spinnerNumberModel;
-    
-    
-    private SanPham sanPham;
-    private CTHDBanModelTable modelTable;
-    private HoaDonBan hdb;
-    private NhanVien nhanVien;
-    private KhachHang khachHang;
-    
-    private KhuyenMai khuyenMai;
-    private double giaGoc;
-    private double tienGiam;
-    private int soLuong = 0;
     private JButton btnKiemTraKH;
     private JButton btnCapNhatThongTinKH;
     private JButton btnThanhToan;
     
     
+    private NhanVien nhanVien;
+    
+    private SanPham sanPham;
+    private CTHDBanModelTable modelTable;
+    private HoaDonBan hdb;
+    private KhachHang khachHang;
+    private KhuyenMai khuyenMai;
+    
+    private double giaGoc;
+    private double tienGiam;
 
     public pnHoaDonNV(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
@@ -314,6 +312,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         tfTongTien = new JTextField();
         tfTongTien.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfTongTien.setBounds(90, 465, 99, 22);
+        tfTongTien.setEditable(false);
         pnCTHD.add(tfTongTien);
         tfTongTien.setColumns(10);
 
@@ -325,6 +324,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         tfGiamGia = new JTextField();
         tfGiamGia.setText("");
         tfGiamGia.setBounds(286, 465, 99, 22);
+        tfGiamGia.setEditable(false);
         pnCTHD.add(tfGiamGia);
         tfGiamGia.setColumns(10);
 
@@ -335,6 +335,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 
         tfThanhTien = new JTextField();
         tfThanhTien.setBounds(501, 465, 99, 22);
+        tfThanhTien.setEditable(false);
         pnCTHD.add(tfThanhTien);
         tfThanhTien.setColumns(10);
 
@@ -504,7 +505,10 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     }
 
     private void initData() {
-        loadDataCbbTimHang();        
+        loadDataCbbTimHang();
+        hienThiThongTinSanPhamLenManHinh("", "", "", "", "", "", "", "", "", "", null);
+        giaGoc = 0;
+        tienGiam = 0;
     }
     
     private void initEvent() {
@@ -544,8 +548,9 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(sanPham != null){
-                    //if(soLuong > sanPham.getSl()) return;
-                    themCTHDBan();
+                    if(hdb != null){
+                        themCTHDBan();
+                    }
                 }
             }
         });
@@ -553,7 +558,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         btnHuyBanHang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                themHoaDonBan();
+                xoaHoaDon();
             }
         });
         
@@ -589,6 +594,19 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         btnXoaSP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int row = tableCTHD.getSelectedRow();
+                if(row < 0 ) return;
+                
+                CthdBan ban = modelTable.getSelectedRow(row);
+                
+                xoaSanPhamKhoiHoaDon(row, ban);
+            }
+        });
+        
+        btnReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                themHoaDonBan();
             }
         });
     }
@@ -643,9 +661,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     
     private void hienThiThongTinSanPhamLenManHinh(String masp, String tensp, String hang, String xuatXu, String baoHanh,
                                             String mau, String theNho, String kichThuoc, String sl, String namSX, ImageIcon icon) {
-        if(icon != null){
-            lblHASP.setIcon(icon);
-        }
+        lblHASP.setIcon(icon);
         lblHASP.setText("");
         lblLoadMaSP.setText(masp);
         lblLoadHang.setText(hang);
@@ -679,6 +695,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         System.out.println(ngayBan);
         hdb = new HoaDonBan(nhanVien, ngayBan);
         HoaDonBanController.getInstance().themHoaDonBan(hdb, this);
+        capGiaTien();
     }
     
     private void themCTHDBan() {
@@ -701,6 +718,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             hdb = HoaDonBanDAO.getHoaDonBan(hdb.getSohdBan());
             
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thành Công", iMessageView.NONE);
+            capGiaTien();
             
             //reset màn hình thông tin sản phầm
         }
@@ -719,6 +737,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
                 break;
             case iMessageView.SUCCESS:
                 //reset lại tất cả
+                resetALL();
                 break;
         }
     }
@@ -804,5 +823,66 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         }
         
         HoaDonBanController.getInstance().thanhToanHoaDon(hdb,this);
+    }
+    
+    private void xoaSanPhamKhoiHoaDon(int row, CthdBan ban) {
+        CTHD_BanController.getInstance().xoaSanPhamKhoiHoaDon(row, ban, this);
+    }
+
+    @Override
+    public void xoaSanPhamRaKhoiHoaDon(boolean result, int row) {
+        if(result){
+            modelTable.removeRow(row);
+            showMessageAndReloadData("Xóa Sản phẩm ra hóa đơn thành công", iMessageView.NONE);
+            capGiaTien();
+        }
+        else{
+            showMessageAndReloadData("Xóa Sản phẩm ra hóa đơn thất bại", iMessageView.NONE);
+        }
+    }
+    
+    private void capGiaTien(){
+        double tongTien = 0, giamGia = 0, thanhTien = 0;
+        
+        for(CthdBan cthdBan : modelTable.getData()){
+            tongTien += cthdBan.getGiaGoc();
+            giamGia += cthdBan.getTienGiam();
+            thanhTien += cthdBan.getThanhtien();
+        }
+        DecimalFormat format = new DecimalFormat("#,###");
+        
+        tfTongTien.setText(format.format(tongTien));
+        tfGiamGia.setText(format.format(giamGia));
+        tfThanhTien.setText(format.format(thanhTien));
+    }
+    
+    private void xoaHoaDon() {
+        HoaDonBanController.getInstance().xoaHoaDonBanHang(hdb, this);
+    }
+
+    public void resetALL() {
+        resetData();
+        clearDataTableCTHD();
+        capGiaTien();
+        hienThiThongTinKhachHangLenManHinh("", "", "", "");
+        hienThiThongTinSanPhamLenManHinh("", "", "", "", "", "", "", "", "", "", null);
+        tfSoCMND.setText("");
+        tfThanhTien.setText("");
+        tfGiamGia.setText("");
+        tfTongTien.setText("");
+        cbbTimHang.setSelectedIndex(-1);
+        cbbTimTenSP.setSelectedIndex(-1);
+    }
+
+    private void resetData() {
+        hdb = null;
+        khachHang = null;
+        khuyenMai = null;
+        giaGoc = 0;
+        tienGiam = 0;
+    }
+    
+    private void clearDataTableCTHD() {
+        modelTable.clearData();
     }
 }

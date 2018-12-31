@@ -35,6 +35,7 @@ public class NhaSanXuatModelTable extends AbstractTableModel{
 
     public void setData(List<NhaSanXuat> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -101,5 +102,10 @@ public class NhaSanXuatModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

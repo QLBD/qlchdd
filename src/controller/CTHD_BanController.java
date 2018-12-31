@@ -46,4 +46,9 @@ public class CTHD_BanController {
         boolean result = CTHD_BanDAO.themCTHD_Ban(cthdBan);
         callBack.capNhatSanPhamVaoHoaDon(result, cthdBan);
     }
+    
+    public void xoaSanPhamKhoiHoaDon(int row, CthdBan ban, iBanHangView callBack){
+        boolean result = CTHD_BanDAO.xoaCTHD_Ban(ban.getId());
+        callBack.xoaSanPhamRaKhoiHoaDon(result, row);
+    }
 }

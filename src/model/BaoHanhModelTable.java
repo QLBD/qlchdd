@@ -44,6 +44,7 @@ public class BaoHanhModelTable extends AbstractTableModel{
 
     public void setData(List<BaoHanh> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -125,5 +126,10 @@ public class BaoHanhModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

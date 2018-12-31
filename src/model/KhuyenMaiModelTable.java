@@ -38,6 +38,7 @@ public class KhuyenMaiModelTable extends AbstractTableModel{
 
     public void setData(List<KhuyenMai> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -114,5 +115,10 @@ public class KhuyenMaiModelTable extends AbstractTableModel{
         boolean result = data.remove(object);
         fireTableDataChanged();
         return result;
+    }
+    
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
     }
 }

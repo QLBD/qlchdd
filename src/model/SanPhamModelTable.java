@@ -46,6 +46,7 @@ public class SanPhamModelTable extends AbstractTableModel{
 
     public void setData(List<SanPham> data) {
         this.data = data;
+        fireTableDataChanged();
     }
 
     @Override
@@ -136,4 +137,8 @@ public class SanPhamModelTable extends AbstractTableModel{
         return result;
     }
     
+    public void clearData(){
+        data.clear();
+        fireTableDataChanged();
+    }
 }
