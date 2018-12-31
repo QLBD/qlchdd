@@ -10,9 +10,10 @@ import model.KhachHangModelTable;
 import model.dao.KhachHangDAO;
 import model.dao.TimKiemDAO;
 import model.entities.KhachHang;
+import view.interfaceView.iBanHangView;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
-import view.interfaceView.iQuanLyKhachHang;
+import view.interfaceView.iTimKiemKhachHang;
 
 /**
  *
@@ -36,7 +37,7 @@ public class KhachHangController {
         callBack.hienThiDuLieuLenTable(modelTable);
     }
     
-    public void timKhachHangTheoCMND(int soCmndKhm, iQuanLyKhachHang callBack){
+    public void timKhachHangTheoCMND(int soCmndKhm, iTimKiemKhachHang callBack){
         
         List results = new TimKiemDAO(KhachHang.class)
                             .equal("soCmndKh",soCmndKhm)
@@ -54,8 +55,14 @@ public class KhachHangController {
         boolean result = KhachHangDAO.themKhachHang(kh);
         
         if(result)
-            callBack.showMessageAndReloadData("Thêm khách hàng thành công", result);
+            callBack.showMessageAndReloadData("Thêm khách hàng thành công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Thêm khách hàng thất bại", result);
+            callBack.showMessageAndReloadData("Thêm khách hàng thất bại", iMessageView.FAIL);
+    }
+    
+    public void capNhatThongTinKhachHang(KhachHang kh, iBanHangView callBack){
+        boolean result = KhachHangDAO.capNhatKhachHang(kh);
+        
+        callBack.capNhatThongTinKhachHang(result, kh);
     }
 }

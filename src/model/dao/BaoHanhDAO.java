@@ -66,8 +66,6 @@ public class BaoHanhDAO
     public static boolean themBaoHanh(BaoHanh bh)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(BaoHanhDAO.getBaoHanh(bh.getMaBh()) != null)
-            return false;
         boolean kq = true;
         try
         {

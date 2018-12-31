@@ -6,6 +6,7 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import model.entities.KhuyenMai;
 import javax.swing.table.AbstractTableModel;
@@ -23,7 +24,11 @@ public class KhuyenMaiModelTable extends AbstractTableModel{
                                 "Ngày kết thúc"
     };
     
-      public KhuyenMaiModelTable(List<KhuyenMai> data) {
+    public KhuyenMaiModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public KhuyenMaiModelTable(List<KhuyenMai> data) {
         this.data = data;
     }
 

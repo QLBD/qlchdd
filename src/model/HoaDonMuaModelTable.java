@@ -6,6 +6,7 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.HoaDonMua;
@@ -22,7 +23,11 @@ public class HoaDonMuaModelTable extends AbstractTableModel{
                                 "Tổng tiền mua"
     };
     
-      public HoaDonMuaModelTable(List<HoaDonMua> data) {
+    public HoaDonMuaModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public HoaDonMuaModelTable(List<HoaDonMua> data) {
         this.data = data;
     }
 

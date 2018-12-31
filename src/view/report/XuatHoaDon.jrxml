@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Xuất Hóa Đơn" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de4c6fbf-0416-4ffd-8f3c-6d92e0510c3e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="soHD" class="java.lang.Integer"/>
 	<parameter name="ngayHD" class="java.lang.String"/>
 	<parameter name="maKH" class="java.lang.Integer"/>
@@ -29,13 +29,17 @@
 	<field name="thanhtien" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="thanhtien_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{thanhtien}]]></variableExpression>
+	</variable>
+	<variable name="tien_Giam_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_Giam}]]></variableExpression>
+	</variable>
+	<variable name="gia_Goc_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gia_Goc}]]></variableExpression>
+	</variable>
 	<background>
-		<band height="572" splitType="Stretch">
-			<image>
-				<reportElement x="262" y="163" width="200" height="200" uuid="ed745791-d8af-4a5c-a143-3551b3805284"/>
-				<imageExpression><![CDATA["logo-thegioididong.jpg"]]></imageExpression>
-			</image>
-		</band>
+		<band height="572" splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="82" splitType="Stretch">
@@ -377,7 +381,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 	<summary>
 		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="20" width="141" height="20" uuid="b58de81d-4983-4502-9c23-c17bb0a95240"/>
+				<reportElement x="81" y="20" width="196" height="20" uuid="b58de81d-4983-4502-9c23-c17bb0a95240"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -385,40 +389,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<text><![CDATA[Tiền thanh toán]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="141" height="20" uuid="14ec0405-7b1e-4c01-b484-0861c039a49e"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="441" y="20" width="150" height="20" uuid="08282d1c-3bd6-46b7-9018-1bfe71fc1c8a"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="141" y="20" width="150" height="20" uuid="c29f700a-6c2c-44e7-93b7-8eac9ee133ae"/>
-				<box>
-					<pen lineWidth="0.2"/>
-					<topPen lineWidth="0.2"/>
-					<leftPen lineWidth="0.2"/>
-					<bottomPen lineWidth="0.2"/>
-					<rightPen lineWidth="0.2"/>
-				</box>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[Tổng cộng]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="591" y="0" width="161" height="20" uuid="631628ef-6806-4292-b34b-84e45c983300"/>
@@ -432,10 +403,10 @@ GIÁ TRỊ GIA TĂNG]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Tổng cộng]]></text>
+				<text><![CDATA[THÀNH TIỀN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="441" y="0" width="150" height="20" uuid="793bea04-8bb9-41c8-a890-485b6808e099"/>
+				<reportElement x="439" y="0" width="152" height="20" uuid="793bea04-8bb9-41c8-a890-485b6808e099"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -446,10 +417,10 @@ GIÁ TRỊ GIA TĂNG]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[TIỀN GIẢM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="0" width="150" height="20" uuid="db7ded77-6891-4433-97da-760e47d17ab6"/>
+				<reportElement x="277" y="0" width="162" height="20" uuid="db7ded77-6891-4433-97da-760e47d17ab6"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -460,10 +431,10 @@ GIÁ TRỊ GIA TĂNG]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[GIÁ GỐC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="591" y="20" width="161" height="20" uuid="f2e00a8e-e21f-4837-85a9-e62f69cbe08a"/>
+				<reportElement x="81" y="0" width="196" height="20" uuid="14ec0405-7b1e-4c01-b484-0861c039a49e"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -473,8 +444,8 @@ GIÁ TRỊ GIA TĂNG]]></text>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="291" y="20" width="150" height="20" uuid="f67c0ec9-e220-4cd0-9f7c-754b4e77ab6e"/>
+			<textField>
+				<reportElement x="591" y="20" width="161" height="20" uuid="b8755e7b-33fe-44c8-b532-0869980b889b"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -482,10 +453,10 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="141" y="0" width="150" height="20" uuid="acbad7a0-b0e1-4d9c-b2fc-6cc90935649b"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{thanhtien_1})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="20" width="152" height="20" uuid="bfddc00e-13be-44fc-91c4-a2ec410284e2"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -493,11 +464,19 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{tien_Giam_1})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="20" width="162" height="20" uuid="4445d7f2-64ef-4ca6-8fcb-285f8b0da4b5"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{gia_Goc_1})]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

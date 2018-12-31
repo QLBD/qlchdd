@@ -47,9 +47,9 @@ public class NhanVienController {
     public void themNhanVien(NhanVien nhanVien, iMessageView callBack){
         boolean result = NhanVienDAO.themNhanVien(nhanVien);
         if(result)
-            callBack.showMessageAndReloadData("Thêm Nhân Viên Thành Công", result);
+            callBack.showMessageAndReloadData("Thêm Nhân Viên Thành Công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", result);
+            callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", iMessageView.FAIL);
     }
     
 //    public void xoaNhanVien(int maNv){

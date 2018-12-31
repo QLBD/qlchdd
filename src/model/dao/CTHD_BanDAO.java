@@ -66,8 +66,8 @@ public class CTHD_BanDAO
     public static boolean themCTHD_Ban(CthdBan ct)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(CTHD_BanDAO.getCTHD_Ban(ct.getId()) != null)
-            return false;
+//        if(CTHD_BanDAO.getCTHD_Ban(ct.getId()) != null)
+//            return false;
         boolean kq = true;
         try
         {

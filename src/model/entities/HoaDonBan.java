@@ -41,6 +41,20 @@ public class HoaDonBan implements java.io.Serializable {
 		this.ngayBan = ngayBan;
                 this.tongtienBan = 0.0D;
 	}
+        
+        public HoaDonBan(NhanVien nhanvien, Date ngayBan) {
+		this.nhanvien = nhanvien;
+		this.ngayBan = ngayBan;
+                this.tongtienBan = 0.0D;
+	}
+        
+        public HoaDonBan(int sohdBan, KhachHang khachhang, NhanVien nhanvien, Date ngayBan) {
+                this.sohdBan = sohdBan;
+		this.khachhang = khachhang;
+		this.nhanvien = nhanvien;
+		this.ngayBan = ngayBan;
+                this.tongtienBan = 0.0D;
+	}
 
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

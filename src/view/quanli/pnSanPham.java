@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.entities.CthdBan;
+import model.entities.KhachHang;
 import model.entities.KhuyenMai;
 import model.entities.NhaSanXuat;
 import model.entities.SanPham;
@@ -254,5 +256,15 @@ public class pnSanPham extends JPanel implements iModelComBox, iBanHangView{
         }
         else
             System.out.println("Không có khuyến mãi");
+    }
+
+    @Override
+    public void capNhatSanPhamVaoHoaDon(boolean result, CthdBan ban) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void capNhatThongTinKhachHang(boolean result, KhachHang khachHang) {
+        
     }
 }

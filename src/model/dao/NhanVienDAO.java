@@ -56,10 +56,6 @@ public class NhanVienDAO {
     
     public static boolean themNhanVien(NhanVien nv) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (NhanVienDAO.getNhanVien(nv.getMaNv())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();

@@ -17,13 +17,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.entities.KhachHang;
-import view.interfaceView.iQuanLyKhachHang;
+import view.interfaceView.iTimKiemKhachHang;
 
 /**
  *
  * @author RanRan
  */
-public class pnKhachHang extends JPanel implements iQuanLyKhachHang{
+public class pnKhachHang extends JPanel implements iTimKiemKhachHang{
         private JPanel pnThongTin;
         
         private JLabel lblMaKH;

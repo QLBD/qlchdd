@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.HoaHong;
@@ -21,7 +22,11 @@ public class HoaHongModelTable extends AbstractTableModel{
                                 "Tiền hoa hồng"
     };
     
-      public HoaHongModelTable(List<HoaHong> data) {
+    public HoaHongModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public HoaHongModelTable(List<HoaHong> data) {
         this.data = data;
     }
 

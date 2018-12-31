@@ -55,6 +55,19 @@ public class NhanVien implements java.io.Serializable {
             this.tinhTrang = tinhTrang;
 	}
 
+        public NhanVien(int maNv, String tenNv, Integer soCmndNv, Boolean gioitinh, Date ngaysinhNv, String diachiNv, Integer soDtNv, Date ngayVaoLam, Double luongCb, Integer tinhTrang) {
+            this.maNv = maNv;
+            this.tenNv = tenNv;
+            this.soCmndNv = soCmndNv;
+            this.gioitinh = gioitinh;
+            this.ngaysinhNv = ngaysinhNv;
+            this.diachiNv = diachiNv;
+            this.soDtNv = soDtNv;
+            this.ngayVaoLam = ngayVaoLam;
+            this.luongCb = luongCb;
+            this.tinhTrang = tinhTrang;
+        }
+
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_NV", unique = true, nullable = false)
@@ -75,7 +88,7 @@ public class NhanVien implements java.io.Serializable {
 		this.tenNv = tenNv;
 	}
 
-	@Column(name = "soCMND_NV")
+	@Column(name = "soCMND_NV", unique = true)
 	public Integer getSoCmndNv() {
 		return this.soCmndNv;
 	}

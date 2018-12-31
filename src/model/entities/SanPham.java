@@ -29,7 +29,6 @@ public class SanPham implements java.io.Serializable {
 	private NhaSanXuat nhasanxuat;
 	private Integer sl;
 	private Integer namSx;
-	private Double thueVat;
 	private Double giaBanRa;
 	private Integer thoigianBh;
 	private String xuatxu;
@@ -47,12 +46,11 @@ public class SanPham implements java.io.Serializable {
 	public SanPham() {
 	}
 
-        public SanPham(String tenSp, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double thueVat, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang) {
+        public SanPham(String tenSp, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang) {
             this.tenSp = tenSp;
             this.nhasanxuat = nhasanxuat;
             this.sl = sl;
             this.namSx = namSx;
-            this.thueVat = thueVat;
             this.giaBanRa = giaBanRa;
             this.thoigianBh = thoigianBh;
             this.xuatxu = xuatxu;
@@ -63,13 +61,12 @@ public class SanPham implements java.io.Serializable {
             this.tinhtrang = tinhtrang;
         }
 
-        public SanPham(int maSp, String tenSp, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double thueVat, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang, Double heSoHH) {
+        public SanPham(int maSp, String tenSp, NhaSanXuat nhasanxuat, Integer sl, Integer namSx, Double giaBanRa, Integer thoigianBh, String xuatxu, String mau, String bonho, String kichthuoc, byte[] anh, Integer tinhtrang, Double heSoHH) {
             this.maSp = maSp;
             this.tenSp = tenSp;
             this.nhasanxuat = nhasanxuat;
             this.sl = sl;
             this.namSx = namSx;
-            this.thueVat = thueVat;
             this.giaBanRa = giaBanRa;
             this.thoigianBh = thoigianBh;
             this.xuatxu = xuatxu;
@@ -79,7 +76,6 @@ public class SanPham implements java.io.Serializable {
             this.anh = anh;
             this.tinhtrang = tinhtrang;
         }
-        
         
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,15 +124,6 @@ public class SanPham implements java.io.Serializable {
 
 	public void setNamSx(Integer namSx) {
 		this.namSx = namSx;
-	}
-
-	@Column(name = "thue_VAT", precision = 22, scale = 0)
-	public Double getThueVat() {
-		return this.thueVat;
-	}
-
-	public void setThueVat(Double thueVat) {
-		this.thueVat = thueVat;
 	}
 
 	@Column(name = "gia_BanRa", precision = 22, scale = 0)

@@ -59,7 +59,5 @@ public class BanHangController {
             
             result = result & ReportUtils.exportFilePDF(path, path, parameters);
         }
-        
-        
     }
 }

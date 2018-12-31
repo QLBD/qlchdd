@@ -10,6 +10,7 @@ import model.NhaCungCapModelTable;
 import model.dao.NhaCungCapDAO;
 import model.dao.TimKiemDAO;
 import model.entities.NhaCungCap;
+import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
 
@@ -43,5 +44,14 @@ public class NhaCungCapController {
         List<NhaCungCap> data = NhaCungCapDAO.getDSNhaCungCap();
         NhaCungCapModelTable modelTable = new NhaCungCapModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void themNhaSanXuat(NhaCungCap ncc, iMessageView callBack){
+        boolean result = NhaCungCapDAO.themNhaCungCap(ncc);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Thêm Nhà cung cấp mới thành công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Thêm Nhà cung cấp mới thất bại", iMessageView.FAIL);
     }
 }

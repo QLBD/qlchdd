@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.KhachHang;
@@ -24,7 +25,11 @@ public class KhachHangModelTable extends AbstractTableModel{
                                 "Email"
     };
     
-      public KhachHangModelTable(List<KhachHang> data) {
+    public KhachHangModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public KhachHangModelTable(List<KhachHang> data) {
         this.data = data;
     }
 

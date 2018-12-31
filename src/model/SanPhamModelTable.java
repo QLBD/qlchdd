@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.NhaSanXuat;
@@ -20,8 +21,7 @@ public class SanPhamModelTable extends AbstractTableModel{
                                 "Tên SP",
                                 "Mã NSX",
                                 "Số lượng",
-                                "Ngày sản xuất",
-                                "Thuế VAT",
+                                "Năm sản xuất",
                                 "Giá bán ra",
                                 "Thời gian bảo hành",
                                 "Xuất xứ",
@@ -29,11 +29,14 @@ public class SanPhamModelTable extends AbstractTableModel{
                                 "Bộ nhớ",
                                 "Kích thước",
                                 "Ảnh",
-                                "Năm sản xuất",
                                 "Tình trạng"
     };
     
-      public SanPhamModelTable(List<SanPham> data) {
+    public SanPhamModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public SanPhamModelTable(List<SanPham> data) {
         this.data = data;
     }
 
@@ -87,22 +90,20 @@ public class SanPhamModelTable extends AbstractTableModel{
             case 4:
                 return sp.getNamSx();
             case 5:
-                return sp.getThueVat();
-            case 6:
                 return sp.getGiaBanRa();
-            case 7:
+            case 6:
                 return sp.getThoigianBh();
-            case 8:
+            case 7:
                 return sp.getXuatxu();
-            case 9:
+            case 8:
                 return sp.getMau();
-            case 10:
+            case 9:
                 return sp.getBonho();
-            case 11:
+            case 10:
                 return sp.getKichthuoc();
-            case 12:
+            case 11:
                 return sp.getAnh();
-            case 13:
+            case 12:
                 return sp.getTinhtrang();
             default:
                 return null;

@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.NhaCungCap;
@@ -24,7 +25,11 @@ public class NhaCungCapModelTable extends AbstractTableModel{
                                 "Tình trạng"
     };
     
-      public NhaCungCapModelTable(List<NhaCungCap> data) {
+    public NhaCungCapModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public NhaCungCapModelTable(List<NhaCungCap> data) {
         this.data = data;
     }
 

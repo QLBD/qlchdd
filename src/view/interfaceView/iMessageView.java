@@ -10,5 +10,8 @@ package view.interfaceView;
  * @author THAITHANG
  */
 public interface iMessageView {
-    void showMessageAndReloadData(String message, boolean isLoadData);
+    int NONE = 0;
+    int SUCCESS = 1;
+    int FAIL = -1;
+    void showMessageAndReloadData(String message, int type);
 }

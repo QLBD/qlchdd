@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,28 +34,43 @@ public class BaoHanh implements java.io.Serializable {
 	private Date ngaynhan;
 	private int tinhtrang;
 	private Date ngaytra;
-	
 
 	public BaoHanh() {
 	}
 
-        public BaoHanh(HoaDonBan hoadonban, NhanVien nhanvienByNhanvienNhan, SanPham sanpham, int serial, String yeucauBh, Date ngaynhan) {
-            this.hoadonban = hoadonban;
-            this.nhanvienByNhanvienNhan = nhanvienByNhanvienNhan;
-            this.sanpham = sanpham;
-            this.serial = serial;
-            this.yeucauBh = yeucauBh;
-            this.ngaynhan = ngaynhan;
-        }
+	public BaoHanh(HoaDonBan hoadonban, NhanVien nhanvienByNhanvienNhan, SanPham sanpham, int serial, String yeucauBh,
+			Date ngaynhan, int tinhtrang) {
+		this.hoadonban = hoadonban;
+		this.nhanvienByNhanvienNhan = nhanvienByNhanvienNhan;
+		this.sanpham = sanpham;
+		this.serial = serial;
+		this.yeucauBh = yeucauBh;
+		this.ngaynhan = ngaynhan;
+		this.tinhtrang = tinhtrang;
+	}
+
+	public BaoHanh(HoaDonBan hoadonban, NhanVien nhanvienByNhanvienTra, NhanVien nhanvienByNhanvienNhan,
+			SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
+		this.hoadonban = hoadonban;
+		this.nhanvienByNhanvienTra = nhanvienByNhanvienTra;
+		this.nhanvienByNhanvienNhan = nhanvienByNhanvienNhan;
+		this.sanpham = sanpham;
+		this.serial = serial;
+		this.yeucauBh = yeucauBh;
+		this.ngaynhan = ngaynhan;
+		this.tinhtrang = tinhtrang;
+		this.ngaytra = ngaytra;
+	}
 
 	@Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "ma_BH", unique = true, nullable = false)
-	public int getMaBh() {
+	public Integer getMaBh() {
 		return this.maBh;
 	}
 
-	public void setMaBh(int maBh) {
+	public void setMaBh(Integer maBh) {
 		this.maBh = maBh;
 	}
 
@@ -68,7 +84,7 @@ public class BaoHanh implements java.io.Serializable {
 		this.hoadonban = hoadonban;
 	}
 
-        @ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "nhanvien_Tra", unique = true)
 	public NhanVien getNhanvienByNhanvienTra() {
 		return this.nhanvienByNhanvienTra;
@@ -87,7 +103,7 @@ public class BaoHanh implements java.io.Serializable {
 	public void setNhanvienByNhanvienNhan(NhanVien nhanvienByNhanvienNhan) {
 		this.nhanvienByNhanvienNhan = nhanvienByNhanvienNhan;
 	}
-        
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ma_SP", nullable = false)
 	public SanPham getSanpham() {
@@ -116,8 +132,8 @@ public class BaoHanh implements java.io.Serializable {
 		this.yeucauBh = yeucauBh;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ngaynhan", nullable = false, length = 19)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ngaynhan", nullable = false, length = 10)
 	public Date getNgaynhan() {
 		return this.ngaynhan;
 	}
@@ -135,8 +151,8 @@ public class BaoHanh implements java.io.Serializable {
 		this.tinhtrang = tinhtrang;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ngaytra", nullable = false, length = 19)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ngaytra", length = 10)
 	public Date getNgaytra() {
 		return this.ngaytra;
 	}

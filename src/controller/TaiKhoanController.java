@@ -11,6 +11,7 @@ import model.TaiKhoanModelTable;
 import model.dao.NhanVienDAO;
 import model.dao.PhanQuyenDAO;
 import model.dao.TaiKhoanDAO;
+import model.dao.TimKiemDAO;
 import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
@@ -18,6 +19,7 @@ import utils.Config;
 import static utils.Config.maHoaMatKhau;
 import view.interfaceView.iDangNhapView;
 import view.interfaceView.iMessageView;
+import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
 import view.interfaceView.iQuanLyTaiKhoan;
 
@@ -45,6 +47,11 @@ public class TaiKhoanController {
         callBack.hienThiDuLieuLenTable(modelTable);
     }
     
+    public void layToanBoTaiKhoanChuaCoNhanVienLenComboBox(iModelComBox callBack){
+//        List data = new TimKiemDAO(TaiKhoan.class).isNull("nhanvien").equal("phanquyen", data).timKiem();
+//        callBack.hienThiDuLieuLenComBox(data,new TaiKhoan());
+    }
+    
     public void themTaiKhoan(TaiKhoan tk, iMessageView callBack){
         if(tk.getPhanquyen().getMaPhanQuyen() == 1)
             tk.setMatkhauDangNhap("C31F804A0E4A8943A7A5577A292F2321");
@@ -54,9 +61,9 @@ public class TaiKhoanController {
         boolean result = TaiKhoanDAO.themTaiKhoan(tk);
         
         if(result)
-            callBack.showMessageAndReloadData("Thêm Tài Khoản Thành Công", result);
+            callBack.showMessageAndReloadData("Thêm Tài Khoản Thành Công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Thêm Tài Khoản Thất Bại", result);
+            callBack.showMessageAndReloadData("Thêm Tài Khoản Thất Bại", iMessageView.FAIL);
     }
     
     public void resetMatKhau(TaiKhoan tk, iMessageView callBack){
@@ -68,21 +75,28 @@ public class TaiKhoanController {
         boolean result = TaiKhoanDAO.capNhatTaiKhoan(tk);
         
         if(result)
-            callBack.showMessageAndReloadData("Reset mật khẩu Thành Công", result);
+            callBack.showMessageAndReloadData("Reset mật khẩu Thành Công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Reset mật khẩu Thất Bại", result);
+            callBack.showMessageAndReloadData("Reset mật khẩu Thất Bại", iMessageView.FAIL);
     }
     
-    public void thayDoiMatKhau(TaiKhoan tk, String matKhauMoi, iMessageView callBack){
-        String pass = maHoaMatKhau(matKhauMoi);
-        tk.setMatkhauDangNhap(pass);
+    public void thayDoiMatKhau(TaiKhoan tk, String matKhauCu, String matKhauMoi, iMessageView callBack){
+        String newPass = maHoaMatKhau(matKhauMoi);
+        String oldPass = maHoaMatKhau(matKhauCu);
+        
+        if(tk.getMatkhauDangNhap().compareTo(oldPass) != 0){
+            callBack.showMessageAndReloadData("Mật khẩu cũ không trùng khớp", iMessageView.NONE);
+            return;
+        }
+        
+        tk.setMatkhauDangNhap(newPass);
         
         boolean result = TaiKhoanDAO.capNhatTaiKhoan(tk);
         
         if(result)
-            callBack.showMessageAndReloadData("Thay đổi mật khẩu Thành Công", result);
+            callBack.showMessageAndReloadData("Thay đổi mật khẩu Thành Công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Thay đổi mật khẩu Thất Bại", result);
+            callBack.showMessageAndReloadData("Thay đổi mật khẩu Thất Bại", iMessageView.FAIL);
     }
     
     public void dangNhap(String tenDN, String matKhau, iDangNhapView callBack){

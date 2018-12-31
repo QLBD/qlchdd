@@ -44,6 +44,14 @@ public class KhuyenMai implements java.io.Serializable {
             this.ngayKt = ngayKt;
 	}
 
+        public KhuyenMai(int maKm, String tenKm, Float hsKm, Date ngayBd, Date ngayKt) {
+            this.maKm = maKm;
+            this.tenKm = tenKm;
+            this.hsKm = hsKm;
+            this.ngayBd = ngayBd;
+            this.ngayKt = ngayKt;
+        }
+        
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_KM", unique = true, nullable = false)

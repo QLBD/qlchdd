@@ -59,10 +59,6 @@ public class KhuyenMaiDAO {
     
     public static boolean themKhuyenMai(KhuyenMai km) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (KhuyenMaiDAO.getKhuyenMai(km.getMaKm())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();

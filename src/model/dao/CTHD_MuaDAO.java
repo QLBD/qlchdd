@@ -60,10 +60,10 @@ public class CTHD_MuaDAO {
     public static boolean themCTHDMua(CthdMua ct)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if(CTHD_MuaDAO.getCTHDMua(ct.getId())!= null)
-        {
-            return false;
-        }
+//        if(CTHD_MuaDAO.getCTHDMua(ct.getId())!= null)
+//        {
+//            return false;
+//        }
         boolean kq = true;
         try{
             session.beginTransaction();

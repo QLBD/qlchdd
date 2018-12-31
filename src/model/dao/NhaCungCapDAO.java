@@ -82,10 +82,6 @@ public class NhaCungCapDAO {
     
     public static boolean capNhatNhaCungCap(NhaCungCap cc){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (NhaCungCapDAO.getNhaCungCap(cc.getMaNcc())== null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();

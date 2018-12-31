@@ -5,6 +5,8 @@
  */
 package view.interfaceView;
 
+import model.entities.CthdBan;
+import model.entities.KhachHang;
 import model.entities.KhuyenMai;
 
 /**
@@ -13,4 +15,6 @@ import model.entities.KhuyenMai;
  */
 public interface iBanHangView {
     void capNhatKhuyenMaiSanPham(KhuyenMai km);
+    void capNhatSanPhamVaoHoaDon(boolean result, CthdBan ban);
+    void capNhatThongTinKhachHang(boolean result, KhachHang khachHang);
 }

@@ -59,10 +59,6 @@ public class HoaDonBanDAO {
     
     public static boolean themHoaDonBan(HoaDonBan hd) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (HoaDonBanDAO.getHoaDonBan(hd.getSohdBan())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();
@@ -103,27 +99,27 @@ public class HoaDonBanDAO {
         return kq;
     }
     
-//    public static boolean xoaHoaDonBan(int soHD){
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        HoaDonBan hd = HoaDonBanDAO.getHoaDonBan(soHD);
-//        if (hd == null)
-//        {
-//            return false;
-//        }
-//        boolean kq = true;
-//        try {
-//            session.beginTransaction();
-//            session.delete(hd);
-//            session.getTransaction().commit();
-//            System.out.println("Xóa hóa đơn bán thành công");
-//        } catch (RuntimeException e) {
-//            session.getTransaction().rollback();
-//            e.printStackTrace();
-//            kq = false;
-//        } finally {
-//            session.flush();
-//            session.close();
-//        }
-//        return kq;
-//    }
+    public static boolean xoaHoaDonBan(int soHD){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        HoaDonBan hd = HoaDonBanDAO.getHoaDonBan(soHD);
+        if (hd == null)
+        {
+            return false;
+        }
+        boolean kq = true;
+        try {
+            session.beginTransaction();
+            session.delete(hd);
+            session.getTransaction().commit();
+            System.out.println("Xóa hóa đơn bán thành công");
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            kq = false;
+        } finally {
+            session.flush();
+            session.close();
+        }
+        return kq;
+    }
 }

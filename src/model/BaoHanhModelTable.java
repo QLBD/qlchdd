@@ -6,6 +6,7 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.BaoHanh;
@@ -28,8 +29,12 @@ public class BaoHanhModelTable extends AbstractTableModel{
                                 "Nhân viên trả",
                                 "Ngày trả"                
     };
+
+    public BaoHanhModelTable() {
+        this.data = new ArrayList<>();
+    }
     
-      public BaoHanhModelTable(List<BaoHanh> data) {
+    public BaoHanhModelTable(List<BaoHanh> data) {
         this.data = data;
     }
 

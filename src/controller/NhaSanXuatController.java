@@ -9,6 +9,7 @@ import java.util.List;
 import model.NhaSanXuatModelTable;
 import model.dao.NhaSanXuatDAO;
 import model.entities.NhaSanXuat;
+import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
 
@@ -37,5 +38,14 @@ public class NhaSanXuatController {
         List<NhaSanXuat> data = NhaSanXuatDAO.getDSNhaSanXuat();
         NhaSanXuatModelTable modelTable = new NhaSanXuatModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void themNhaSanXuat(NhaSanXuat nsx, iMessageView callBack){
+        boolean result = NhaSanXuatDAO.themNhaSanXuat(nsx);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Thêm hãng mới thành công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Thêm hãng mới thất bại", iMessageView.FAIL);
     }
 }

@@ -39,6 +39,13 @@ public class HoaDonMua implements java.io.Serializable {
                 this.tongtienMua = 0.0D;
 	}
 
+        public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap) {
+            this.sohdMua = sohdMua;
+            this.nhacungcap = nhacungcap;
+            this.ngayNhap = ngayNhap;
+            this.tongtienMua = 0.0D;
+        }
+        
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sohd_Mua", unique = true, nullable = false)

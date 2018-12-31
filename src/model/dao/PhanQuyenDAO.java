@@ -58,10 +58,6 @@ public class PhanQuyenDAO {
     
     public static boolean themPhanQuyen(PhanQuyen pq){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (PhanQuyenDAO.getPhanQuyen(pq.getMaPhanQuyen())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();

@@ -38,6 +38,15 @@ public class KhachHang implements java.io.Serializable {
 		this.email = email;
 	}
 
+        public KhachHang(int maKh, String tenKh, Integer soCmndKh, String diachiKh, Integer soDtKh, String email) {
+            this.maKh = maKh;
+            this.tenKh = tenKh;
+            this.soCmndKh = soCmndKh;
+            this.diachiKh = diachiKh;
+            this.soDtKh = soDtKh;
+            this.email = email;
+        }
+        
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_KH", unique = true, nullable = false)
@@ -58,7 +67,7 @@ public class KhachHang implements java.io.Serializable {
 		this.tenKh = tenKh;
 	}
 
-	@Column(name = "soCMND_KH")
+	@Column(name = "soCMND_KH", unique = true)
 	public Integer getSoCmndKh() {
 		return this.soCmndKh;
 	}

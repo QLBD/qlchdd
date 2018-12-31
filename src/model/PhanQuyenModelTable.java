@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.PhanQuyen;
@@ -20,6 +21,10 @@ public class PhanQuyenModelTable extends AbstractTableModel{
                                 "Quyền Truy Câp",
     };
 
+    public PhanQuyenModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
     public PhanQuyenModelTable(List<PhanQuyen> data) {
         this.data = data;
     }

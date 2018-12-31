@@ -6,6 +6,7 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.NhanVien;
@@ -29,6 +30,10 @@ public class NhanVienModelTable extends AbstractTableModel{
                                 "Tình Trạng",
                                 };
 
+    public NhanVienModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
     public NhanVienModelTable(List<NhanVien> data) {
         this.data = data;
     }

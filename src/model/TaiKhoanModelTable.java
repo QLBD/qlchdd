@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -22,8 +23,13 @@ public class TaiKhoanModelTable extends AbstractTableModel {
     private String[] columns = {
         "Tên Đăng Nhập",
         "Phân Quyền",
-        "Nhân Viên",};
+        "Nhân Viên"
+    };
 
+    public TaiKhoanModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
     public TaiKhoanModelTable(List<TaiKhoan> data) {
         this.data = data;
     }

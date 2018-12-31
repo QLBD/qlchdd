@@ -25,10 +25,13 @@ public class HoaHong implements java.io.Serializable {
 	public HoaHong() {
 	}
 
-	public HoaHong(NhanVien nhanvien) {
-		this.nhanvien = nhanvien;
-                this.tienHh = 0.0D;
-	}
+        public HoaHong(HoaHongId id, NhanVien nhanvien) {
+            this.id = id;
+            this.nhanvien = nhanvien;
+            this.tienHh = 0.0D;
+        }
+        
+        
 
 	@EmbeddedId
 

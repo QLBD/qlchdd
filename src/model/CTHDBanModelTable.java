@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.CthdBan;
@@ -19,10 +21,16 @@ public class CTHDBanModelTable extends AbstractTableModel{
                                 "Mã SP",
                                 "Số lượng",
                                 "Mã KM",
+                                "Giá Gốc",
+                                "Tiền Giảm",
                                 "Thành tiền"
     };
     
-      public CTHDBanModelTable(List<CthdBan> data) {
+    public CTHDBanModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public CTHDBanModelTable(List<CthdBan> data) {
         this.data = data;
     }
 
@@ -64,15 +72,20 @@ public class CTHDBanModelTable extends AbstractTableModel{
         CthdBan ctBan = data.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return ctBan.getId().getSohdBan();
+                return ctBan.getHoadonban().getSohdBan();
             case 1:
-                return  ctBan.getId().getMaSp();
+                return ctBan.getSanpham().getMaSp();
             case 2:
                 return ctBan.getSl();
             case 3:
+                if(ctBan.getKhuyenmai() == null) return "null";
                 return ctBan.getKhuyenmai().getMaKm();
             case 4:
-                return ctBan.getThanhtien();
+                return new DecimalFormat("#,###").format(ctBan.getGiaGoc());
+            case 5:
+                return new DecimalFormat("#,###").format(ctBan.getTienGiam());
+            case 6:
+                return new DecimalFormat("#,###").format(ctBan.getThanhtien());
             default:
                 return null;
         }

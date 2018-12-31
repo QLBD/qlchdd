@@ -5,18 +5,35 @@
  */
 package view;
 
-import utils.HibernateUtil;
-import model.entities.*;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.awt.EventQueue;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
  * @author THAITHANG
  */
 public class MainUI {
+
+    public static void setSystemLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+        }
+    }
+
     public static void main(String[] args) {
-        new DangNhap().setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    setSystemLookAndFeel();
+                    FrameDangNhap frame = new FrameDangNhap();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

@@ -36,6 +36,14 @@ public class NhaCungCap implements java.io.Serializable {
             this.tinhTrang = tinhTrang;
 	}
 
+        public NhaCungCap(int maNcc, String tenNcc, String diachiNcc, Integer soDtNcc, Integer tinhTrang) {
+            this.maNcc = maNcc;
+            this.tenNcc = tenNcc;
+            this.diachiNcc = diachiNcc;
+            this.soDtNcc = soDtNcc;
+            this.tinhTrang = tinhTrang;
+        }
+        
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_NCC", unique = true, nullable = false)

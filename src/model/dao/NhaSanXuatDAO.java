@@ -25,9 +25,6 @@ public class NhaSanXuatDAO {
             String sql = "from NhaSanXuat";
             Query query = session.createQuery(sql);
             ds = query.list();
-            for(NhaSanXuat nsx : ds){
-            System.out.println(nsx.getMaNsx());
-            }
         }
         catch(HibernateException e){
             e.printStackTrace();
@@ -59,10 +56,6 @@ public class NhaSanXuatDAO {
     
     public static boolean themNhaSanXuat(NhaSanXuat nsx) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (NhaSanXuatDAO.getNhaSanXuat(nsx.getMaNsx())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();

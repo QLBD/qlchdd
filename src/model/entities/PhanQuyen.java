@@ -30,6 +30,11 @@ public class PhanQuyen implements java.io.Serializable {
 		this.quyentruycap = quyentruycap;
 	}
 
+        public PhanQuyen(int maPhanQuyen, String quyentruycap) {
+            this.maPhanQuyen = maPhanQuyen;
+            this.quyentruycap = quyentruycap;
+        }
+
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_PhanQuyen", unique = true, nullable = false)
@@ -59,8 +64,8 @@ public class PhanQuyen implements java.io.Serializable {
 		this.taikhoans = taikhoans;
 	}
 
-    @Override
-    public String toString() {
-        return quyentruycap;
-    }
+        @Override
+        public String toString() {
+            return quyentruycap;
+        }
 }

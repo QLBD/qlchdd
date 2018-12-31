@@ -30,11 +30,12 @@ public class CthdBan implements java.io.Serializable {
 	public CthdBan() {
 	}
 
-        public CthdBan(CthdBanId id, HoaDonBan hoadonban, KhuyenMai khuyenmai, SanPham sanpham, Double giaGoc, Double tienGiam) {
+        public CthdBan(CthdBanId id, HoaDonBan hoadonban, KhuyenMai khuyenmai, SanPham sanpham, Integer sl, Double giaGoc, Double tienGiam) {
             this.id = id;
             this.hoadonban = hoadonban;
             this.khuyenmai = khuyenmai;
             this.sanpham = sanpham;
+            this.sl = sl;
             this.giaGoc = giaGoc;
             this.tienGiam = tienGiam;
             this.thanhtien = 0.0D;
@@ -63,7 +64,7 @@ public class CthdBan implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ma_KM", nullable = false)
+	@JoinColumn(name = "ma_KM", nullable = true)
 	public KhuyenMai getKhuyenmai() {
 		return this.khuyenmai;
 	}

@@ -34,6 +34,12 @@ public class NhaSanXuat implements java.io.Serializable {
 		this.thongtin = thongtin;
 	}
 
+        public NhaSanXuat(int maNsx, String tenNsx, String thongtin) {
+            this.maNsx = maNsx;
+            this.tenNsx = tenNsx;
+            this.thongtin = thongtin;
+        }
+
 	@Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_nsx", unique = true, nullable = false)

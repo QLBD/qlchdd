@@ -11,6 +11,7 @@ import model.dao.SanPhamDAO;
 import model.dao.TimKiemDAO;
 import model.entities.NhaSanXuat;
 import model.entities.SanPham;
+import utils.Config;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
@@ -54,21 +55,29 @@ public class SanPhamController {
         callBack.hienThiDuLieuLenComBox(data,new SanPham());
     }
     
-    public void themTaiKhoan(SanPham sp, iMessageView callBack){
+    public void themSanPhamMoi(SanPham sp, iMessageView callBack){
         boolean result = SanPhamDAO.themSanPham(sp);
         
         if(result)
-            callBack.showMessageAndReloadData("Thêm Sản Phẩm Thành Công", result);
+            callBack.showMessageAndReloadData("Thêm Sản Phẩm Thành Công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Thêm Sản Phẩm Thất Bại", result);
+            callBack.showMessageAndReloadData("Thêm Sản Phẩm Thất Bại", iMessageView.FAIL);
     }
     
     public void capNhatSanPham(SanPham sp, iMessageView callBack){
         boolean result = SanPhamDAO.capNhatSanPham(sp);
         
         if(result)
-            callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thành Công", result);
+            callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thành Công", iMessageView.SUCCESS);
         else
-            callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thất Bại", result);
+            callBack.showMessageAndReloadData("Cập nhật Sản Phẩm Thất Bại", iMessageView.FAIL);
+    }
+    
+    public void timKiemCoBan(String tenSP, iModelTable callBack){
+        String tenSp = Config.convertSignedStringToUnsignedString(tenSP);
+        //List data = new TimKiemDAO(SanPham.class).ilike("tenSp", "%"+tenSp+"%").timKiem();
+        List data = new TimKiemDAO(SanPham.class).addAnd(TimKiemDAO.getIlike("tenSp", "%"+tenSp+"%"), TimKiemDAO.getEqual("tinhtrang", 1)).timKiem();
+        SanPhamModelTable modelTable = new SanPhamModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
     }
 }

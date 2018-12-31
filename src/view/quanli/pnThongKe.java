@@ -120,7 +120,7 @@ public class pnThongKe extends JPanel implements iMessageView{
     }
 
     @Override
-    public void showMessageAndReloadData(String message, boolean isLoadData) {
+    public void showMessageAndReloadData(String message, int type) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

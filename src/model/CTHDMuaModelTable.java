@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.CthdMua;
@@ -22,7 +23,11 @@ public class CTHDMuaModelTable extends AbstractTableModel{
                                 "Thành tiền"
     };
     
-      public CTHDMuaModelTable(List<CthdMua> data) {
+    public CTHDMuaModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public CTHDMuaModelTable(List<CthdMua> data) {
         this.data = data;
     }
 

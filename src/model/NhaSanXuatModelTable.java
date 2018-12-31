@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.entities.NhaSanXuat;
 import javax.swing.table.AbstractTableModel;
@@ -20,7 +21,11 @@ public class NhaSanXuatModelTable extends AbstractTableModel{
                                 "Thông tin"
     };
     
-      public NhaSanXuatModelTable(List<NhaSanXuat> data) {
+    public NhaSanXuatModelTable() {
+        this.data = new ArrayList<>();
+    }
+    
+    public NhaSanXuatModelTable(List<NhaSanXuat> data) {
         this.data = data;
     }
 

@@ -59,10 +59,6 @@ public class SanPhamDAO {
     
     public static boolean themSanPham(SanPham sp) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (SanPhamDAO.getSanPham(sp.getMaSp())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();

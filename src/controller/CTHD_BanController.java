@@ -9,6 +9,9 @@ import java.util.List;
 import model.CTHDBanModelTable;
 import model.dao.CTHD_BanDAO;
 import model.entities.CthdBan;
+import model.entities.CthdBanId;
+import view.interfaceView.iBanHangView;
+import view.interfaceView.iGuiBaoHanhView;
 import view.interfaceView.iModelTable;
 
 /**
@@ -31,5 +34,16 @@ public class CTHD_BanController {
         List<CthdBan> data = CTHD_BanDAO.getDSCTHD_Ban();
         CTHDBanModelTable modelTable = new CTHDBanModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void kiemTraThongTinMuaHang(int maHD, int maSP, iGuiBaoHanhView callBack){
+        CthdBanId id = new CthdBanId(maHD, maSP);
+        CthdBan cthdBan = CTHD_BanDAO.getCTHD_Ban(id);
+        callBack.thongTinMuaHang(cthdBan);
+    }
+    
+    public void themCTHD_BanVaoHoaDonBan(CthdBan cthdBan, iBanHangView callBack){
+        boolean result = CTHD_BanDAO.themCTHD_Ban(cthdBan);
+        callBack.capNhatSanPhamVaoHoaDon(result, cthdBan);
     }
 }

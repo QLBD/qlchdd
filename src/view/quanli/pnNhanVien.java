@@ -223,15 +223,20 @@ public class pnNhanVien extends JPanel implements iModelTable, iMessageView{
         event();
     }
 
-    @Override
-    public void showMessageAndReloadData(String message, boolean isLoadData) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        if(isLoadData)
-            loadData();
-    }
+//    @Override
+//    public void showMessageAndReloadData(String message, boolean isLoadData) {
+//        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
+//        if(isLoadData)
+//            loadData();
+//    }
 
     @Override
     public void hienThiDuLieuLenTable(TableModel tableModel) {
         tableNhanVien.setModel(tableModel);
+    }
+
+    @Override
+    public void showMessageAndReloadData(String message, int type) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

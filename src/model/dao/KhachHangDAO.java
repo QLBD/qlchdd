@@ -62,10 +62,6 @@ public class KhachHangDAO {
     
     public static boolean themKhachHang(KhachHang kh) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        if (KhachHangDAO.getKhachHang(kh.getMaKh())!=null)
-        {
-            return false;
-        }
         boolean kq = true;
         try {
             session.beginTransaction();
