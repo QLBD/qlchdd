@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -51,6 +53,8 @@ public class FrameQuanLy extends JFrame {
     private pnBaoHanhQL pnbaoHanh = new pnBaoHanhQL();
     private pnHoaDonQL pnhoaDon = new pnHoaDonQL();
     private pnThongKe pnthongKe = new pnThongKe();
+    
+    private int tabIndex;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -67,6 +71,9 @@ public class FrameQuanLy extends JFrame {
 
     public FrameQuanLy() {
         initComponent();
+        initEvent();
+        tabIndex = 1;
+        chuyenTab();
     }
 
     private void initComponent() {
@@ -169,13 +176,403 @@ public class FrameQuanLy extends JFrame {
         pnCardLayout.setLayout(new CardLayout(0, 0));
 
         pnCardLayout.add(pnnhanVien);
-        //pnCardLayout.add(pnsanPham);
-        //pnCardLayout.add(pnxuatXu);
-        //pnCardLayout.add(pnkhachHang);
-        //pnCardLayout.add(pnkhuyenMai);
-        //pnCardLayout.add(pnbaoHanh);
-        //pnCardLayout.add(pnhoaDon);
-        //pnCardLayout.add(pnthongKe);
+        pnCardLayout.add(pnsanPham);
+        pnCardLayout.add(pnxuatXu);
+        pnCardLayout.add(pnkhachHang);
+        pnCardLayout.add(pnkhuyenMai);
+        pnCardLayout.add(pnbaoHanh);
+        pnCardLayout.add(pnhoaDon);
+        pnCardLayout.add(pnthongKe);
+    }
+
+    private void initEvent() {
+        lblNhanVien.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 1;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblSanPham.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 2;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblQLXuatXu.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 3;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblKhachHang.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 4;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblKhuyenMai.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 5;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblBaoHanh.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 6;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblHoaDon.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 7;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
+        lblThongKe.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 8;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+    }
+
+    private void chuyenTab() {
+        switch(tabIndex){
+            case 1:
+                pnnhanVien.setVisible(true);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.YELLOW);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+        
+            case 2:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(true);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.YELLOW);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+        
+        case 3:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(true);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.YELLOW);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+                
+            case 4:    
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(true);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.YELLOW);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+                
+            case 5:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(true);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.YELLOW);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+                
+            case 6:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(true);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.YELLOW);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+                
+            case 7:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(true);
+                pnthongKe.setVisible(false);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.YELLOW);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+                
+            case 8:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pnthongKe.setVisible(true);
+                
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblThongKe.setForeground(Color.YELLOW);
+                break;
+        }
     }
 
 }
