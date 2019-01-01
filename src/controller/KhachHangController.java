@@ -65,4 +65,24 @@ public class KhachHangController {
         
         callBack.capNhatThongTinKhachHang(result, kh);
     }
+    
+    public void capNhatThongTinKhachHang(KhachHang kh, iMessageView callBack){
+        boolean result = KhachHangDAO.capNhatKhachHang(kh);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật thông tin khách hàng Thành Công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Cập nhật thông tin khách hàng Thất Bại", iMessageView.FAIL);
+    }
+    
+    public void timKiemDuLieuKhachHangTheoTenLenTable(String tenKh, iModelTable callBack){
+        List data = new TimKiemDAO(KhachHang.class).ilike("tenKh", "%"+tenKh+"%").timKiem();
+        
+        if(data.size() != 0){
+            KhachHangModelTable modelTable = new KhachHangModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        }
+        else
+            callBack.hienThiDuLieuLenTable(null);
+    }
 }

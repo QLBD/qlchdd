@@ -822,7 +822,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         
         if(khachHang != null){
             KhachHang kh = new KhachHang(this.khachHang.getMaKh(), this.khachHang.getTenKh(), this.khachHang.getSoCmndKh(), diaChi, sdt, email);
-            KhachHangController.getInstance().capNhatThongTinKhachHang(kh, this);
+            KhachHangController.getInstance().capNhatThongTinKhachHang(kh, (iBanHangView)this);
         }
         
     }

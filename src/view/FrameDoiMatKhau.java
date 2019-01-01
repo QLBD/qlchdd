@@ -22,7 +22,7 @@ import javax.swing.JPasswordField;
 import model.entities.TaiKhoan;
 import view.interfaceView.iMessageView;
 
-public class FrameDoiMatKhau extends JFrame implements iMessageView{
+public class FrameDoiMatKhau extends JFrame implements iMessageView {
 
     private JPanel contentPane;
     private JPasswordField pwfMatKhauCu;
@@ -32,7 +32,7 @@ public class FrameDoiMatKhau extends JFrame implements iMessageView{
     private JButton btnClose;
     private JButton btnDoiMK;
     private JButton btnHuy;
-    
+
     private TaiKhoan tk;
 
     public FrameDoiMatKhau(TaiKhoan tk) {
@@ -42,7 +42,6 @@ public class FrameDoiMatKhau extends JFrame implements iMessageView{
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 374, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -129,17 +128,10 @@ public class FrameDoiMatKhau extends JFrame implements iMessageView{
         btnDoiMK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String matKhauCu = pwfMatKhauCu.getText();
-                String matKhauMoi = pwfMatKhauMoi.getText();
-                String xacNhanMK = pwfXacNhanMK.getText();
-                
-                if(matKhauMoi.compareTo(xacNhanMK) == 0)
-                    TaiKhoanController.getInstance().thayDoiMatKhau(tk, matKhauCu, matKhauMoi, FrameDoiMatKhau.this);
-                else
-                    showMessageAndReloadData("Mật Khẩu mới và mật khẩu xác nhận không trùng khớp", iMessageView.NONE);
+                doiMatKhau();
             }
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,15 +142,26 @@ public class FrameDoiMatKhau extends JFrame implements iMessageView{
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                FrameDoiMatKhau.this.setVisible(false);
                 break;
+        }
+    }
+
+    private void doiMatKhau() {
+        String matKhauCu = pwfMatKhauCu.getText();
+        String matKhauMoi = pwfMatKhauMoi.getText();
+        String xacNhanMK = pwfXacNhanMK.getText();
+
+        if (matKhauMoi.compareTo(xacNhanMK) == 0) {
+            TaiKhoanController.getInstance().thayDoiMatKhau(tk, matKhauCu, matKhauMoi, FrameDoiMatKhau.this);
+        } else {
+            showMessageAndReloadData("Mật Khẩu mới và mật khẩu xác nhận không trùng khớp", iMessageView.NONE);
         }
     }
 
