@@ -52,6 +52,14 @@ public class NhanVienController {
             callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", iMessageView.FAIL);
     }
     
+    public void capNhatThongTinNhanVien(NhanVien nhanVien, iMessageView callBack){
+        boolean result = NhanVienDAO.capNhatNhanVien(nhanVien);
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật Nhân Viên Thành Công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Cập nhật Nhân Viên Thất Bại", iMessageView.FAIL);
+    }
+    
 //    public void xoaNhanVien(int maNv){
 //        boolean result = NhanVienDAO.xoaNhanVien(maNv);
 //        if(result)

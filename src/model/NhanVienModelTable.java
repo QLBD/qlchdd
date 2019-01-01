@@ -85,8 +85,8 @@ public class NhanVienModelTable extends AbstractTableModel{
                 return nv.getSoCmndNv();
             case 3:
                 String gioiTinh;
-                if(nv.getGioitinh()) gioiTinh = "Nam";
-                else gioiTinh = "Nữ";
+                if(nv.getGioitinh()) gioiTinh = "Nữ";
+                else gioiTinh = "Nam";
                 return gioiTinh;
             case 4:
                 String ngaysinhNv = dateFormat.format(nv.getNgaysinhNv());

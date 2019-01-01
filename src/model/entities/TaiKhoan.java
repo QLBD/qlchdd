@@ -85,4 +85,9 @@ public class TaiKhoan implements java.io.Serializable {
 	public void setNhanvien(NhanVien nhanvien) {
 		this.nhanvien = nhanvien;
 	}
+
+    @Override
+    public String toString() {
+        return tenDangNhap;
+    }
 }

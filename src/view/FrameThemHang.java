@@ -40,7 +40,6 @@ public class FrameThemHang extends JFrame implements iMessageView{
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 415, 316);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -141,6 +140,7 @@ public class FrameThemHang extends JFrame implements iMessageView{
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameThemHang.this.setVisible(false);
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_HANG});
             }
         });
     }
@@ -154,9 +154,12 @@ public class FrameThemHang extends JFrame implements iMessageView{
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                callBack.transferData(null);
-                FrameThemHang.this.setVisible(false);
+                clearData();
                 break;
         }
+    }
+
+    private void clearData() {
+        //xóa trắng thông tin màn hình
     }
 }

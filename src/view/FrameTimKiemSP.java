@@ -49,19 +49,6 @@ public class FrameTimKiemSP extends JFrame implements iModelTable{
     
     private iFrameListener callBack;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    FrameTimKiemSP frame = new FrameTimKiemSP(null);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     public FrameTimKiemSP(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
@@ -69,7 +56,6 @@ public class FrameTimKiemSP extends JFrame implements iModelTable{
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 600);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -242,7 +228,7 @@ public class FrameTimKiemSP extends JFrame implements iModelTable{
                 
                 SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
                 SanPham sp = modelTable.getSelectedRow(row);
-                callBack.transferData(new Object[] {sp});
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.TIM_KIEM_SP, sp});
             }
         });
         

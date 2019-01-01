@@ -4,6 +4,7 @@ package model.entities;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -181,7 +182,7 @@ public class NhanVien implements java.io.Serializable {
 		this.hoahongs = hoahongs;
 	}
 
-        @OneToOne(fetch = FetchType.LAZY, mappedBy = "nhanvien")
+        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false, mappedBy = "nhanvien")
         public TaiKhoan getTaikhoan() {
             return taikhoan;
         }

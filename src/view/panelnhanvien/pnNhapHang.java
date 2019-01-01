@@ -57,7 +57,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     private JTextField tfMaPhieuNhap;
     private JComboBox cbbNhaCungCap;
     private JButton btnThemNhaCungCap;
-    private JDateChooser dtpNgayNhapHang;
+    private JDateChooser dpNgayNhapHang;
     private JButton btnXacNhanNhap;
     private JButton btnHuyNhap;
     private JComboBox cbbSanPhamNhap;
@@ -162,15 +162,15 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         lblNgayNhapHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnNgayNhapHang.add(lblNgayNhapHang);
 
-        dtpNgayNhapHang = new JDateChooser();
-        dtpNgayNhapHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        dtpNgayNhapHang.setDateFormatString("dd-MM-yyyy");
-        dtpNgayNhapHang.setPreferredSize(new Dimension(260, 25));
-        dtpNgayNhapHang.setMaximumSize(new Dimension(260, 25));
-        dtpNgayNhapHang.setMinimumSize(new Dimension(260, 25));
-        JTextFieldDateEditor editor = (JTextFieldDateEditor) dtpNgayNhapHang.getDateEditor();
+        dpNgayNhapHang = new JDateChooser();
+        dpNgayNhapHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        dpNgayNhapHang.setDateFormatString("dd-MM-yyyy");
+        dpNgayNhapHang.setPreferredSize(new Dimension(260, 25));
+        dpNgayNhapHang.setMaximumSize(new Dimension(260, 25));
+        dpNgayNhapHang.setMinimumSize(new Dimension(260, 25));
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) dpNgayNhapHang.getDateEditor();
         editor.setEditable(false);
-        pnNgayNhapHang.add(dtpNgayNhapHang);
+        pnNgayNhapHang.add(dpNgayNhapHang);
 
         JPanel panel_7 = new JPanel();
         FlowLayout flowLayout_11 = (FlowLayout) panel_7.getLayout();
@@ -438,10 +438,10 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     public void transferData(Object[] data) {
         int result = (int) data[0];
         switch(result){
-            case 1:
+            case iFrameListener.TypeFrame.THEM_NHA_CUNG_CAP:
                 loadDataCbbNhaCungCap();
                 break;
-            case 2:
+            case iFrameListener.TypeFrame.THEM_SAN_PHAM:
                 loadDataCbbSanPhamNhap();
                 break;
         }
@@ -544,7 +544,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     }
     
     private void xacNhanNhapHang() {
-        Date ngayNhap = dtpNgayNhapHang.getDate();
+        Date ngayNhap = dpNgayNhapHang.getDate();
         if(ngayNhap == null) return;
         if(nhaCungCap == null) return;
         hdm = new HoaDonMua(nhaCungCap, nhanVien, ngayNhap);
@@ -575,7 +575,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         
         cbbNhaCungCap.setSelectedIndex(-1);
         cbbSanPhamNhap.setSelectedIndex(-1);
-        dtpNgayNhapHang.setDate(null);
+        dpNgayNhapHang.setDate(null);
         tfMaPhieuNhap.setText("");
         
         hienThongTinChiTietNhap("", "");

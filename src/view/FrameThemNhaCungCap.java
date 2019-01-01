@@ -164,7 +164,7 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameThemNhaCungCap.this.setVisible(false);
-                callBack.transferData(new Object[]{1});
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_NHA_CUNG_CAP});
             }
         });
     }

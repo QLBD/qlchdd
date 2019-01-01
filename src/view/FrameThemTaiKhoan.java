@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
+import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 
@@ -38,27 +39,16 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
     private JButton btnDongY;
     private JButton btnHuy;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    FrameThemTaiKhoan frame = new FrameThemTaiKhoan();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public FrameThemTaiKhoan() {
+    private iFrameListener callBack;
+    
+    public FrameThemTaiKhoan(iFrameListener callBack) {
+        this.callBack = callBack;
         initComponent();
         initData();
         initEvent();
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 431, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -168,6 +158,7 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameThemTaiKhoan.this.setVisible(false);
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_TAI_KHOAN});
             }
         });
     }
@@ -195,8 +186,12 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                FrameThemTaiKhoan.this.setVisible(false);
+                clearData();
                 break;
         }
+    }
+
+    private void clearData() {
+        //xóa trắng màn hình
     }
 }

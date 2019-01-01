@@ -885,10 +885,11 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     
     private void capGiaTien(){
         double tongTien = 0, giamGia = 0, thanhTien = 0;
-        
+        int sl;
         for(CthdBan cthdBan : modelTable.getData()){
-            tongTien += cthdBan.getGiaGoc();
-            giamGia += cthdBan.getTienGiam();
+            sl = cthdBan.getSl();
+            tongTien += cthdBan.getGiaGoc() * sl;
+            giamGia += cthdBan.getTienGiam() * sl;
             thanhTien += cthdBan.getThanhtien();
         }
         DecimalFormat format = new DecimalFormat("#,###");

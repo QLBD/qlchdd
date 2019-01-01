@@ -52,6 +52,13 @@ public class TaiKhoanController {
 //        callBack.hienThiDuLieuLenComBox(data,new TaiKhoan());
     }
     
+    public void layToanBoTaiKhoanNhanVienLenComboBox(iModelComBox callBack){
+        List list = new TimKiemDAO(PhanQuyen.class).equal("quyentruycap", "nhanvien").timKiem();
+        PhanQuyen phanquyen = (PhanQuyen) list.get(0);
+        List data = new TimKiemDAO(TaiKhoan.class).equal("phanquyen", phanquyen).timKiem();
+        callBack.hienThiDuLieuLenComBox(data,new TaiKhoan());
+    }
+    
     public void themTaiKhoan(TaiKhoan tk, iMessageView callBack){
         if(tk.getPhanquyen().getMaPhanQuyen() == 1)
             tk.setMatkhauDangNhap("C31F804A0E4A8943A7A5577A292F2321");

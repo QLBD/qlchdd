@@ -342,7 +342,7 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameThemSanPham.this.setVisible(false);
-                callBack.transferData(new Object[]{2});
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_SAN_PHAM});
             }
         });
         
