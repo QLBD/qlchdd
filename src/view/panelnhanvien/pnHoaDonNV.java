@@ -102,7 +102,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private JButton btnKiemTraKH;
     private JButton btnCapNhatThongTinKH;
     private JButton btnThanhToan;
-    
+    private JButton btnTaoHoaDonMoi;
     
     private NhanVien nhanVien;
     
@@ -114,6 +114,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     
     private double giaGoc;
     private double tienGiam;
+    
 
     public pnHoaDonNV(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
@@ -159,7 +160,6 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         JPanel pnCenterHD = new JPanel();
         add(pnCenterHD, BorderLayout.CENTER);
         pnCenterHD.setLayout(new GridLayout(1, 2, 0, 0));
-
         JPanel pnThongTinSP = new JPanel();
         pnCenterHD.add(pnThongTinSP);
         pnThongTinSP.setLayout(null);
@@ -423,6 +423,10 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         pnThongTinKH1.add(pnButtonThanhToan);
         pnButtonThanhToan.setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 5));
 
+        btnTaoHoaDonMoi = new JButton("Tạo hóa đơn mới");
+        btnTaoHoaDonMoi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButtonThanhToan.add(btnTaoHoaDonMoi);
+        
         btnThanhToan = new JButton("Thanh Toán");
         btnThanhToan.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonThanhToan.add(btnThanhToan);
@@ -496,15 +500,15 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         btnCapNhatThongTinKH = new JButton("Cập nhật thông tin");
         btnCapNhatThongTinKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonCapNhatThongTinKH.add(btnCapNhatThongTinKH);
-        
+    }
+
+    private void initData() {
         modelTable = new CTHDBanModelTable();
         tableCTHD.setModel(modelTable);
 
         spinnerNumberModel = new SpinnerNumberModel(0, 0, 0, 1);
         spinnerSoLuong.setModel(spinnerNumberModel);
-    }
-
-    private void initData() {
+        
         loadDataCbbTimHang();
         hienThiThongTinSanPhamLenManHinh("", "", "", "", "", "", "", "", "", "", null);
         giaGoc = 0;
@@ -547,14 +551,17 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             }
         });
         
+        btnTaoHoaDonMoi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                themHoaDonBan();
+            }
+        });
+        
         btnThemSPBan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(sanPham != null){
-                    if(hdb != null){
-                        themCTHDBan();
-                    }
-                }
+                themCTHDBan();
             }
         });
         
@@ -568,15 +575,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         btnKiemTraKH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!tfSoCMND.getText().isEmpty()){
-                    int cmndKH = -1;//kiểm tra điều kiện
-                    try{
-                        cmndKH = Integer.valueOf(tfSoCMND.getText());
-                    }catch(NumberFormatException ex){
-                        ex.printStackTrace();
-                    }
-                    timKiemThongTinKhachHang(cmndKH);
-                }
+                timKiemThongTinKhachHang();
             }
         });
         
@@ -597,19 +596,14 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         btnXoaSP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int row = tableCTHD.getSelectedRow();
-                if(row < 0 ) return;
-                
-                CthdBan ban = modelTable.getSelectedRow(row);
-                
-                xoaSanPhamKhoiHoaDon(row, ban);
+                xoaSanPhamKhoiHoaDon();
             }
         });
         
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                themHoaDonBan();
+                resetDanhSachSanPhamHoaDon();
             }
         });
     }
@@ -711,6 +705,12 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     
     private void themCTHDBan() {
         
+        if(sanPham == null) return;
+        if(hdb == null){
+            showMessageAndReloadData("Bạn cần tạo hóa đơn mới trước khi thêm hàng", NONE);
+            return;
+        }
+        
         int sl = (int) spinnerSoLuong.getValue();
         
         if(sl == 0 ){
@@ -749,6 +749,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             loadDataCbbTimHang();
             
             //reset màn hình thông tin sản phầm
+            hienThiThongTinSanPhamLenManHinh("", "", "", "", "", "", "", "", "", "", null);
         }
         else{
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thất Bại", iMessageView.NONE);
@@ -770,7 +771,15 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         }
     }
     
-    private void timKiemThongTinKhachHang(int cmndKH) {
+    private void timKiemThongTinKhachHang() {
+        if(tfSoCMND.getText().isEmpty()) return;
+        
+        int cmndKH = -1;//kiểm tra điều kiện
+        try{
+            cmndKH = Integer.valueOf(tfSoCMND.getText());
+        }catch(NumberFormatException ex){
+            ex.printStackTrace();
+        }
         KhachHangController.getInstance().timKhachHangTheoCMND(cmndKH, this);
     }
 
@@ -854,7 +863,11 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         HoaDonBanController.getInstance().thanhToanHoaDon(hdb,this);
     }
     
-    private void xoaSanPhamKhoiHoaDon(int row, CthdBan ban) {
+    private void xoaSanPhamKhoiHoaDon() {
+        int row = tableCTHD.getSelectedRow();
+        if(row < 0 ) return;
+                
+        CthdBan ban = modelTable.getSelectedRow(row);
         CTHD_BanController.getInstance().xoaSanPhamKhoiHoaDon(row, ban, this);
     }
 
@@ -913,5 +926,17 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     
     private void clearDataTableCTHD() {
         modelTable.clearData();
+    }
+    
+    private void resetDanhSachSanPhamHoaDon() {
+        boolean result = CTHD_BanController.getInstance().xoaTatCaSanPhamTrongHoaDon(modelTable.getData());
+        if(result){
+            clearDataTableCTHD();
+            capGiaTien();
+            showMessageAndReloadData("Xóa tất cả sản phẩm ra khỏi hóa đơn thành công", NONE);
+        }
+        else{
+            showMessageAndReloadData("Xóa tất cả sản phẩm ra khỏi hóa đơn thất bại", NONE);
+        }
     }
 }

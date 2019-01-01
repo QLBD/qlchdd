@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,8 +26,9 @@ import javax.persistence.TemporalType;
 @Table(name = "hoadonmua", catalog = "qlchdd")
 public class HoaDonMua implements java.io.Serializable {
 
-	private int sohdMua;
+	private Integer sohdMua;
 	private NhaCungCap nhacungcap;
+	private NhanVien nhanvien;
 	private Date ngayNhap;
 	private Double tongtienMua;
 	private Set<CthdMua> cthdMuas = new HashSet<CthdMua>(0);
@@ -34,27 +36,36 @@ public class HoaDonMua implements java.io.Serializable {
 	public HoaDonMua() {
 	}
 
-	public HoaDonMua(NhaCungCap nhacungcap, Date ngayNhap) {
-		this.nhacungcap = nhacungcap;
-		this.ngayNhap = ngayNhap;
-                this.tongtienMua = 0.0D;
+	public HoaDonMua(NhanVien nhanvien) {
+            this.nhanvien = nhanvien;
 	}
 
-        public HoaDonMua(int sohdMua, NhaCungCap nhacungcap, Date ngayNhap) {
+	public HoaDonMua(NhaCungCap nhacungcap, NhanVien nhanvien, Date ngayNhap) {
+            this.nhacungcap = nhacungcap;
+            this.nhanvien = nhanvien;
+            this.ngayNhap = ngayNhap;
+            this.tongtienMua = 0.0d;
+	}
+
+        public HoaDonMua(Integer sohdMua, NhaCungCap nhacungcap, NhanVien nhanvien, Date ngayNhap) {
             this.sohdMua = sohdMua;
             this.nhacungcap = nhacungcap;
+            this.nhanvien = nhanvien;
             this.ngayNhap = ngayNhap;
-            this.tongtienMua = 0.0D;
+            this.tongtienMua = 0.0d;
         }
         
+        
+        
 	@Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "sohd_Mua", unique = true, nullable = false)
-	public int getSohdMua() {
+	public Integer getSohdMua() {
 		return this.sohdMua;
 	}
 
-	public void setSohdMua(int sohdMua) {
+	public void setSohdMua(Integer sohdMua) {
 		this.sohdMua = sohdMua;
 	}
 
@@ -66,6 +77,16 @@ public class HoaDonMua implements java.io.Serializable {
 
 	public void setNhacungcap(NhaCungCap nhacungcap) {
 		this.nhacungcap = nhacungcap;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ma_NV", nullable = false)
+	public NhanVien getNhanvien() {
+		return this.nhanvien;
+	}
+
+	public void setNhanvien(NhanVien nhanvien) {
+		this.nhanvien = nhanvien;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -95,5 +116,4 @@ public class HoaDonMua implements java.io.Serializable {
 	public void setCthdMuas(Set<CthdMua> cthdMuas) {
 		this.cthdMuas = cthdMuas;
 	}
-
 }

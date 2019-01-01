@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.entities.NhaCungCap;
+import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 
 public class FrameThemNhaCungCap extends JFrame implements iMessageView{
@@ -30,14 +31,16 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
     private JButton btnClose;
     private JButton btnDongY;
     private JButton btnHuy;
+    
+    private iFrameListener callBack;
 
-    public FrameThemNhaCungCap() {
+    public FrameThemNhaCungCap(iFrameListener callBack) {
+        this.callBack = callBack;
         initComponent();
         initEvent();
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 470, 368);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -161,6 +164,7 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameThemNhaCungCap.this.setVisible(false);
+                callBack.transferData(new Object[]{1});
             }
         });
     }
@@ -174,9 +178,15 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                FrameThemNhaCungCap.this.setVisible(false);
+                clearData();
                 break;
         }
+    }
+
+    private void clearData() {
+        tfTenNCC.setText("");
+        tfSoDT.setText("");
+        tfDiaChi.setText("");
     }
 
 }

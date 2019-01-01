@@ -80,14 +80,14 @@ public class CthdMua implements java.io.Serializable {
 
         @Column(name = "dongia_SP", nullable = false, precision = 22, scale = 0)
 	public double getDongiaSp() {
-		return this.dongiaSp;
+            return this.dongiaSp;
 	}
 
 	public void setDongiaSp(Double dongiaSp) {
 		this.dongiaSp = dongiaSp;
 	}
         
-	@Column(name = "thanhtien", precision = 22, scale = 0)
+	@Column(name = "thanhtien", precision = 22, scale = 0, columnDefinition = "double default 0")
 	public Double getThanhtien() {
 		return this.thanhtien;
 	}

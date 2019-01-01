@@ -63,4 +63,17 @@ public class CTHD_BanController {
         boolean result = CTHD_BanDAO.xoaCTHD_Ban(ban.getId());
         callBack.xoaSanPhamRaKhoiHoaDon(result, row);
     }
+    
+    public boolean xoaTatCaSanPhamTrongHoaDon(List<CthdBan> cthdBans){
+        boolean result = true;
+        CthdBanId id;
+        for(CthdBan cthdBan : cthdBans){
+            id = cthdBan.getId();
+            result = result & CTHD_BanDAO.xoaCTHD_Ban(id);
+            if(!result){
+                break;
+            }
+        }
+        return result;
+    }
 }

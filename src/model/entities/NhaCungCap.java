@@ -100,4 +100,8 @@ public class NhaCungCap implements java.io.Serializable {
 		this.hoadonmuas = hoadonmuas;
 	}
 
+    @Override
+    public String toString() {
+        return tenNcc;
+    }
 }

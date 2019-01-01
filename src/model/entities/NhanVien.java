@@ -38,6 +38,7 @@ public class NhanVien implements java.io.Serializable {
         private TaiKhoan taikhoan;
         private Set<BaoHanh> baohanhsForNhanvienTra = new HashSet<BaoHanh>(0);
 	private Set<BaoHanh> baohanhsForNhanvienNhan = new HashSet<BaoHanh>(0);
+        private Set<HoaDonMua> hoadonmuas = new HashSet<HoaDonMua>(0);
 
 	public NhanVien() {
 	}
@@ -205,6 +206,15 @@ public class NhanVien implements java.io.Serializable {
 
 	public void setBaohanhsForNhanvienNhan(Set<BaoHanh> baohanhsForNhanvienNhan) {
 		this.baohanhsForNhanvienNhan = baohanhsForNhanvienNhan;
+	}
+        
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "nhanvien")
+	public Set<HoaDonMua> getHoadonmuas() {
+		return this.hoadonmuas;
+	}
+
+	public void setHoadonmuas(Set<HoaDonMua> hoadonmuas) {
+		this.hoadonmuas = hoadonmuas;
 	}
         
         @Override

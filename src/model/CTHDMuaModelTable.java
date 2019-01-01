@@ -5,10 +5,12 @@
  */
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.entities.CthdMua;
+import model.entities.SanPham;
 
 /**
  *
@@ -67,17 +69,20 @@ public class CTHDMuaModelTable extends AbstractTableModel{
             return null;
         }
         CthdMua ctMua = data.get(rowIndex);
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
         switch (columnIndex) {
             case 0:
-                return ctMua.getId().getSohdMua();
+                if(ctMua.getHoadonmua() == null) return "null";
+                return ctMua.getHoadonmua().getSohdMua();
             case 1:
-                return  ctMua.getId().getMaSp();
+                if(ctMua.getSanpham() == null) return "null";
+                return ctMua.getSanpham().getMaSp();
             case 2:
                 return ctMua.getSl();
             case 3:
-                return ctMua.getDongiaSp();
+                return decimalFormat.format(ctMua.getDongiaSp());
             case 4:
-                return ctMua.getThanhtien();
+                return decimalFormat.format(ctMua.getThanhtien());
             default:
                 return null;
         }
@@ -112,5 +117,16 @@ public class CTHDMuaModelTable extends AbstractTableModel{
     public void clearData(){
         data.clear();
         fireTableDataChanged();
+    }
+    
+    public int isContainSanPham(SanPham sanPham){
+        int maSP = sanPham.getMaSp();
+        for(int  i = 0; i< data.size(); i++){
+            if(data.get(i).getSanpham().getMaSp() == maSP){
+                return i;
+            }
+        }
+        
+        return -1;
     }
 }

@@ -110,7 +110,7 @@ public class CthdBan implements java.io.Serializable {
             this.tienGiam = tienGiam;
         }
         
-	@Column(name = "thanhtien", precision = 22, scale = 0)
+	@Column(name = "thanhtien", precision = 22, scale = 0, columnDefinition = "double default 0")
 	public Double getThanhtien() {
 		return this.thanhtien;
 	}

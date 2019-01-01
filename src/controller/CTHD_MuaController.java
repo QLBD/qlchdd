@@ -32,4 +32,5 @@ public class CTHD_MuaController {
         CTHDMuaModelTable modelTable = new CTHDMuaModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
     }
+    
 }

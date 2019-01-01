@@ -72,6 +72,7 @@ public class CTHDBanModelTable extends AbstractTableModel{
             return null;
         }
         CthdBan ctBan = data.get(rowIndex);
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
         switch (columnIndex) {
             case 0:
                 return ctBan.getHoadonban().getSohdBan();
@@ -83,11 +84,11 @@ public class CTHDBanModelTable extends AbstractTableModel{
                 if(ctBan.getKhuyenmai() == null) return "null";
                 return ctBan.getKhuyenmai().getMaKm();
             case 4:
-                return new DecimalFormat("#,###").format(ctBan.getGiaGoc());
+                return decimalFormat.format(ctBan.getGiaGoc());
             case 5:
-                return new DecimalFormat("#,###").format(ctBan.getTienGiam());
+                return decimalFormat.format(ctBan.getTienGiam());
             case 6:
-                return new DecimalFormat("#,###").format(ctBan.getThanhtien());
+                return decimalFormat.format(ctBan.getThanhtien());
             default:
                 return null;
         }

@@ -55,6 +55,11 @@ public class SanPhamController {
         callBack.hienThiDuLieuLenComBox(data,new SanPham());
     }
     
+    public void layDuLieuTheoTinhTrangLenComBox(iModelComBox callBack, Integer tinhtrang){
+        List data = new TimKiemDAO(SanPham.class).equal("tinhtrang", tinhtrang).timKiem();
+        callBack.hienThiDuLieuLenComBox(data,new SanPham());
+    }
+    
     public void themSanPhamMoi(SanPham sp, iMessageView callBack){
         boolean result = SanPhamDAO.themSanPham(sp);
         

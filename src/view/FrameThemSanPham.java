@@ -61,36 +61,17 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
     private JButton btnLinkHinhAnh;
     private JButton btnThem;
     private JButton btnHuy;
-
     
-    /**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameThemSanPham frame = new FrameThemSanPham();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+    private iFrameListener callBack;
     
-    public FrameThemSanPham() {
+    public FrameThemSanPham(iFrameListener callBack) {
+        this.callBack = callBack;
         initComponent();
         initData();
         initEvent();
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 834, 749);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -361,6 +342,7 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameThemSanPham.this.setVisible(false);
+                callBack.transferData(new Object[]{2});
             }
         });
         
@@ -470,9 +452,21 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                FrameThemSanPham.this.setVisible(false);
+                clearData();
                 break;
         }
+    }
+
+    private void clearData() {
+        tfBaoHanh.setText("");
+        tfDonGia.setText("");
+        tfKichThuoc.setText("");
+        tfLinkHinhAnh.setText("");
+        tfMauSac.setText("");
+        tfNamSX.setText("");
+        tfTenSP.setText("");
+        tfTheNho.setText("");
+        tfXuatXu.setText("");
     }
 
 }

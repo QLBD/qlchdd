@@ -20,6 +20,7 @@ public class HoaDonMuaModelTable extends AbstractTableModel{
     private String[] columns = {"Số hóa đơn mua",
                                 "Ngày nhập",
                                 "Mã NCC",
+                                "Mã NV",
                                 "Tổng tiền mua"
     };
     
@@ -79,6 +80,8 @@ public class HoaDonMuaModelTable extends AbstractTableModel{
             case 2:
                 return hdMua.getNhacungcap().getMaNcc();
             case 3:
+                return hdMua.getNhanvien();
+            case 4:
                 return hdMua.getTongtienMua();
             default:
                 return null;

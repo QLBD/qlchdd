@@ -7,7 +7,10 @@ package controller;
 
 import java.util.List;
 import model.HoaDonMuaModelTable;
+import model.dao.CTHD_MuaDAO;
 import model.dao.HoaDonMuaDAO;
+import model.entities.CthdMua;
+import model.entities.CthdMuaId;
 import model.entities.HoaDonMua;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
@@ -34,8 +37,24 @@ public class HoaDonMuaController {
         callBack.hienThiDuLieuLenTable(modelTable);
     }
     
-    public void themHoaDonMua(HoaDonMua hdm, iMessageView callBack){
+    public void themHoaDonMua(HoaDonMua hdm, List<CthdMua> cthdms, iMessageView callBack){
         boolean result = HoaDonMuaDAO.themHoaDonMua(hdm);
+        
+        if(result){
+            int soHD = hdm.getSohdMua();
+            for(CthdMua cthdMua : cthdms){
+                cthdMua.setHoadonmua(hdm);
+                cthdMua.setId(new CthdMuaId(soHD, cthdMua.getSanpham().getMaSp()));
+                
+                result = result & CTHD_MuaDAO.themCTHDMua(cthdMua);
+                
+                if(!result){
+                    HoaDonMuaDAO.xoaHoaDonMua(soHD);
+                    break;
+                }
+            }
+            
+        }
         
         if(result)
             callBack.showMessageAndReloadData("Thêm hóa đơn mua thành công", iMessageView.SUCCESS);
