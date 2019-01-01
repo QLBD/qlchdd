@@ -21,7 +21,7 @@ import model.entities.NhaCungCap;
 import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 
-public class FrameThemNhaCungCap extends JFrame implements iMessageView{
+public class FrameThemNhaCungCap extends JFrame implements iMessageView {
 
     private JPanel contentPane;
     private JTextField tfTenNCC;
@@ -31,7 +31,7 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
     private JButton btnClose;
     private JButton btnDongY;
     private JButton btnHuy;
-    
+
     private iFrameListener callBack;
 
     public FrameThemNhaCungCap(iFrameListener callBack) {
@@ -144,22 +144,10 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
         btnDongY.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String tenNCC = tfTenNCC.getText();
-                int soDT = 0;
-                String diaChi = tfDiaChi.getText();
-                
-                try{
-                    soDT = Integer.valueOf(tfSoDT.getText());
-                }catch(NumberFormatException ex){
-                    ex.printStackTrace();
-                }
-                
-                NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDT, 1);
-                
-                NhaCungCapController.getInstance().themNhaSanXuat(ncc, FrameThemNhaCungCap.this);
+                themNhaCungCap();
             }
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -171,8 +159,8 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -189,4 +177,19 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView{
         tfDiaChi.setText("");
     }
 
+    private void themNhaCungCap() {
+        String tenNCC = tfTenNCC.getText();
+        int soDT = 0;
+        String diaChi = tfDiaChi.getText();
+
+        try {
+            soDT = Integer.valueOf(tfSoDT.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDT, 1);
+
+        NhaCungCapController.getInstance().themNhaSanXuat(ncc, FrameThemNhaCungCap.this);
+    }
 }

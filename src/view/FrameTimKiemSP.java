@@ -28,7 +28,7 @@ import model.entities.SanPham;
 import view.interfaceView.iFrameListener;
 import view.interfaceView.iModelTable;
 
-public class FrameTimKiemSP extends JFrame implements iModelTable{
+public class FrameTimKiemSP extends JFrame implements iModelTable {
 
     private JPanel contentPane;
     private JTextField tfTenSP;
@@ -46,7 +46,7 @@ public class FrameTimKiemSP extends JFrame implements iModelTable{
     private JScrollPane scrollPaneTableKetQua;
     private JButton btnHuy;
     private JButton btnDongY;
-    
+
     private iFrameListener callBack;
 
     public FrameTimKiemSP(iFrameListener callBack) {
@@ -211,33 +211,43 @@ public class FrameTimKiemSP extends JFrame implements iModelTable{
     }
 
     private void initEvent() {
-       
+
         btnTimKiemCoBan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String tenSP = tfTenSP.getText();
-                SanPhamController.getInstance().timKiemCoBan(tenSP, FrameTimKiemSP.this);
+                timKiemConBan();
             }
         });
-        
+
         btnDongY.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int row = tableKetQua.getSelectedRow();
-                if(row < 0) return;
-                
-                SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
-                SanPham sp = modelTable.getSelectedRow(row);
-                callBack.transferData(new Object[]{iFrameListener.TypeFrame.TIM_KIEM_SP, sp});
+                xacNhanSanPhamTimKiem();
             }
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrameTimKiemSP.this.setVisible(false);
             }
         });
-        
+
+    }
+
+    private void timKiemConBan() {
+        String tenSP = tfTenSP.getText();
+        SanPhamController.getInstance().timKiemCoBan(tenSP, FrameTimKiemSP.this);
+    }
+
+    private void xacNhanSanPhamTimKiem() {
+        int row = tableKetQua.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
+        SanPham sp = modelTable.getSelectedRow(row);
+        callBack.transferData(new Object[]{iFrameListener.TypeFrame.TIM_KIEM_SP, sp});
     }
 }

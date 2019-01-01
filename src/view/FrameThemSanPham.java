@@ -349,27 +349,7 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
         btnLinkHinhAnh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-         
-                jfc.setDialogTitle("Choose a directory to load your file: ");
-                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                jfc.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
-                jfc.setAcceptAllFileFilterUsed(false);
-                
-                int returnValue = jfc.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    if (jfc.getSelectedFile().isFile()) {
-                        tfLinkHinhAnh.setText(jfc.getSelectedFile().getAbsolutePath());
-                    }
-                }
-                
-                if(!tfLinkHinhAnh.getText().isEmpty()){
-                    String path = tfLinkHinhAnh.getText();
-                    Image image = Config.getImageIcon(path);
-                    ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH));
-                    lblHinhAnh.setIcon(imageIcon);
-                    lblHinhAnh.setText("");
-                }
+                moHinhAnhSanPham();
             }
         });
         
@@ -378,7 +358,6 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
             public void actionPerformed(ActionEvent e) {
                 FrameThemHang frame = new FrameThemHang(FrameThemSanPham.this);
                 frame.setVisible(true);
-                
             }
         });
     }
@@ -469,4 +448,27 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
         tfXuatXu.setText("");
     }
 
+    private void moHinhAnhSanPham() {
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+        jfc.setDialogTitle("Choose a directory to load your file: ");
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+        jfc.setAcceptAllFileFilterUsed(false);
+
+        int returnValue = jfc.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            if (jfc.getSelectedFile().isFile()) {
+                tfLinkHinhAnh.setText(jfc.getSelectedFile().getAbsolutePath());
+            }
+        }
+
+        if(!tfLinkHinhAnh.getText().isEmpty()){
+            String path = tfLinkHinhAnh.getText();
+            Image image = Config.getImageIcon(path);
+            ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH));
+            lblHinhAnh.setIcon(imageIcon);
+            lblHinhAnh.setText("");
+        }
+    }
 }

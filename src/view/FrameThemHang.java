@@ -21,7 +21,7 @@ import model.entities.NhaSanXuat;
 import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 
-public class FrameThemHang extends JFrame implements iMessageView{
+public class FrameThemHang extends JFrame implements iMessageView {
 
     private JPanel contentPane;
     private JTextField tfTenHang;
@@ -30,7 +30,7 @@ public class FrameThemHang extends JFrame implements iMessageView{
     private JButton btnClose;
     private JButton btnDongY;
     private JButton btnHuy;
-    
+
     private iFrameListener callBack;
 
     public FrameThemHang(iFrameListener callBack) {
@@ -127,15 +127,11 @@ public class FrameThemHang extends JFrame implements iMessageView{
         btnDongY.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String tenHang = tfTenHang.getText();
-                String thongTin = tfThongTinHang.getText();
-                
-                NhaSanXuat nsx = new NhaSanXuat(tenHang, thongTin);
-                
-                NhaSanXuatController.getInstance().themNhaSanXuat(nsx, FrameThemHang.this);
+                themHangSanXuat();
             }
+
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,8 +143,8 @@ public class FrameThemHang extends JFrame implements iMessageView{
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -161,5 +157,14 @@ public class FrameThemHang extends JFrame implements iMessageView{
 
     private void clearData() {
         //xóa trắng thông tin màn hình
+    }
+
+    private void themHangSanXuat() {
+        String tenHang = tfTenHang.getText();
+        String thongTin = tfThongTinHang.getText();
+
+        NhaSanXuat nsx = new NhaSanXuat(tenHang, thongTin);
+
+        NhaSanXuatController.getInstance().themNhaSanXuat(nsx, FrameThemHang.this);
     }
 }

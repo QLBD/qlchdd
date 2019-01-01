@@ -40,7 +40,7 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
     private JButton btnHuy;
 
     private iFrameListener callBack;
-    
+
     public FrameThemTaiKhoan(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
@@ -139,18 +139,7 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
         btnDongY.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cbbPhanQuyen.getSelectedIndex() != -1) {
-                    String tenDangNhap = tfTaiKhoan.getText();
-                    if (tenDangNhap.isEmpty()) {
-                        showMessageAndReloadData("Chưa nhập tên tài khoản", iMessageView.NONE);
-                        return;
-                    }
-                    PhanQuyen pq = (PhanQuyen) cbbPhanQuyen.getSelectedItem();
-                    TaiKhoan tk = new TaiKhoan(tenDangNhap, pq);
-                    TaiKhoanController.getInstance().themTaiKhoan(tk, FrameThemTaiKhoan.this);
-                } else {
-                    showMessageAndReloadData("Chưa chọn loại phân quyền", iMessageView.NONE);
-                }
+                themMoiTaiKhoan();
             }
         });
 
@@ -179,8 +168,8 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -193,5 +182,20 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
 
     private void clearData() {
         //xóa trắng màn hình
+    }
+
+    private void themMoiTaiKhoan() {
+        if (cbbPhanQuyen.getSelectedIndex() != -1) {
+            String tenDangNhap = tfTaiKhoan.getText();
+            if (tenDangNhap.isEmpty()) {
+                showMessageAndReloadData("Chưa nhập tên tài khoản", iMessageView.NONE);
+                return;
+            }
+            PhanQuyen pq = (PhanQuyen) cbbPhanQuyen.getSelectedItem();
+            TaiKhoan tk = new TaiKhoan(tenDangNhap, pq);
+            TaiKhoanController.getInstance().themTaiKhoan(tk, FrameThemTaiKhoan.this);
+        } else {
+            showMessageAndReloadData("Chưa chọn loại phân quyền", iMessageView.NONE);
+        }
     }
 }
