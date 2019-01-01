@@ -644,7 +644,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             String theNho = sanPham.getBonho();
             String kichThuoc = sanPham.getKichthuoc();
             String sl;
-            if(sanPham.getSl() == 0){
+            if(sanPham.getSl() <= 0){
                 sl = "Hết Hàng!";
             }
             else{

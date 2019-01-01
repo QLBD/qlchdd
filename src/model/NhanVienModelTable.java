@@ -21,7 +21,7 @@ public class NhanVienModelTable extends AbstractTableModel{
     private String[] columns = {"Mã NV",
                                 "Tên NV",
                                 "CMND",
-                                "GioiTinh",
+                                "Giới Tính",
                                 "Ngày Sinh",
                                 "Địa Chỉ",
                                 "Số ĐT",

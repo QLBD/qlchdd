@@ -5,8 +5,11 @@
  */
 package view.panelquanly;
 
+import controller.NhaSanXuatController;
+import controller.SanPhamController;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -14,25 +17,53 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.table.TableModel;
+import model.SanPhamModelTable;
+import model.entities.NhaSanXuat;
+import model.entities.SanPham;
+import utils.Config;
+import view.FrameThemHang;
+import view.FrameThemSanPham;
+import view.FrameTimKiemSP;
+import view.interfaceView.iFrameListener;
+import view.interfaceView.iMessageView;
+import view.interfaceView.iModelComBox;
+import view.interfaceView.iModelTable;
 
 /**
  *
  * @author RanRan
  */
-public class pnSanPham extends JPanel {
-
-    private JComboBox cbbMaSP;
+public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, iModelTable , iMessageView{
+    private JTextField tfMaSP;
     private JTextField tfTenSP;
     private JComboBox cbbHang;
     private JTextField tfXuatXu;
     private JButton btnThemHang;
     private JTextField tfMauSac;
     private JTextField tfBaoHanh;
-    private JTextField tfDonGia;
+    private JTextField tfSoLuong;
     private JTextField tfTheNho;
     private JTextField tfKichThuoc;
     private JTextField tfNamSX;
@@ -46,6 +77,8 @@ public class pnSanPham extends JPanel {
     private JButton btnLinkHinhAnh;
     private JTable tableSanPham;
 
+    private SanPham sanPham;
+    
     public pnSanPham() {
         initComponent();
         initData();
@@ -83,8 +116,11 @@ public class pnSanPham extends JPanel {
         lblMaSP.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnMaSP.add(lblMaSP);
 
-        cbbMaSP = new JComboBox();
-        pnMaSP.add(cbbMaSP);
+        tfMaSP = new JTextField();
+        tfMaSP.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        tfMaSP.setColumns(20);
+        tfMaSP.setEditable(false);
+        pnMaSP.add(tfMaSP);
 
         JPanel pnTenSP = new JPanel();
         FlowLayout flowLayout_11 = (FlowLayout) pnTenSP.getLayout();
@@ -115,6 +151,9 @@ public class pnSanPham extends JPanel {
 
         cbbHang = new JComboBox();
         cbbHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbHang.setPreferredSize(new Dimension(150, 25));
+        cbbHang.setMaximumSize(new Dimension(150, 25));
+        cbbHang.setMinimumSize(new Dimension(150, 25));
         pnHang.add(cbbHang);
 
         btnThemHang = new JButton("Thêm mới");
@@ -176,14 +215,14 @@ public class pnSanPham extends JPanel {
         flowLayout_17.setAlignment(FlowLayout.LEFT);
         panel.add(pnDonGia);
 
-        JLabel lblDonGia = new JLabel("Đơn giá:         ");
+        JLabel lblDonGia = new JLabel("Số Lượng:         ");
         lblDonGia.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnDonGia.add(lblDonGia);
 
-        tfDonGia = new JTextField();
-        tfDonGia.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        tfDonGia.setColumns(20);
-        pnDonGia.add(tfDonGia);
+        tfSoLuong = new JTextField();
+        tfSoLuong.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        tfSoLuong.setColumns(20);
+        pnDonGia.add(tfSoLuong);
 
         JPanel pnTheNho = new JPanel();
         FlowLayout flowLayout_18 = (FlowLayout) pnTheNho.getLayout();
@@ -243,6 +282,10 @@ public class pnSanPham extends JPanel {
         pnTinhTrangSP.add(lblTinhTrangSP);
 
         cbbTinhTrangSP = new JComboBox();
+        cbbTinhTrangSP.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbTinhTrangSP.setPreferredSize(new Dimension(150, 25));
+        cbbTinhTrangSP.setMaximumSize(new Dimension(150, 25));
+        cbbTinhTrangSP.setMinimumSize(new Dimension(150, 25));
         pnTinhTrangSP.add(cbbTinhTrangSP);
 
         JPanel pnGiaBanRa = new JPanel();
@@ -286,6 +329,10 @@ public class pnSanPham extends JPanel {
         lblLoadHinhAnh = new JLabel("Hình ảnh");
         lblLoadHinhAnh.setHorizontalAlignment(SwingConstants.CENTER);
         lblLoadHinhAnh.setBounds(163, 13, 312, 283);
+        // create a line border with the specified color and width
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
+        // set the border of this component
+        lblLoadHinhAnh.setBorder(border);
         pnHinhAnhSP.add(lblLoadHinhAnh);
 
         JLabel lblHinhAnh = new JLabel("Link hình ảnh:");
@@ -315,32 +362,276 @@ public class pnSanPham extends JPanel {
 
     private void initData() {
         ///set
-        tfTenSP.setText(TOOL_TIP_TEXT_KEY);
-        tfXuatXu.setText(TOOL_TIP_TEXT_KEY);
-        tfMauSac.setText(TOOL_TIP_TEXT_KEY);
-        tfBaoHanh.setText(TOOL_TIP_TEXT_KEY);
-        tfDonGia.setText(TOOL_TIP_TEXT_KEY);
-        tfTheNho.setText(TOOL_TIP_TEXT_KEY);
-        tfKichThuoc.setText(TOOL_TIP_TEXT_KEY);
-        tfNamSX.setText(TOOL_TIP_TEXT_KEY);
-        tfGiaBanRa.setText(TOOL_TIP_TEXT_KEY);
-        tfLinkHinhAnh.setText(TOOL_TIP_TEXT_KEY);
+//        tfTenSP.setText(TOOL_TIP_TEXT_KEY);
+//        tfXuatXu.setText(TOOL_TIP_TEXT_KEY);
+//        tfMauSac.setText(TOOL_TIP_TEXT_KEY);
+//        tfBaoHanh.setText(TOOL_TIP_TEXT_KEY);
+//        tfSoLuong.setText(TOOL_TIP_TEXT_KEY);
+//        tfTheNho.setText(TOOL_TIP_TEXT_KEY);
+//        tfKichThuoc.setText(TOOL_TIP_TEXT_KEY);
+//        tfNamSX.setText(TOOL_TIP_TEXT_KEY);
+//        tfGiaBanRa.setText(TOOL_TIP_TEXT_KEY);
+//        tfLinkHinhAnh.setText("");
 
         ///get
         String TenSP = tfTenSP.getText();
         String XuatXu = tfXuatXu.getText();
         String MauSac = tfMauSac.getText();
         String BaoHanh = tfBaoHanh.getText();
-        String DonGia = tfDonGia.getText();
+        String DonGia = tfSoLuong.getText();
         String TheNho = tfTheNho.getText();
         String KichThuoc = tfKichThuoc.getText();
         String NamSX = tfNamSX.getText();
         String GiaBanRa = tfGiaBanRa.getText();
         String LinkHinhAnh = tfLinkHinhAnh.getText();
 
+        loadToanBoSanPhamLenTable();
+        loadDataCbbHang();
+        loadDataCbbTinhTrang();
     }
 
     private void initEvent() {
+        btnLinkHinhAnh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                themHinhAnhSanPham();
+            }
+        });
+
+        btnThemHang.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moManHinhThemHang();
+            }
+        });
+
+        btnTimKiemSP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moManHinhTimKiemSanPham();
+            }
+        });
+
+        tableSanPham.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    tableSanPhamSelection();
+                }
+            }
+        });
         
+        btnCapNhatSP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                capNhatThongTinSanPham();
+            }
+        });
+    }
+
+    private void themHinhAnhSanPham() {
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+        jfc.setDialogTitle("Choose a directory to load your file: ");
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+        jfc.setAcceptAllFileFilterUsed(false);
+
+        int returnValue = jfc.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            if (jfc.getSelectedFile().isFile()) {
+                tfLinkHinhAnh.setText(jfc.getSelectedFile().getAbsolutePath());
+            }
+        }
+
+        if (!tfLinkHinhAnh.getText().isEmpty()) {
+            String path = tfLinkHinhAnh.getText();
+            Image image = Config.getImageIcon(path);
+            ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(300, 270, java.awt.Image.SCALE_SMOOTH));
+            lblLoadHinhAnh.setIcon(imageIcon);
+            lblLoadHinhAnh.setText("");
+        }
+    }
+
+    private void moManHinhThemHang() {
+        FrameThemHang frame = new FrameThemHang(this);
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void transferData(Object[] data) {
+        int result = (int) data[0];
+        switch (result) {
+            case iFrameListener.TypeFrame.THEM_HANG:
+                loadDataCbbHang();
+                break;
+            case iFrameListener.TypeFrame.THEM_TAI_KHOAN:
+                break;
+        }
+    }
+
+    private void loadDataCbbHang() {
+        NhaSanXuatController.getInstance().layToanBoDuLieuLenComBox(this);
+    }
+
+    @Override
+    public void hienThiDuLieuLenComBox(List data, Object object) {
+        cbbHang.removeAllItems();
+        for (Iterator it = data.iterator(); it.hasNext();) {
+            NhaSanXuat nsx = (NhaSanXuat) it.next();
+            cbbHang.addItem(nsx);
+        }
+        cbbHang.setSelectedIndex(-1);
+    }
+
+    @Override
+    public void hienThiDuLieuLenTable(TableModel tableModel) {
+        tableSanPham.setModel(tableModel);
+    }
+
+    private void loadToanBoSanPhamLenTable() {
+        SanPhamController.getInstance().layToanBoDuLieuLenTable(this);
+    }
+
+    private void moManHinhTimKiemSanPham() {
+        FrameTimKiemSP frame = new FrameTimKiemSP(this);
+        frame.setVisible(true);
+    }
+
+    private void loadDataCbbTinhTrang() {
+        cbbTinhTrangSP.addItem("Ngừng kinh doanh");
+        cbbTinhTrangSP.addItem("Đang kinh doanh");
+        cbbTinhTrangSP.setSelectedIndex(-1);
+    }
+
+    private void tableSanPhamSelection() {
+        int row = tableSanPham.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        SanPhamModelTable modelTable = (SanPhamModelTable) tableSanPham.getModel();
+        sanPham = modelTable.getSelectedRow(row);
+
+        String maSP = sanPham.getMaSp()+"";
+        String tenSP = sanPham.getTenSp();
+        String xuatXu = sanPham.getXuatxu();
+        String mauSac = sanPham.getMau();
+        String baoHanh = sanPham.getTinhtrang() + "";
+        String theNho = sanPham.getBonho();
+        String kichThuoc = sanPham.getKichthuoc();
+        String namSX = sanPham.getNamSx() + "";
+        String soLuong = sanPham.getSl() +"";
+        
+        Locale locale  = new Locale("<em>vi</em>" , "VN");
+        String pattern = "###.##";
+
+        DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(locale);
+        decimalFormat.applyPattern(pattern);
+
+        String giaBanRa = decimalFormat.format(sanPham.getGiaBanRa());
+        
+        int tinhTrang = sanPham.getTinhtrang();
+        
+        NhaSanXuat nsx = sanPham.getNhasanxuat();
+
+        if (sanPham.getAnh() != null) {
+            Image image = Config.convertArrayByteToImageIcon(sanPham.getAnh());
+            ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(300, 270, java.awt.Image.SCALE_SMOOTH));
+            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, imageIcon);
+        }
+        else {
+            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, null);
+        }
+    }
+
+    private void hienThiThongTinSanPhamLenManHinh(String maSP, String tenSP, String xuatXu, String mauSac, String baoHanh, 
+            String theNho, String kichThuoc, String namSX, String soLuong, String giaBanRa, int tinhTrang, NhaSanXuat nsx, 
+            ImageIcon imageIcon) {
+        
+        tfMaSP.setText(maSP);
+        tfTenSP.setText(tenSP);
+        tfXuatXu.setText(xuatXu);
+        tfMauSac.setText(mauSac);
+        tfBaoHanh.setText(baoHanh);
+        tfSoLuong.setText(soLuong);
+        tfTheNho.setText(theNho);
+        tfKichThuoc.setText(kichThuoc);
+        tfNamSX.setText(namSX);
+        tfGiaBanRa.setText(giaBanRa);
+        
+        cbbTinhTrangSP.setSelectedIndex(tinhTrang);
+        cbbHang.getModel().setSelectedItem(nsx);
+        
+        tfLinkHinhAnh.setText("");
+        
+        lblLoadHinhAnh.setText("");
+        lblLoadHinhAnh.setIcon(imageIcon);
+    }
+    
+    private void capNhatThongTinSanPham() {
+        if(sanPham == null) return;
+        
+        String tenSP = tfTenSP.getText();
+        String xuatXu = tfXuatXu.getText();
+        String mauSac = tfMauSac.getText();
+        String theNho = tfTheNho.getText();
+        String kichThuoc = tfKichThuoc.getText();
+        
+        int namSX = -1;
+        int baoHanh = -1;
+        int soLuong = -1;
+        double giaBanRa = -1;
+        
+        byte[] anh = null;
+        
+        try {
+            namSX = Integer.valueOf(tfNamSX.getText());
+            baoHanh = Integer.valueOf(tfBaoHanh.getText());
+            giaBanRa = Double.valueOf(tfGiaBanRa.getText());
+            soLuong = Integer.valueOf(tfSoLuong.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+        
+        if (lblLoadHinhAnh.getIcon() != null) {
+            ImageIcon imageIcon = (ImageIcon) lblLoadHinhAnh.getIcon();
+            Image image = imageIcon.getImage();
+            anh = Config.convertImageIconToArrayByte(image, "png");
+        }
+        
+        NhaSanXuat nsx = (NhaSanXuat) cbbHang.getSelectedItem();
+        
+        int tinhTrang = cbbTinhTrangSP.getSelectedIndex();
+        
+        sanPham.setTenSp(tenSP);
+        sanPham.setTinhtrang(baoHanh);
+        sanPham.setThoigianBh(baoHanh);
+        sanPham.setXuatxu(xuatXu);
+        sanPham.setNamSx(namSX);
+        sanPham.setBonho(theNho);
+        sanPham.setMau(mauSac);
+        sanPham.setKichthuoc(kichThuoc);
+        sanPham.setAnh(anh);
+        sanPham.setTinhtrang(tinhTrang);
+        sanPham.setGiaBanRa(giaBanRa);
+        sanPham.setNhasanxuat(nsx);
+        sanPham.setSl(soLuong);
+        
+        SanPhamController.getInstance().capNhatSanPham(sanPham, this);
+    }
+
+    @Override
+    public void showMessageAndReloadData(String message, int type) {
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
+            case iMessageView.NONE:
+                break;
+            case iMessageView.FAIL:
+                break;
+            case iMessageView.SUCCESS:
+                loadToanBoSanPhamLenTable();
+                break;
+        }
     }
 }
