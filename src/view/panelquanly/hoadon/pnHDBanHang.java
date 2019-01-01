@@ -44,6 +44,7 @@ public class pnHDBanHang extends JPanel {
     private JTable tableCTHDBanHang;
     public pnHDBanHang(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -278,6 +279,33 @@ public class pnHDBanHang extends JPanel {
 		
 		tableCTHDBanHang = new JTable();
 		scrollPaneCTHDBanHang.setViewportView(tableCTHDBanHang);
+    }
+
+    private void initData() {
+        ///set
+        tfNgayBan.setText(TOOL_TIP_TEXT_KEY);
+        tfNVBan.setText(TOOL_TIP_TEXT_KEY);
+        tfKH.setText(TOOL_TIP_TEXT_KEY);
+        tfTongTienBan.setText(TOOL_TIP_TEXT_KEY);
+        tfSPBan.setText(TOOL_TIP_TEXT_KEY);
+        tfSLBan.setText(TOOL_TIP_TEXT_KEY);
+        tfKMBan.setText(TOOL_TIP_TEXT_KEY);
+        tfGiaGocSPBan.setText(TOOL_TIP_TEXT_KEY);
+        tfTienGiamSPBan.setText(TOOL_TIP_TEXT_KEY);
+        tfThanhTienSPBan.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String NgayBan = tfNgayBan.getText();
+        String NVBan = tfNVBan.getText();
+        String KH = tfKH.getText();
+        String TongTienBan = tfTongTienBan.getText();
+        String SPBan = tfSPBan.getText();
+        String SLBan = tfSLBan.getText();
+        String KMBan = tfKMBan.getText();
+        String GiaGocSPBan = tfGiaGocSPBan.getText();
+        String TienGiamSPBan = tfTienGiamSPBan.getText();
+        String ThanhTienSPBan = tfThanhTienSPBan.getText();
+        
     }
     
 }

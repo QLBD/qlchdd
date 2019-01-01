@@ -49,6 +49,7 @@ public class pnKhuyenMai extends JPanel{
     private JTable tableCTKM;
     public pnKhuyenMai(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -310,5 +311,20 @@ public class pnKhuyenMai extends JPanel{
 		
 		tableCTKM = new JTable();
 		scrollPaneTableCTKM.setViewportView(tableCTKM);
+    }
+
+    private void initData() {
+        ///set
+        tfTenKM.setText(TOOL_TIP_TEXT_KEY);
+        tfHeSoKM.setText(TOOL_TIP_TEXT_KEY);
+        tfNgayBDKM.setText(TOOL_TIP_TEXT_KEY);
+        tfNgayKTKM.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String TenKM = tfTenKM.getText();
+        String HeSoKM = tfHeSoKM.getText();
+        String NgayBDKM = tfNgayBDKM.getText();
+        String NgayKTKM = tfNgayKTKM.getText();
+        
     }
 }

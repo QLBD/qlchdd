@@ -37,6 +37,7 @@ public class pnKhachHang extends JPanel{
     private JTable tableKH;
     public pnKhachHang(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -199,6 +200,25 @@ public class pnKhachHang extends JPanel{
 		
 		tableKH = new JTable();
 		scrollPaneTableKH.setViewportView(tableKH);
+    }
+
+    private void initData() {
+        ///set
+        tfTenKH.setText(TOOL_TIP_TEXT_KEY);
+        tfNgaySinhKH.setText(TOOL_TIP_TEXT_KEY);
+        tfSoCMNDKH.setText(TOOL_TIP_TEXT_KEY);
+        tfDiaChiKH.setText(TOOL_TIP_TEXT_KEY);
+        tfSoDTKH.setText(TOOL_TIP_TEXT_KEY);
+        tfEmailKH.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String TenKH = tfTenKH.getText();
+        String NgaySinhKH = tfNgaySinhKH.getText();
+        String SoCMNDKH = tfSoCMNDKH.getText();
+        String DiaChiKH = tfDiaChiKH.getText();
+        String SoDTKH = tfSoDTKH.getText();
+        String EmailKH = tfEmailKH.getText();
+        
     }
     
 }
