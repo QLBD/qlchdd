@@ -42,6 +42,7 @@ public class pnHDNhapHang extends JPanel {
     private JTable tableCTHDNhap;
     public pnHDNhapHang(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -241,6 +242,29 @@ public class pnHDNhapHang extends JPanel {
 		
 		tableCTHDNhap = new JTable();
 		scrollPaneCTHDNhap.setViewportView(tableCTHDNhap);
+    }
+
+    private void initData() {
+        ///set
+        tfNgayNhap.setText(TOOL_TIP_TEXT_KEY);
+        tfNVNhap.setText(TOOL_TIP_TEXT_KEY);
+        tfNCC.setText(TOOL_TIP_TEXT_KEY);
+        tfTongTienNhap.setText(TOOL_TIP_TEXT_KEY);
+        tfSanPham.setText(TOOL_TIP_TEXT_KEY);
+        tfSoLuong.setText(TOOL_TIP_TEXT_KEY);
+        tfDonGiaNhap.setText(TOOL_TIP_TEXT_KEY);
+        tfThanhTienNhap.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String NgayNhap = tfNgayNhap.getText();
+        String NVNhap = tfNVNhap.getText();
+        String NCC = tfNCC.getText();
+        String TongTienNhap = tfTongTienNhap.getText();
+        String SanPham = tfSanPham.getText();
+        String SoLuong = tfSoLuong.getText();
+        String DonGiaNhap = tfDonGiaNhap.getText();
+        String ThanhTienNhap = tfThanhTienNhap.getText();
+        
     }
     
 }

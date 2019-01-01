@@ -47,6 +47,7 @@ public class pnSanPham extends JPanel{
     private JTable tableSanPham;
     public pnSanPham(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -308,5 +309,32 @@ public class pnSanPham extends JPanel{
 		
 		tableSanPham = new JTable();
 		scrollPaneTableSanPham.setViewportView(tableSanPham);
+    }
+
+    private void initData() {
+        ///set
+        tfTenSP.setText(TOOL_TIP_TEXT_KEY);
+        tfXuatXu.setText(TOOL_TIP_TEXT_KEY);
+        tfMauSac.setText(TOOL_TIP_TEXT_KEY);
+        tfBaoHanh.setText(TOOL_TIP_TEXT_KEY);
+        tfDonGia.setText(TOOL_TIP_TEXT_KEY);
+        tfTheNho.setText(TOOL_TIP_TEXT_KEY);
+        tfKichThuoc.setText(TOOL_TIP_TEXT_KEY);
+        tfNamSX.setText(TOOL_TIP_TEXT_KEY);
+        tfGiaBanRa.setText(TOOL_TIP_TEXT_KEY);
+        tfLinkHinhAnh.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String TenSP = tfTenSP.getText();
+        String XuatXu = tfXuatXu.getText();
+        String MauSac = tfMauSac.getText();
+        String BaoHanh = tfBaoHanh.getText();
+        String DonGia = tfDonGia.getText();
+        String TheNho = tfTheNho.getText();
+        String KichThuoc = tfKichThuoc.getText();
+        String NamSX = tfNamSX.getText();
+        String GiaBanRa = tfGiaBanRa.getText();
+        String LinkHinhAnh = tfLinkHinhAnh.getText();
+        
     }
 }

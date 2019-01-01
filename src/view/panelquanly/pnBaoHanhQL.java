@@ -42,6 +42,7 @@ public class pnBaoHanhQL extends JPanel{
     private JTable tableBH;
     public pnBaoHanhQL(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -256,6 +257,27 @@ public class pnBaoHanhQL extends JPanel{
 		
 		tableBH = new JTable();
 		scrollPaneTableBH.setViewportView(tableBH);
+    }
+
+    private void initData() {
+        ///set
+        tfSoHD_BH.setText(TOOL_TIP_TEXT_KEY);
+        tfTenSP_BH.setText(TOOL_TIP_TEXT_KEY);
+        tfSerial.setText(TOOL_TIP_TEXT_KEY);
+        tfNVNhanBH.setText(TOOL_TIP_TEXT_KEY);
+        tfNgayNhanBH.setText(TOOL_TIP_TEXT_KEY);
+        tfNgayTraBH.setText(TOOL_TIP_TEXT_KEY);
+        tfNVTraBH.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String SoHD_BH = tfSoHD_BH.getText();
+        String TenSP_BH = tfTenSP_BH.getText();
+        String Serial = tfSerial.getText();
+        String NVNhanBH = tfNVNhanBH.getText();
+        String NgayNhanBH = tfNgayNhanBH.getText();
+        String NgayTraBH = tfNgayTraBH.getText();
+        String NVTraBH = tfNVTraBH.getText();
+        
     }
     
 }

@@ -45,6 +45,7 @@ public class pnXuatXu extends JPanel{
     private JTable tableNSX;
     public pnXuatXu(){
         initComponent();
+        initData();
     }
 
     private void initComponent() {
@@ -260,6 +261,23 @@ public class pnXuatXu extends JPanel{
 		
 		tableNSX = new JTable();
 		scrollPaneTableNSX.setViewportView(tableNSX);
+    }
+    
+    private void initData() {
+        ///set
+        tfTenNCC.setText(TOOL_TIP_TEXT_KEY);
+        tfDiaChiNCC.setText(TOOL_TIP_TEXT_KEY);
+        tfSoDTNCC.setText(TOOL_TIP_TEXT_KEY);
+        tfTenNSX.setText(TOOL_TIP_TEXT_KEY);
+        tfThongTinNSX.setText(TOOL_TIP_TEXT_KEY);
+        
+        ///get
+        String TenNCC = tfTenNCC.getText();
+        String DiaChiNCC = tfDiaChiNCC.getText();
+        String SoDTNC = tfSoDTNCC.getText();
+        String TenNSX = this.tfTenNSX.getText();
+        String ThongTinNSX = tfThongTinNSX.getText();
+        
     }
     
 }
