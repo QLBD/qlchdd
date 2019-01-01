@@ -21,9 +21,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -31,6 +34,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
@@ -49,7 +54,7 @@ import view.interfaceView.iModelTable;
  *
  * @author RanRan
  */
-public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFrameListener, iMessageView{
+public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFrameListener, iMessageView {
 
     private JTextField tfMaNV;
     private JButton btnThemNV;
@@ -69,7 +74,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     private JScrollPane scrollPaneTableNV;
     private JTable tableNhanVien;
     private JButton btnCapNhat;
-    
+
     private ButtonGroup buttonGroup;
     private NhanVien nhanVien;
 
@@ -346,21 +351,21 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         buttonGroup = new ButtonGroup();
         buttonGroup.add(rdbtnNu);
         buttonGroup.add(rdbtnNam);
-        
+
         loadToanBoNhanVienLenTable();
         loadDataCbbTinhTrang();
         loadDataCbbTaiKhoan();
     }
-    
+
     private void loadDataCbbTinhTrang() {
-        cbbTinhTrang.removeAllItems();
         cbbTinhTrang.addItem("Đã nghĩ việc");
         cbbTinhTrang.addItem("Đang làm");
         cbbTinhTrang.setSelectedIndex(-1);
     }
-    
+
     @Override
     public void hienThiDuLieuLenTable(TableModel tableModel) {
+        if(tableModel==null) return;
         tableNhanVien.setModel(tableModel);
     }
 
@@ -370,73 +375,103 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     private void initEvent() {
         tableNhanVien.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    if (!e.getValueIsAdjusting()) {
-                        tableNhanVienSelection();
-                    }
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    tableNhanVienSelection();
                 }
+            }
         });
-        
+
         btnThemNV.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moManHinhThemNhanVien();
             }
         });
-        
+
         btnThemTaiKhoan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moManHinhThemTaiKhoan();
             }
         });
-        
+
         btnCapNhat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 capNhatThongTinNhanVien();
             }
         });
+
+        btnTimKiem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timKiemNhanVienTheoTen();
+            }
+        });
+        
+        tfTenNV.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                
+            }
+        });
     }
-    
+
     private void tableNhanVienSelection() {
         int row = tableNhanVien.getSelectedRow();
-        if(row < 0) return;
-        
+        if (row < 0) {
+            return;
+        }
+
         NhanVienModelTable modelTable = (NhanVienModelTable) tableNhanVien.getModel();
         nhanVien = modelTable.getSelectedRow(row);
-        
-        String maNV = nhanVien.getMaNv()+"";
+
+        String maNV = nhanVien.getMaNv() + "";
         String tenNV = nhanVien.getTenNv();
-        String cmnd = nhanVien.getSoCmndNv()+"";
+        String cmnd = nhanVien.getSoCmndNv() + "";
         int gioiTinh;
-        if(nhanVien.getGioitinh() == Const.GioiTinh.NAM){
+        if (nhanVien.getGioitinh() == Const.GioiTinh.NAM) {
             gioiTinh = 0;
-        }
-        else{
+        } else {
             gioiTinh = 1;
         }
-        
+
         Date ngaySinh = nhanVien.getNgaysinhNv();
         Date ngayVL = nhanVien.getNgayVaoLam();
-        
-        String luongCB = nhanVien.getLuongCb() +"";
-        
+
+        Locale locale = new Locale("<em>vi</em>", "VN");
+        String pattern = "###.##";
+
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        decimalFormat.applyPattern(pattern);
+        String luongCB = decimalFormat.format(nhanVien.getLuongCb());
+
         TaiKhoan taiKhoan = nhanVien.getTaikhoan();
-        
+
         String sdt = nhanVien.getSoDtNv() + "";
-        
+
         int tinhTrang = nhanVien.getTinhTrang();
-        
-        String diaChi =  nhanVien.getDiachiNv();
-        
-        hienThiThongTinNhanVien(maNV,tenNV,cmnd,gioiTinh,ngaySinh,diaChi,sdt,ngayVL,luongCB, tinhTrang, taiKhoan);
+
+        String diaChi = nhanVien.getDiachiNv();
+
+        hienThiThongTinNhanVien(maNV, tenNV, cmnd, gioiTinh, ngaySinh, diaChi, sdt, ngayVL, luongCB, tinhTrang, taiKhoan);
     }
 
     private void hienThiThongTinNhanVien(String maNV, String tenNV, String cmnd, int gioiTinh, Date ngaySinh,
             String diaChi, String sdt, Date ngayVL, String luongCB, int tinhTrang, TaiKhoan taiKhoan) {
-        
+
         tfMaNV.setText(maNV);
         tfTenNV.setText(tenNV);
         tfDiaChi.setText(diaChi);
@@ -446,18 +481,16 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         dpNgaySinh.setDate(ngaySinh);
         dpNgayVaoLam.setDate(ngayVL);
         cbbTinhTrang.setSelectedIndex(tinhTrang);
-        
-        if(gioiTinh == 0){
+
+        if (gioiTinh == 0) {
             rdbtnNam.setSelected(true);
-        }
-        else{
+        } else {
             rdbtnNu.setSelected(true);
         }
-        
-        if(taiKhoan != null){
+
+        if (taiKhoan != null) {
             cbbTaiKhoan.getModel().setSelectedItem(taiKhoan);
-        }
-        else{
+        } else {
             cbbTaiKhoan.setSelectedIndex(-1);
         }
     }
@@ -468,6 +501,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
+        if(data.isEmpty()) return;
         cbbTaiKhoan.removeAllItems();
         for (Iterator it = data.iterator(); it.hasNext();) {
             TaiKhoan tk = (TaiKhoan) it.next();
@@ -479,7 +513,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     @Override
     public void transferData(Object[] data) {
         int result = (int) data[0];
-        switch(result){
+        switch (result) {
             case iFrameListener.TypeFrame.THEM_NHAN_VIEN:
                 loadToanBoNhanVienLenTable();
                 break;
@@ -488,63 +522,51 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
                 break;
         }
     }
-    
+
     private void moManHinhThemNhanVien() {
         FrameThemNhanVien frame = new FrameThemNhanVien(this);
         frame.setVisible(true);
     }
-    
+
     private void moManHinhThemTaiKhoan() {
         FrameThemTaiKhoan frame = new FrameThemTaiKhoan(this);
         frame.setVisible(true);
     }
+
     private void capNhatThongTinNhanVien() {
-        if(nhanVien == null) return;
+        if (nhanVien == null) {
+            return;
+        }
         String tenNV = tfTenNV.getText();
         String diaChi = tfDiaChi.getText();
-        
+
         Date ngaySinh = dpNgaySinh.getDate();
         Date ngayVL = dpNgayVaoLam.getDate();
-        
+
         double luongCB = -1;
         int cmnd = -1;
         int sdt = -1;
-        
-        try{
+
+        try {
             cmnd = Integer.valueOf(tfSoCMND.getText());
             luongCB = Double.valueOf(tfLuongCoBan.getText());
             sdt = Integer.valueOf(tfSoDT.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
+
         boolean gt;
-        if(rdbtnNam.isSelected()){
+        if (rdbtnNam.isSelected()) {
             gt = Const.GioiTinh.NAM;
-        }
-        else{
+        } else {
             gt = Const.GioiTinh.NU;
         }
-        
+
         int tinhTrang = cbbTinhTrang.getSelectedIndex();
-        if(tinhTrang < 0) return;//xuất thông báo
-        
-        
-        if(cbbTaiKhoan.getSelectedItem() != null){
-            TaiKhoan taiKhoan = (TaiKhoan) cbbTaiKhoan.getSelectedItem();
-            System.out.println(taiKhoan);
-            NhanVien nv = taiKhoan.getNhanvien();
-            if(nv != null && nv != nhanVien){
-                showMessageAndReloadData("Tài này hiện đã có nhân viên sử dụng", NONE);
-                return;
-            }
-            nhanVien.setTaikhoan(taiKhoan);
+        if (tinhTrang < 0) {
+            return;//xuất thông báo
         }
-        else{
-            showMessageAndReloadData("Chưa chọn tài khoản đăng nhập", iMessageView.NONE);
-            return;
-        }
-        
+
         nhanVien.setTenNv(tenNV);
         nhanVien.setDiachiNv(diaChi);
         nhanVien.setSoCmndNv(cmnd);
@@ -554,14 +576,14 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         nhanVien.setGioitinh(gt);
         nhanVien.setLuongCb(luongCB);
         nhanVien.setTinhTrang(tinhTrang);
-        
+
         NhanVienController.getInstance().capNhatThongTinNhanVien(nhanVien, this);
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -576,6 +598,11 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     private void clearData() {
         //xóa trắng màn hình thông tin
     }
-    
-    
+
+    private void timKiemNhanVienTheoTen() {
+        String tenNv = tfTenNV.getText();
+        if(tenNv.isEmpty()) return;
+        
+        NhanVienController.getInstance().timKiemDuLieuNhanVienTheoTenLenTable(tenNv, this);
+    }
 }

@@ -41,7 +41,7 @@ import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 
-public class FrameThemSanPham extends JFrame implements iMessageView, iModelComBox, iFrameListener{
+public class FrameThemSanPham extends JFrame implements iMessageView, iModelComBox, iFrameListener {
 
     private JPanel contentPane;
     private JTextField tfTenSP;
@@ -61,9 +61,9 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
     private JButton btnLinkHinhAnh;
     private JButton btnThem;
     private JButton btnHuy;
-    
+
     private iFrameListener callBack;
-    
+
     public FrameThemSanPham(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
@@ -330,14 +330,14 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
     }
 
     private void initEvent() {
-        
+
         btnThem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 themSanPhamMoi();
             }
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -345,19 +345,18 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
                 callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_SAN_PHAM});
             }
         });
-        
+
         btnLinkHinhAnh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moHinhAnhSanPham();
+                themHinhAnhSanPham();
             }
         });
-        
+
         btnThemHang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FrameThemHang frame = new FrameThemHang(FrameThemSanPham.this);
-                frame.setVisible(true);
+                moManHinhThemHang();
             }
         });
     }
@@ -365,10 +364,10 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
         cbbHang.removeAllItems();
-            for (Iterator it = data.iterator(); it.hasNext();) {
-                NhaSanXuat nsx = (NhaSanXuat) it.next();
-                cbbHang.addItem(nsx);
-            }
+        for (Iterator it = data.iterator(); it.hasNext();) {
+            NhaSanXuat nsx = (NhaSanXuat) it.next();
+            cbbHang.addItem(nsx);
+        }
         cbbHang.setSelectedIndex(-1);
     }
 
@@ -384,48 +383,47 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
     private void loadCBBHang() {
         NhaSanXuatController.getInstance().layToanBoDuLieuLenComBox(this);
     }
-    
-    private void themSanPhamMoi(){
+
+    private void themSanPhamMoi() {
         String tenSP = tfTenSP.getText();
         String xuatXu = tfXuatXu.getText();
         String boNho = tfTheNho.getText();
         String mauSac = tfMauSac.getText();
         String kichThuoc = tfKichThuoc.getText();
-        int namSX = 0;
-        int baoHanh = 0;
+        int namSX = -1;
+        int baoHanh = -1;
         //double donGia = 0;
 
         byte[] anh = null;
-        
-        if(lblHinhAnh.getIcon() != null){
+
+        if (lblHinhAnh.getIcon() != null) {
             ImageIcon imageIcon = (ImageIcon) lblHinhAnh.getIcon();
             Image image = imageIcon.getImage();
-            anh = Config.convertImageIconToArrayByte(image,"png");
+            anh = Config.convertImageIconToArrayByte(image, "png");
         }
-        
-        try{
+
+        try {
             namSX = Integer.valueOf(tfNamSX.getText());
             baoHanh = Integer.valueOf(tfBaoHanh.getText());
             //donGia = Double.valueOf(tfDonGia.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
+
         //kiem tra dieu kien
-        
-        if(cbbHang.getSelectedIndex() != -1){
+        if (cbbHang.getSelectedIndex() != -1) {
             NhaSanXuat nhasanxuat = (NhaSanXuat) cbbHang.getSelectedItem();
-            
+
             SanPham sp = new SanPham(tenSP, nhasanxuat, 0, namSX, 0.0D, baoHanh, xuatXu, mauSac, boNho, kichThuoc, anh, 1);
-            
+
             SanPhamController.getInstance().themSanPhamMoi(sp, this);
         }
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -448,7 +446,7 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
         tfXuatXu.setText("");
     }
 
-    private void moHinhAnhSanPham() {
+    private void themHinhAnhSanPham() {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
         jfc.setDialogTitle("Choose a directory to load your file: ");
@@ -463,12 +461,17 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
             }
         }
 
-        if(!tfLinkHinhAnh.getText().isEmpty()){
+        if (!tfLinkHinhAnh.getText().isEmpty()) {
             String path = tfLinkHinhAnh.getText();
             Image image = Config.getImageIcon(path);
             ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH));
             lblHinhAnh.setIcon(imageIcon);
             lblHinhAnh.setText("");
         }
+    }
+
+    private void moManHinhThemHang() {
+        FrameThemHang frame = new FrameThemHang(FrameThemSanPham.this);
+        frame.setVisible(true);
     }
 }

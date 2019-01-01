@@ -72,4 +72,14 @@ public class NhanVienController {
         List<NhanVien> data = NhanVienDAO.getDSNhanVien();
         callBack.hienThiDuLieuLenComBox(data,new NhanVien());
     }
+    
+    public void timKiemDuLieuNhanVienTheoTenLenTable(String tenNv, iModelTable callBack){
+        List data = new TimKiemDAO(NhanVien.class).ilike("tenNv", "%"+tenNv+"%").timKiem();
+        if(data.size() != 0){
+            NhanVienModelTable modelTable = new NhanVienModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        }
+        else
+            callBack.hienThiDuLieuLenTable(null);
+    }
 }
