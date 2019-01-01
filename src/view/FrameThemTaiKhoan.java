@@ -182,6 +182,8 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
 
     private void clearData() {
         //xóa trắng màn hình
+        tfTaiKhoan.setText("");
+        tfMatKhau.setText("");
     }
 
     private void themMoiTaiKhoan() {

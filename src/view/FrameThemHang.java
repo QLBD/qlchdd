@@ -157,6 +157,8 @@ public class FrameThemHang extends JFrame implements iMessageView {
 
     private void clearData() {
         //xóa trắng thông tin màn hình
+        tfTenHang.setText("");
+        tfThongTinHang.setText("");
     }
 
     private void themHangSanXuat() {

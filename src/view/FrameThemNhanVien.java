@@ -359,6 +359,11 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
 
     private void clearData() {
         //xóa trắng dữ liệu trên màn hình
+        tfTenNV.setText("");
+        tfSoCMND.setText("");
+        tfDiaChi.setText("");
+        tfSoDT.setText("");
+        tfLuongCoBan.setText("");
     }
 
     @Override
