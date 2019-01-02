@@ -277,7 +277,7 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
     }
 
     private void timKiemNhaSanXuatTheoTen() {
-        String tenNsx = tfMaNSX.getText();
+        String tenNsx = tfTenNSX.getText();
         NhaSanXuatController.getInstance().timKiemNhaSanXuatTheoTen(tenNsx, this);
     }
 }

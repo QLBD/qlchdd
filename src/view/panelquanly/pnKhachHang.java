@@ -349,7 +349,6 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
 
     private void timKiemKhachHangTheoTen() {
         String tenKh = tfTenKH.getText();
-        if(tenKh.isEmpty()) return;
         
         KhachHangController.getInstance().timKiemDuLieuKhachHangTheoTenLenTable(tenKh, this);
     }

@@ -62,7 +62,7 @@ public class NhaSanXuatController {
     
     public void timKiemNhaSanXuatTheoTen(String tenNsx, iModelTable callBack){
         String ten = Config.convertSignedStringToUnsignedString(tenNsx);
-        List data = new TimKiemDAO(NhaSanXuat.class).ilike("tenNcc", "%"+ten+"%").timKiem();
+        List data = new TimKiemDAO(NhaSanXuat.class).ilike("tenNsx", "%"+ten+"%").timKiem();
         
         if(!data.isEmpty()){
             NhaSanXuatModelTable modelTable = new NhaSanXuatModelTable(data);
