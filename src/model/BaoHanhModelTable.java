@@ -75,7 +75,7 @@ public class BaoHanhModelTable extends AbstractTableModel{
             return null;
         }
         BaoHanh bh = data.get(rowIndex);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         
         switch (columnIndex) {
             case 0:
