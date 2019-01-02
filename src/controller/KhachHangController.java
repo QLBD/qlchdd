@@ -10,6 +10,7 @@ import model.KhachHangModelTable;
 import model.dao.KhachHangDAO;
 import model.dao.TimKiemDAO;
 import model.entities.KhachHang;
+import utils.Config;
 import view.interfaceView.iBanHangView;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
@@ -76,9 +77,10 @@ public class KhachHangController {
     }
     
     public void timKiemDuLieuKhachHangTheoTenLenTable(String tenKh, iModelTable callBack){
-        List data = new TimKiemDAO(KhachHang.class).ilike("tenKh", "%"+tenKh+"%").timKiem();
+        String ten = Config.convertSignedStringToUnsignedString(tenKh);
+        List data = new TimKiemDAO(KhachHang.class).ilike("tenKh", "%"+ten+"%").timKiem();
         
-        if(data.size() != 0){
+        if(!data.isEmpty()){
             KhachHangModelTable modelTable = new KhachHangModelTable(data);
             callBack.hienThiDuLieuLenTable(modelTable);
         }

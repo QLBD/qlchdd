@@ -10,6 +10,7 @@ import model.NhaCungCapModelTable;
 import model.dao.NhaCungCapDAO;
 import model.dao.TimKiemDAO;
 import model.entities.NhaCungCap;
+import utils.Config;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
@@ -53,5 +54,26 @@ public class NhaCungCapController {
             callBack.showMessageAndReloadData("Thêm Nhà cung cấp mới thành công", iMessageView.SUCCESS);
         else
             callBack.showMessageAndReloadData("Thêm Nhà cung cấp mới thất bại", iMessageView.FAIL);
+    }
+    
+    public void capNhatThongTinNhaCungCap(NhaCungCap ncc, iMessageView callBack){
+        boolean result = NhaCungCapDAO.capNhatNhaCungCap(ncc);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật Nhà cung cấp thành công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Cập nhật Nhà cung cấp thất bại", iMessageView.FAIL);
+    }
+    
+    public void timKiemNhaCungCapTheoTen(String tenNcc , iModelTable callBack){
+        String ten = Config.convertSignedStringToUnsignedString(tenNcc);
+        List data = new TimKiemDAO(NhaCungCap.class).ilike("tenNcc", "%"+ten+"%").timKiem();
+        
+        if(!data.isEmpty()){
+            NhaCungCapModelTable modelTable = new NhaCungCapModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        }
+        else
+            callBack.hienThiDuLieuLenTable(null);
     }
 }

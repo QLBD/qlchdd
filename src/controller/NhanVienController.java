@@ -10,6 +10,7 @@ import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
 import model.dao.TimKiemDAO;
 import model.entities.*;
+import utils.Config;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
@@ -74,8 +75,9 @@ public class NhanVienController {
     }
     
     public void timKiemDuLieuNhanVienTheoTenLenTable(String tenNv, iModelTable callBack){
-        List data = new TimKiemDAO(NhanVien.class).ilike("tenNv", "%"+tenNv+"%").timKiem();
-        if(data.size() != 0){
+        String ten = Config.convertSignedStringToUnsignedString(tenNv);
+        List data = new TimKiemDAO(NhanVien.class).ilike("tenNv", "%"+ten+"%").timKiem();
+        if(!data.isEmpty()){
             NhanVienModelTable modelTable = new NhanVienModelTable(data);
             callBack.hienThiDuLieuLenTable(modelTable);
         }

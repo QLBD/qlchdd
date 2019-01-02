@@ -5,7 +5,6 @@
  */
 package view.panelquanly;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -26,28 +25,26 @@ import view.panelquanly.xuatxu.pnNhaSanXuat;
  *
  * @author RanRan
  */
-public class pnXuatXu extends JPanel{
-    
+public class pnXuatXu extends JPanel {
+
     private pnNhaCungCap pnnhaCungCap;
     private pnNhaSanXuat pnnhaSanXuat;
 
-
-    public pnXuatXu(){
+    public pnXuatXu() {
         pnnhaCungCap = new pnNhaCungCap();
         pnnhaSanXuat = new pnNhaSanXuat();
-        
+
         initComponent();
         initData();
     }
 
     private void initComponent() {
-                setLayout(new GridLayout(0, 2, 0, 0));
-                add(pnnhaCungCap);
-                add(pnnhaSanXuat);
-		
-		
+        setLayout(new GridLayout(0, 2, 0, 0));
+        add(pnnhaCungCap);
+        add(pnnhaSanXuat);
+
     }
-    
+
     private void initData() {
         ///set
 //        tfTenNCC.setText(TOOL_TIP_TEXT_KEY);
@@ -62,7 +59,7 @@ public class pnXuatXu extends JPanel{
 //        String SoDTNC = tfSoDTNCC.getText();
 //        String TenNSX = this.tfTenNSX.getText();
 //        String ThongTinNSX = tfThongTinNSX.getText();
-        
+
     }
-    
+
 }
