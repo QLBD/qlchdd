@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -91,7 +92,7 @@ public class SanPhamModelTable extends AbstractTableModel{
             case 4:
                 return sp.getNamSx();
             case 5:
-                return sp.getGiaBanRa();
+                return  new DecimalFormat("#,###").format(sp.getGiaBanRa());
             case 6:
                 return sp.getThoigianBh();
             case 7:

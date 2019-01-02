@@ -10,10 +10,15 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import model.KhuyenMaiModelTable;
+import model.dao.KhuyenMaiDAO;
 import model.dao.TimKiemDAO;
 import model.entities.KhuyenMai;
 import model.entities.SanPham;
+import utils.Config;
 import view.interfaceView.iBanHangView;
+import view.interfaceView.iMessageView;
+import view.interfaceView.iModelTable;
 
 /**
  *
@@ -67,5 +72,31 @@ public class KhuyenMaiController {
             }
         }
         callBack.capNhatKhuyenMaiSanPham(null);
+    }
+    
+    public void layToanBoDuLieuLenTable(iModelTable callBack){
+        List<KhuyenMai> data = KhuyenMaiDAO.getDSKhuyenMai();
+        KhuyenMaiModelTable modelTable = new KhuyenMaiModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void capNhatKhuyenMai(KhuyenMai khuyenMai, iMessageView callBack){
+        boolean result = KhuyenMaiDAO.capNhatKhuyenMai(khuyenMai);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật khuyến mãi thành công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Cập nhật khuyến mãi thất bại", iMessageView.FAIL);
+    }
+    
+    public void timKiemDuLieuKhuyenMaiTheoTenLenTable(String tenKm, iModelTable callBack){
+        String ten = Config.convertSignedStringToUnsignedString(tenKm);
+        List data = new TimKiemDAO(KhuyenMai.class).ilike("tenKm", "%"+ten+"%").timKiem();
+        if(!data.isEmpty()){
+            KhuyenMaiModelTable modelTable = new KhuyenMaiModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        }
+        else
+            callBack.hienThiDuLieuLenTable(null);
     }
 }
