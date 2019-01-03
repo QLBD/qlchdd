@@ -620,7 +620,13 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
 
     @Override
     public void transferData(Object[] data) {
-
+        int result = (int) data[0];
+        switch (result) {
+            case iFrameListener.TypeFrame.TIM_KIEM_SP:
+                SanPham sp = (SanPham) data[1];
+                hienThiThongTinSanPhamTimKiem(sp);
+                break;
+        }
     }
 
     private void moManHinhTimKiemSanPham() {
@@ -725,5 +731,17 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         String tenKm = tfTenKM.getText();
         
         KhuyenMaiController.getInstance().timKiemDuLieuKhuyenMaiTheoTenLenTable(tenKm, this);
+    }
+
+    private void hienThiThongTinSanPhamTimKiem(SanPham sp) {
+        int tinhTrang = sp.getTinhtrang();
+        if(tinhTrang == 0){
+            showMessageAndReloadData("Sản phẩm này đã ngừng kinh doanh", NONE);
+            return;
+        }
+        
+        NhaSanXuat nsx = sp.getNhasanxuat();
+        cbbTimHangSPKM.getModel().setSelectedItem(nsx);
+        cbbTimTenSPKM.getModel().setSelectedItem(sp);
     }
 }
