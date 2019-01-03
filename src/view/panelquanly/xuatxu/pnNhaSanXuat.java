@@ -36,7 +36,7 @@ import view.interfaceView.iModelTable;
  *
  * @author RanRan
  */
-public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView, iModelTable{
+public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView, iModelTable {
 
     private JTextField tfMaNSX;
     private JButton btnThemNSX;
@@ -46,13 +46,10 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
     private JButton btnCapNhatNSX;
     private JScrollPane scrollPaneTableNSX;
     private JTable tableNSX;
-<<<<<<< HEAD
     private JButton btnHuyCapNhat;
-=======
 
     private NhaSanXuat nhaSanXuat;
->>>>>>> 058367187fbe77eb80e2011f86b2ffcf8706b910
-    
+
     public pnNhaSanXuat() {
         initComponent();
         initData();
@@ -60,109 +57,6 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
     }
 
     private void initComponent() {
-
-<<<<<<< HEAD
-		setBorder(new LineBorder(new Color(0, 51, 51), 2));
-		setLayout(new BorderLayout(0, 0));
-		
-		JPanel pnTieuDeQLNSX = new JPanel();
-		add(pnTieuDeQLNSX, BorderLayout.NORTH);
-		
-		JLabel lblTieuDeQLNSX = new JLabel("QUẢN LÝ NHÀ SẢN XUẤT");
-		lblTieuDeQLNSX.setForeground(new Color(0, 51, 51));
-		lblTieuDeQLNSX.setFont(new Font("Tahoma", Font.BOLD, 25));
-		pnTieuDeQLNSX.add(lblTieuDeQLNSX);
-		
-		JPanel panel_10 = new JPanel();
-		add(panel_10);
-		panel_10.setLayout(new GridLayout(2, 0, 0, 0));
-		
-		JPanel panel_11 = new JPanel();
-		panel_10.add(panel_11);
-		panel_11.setLayout(new GridLayout(5, 0, 0, 0));
-		
-		JPanel pnMaNSX = new JPanel();
-		FlowLayout flowLayout_35 = (FlowLayout) pnMaNSX.getLayout();
-		flowLayout_35.setVgap(10);
-		flowLayout_35.setHgap(10);
-		flowLayout_35.setAlignment(FlowLayout.LEFT);
-		panel_11.add(pnMaNSX);
-		
-		JLabel lblMaNSX = new JLabel("Mã nhà sản xuất:");
-		lblMaNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnMaNSX.add(lblMaNSX);
-		
-		cbbMaNSX = new JComboBox();
-		pnMaNSX.add(cbbMaNSX);
-		
-		btnThemNSX = new JButton("Thêm mới");
-		btnThemNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnMaNSX.add(btnThemNSX);
-		
-		JPanel pnTenNSX = new JPanel();
-		FlowLayout flowLayout_36 = (FlowLayout) pnTenNSX.getLayout();
-		flowLayout_36.setVgap(10);
-		flowLayout_36.setHgap(10);
-		flowLayout_36.setAlignment(FlowLayout.LEFT);
-		panel_11.add(pnTenNSX);
-		
-		JLabel lblTenNSX = new JLabel("Tên nhà sản xuất:");
-		lblTenNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnTenNSX.add(lblTenNSX);
-		
-		tfTenNSX = new JTextField();
-		tfTenNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfTenNSX.setColumns(20);
-		pnTenNSX.add(tfTenNSX);
-		
-		JPanel pnThongTinNSX = new JPanel();
-		FlowLayout flowLayout_37 = (FlowLayout) pnThongTinNSX.getLayout();
-		flowLayout_37.setVgap(10);
-		flowLayout_37.setHgap(10);
-		flowLayout_37.setAlignment(FlowLayout.LEFT);
-		panel_11.add(pnThongTinNSX);
-		
-		JLabel lblThongTinNSX = new JLabel("Thông tin:           ");
-		lblThongTinNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnThongTinNSX.add(lblThongTinNSX);
-		
-		tfThongTinNSX = new JTextField();
-		tfThongTinNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfThongTinNSX.setColumns(20);
-		pnThongTinNSX.add(tfThongTinNSX);
-		
-		JPanel pnButtonQLNSX = new JPanel();
-		FlowLayout flowLayout_38 = (FlowLayout) pnButtonQLNSX.getLayout();
-		flowLayout_38.setVgap(10);
-		flowLayout_38.setHgap(10);
-		flowLayout_38.setAlignment(FlowLayout.RIGHT);
-		panel_11.add(pnButtonQLNSX);
-		
-		btnTimKiemNSX = new JButton("Tìm kiếm");
-		btnTimKiemNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnButtonQLNSX.add(btnTimKiemNSX);
-		
-		btnCapNhatNSX = new JButton("Cập nhật");
-		btnCapNhatNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnButtonQLNSX.add(btnCapNhatNSX);
-                
-                btnHuyCapNhat = new JButton("Hủy");
-		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnButtonQLNSX.add(btnHuyCapNhat);
-		
-		JPanel panel_7 = new JPanel();
-		panel_11.add(panel_7);
-		
-		JPanel pnTableNSX = new JPanel();
-		panel_10.add(pnTableNSX);
-		pnTableNSX.setLayout(new BorderLayout(0, 0));
-		
-		scrollPaneTableNSX = new JScrollPane();
-		pnTableNSX.add(scrollPaneTableNSX, BorderLayout.CENTER);
-		
-		tableNSX = new JTable();
-		scrollPaneTableNSX.setViewportView(tableNSX);
-=======
         setBorder(new LineBorder(new Color(0, 51, 51), 2));
         setLayout(new BorderLayout(0, 0));
 
@@ -249,6 +143,10 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
         btnCapNhatNSX = new JButton("Cập nhật");
         btnCapNhatNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLNSX.add(btnCapNhatNSX);
+
+        btnHuyCapNhat = new JButton("Hủy");
+        btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButtonQLNSX.add(btnHuyCapNhat);
 
         JPanel panel_7 = new JPanel();
         panel_11.add(panel_7);
@@ -338,15 +236,13 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
     }
 
     private void clearData() {
-
->>>>>>> 058367187fbe77eb80e2011f86b2ffcf8706b910
     }
-    
+
     private void moManHinhThemNhaSanXuat() {
         FrameThemHang frame = new FrameThemHang(this);
         frame.setVisible(true);
     }
-    
+
     private void tableNhaSanXuatSelection() {
         int row = tableNSX.getSelectedRow();
         if (row < 0) {
@@ -356,7 +252,7 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
         NhaSanXuatModelTable modelTable = (NhaSanXuatModelTable) tableNSX.getModel();
         nhaSanXuat = modelTable.getSelectedRow(row);
 
-        String maNSX = nhaSanXuat.getMaNsx()+"";
+        String maNSX = nhaSanXuat.getMaNsx() + "";
         String tenNSX = nhaSanXuat.getTenNsx();
         String thongTinNSX = nhaSanXuat.getThongtin();
 
@@ -379,7 +275,7 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
 
         nhaSanXuat.setTenNsx(tenNSX);
         nhaSanXuat.setThongtin(thongTinNSX);
-        
+
         NhaSanXuatController.getInstance().capNhatThongTinNhaSanXuat(nhaSanXuat, this);
     }
 

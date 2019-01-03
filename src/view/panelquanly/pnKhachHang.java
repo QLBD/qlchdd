@@ -45,186 +45,17 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
     private JButton btnCapNhatKH;
     private JScrollPane scrollPaneTableKH;
     private JTable tableKH;
-<<<<<<< HEAD
     private JButton btnHuyCapNhat;
-    public pnKhachHang(){
-=======
 
     private KhachHang khachHang;
 
     public pnKhachHang() {
->>>>>>> 058367187fbe77eb80e2011f86b2ffcf8706b910
         initComponent();
         initData();
         initEvent();
     }
 
     private void initComponent() {
-
-<<<<<<< HEAD
-		setLayout(new BorderLayout(0, 0));
-		
-		JPanel pnTieuDeQLKH = new JPanel();
-		add(pnTieuDeQLKH, BorderLayout.NORTH);
-		
-		JLabel lblTieuDeQLKH = new JLabel("QUẢN LÝ KHÁCH HÀNG");
-		lblTieuDeQLKH.setForeground(new Color(0, 51, 51));
-		lblTieuDeQLKH.setFont(new Font("Tahoma", Font.BOLD, 25));
-		pnTieuDeQLKH.add(lblTieuDeQLKH);
-		
-		JPanel pnChinhQLKH = new JPanel();
-		add(pnChinhQLKH, BorderLayout.CENTER);
-		pnChinhQLKH.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		JPanel panel_14 = new JPanel();
-		pnChinhQLKH.add(panel_14);
-		panel_14.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JPanel pnMaKH = new JPanel();
-		FlowLayout flowLayout_23 = (FlowLayout) pnMaKH.getLayout();
-		flowLayout_23.setVgap(10);
-		flowLayout_23.setHgap(10);
-		flowLayout_23.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnMaKH);
-		
-		JLabel lblMaKH = new JLabel("Mã khách hàng: ");
-		lblMaKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnMaKH.add(lblMaKH);
-		
-		cbbMaKH = new JComboBox();
-		pnMaKH.add(cbbMaKH);
-		
-		JPanel pnTenKH = new JPanel();
-		FlowLayout fl_pnTenKH = (FlowLayout) pnTenKH.getLayout();
-		fl_pnTenKH.setVgap(10);
-		fl_pnTenKH.setHgap(10);
-		fl_pnTenKH.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnTenKH);
-		
-		JLabel lblTenKH = new JLabel("Tên khách hàng:");
-		lblTenKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnTenKH.add(lblTenKH);
-		
-		tfTenKH = new JTextField();
-		tfTenKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfTenKH.setColumns(20);
-		pnTenKH.add(tfTenKH);
-		
-		JPanel pnNgaySinhKH = new JPanel();
-		FlowLayout flowLayout_24 = (FlowLayout) pnNgaySinhKH.getLayout();
-		flowLayout_24.setVgap(10);
-		flowLayout_24.setHgap(10);
-		flowLayout_24.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnNgaySinhKH);
-		
-		JLabel lblNgaySinhKH = new JLabel("Ngày sinh:        ");
-		lblNgaySinhKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnNgaySinhKH.add(lblNgaySinhKH);
-		
-		tfNgaySinhKH = new JTextField();
-		tfNgaySinhKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfNgaySinhKH.setColumns(20);
-		pnNgaySinhKH.add(tfNgaySinhKH);
-		
-		JPanel pnSoCMNDKH = new JPanel();
-		FlowLayout flowLayout_25 = (FlowLayout) pnSoCMNDKH.getLayout();
-		flowLayout_25.setVgap(10);
-		flowLayout_25.setHgap(10);
-		flowLayout_25.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnSoCMNDKH);
-		
-		JLabel lblSoCMNDKH = new JLabel("Số CMND:         ");
-		lblSoCMNDKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnSoCMNDKH.add(lblSoCMNDKH);
-		
-		tfSoCMNDKH = new JTextField();
-		tfSoCMNDKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfSoCMNDKH.setColumns(20);
-		pnSoCMNDKH.add(tfSoCMNDKH);
-		
-		JPanel pnDiaChiKH = new JPanel();
-		FlowLayout flowLayout_26 = (FlowLayout) pnDiaChiKH.getLayout();
-		flowLayout_26.setVgap(10);
-		flowLayout_26.setHgap(10);
-		flowLayout_26.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnDiaChiKH);
-		
-		JLabel lblDiaChiKH = new JLabel("Địa chỉ:             ");
-		lblDiaChiKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnDiaChiKH.add(lblDiaChiKH);
-		
-		tfDiaChiKH = new JTextField();
-		tfDiaChiKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfDiaChiKH.setColumns(20);
-		pnDiaChiKH.add(tfDiaChiKH);
-		
-		JPanel pnSoDTKH = new JPanel();
-		FlowLayout flowLayout_27 = (FlowLayout) pnSoDTKH.getLayout();
-		flowLayout_27.setVgap(10);
-		flowLayout_27.setHgap(10);
-		flowLayout_27.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnSoDTKH);
-		
-		JLabel lblSoDTKH = new JLabel("Số điện thoại:     ");
-		lblSoDTKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnSoDTKH.add(lblSoDTKH);
-		
-		tfSoDTKH = new JTextField();
-		tfSoDTKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfSoDTKH.setColumns(20);
-		pnSoDTKH.add(tfSoDTKH);
-		
-		JPanel pnEmailKH = new JPanel();
-		FlowLayout flowLayout_28 = (FlowLayout) pnEmailKH.getLayout();
-		flowLayout_28.setVgap(10);
-		flowLayout_28.setHgap(10);
-		flowLayout_28.setAlignment(FlowLayout.LEFT);
-		panel_14.add(pnEmailKH);
-		
-		JLabel lblEmailKH = new JLabel("Email:               ");
-		lblEmailKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnEmailKH.add(lblEmailKH);
-		
-		tfEmailKH = new JTextField();
-		tfEmailKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		tfEmailKH.setColumns(20);
-		pnEmailKH.add(tfEmailKH);
-		
-		JPanel pnButtonQLKH = new JPanel();
-		FlowLayout flowLayout_29 = (FlowLayout) pnButtonQLKH.getLayout();
-		flowLayout_29.setVgap(10);
-		flowLayout_29.setHgap(10);
-		flowLayout_29.setAlignment(FlowLayout.RIGHT);
-		panel_14.add(pnButtonQLKH);
-		
-		btnTimKiemKH = new JButton("Tìm kiếm");
-		btnTimKiemKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnButtonQLKH.add(btnTimKiemKH);
-		
-		btnCapNhatKH = new JButton("Cập nhật");
-		btnCapNhatKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnButtonQLKH.add(btnCapNhatKH);
-                
-                btnHuyCapNhat = new JButton("Hủy");
-		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnButtonQLKH.add(btnHuyCapNhat);
-		
-		JPanel panel_24 = new JPanel();
-		panel_14.add(panel_24);
-		
-		JPanel panel_25 = new JPanel();
-		panel_14.add(panel_25);
-		
-		JPanel pnTableKH = new JPanel();
-		pnChinhQLKH.add(pnTableKH);
-		pnTableKH.setLayout(new BorderLayout(0, 0));
-		
-		scrollPaneTableKH = new JScrollPane();
-		pnTableKH.add(scrollPaneTableKH, BorderLayout.CENTER);
-		
-		tableKH = new JTable();
-		scrollPaneTableKH.setViewportView(tableKH);
-=======
         setLayout(new BorderLayout(0, 0));
 
         JPanel pnTieuDeQLKH = new JPanel();
@@ -370,6 +201,10 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
         btnCapNhatKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLKH.add(btnCapNhatKH);
 
+        btnHuyCapNhat = new JButton("Hủy");
+        btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButtonQLKH.add(btnHuyCapNhat);
+
         JPanel panel_24 = new JPanel();
         panel_14.add(panel_24);
 
@@ -385,7 +220,6 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
 
         tableKH = new JTable();
         scrollPaneTableKH.setViewportView(tableKH);
->>>>>>> 058367187fbe77eb80e2011f86b2ffcf8706b910
     }
 
     private void initData() {
@@ -519,7 +353,7 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
 
     private void timKiemKhachHangTheoTen() {
         String tenKh = tfTenKH.getText();
-        
+
         KhachHangController.getInstance().timKiemDuLieuKhachHangTheoTenLenTable(tenKh, this);
     }
 }

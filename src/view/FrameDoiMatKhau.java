@@ -47,13 +47,10 @@ public class FrameDoiMatKhau extends JFrame implements iMessageView {
     }
 
     private void initComponent() {
-<<<<<<< HEAD
         setUndecorated(true);
         setSize(374, 300);
         setLocationRelativeTo(null);
-=======
         setBounds(100, 100, 374, 300);
->>>>>>> 058367187fbe77eb80e2011f86b2ffcf8706b910
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
