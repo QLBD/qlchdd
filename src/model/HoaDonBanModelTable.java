@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +84,7 @@ public class HoaDonBanModelTable extends AbstractTableModel{
                 String ngayBan = dateFormat.format(hdBan.getNgayBan());
                 return ngayBan;
             case 4:
-                return hdBan.getTongtienBan();
+                return new DecimalFormat("#,###").format(hdBan.getTongtienBan());
             default:
                 return null;
         }

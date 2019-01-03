@@ -25,9 +25,6 @@ public class HoaDonMuaDAO {
             String sql = "from HoaDonMua";
             Query query = session.createQuery(sql);
             ds = query.list();
-            for(HoaDonMua hd : ds){
-            System.out.println(hd.getSohdMua());
-            }
         }
         catch(HibernateException e){
             e.printStackTrace();
