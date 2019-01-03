@@ -21,7 +21,6 @@ public class NhaCungCapModelTable extends AbstractTableModel{
                                 "Tên NCC",
                                 "Địa chỉ",
                                 "Điện thoại",
-                                "Email",
                                 "Tình trạng"
     };
     

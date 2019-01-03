@@ -85,4 +85,8 @@ public class SanPhamController {
         SanPhamModelTable modelTable = new SanPhamModelTable(data);
         callBack.hienThiDuLieuLenTable(modelTable);
     }
+    
+    public List layDuLieuTheoTinhTrang(Integer tinhtrang){
+        return new TimKiemDAO(SanPham.class).equal("tinhtrang", tinhtrang).timKiem();
+    }
 }

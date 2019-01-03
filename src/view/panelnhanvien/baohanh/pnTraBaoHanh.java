@@ -310,12 +310,15 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
             String serial = baoHanh.getSerial() +"";
             String yeuCau =  baoHanh.getYeucauBh();
             tinhTrang = baoHanh.getTinhtrang();
-            String thongTin;
+            String thongTin = "";
             if(tinhTrang == 1){
                 thongTin ="Đã hoàn thành";
             }
-            else{
+            else if(tinhTrang == 0){
                 thongTin ="Chưa hoàn thành";
+            }
+            else if(tinhTrang == 2){
+                thongTin ="Đã trả sản phẩm";
             }
             
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -343,6 +346,16 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
     }
     
     private void traSanPhamChoKhachHang() {
+        
+        if(baoHanh.getTinhtrang() == 0) {
+            showMessageAndReloadData("Bảo hành chưa hoàn tất", NONE);
+            return;
+        }
+        else if(baoHanh.getTinhtrang() == 2){
+            showMessageAndReloadData("Bảo hành đã trả sản phẩm", NONE);
+            return;
+        }
+        
         baoHanh.setNhanvienByNhanvienTra(nhanVien);
         Date ngayTra = Calendar.getInstance().getTime();
         baoHanh.setNgaytra(ngayTra);

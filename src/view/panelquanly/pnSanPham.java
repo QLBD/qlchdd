@@ -379,16 +379,16 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
 //        tfLinkHinhAnh.setText("");
 
         ///get
-        String TenSP = tfTenSP.getText();
-        String XuatXu = tfXuatXu.getText();
-        String MauSac = tfMauSac.getText();
-        String BaoHanh = tfBaoHanh.getText();
-        String DonGia = tfSoLuong.getText();
-        String TheNho = tfTheNho.getText();
-        String KichThuoc = tfKichThuoc.getText();
-        String NamSX = tfNamSX.getText();
-        String GiaBanRa = tfGiaBanRa.getText();
-        String LinkHinhAnh = tfLinkHinhAnh.getText();
+//        String TenSP = tfTenSP.getText();
+//        String XuatXu = tfXuatXu.getText();
+//        String MauSac = tfMauSac.getText();
+//        String BaoHanh = tfBaoHanh.getText();
+//        String DonGia = tfSoLuong.getText();
+//        String TheNho = tfTheNho.getText();
+//        String KichThuoc = tfKichThuoc.getText();
+//        String NamSX = tfNamSX.getText();
+//        String GiaBanRa = tfGiaBanRa.getText();
+//        String LinkHinhAnh = tfLinkHinhAnh.getText();
 
         loadToanBoSanPhamLenTable();
         loadDataCbbHang();

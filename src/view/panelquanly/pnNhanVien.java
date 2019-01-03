@@ -632,7 +632,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     private void timKiemNhanVienTheoTen() {
         String tenNv = tfTenNV.getText();
-        if(tenNv.isEmpty()) return;
         
         NhanVienController.getInstance().timKiemDuLieuNhanVienTheoTenLenTable(tenNv, this);
     }
