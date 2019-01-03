@@ -33,6 +33,7 @@ public class pnNhaSanXuat extends JPanel {
     private JButton btnCapNhatNSX;
     private JScrollPane scrollPaneTableNSX;
     private JTable tableNSX;
+    private JButton btnHuyCapNhat;
     
     public pnNhaSanXuat(){
         initComponent();
@@ -123,6 +124,10 @@ public class pnNhaSanXuat extends JPanel {
 		btnCapNhatNSX = new JButton("Cập nhật");
 		btnCapNhatNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonQLNSX.add(btnCapNhatNSX);
+                
+                btnHuyCapNhat = new JButton("Hủy");
+		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonQLNSX.add(btnHuyCapNhat);
 		
 		JPanel panel_7 = new JPanel();
 		panel_11.add(panel_7);

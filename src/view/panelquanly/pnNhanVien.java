@@ -34,6 +34,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -77,6 +78,8 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     private ButtonGroup buttonGroup;
     private NhanVien nhanVien;
+    private JButton btnHuyCapNhat;
+    private JComboBox cbbLoaiHienThi;
 
     public pnNhanVien() {
         initComponent();
@@ -335,10 +338,38 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         btnCapNhat = new JButton("Cập nhật");
         btnCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButton.add(btnCapNhat);
+        
+        btnHuyCapNhat = new JButton("Hủy");
+	btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	pnButton.add(btnHuyCapNhat);
+        
+        JPanel pnTable = new JPanel();
+        pnChinhQLNV.add(pnTable);
+        pnTable.setBorder(new LineBorder(new Color(0, 51, 51)));
+        pnTable.setLayout(new BorderLayout(0, 0));
 
+        JPanel pnLoaiHienThi = new JPanel();
+        FlowLayout flowLayout_80 = (FlowLayout) pnLoaiHienThi.getLayout();
+        flowLayout_80.setVgap(10);
+        flowLayout_80.setHgap(10);
+        flowLayout_80.setAlignment(FlowLayout.LEFT);
+        pnTable.add(pnLoaiHienThi, BorderLayout.NORTH);
+        
+        JLabel lblLoaiHienThi = new JLabel("Loại hiển thị:");
+        lblLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnLoaiHienThi.add(lblLoaiHienThi);
+        
+        cbbLoaiHienThi = new JComboBox();
+        cbbLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbLoaiHienThi.setPreferredSize(new Dimension(150, 25));
+        cbbLoaiHienThi.setMaximumSize(new Dimension(150, 25));
+        cbbLoaiHienThi.setMinimumSize(new Dimension(150, 25));
+        pnLoaiHienThi.add(cbbLoaiHienThi);
+        
         JPanel pnTableNhanVien = new JPanel();
-        pnChinhQLNV.add(pnTableNhanVien);
-        pnTableNhanVien.setLayout(new BorderLayout(0, 0));
+        //pnChinhQLNV.add(pnTableNhanVien);
+        pnTable.add(pnTableNhanVien, BorderLayout.CENTER);
+		pnTableNhanVien.setLayout(new BorderLayout(0, 0));
 
         scrollPaneTableNV = new JScrollPane();
         pnTableNhanVien.add(scrollPaneTableNV, BorderLayout.CENTER);
@@ -358,7 +389,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     }
 
     private void loadDataCbbTinhTrang() {
-        cbbTinhTrang.addItem("Đã nghĩ việc");
+        cbbTinhTrang.addItem("Đã nghỉ việc");
         cbbTinhTrang.addItem("Đang làm");
         cbbTinhTrang.setSelectedIndex(-1);
     }

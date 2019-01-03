@@ -35,6 +35,7 @@ public class pnKhachHang extends JPanel{
     private JButton btnCapNhatKH;
     private JScrollPane scrollPaneTableKH;
     private JTable tableKH;
+    private JButton btnHuyCapNhat;
     public pnKhachHang(){
         initComponent();
         initData();
@@ -184,6 +185,10 @@ public class pnKhachHang extends JPanel{
 		btnCapNhatKH = new JButton("Cập nhật");
 		btnCapNhatKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonQLKH.add(btnCapNhatKH);
+                
+                btnHuyCapNhat = new JButton("Hủy");
+		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonQLKH.add(btnHuyCapNhat);
 		
 		JPanel panel_24 = new JPanel();
 		panel_14.add(panel_24);

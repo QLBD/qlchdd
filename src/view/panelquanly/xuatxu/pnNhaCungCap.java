@@ -34,6 +34,7 @@ public class pnNhaCungCap extends JPanel {
     private JButton btnCapNhatNCC;
     private JScrollPane scrollPaneTableNCC;
     private JTable tableNCC;
+    private JButton btnHuyCapNhat;
     
     public pnNhaCungCap(){
         initComponent();
@@ -140,6 +141,10 @@ public class pnNhaCungCap extends JPanel {
 		btnCapNhatNCC = new JButton("Cập nhật");
 		btnCapNhatNCC.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonQLNCC.add(btnCapNhatNCC);
+                
+                btnHuyCapNhat = new JButton("Hủy");
+		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonQLNCC.add(btnHuyCapNhat);
 		
 		JPanel pnTableNCC = new JPanel();
 		panel_8.add(pnTableNCC);

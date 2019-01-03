@@ -47,6 +47,9 @@ public class pnKhuyenMai extends JPanel{
     private JButton btnXoaSPKM;
     private JScrollPane scrollPaneTableCTKM;
     private JTable tableCTKM;
+    private JButton btnXoaKM;
+    private JButton btnThemKM;
+    private JButton btnHuyCapNhat;
     public pnKhuyenMai(){
         initComponent();
         initData();
@@ -166,13 +169,21 @@ public class pnKhuyenMai extends JPanel{
 		btnTimKiemKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonTimKiemKM.add(btnTimKiemKM);
 		
+                btnThemKM = new JButton("Thêm");
+		btnThemKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonTimKiemKM.add(btnThemKM);
+                
 		btnCapNhatKM = new JButton("Cập nhật");
 		btnCapNhatKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonTimKiemKM.add(btnCapNhatKM);
 		
-		JButton btnXoaKM = new JButton("Xóa");
+		btnXoaKM = new JButton("Xóa");
 		btnXoaKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonTimKiemKM.add(btnXoaKM);
+                
+                btnHuyCapNhat = new JButton("Hủy");
+		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonTimKiemKM.add(btnHuyCapNhat);
 		
 		JPanel pnTableKM = new JPanel();
 		panel_20.add(pnTableKM);

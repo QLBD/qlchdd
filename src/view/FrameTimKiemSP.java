@@ -12,9 +12,13 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
@@ -56,7 +60,10 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
     }
 
     private void initComponent() {
-        setBounds(100, 100, 900, 600);
+        
+        setUndecorated(true);
+        setSize(900, 600);
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -69,10 +76,18 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         flowLayout.setAlignment(FlowLayout.RIGHT);
         contentPane.add(pnTop, BorderLayout.NORTH);
 
-        btnMini = new JButton("Mini");
+        Icon miniIcon = new ImageIcon("Images/Mini.png");
+        btnMini = new JButton(miniIcon);
+        btnMini.setContentAreaFilled (false);
+        btnMini.setFocusPainted(false);
+        btnMini.setMargin(new Insets(0,0,0,0));
         pnTop.add(btnMini);
 
-        btnClose = new JButton("Close");
+        Icon closeIcon = new ImageIcon("Images/Close.png");
+        btnClose = new JButton(closeIcon);
+        btnClose.setMargin(new Insets(0,0,0,0));
+        btnClose.setContentAreaFilled (false);
+        btnClose.setFocusPainted(false);
         pnTop.add(btnClose);
 
         JPanel pnCenter = new JPanel();
@@ -226,6 +241,21 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
                 FrameTimKiemSP.this.setVisible(false);
             }
         });
+                
+        btnClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
+        
+        btnMini.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                setState(Frame.ICONIFIED);
+            }
+             
+         });
 
     }
 

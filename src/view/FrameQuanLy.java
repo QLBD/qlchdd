@@ -11,8 +11,14 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -77,7 +83,10 @@ public class FrameQuanLy extends JFrame {
     }
 
     private void initComponent() {
-        setBounds(100, 100, 1379, 866);
+        
+        setUndecorated(true);
+        setSize(1379, 866);
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -88,11 +97,18 @@ public class FrameQuanLy extends JFrame {
         contentPane.add(pnTop, BorderLayout.NORTH);
         pnTop.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
 
-        btnMini = new JButton("New button");
-        btnMini.setHorizontalAlignment(SwingConstants.RIGHT);
+        Icon miniIcon = new ImageIcon("Images/Mini.png");
+        btnMini = new JButton(miniIcon);
+        btnMini.setContentAreaFilled (false);
+        btnMini.setFocusPainted(false);
+        btnMini.setMargin(new Insets(0,0,0,0));
         pnTop.add(btnMini);
 
-        btnClose = new JButton("New button");
+        Icon closeIcon = new ImageIcon("Images/Close.png");
+        btnClose = new JButton(closeIcon);
+        btnClose.setMargin(new Insets(0,0,0,0));
+        btnClose.setContentAreaFilled (false);
+        btnClose.setFocusPainted(false);
         pnTop.add(btnClose);
 
         JPanel pnCenter = new JPanel();
@@ -408,6 +424,21 @@ public class FrameQuanLy extends JFrame {
                 
             }
         });
+        
+        btnClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
+        
+        btnMini.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                setState(Frame.ICONIFIED);
+            }
+             
+         });
     }
 
     private void chuyenTab() {

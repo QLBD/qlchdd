@@ -40,6 +40,7 @@ public class pnBaoHanhQL extends JPanel{
     private JButton btnCapNhatBH;
     private JScrollPane scrollPaneTableBH;
     private JTable tableBH;
+    private JButton btnHuyCapNhat;
     public pnBaoHanhQL(){
         initComponent();
         initData();
@@ -247,6 +248,10 @@ public class pnBaoHanhQL extends JPanel{
 		btnCapNhatBH = new JButton("Cập nhật");
 		btnCapNhatBH.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonQLBH.add(btnCapNhatBH);
+                
+                btnHuyCapNhat = new JButton("Hủy");
+		btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonQLBH.add(btnHuyCapNhat);
 		
 		JPanel pnTableBH = new JPanel();
 		pnChinhQLBH.add(pnTableBH);

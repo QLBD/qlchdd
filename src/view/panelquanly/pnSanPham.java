@@ -78,6 +78,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
     private JTable tableSanPham;
 
     private SanPham sanPham;
+    private JButton btnHuyCapNhat;
     
     public pnSanPham() {
         initComponent();
@@ -317,6 +318,10 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         btnCapNhatSP = new JButton("Cập nhật");
         btnCapNhatSP.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLSP.add(btnCapNhatSP);
+        
+        btnHuyCapNhat = new JButton("Hủy");
+	btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	pnButtonQLSP.add(btnHuyCapNhat);
 
         JPanel panel_4 = new JPanel();
         pnChinhQLSP.add(panel_4);

@@ -14,9 +14,13 @@ import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import model.entities.NhanVien;
 import model.entities.PhanQuyen;
@@ -30,7 +34,7 @@ public class FrameBangDieuKhien extends JFrame {
     private JTextField tfChucVu;
     private JTextField tfTaiKhoan;
     private JButton btnMini;
-    private Component btnClose;
+    private JButton btnClose;
     private JLabel lblHinhAnh;
     private JButton btnDoiMatKhau;
     private JButton btnTrangCuaToi;
@@ -46,7 +50,9 @@ public class FrameBangDieuKhien extends JFrame {
 
     private void initComponent() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 794, 433);
+        setUndecorated(true);
+        setSize(794, 433);
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -55,15 +61,22 @@ public class FrameBangDieuKhien extends JFrame {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(0, 51, 51));
         contentPane.add(panel, BorderLayout.NORTH);
-        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 
-        btnMini = new JButton("New button");
-        btnMini.setHorizontalAlignment(SwingConstants.RIGHT);
+        Icon miniIcon = new ImageIcon("Images/Mini.png");
+        btnMini = new JButton(miniIcon);
+        btnMini.setContentAreaFilled (false);
+        btnMini.setFocusPainted(false);
+        btnMini.setMargin(new Insets(0,0,0,0));
         panel.add(btnMini);
-
-        btnClose = new JButton("New button");
+        
+        Icon closeIcon = new ImageIcon("Images/Close.png");
+        btnClose = new JButton(closeIcon);
+        btnClose.setMargin(new Insets(0,0,0,0));
+        btnClose.setContentAreaFilled (false);
+        btnClose.setFocusPainted(false);
         panel.add(btnClose);
-
+        
         JPanel panel_1 = new JPanel();
         contentPane.add(panel_1, BorderLayout.CENTER);
         panel_1.setLayout(new GridLayout(0, 2, 0, 0));
@@ -188,6 +201,22 @@ public class FrameBangDieuKhien extends JFrame {
                 }
             }
         });
+        
+                
+        btnClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        
+         btnMini.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                setState(Frame.ICONIFIED);
+            }
+             
+         });
     }
 
     private void initData() {

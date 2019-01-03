@@ -42,6 +42,7 @@ public class pnHDBanHang extends JPanel {
     private JTextField tfThanhTienSPBan;
     private JScrollPane scrollPaneCTHDBanHang;
     private JTable tableCTHDBanHang;
+    private JButton btnXemTatCa;
     public pnHDBanHang(){
         initComponent();
         initData();
@@ -149,6 +150,10 @@ public class pnHDBanHang extends JPanel {
 		btnTimKiemHDBan.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonHDBan.add(btnTimKiemHDBan);
 		
+                btnXemTatCa = new JButton("Xem tất cả");
+		btnXemTatCa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonHDBan.add(btnXemTatCa);
+                
 		JPanel pnTableHHBanHang = new JPanel();
 		panel_19.add(pnTableHHBanHang);
 		pnTableHHBanHang.setLayout(new BorderLayout(0, 0));

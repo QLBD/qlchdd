@@ -40,6 +40,7 @@ public class pnHDNhapHang extends JPanel {
     private JTextField tfThanhTienNhap;
     private JScrollPane scrollPaneCTHDNhap;
     private JTable tableCTHDNhap;
+    private JButton btnXemTatCa;
     public pnHDNhapHang(){
         initComponent();
         initData();
@@ -145,6 +146,10 @@ public class pnHDNhapHang extends JPanel {
 		btnTimKiemHDNhap = new JButton("Tìm kiếm");
 		btnTimKiemHDNhap.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnButtonTim.add(btnTimKiemHDNhap);
+                
+                btnXemTatCa = new JButton("Xem tất cả");
+		btnXemTatCa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pnButtonTim.add(btnXemTatCa);
 		
 		JPanel pnTableHDNhap = new JPanel();
 		panel_26.add(pnTableHDNhap);

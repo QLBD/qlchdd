@@ -14,8 +14,14 @@ import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -43,8 +49,9 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
     }
 
     private void initComponent() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 635, 464);
+        setUndecorated(true);
+        setSize(635, 464);
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -53,13 +60,20 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
         JPanel panel = new JPanel();
         panel.setBackground(new Color(0, 51, 51));
         contentPane.add(panel, BorderLayout.NORTH);
-        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 
-        btnMini = new JButton("New button");
-        btnMini.setHorizontalAlignment(SwingConstants.RIGHT);
+        Icon miniIcon = new ImageIcon("Images/Mini.png");
+        btnMini = new JButton(miniIcon);
+        btnMini.setContentAreaFilled (false);
+        btnMini.setFocusPainted(false);
+        btnMini.setMargin(new Insets(0,0,0,0));
         panel.add(btnMini);
 
-        btnClose = new JButton("New button");
+        Icon closeIcon = new ImageIcon("Images/Close.png");
+        btnClose = new JButton(closeIcon);
+        btnClose.setMargin(new Insets(0,0,0,0));
+        btnClose.setContentAreaFilled (false);
+        btnClose.setFocusPainted(false);
         panel.add(btnClose);
 
         JPanel panel_1 = new JPanel();
@@ -140,6 +154,21 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
                 System.exit(0);
             }
         });
+        
+        btnClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        
+         btnMini.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                setState(Frame.ICONIFIED);
+            }
+             
+         });
     }
 
     @Override
