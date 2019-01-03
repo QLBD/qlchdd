@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Frame;
@@ -19,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
@@ -53,9 +55,12 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
 
     private iFrameListener callBack;
 
+    private ButtonGroup buttonGroup;
+
     public FrameTimKiemSP(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
+        initData();
         initEvent();
     }
 
@@ -147,6 +152,10 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         pnXuatXu.add(rdbtnXuatXu);
 
         cbbXuatXu = new JComboBox();
+        cbbXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbXuatXu.setPreferredSize(new Dimension(250, 25));
+        cbbXuatXu.setMaximumSize(new Dimension(250, 25));
+        cbbXuatXu.setMinimumSize(new Dimension(250, 25));
         pnXuatXu.add(cbbXuatXu);
 
         JPanel pnHang = new JPanel();
@@ -161,6 +170,10 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         pnHang.add(rdbtnHang);
 
         cbbHang = new JComboBox();
+        cbbHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbHang.setPreferredSize(new Dimension(250, 25));
+        cbbHang.setMaximumSize(new Dimension(250, 25));
+        cbbHang.setMinimumSize(new Dimension(250, 25));
         pnHang.add(cbbHang);
 
         JPanel pnMau = new JPanel();
@@ -175,6 +188,10 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         pnMau.add(rdbtnMau);
 
         cbbMau = new JComboBox();
+        cbbMau.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbMau.setPreferredSize(new Dimension(250, 25));
+        cbbMau.setMaximumSize(new Dimension(250, 25));
+        cbbMau.setMinimumSize(new Dimension(250, 25));
         pnMau.add(cbbMau);
 
         JPanel pnButtonTKNC = new JPanel();
@@ -217,6 +234,14 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
     @Override
     public void hienThiDuLieuLenTable(TableModel tableModel) {
         tableKetQua.setModel(tableModel);
+    }
+
+    private void initData() {
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(rdbtnHang);
+        buttonGroup.add(rdbtnMau);
+        buttonGroup.add(rdbtnXuatXu);
+
     }
 
     private void initEvent() {
