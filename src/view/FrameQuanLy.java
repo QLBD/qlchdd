@@ -33,6 +33,7 @@ import view.panelquanly.pnKhachHang;
 import view.panelquanly.pnKhuyenMai;
 import view.panelquanly.pnNhanVien;
 import view.panelquanly.pnSanPham;
+import view.panelquanly.pnTaiKhoanQL;
 import view.panelquanly.pnThongKe;
 
 /**
@@ -60,12 +61,14 @@ public class FrameQuanLy extends JFrame {
     private pnBaoHanhQL pnbaoHanh = new pnBaoHanhQL();
     private pnHoaDonQL pnhoaDon = new pnHoaDonQL();
     private pnThongKe pnthongKe = new pnThongKe();
+    private pnTaiKhoanQL pntaiKhoan = new pnTaiKhoanQL();
 
     private int tabIndex;
 
     int xx = 0;
     int yy = 0;
     private JPanel pnFrameDrage;
+    private JLabel lblTaiKhoan;
 
     public FrameQuanLy() {
         initComponent();
@@ -168,13 +171,21 @@ public class FrameQuanLy extends JFrame {
         lblHoaDon.setBackground(new Color(0, 51, 51));
         lblHoaDon.setBounds(0, 276, 135, 45);
         pnMenu.add(lblHoaDon);
+        
+        lblTaiKhoan = new JLabel("TÀI KHOẢN");
+        lblTaiKhoan.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTaiKhoan.setForeground(Color.WHITE);
+        lblTaiKhoan.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblTaiKhoan.setBackground(new Color(0, 51, 51));
+        lblTaiKhoan.setBounds(0, 321, 135, 45);
+        pnMenu.add(lblTaiKhoan);
 
         lblThongKe = new JLabel("THỐNG KÊ");
         lblThongKe.setHorizontalAlignment(SwingConstants.CENTER);
         lblThongKe.setForeground(Color.WHITE);
         lblThongKe.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblThongKe.setBackground(new Color(0, 51, 51));
-        lblThongKe.setBounds(0, 321, 135, 45);
+        lblThongKe.setBounds(0, 366, 135, 45);
         pnMenu.add(lblThongKe);
 
         JPanel pnCardLayout = new JPanel();
@@ -189,6 +200,7 @@ public class FrameQuanLy extends JFrame {
         pnCardLayout.add(pnkhuyenMai);
         pnCardLayout.add(pnbaoHanh);
         pnCardLayout.add(pnhoaDon);
+        pnCardLayout.add(pntaiKhoan);
         pnCardLayout.add(pnthongKe);
     }
 
@@ -431,11 +443,39 @@ public class FrameQuanLy extends JFrame {
 
             }
         });
+        
+        lblTaiKhoan.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tabIndex = 8;
+                chuyenTab();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         lblThongKe.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                tabIndex = 8;
+                tabIndex = 9;
                 chuyenTab();
             }
 
@@ -486,6 +526,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.YELLOW);
@@ -495,6 +536,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
 
@@ -506,6 +548,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -515,6 +558,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
 
@@ -526,6 +570,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -535,6 +580,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
 
@@ -546,6 +592,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -555,6 +602,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
 
@@ -566,6 +614,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(true);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -575,6 +624,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.YELLOW);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
 
@@ -586,6 +636,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(true);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -595,6 +646,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.YELLOW);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
 
@@ -606,6 +658,7 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(true);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(false);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -615,9 +668,10 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.YELLOW);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-
+                
             case 8:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
@@ -626,6 +680,30 @@ public class FrameQuanLy extends JFrame {
                 pnkhuyenMai.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(true);
+                pnthongKe.setVisible(false);
+                
+
+                lblNhanVien.setForeground(Color.WHITE);
+                lblSanPham.setForeground(Color.WHITE);
+                lblQLXuatXu.setForeground(Color.WHITE);
+                lblKhachHang.setForeground(Color.WHITE);
+                lblKhuyenMai.setForeground(Color.WHITE);
+                lblBaoHanh.setForeground(Color.WHITE);
+                lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.YELLOW);
+                lblThongKe.setForeground(Color.WHITE);
+                break;
+
+            case 9:
+                pnnhanVien.setVisible(false);
+                pnsanPham.setVisible(false);
+                pnxuatXu.setVisible(false);
+                pnkhachHang.setVisible(false);
+                pnkhuyenMai.setVisible(false);
+                pnbaoHanh.setVisible(false);
+                pnhoaDon.setVisible(false);
+                pntaiKhoan.setVisible(false);
                 pnthongKe.setVisible(true);
 
                 lblNhanVien.setForeground(Color.WHITE);
@@ -635,6 +713,7 @@ public class FrameQuanLy extends JFrame {
                 lblKhuyenMai.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblHoaDon.setForeground(Color.WHITE);
+                lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.YELLOW);
                 break;
         }

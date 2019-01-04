@@ -5,19 +5,8 @@
  */
 package view.panelquanly;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import view.panelquanly.xuatxu.pnNhaCungCap;
 import view.panelquanly.xuatxu.pnNhaSanXuat;
 
