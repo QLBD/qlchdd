@@ -55,7 +55,9 @@ import model.entities.NhaSanXuat;
 import model.entities.NhanVien;
 import model.entities.SanPham;
 import utils.Config;
+import view.FrameTimKiemSP;
 import view.interfaceView.iBanHangView;
+import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
@@ -66,7 +68,7 @@ import view.interfaceView.iTimKiemKhachHang;
  * @author RanRan
  */
 public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iBanHangView,
-                        iTimKiemKhachHang{
+        iTimKiemKhachHang, iFrameListener {
 
     private JTable tableCTHD;
     private JTextField tfHoTen;
@@ -103,22 +105,21 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private JButton btnCapNhatThongTinKH;
     private JButton btnThanhToan;
     private JButton btnTaoHoaDonMoi;
-    
+
     private NhanVien nhanVien;
-    
+
     private SanPham sanPham;
     private CTHDBanModelTable modelTable;
     private HoaDonBan hdb;
     private KhachHang khachHang;
     private KhuyenMai khuyenMai;
-    
+
     private double giaGoc;
     private double tienGiam;
-    
 
     public pnHoaDonNV(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
-        
+
         initComponent();
         initData();
         initEvent();
@@ -426,7 +427,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         btnTaoHoaDonMoi = new JButton("Tạo hóa đơn mới");
         btnTaoHoaDonMoi.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonThanhToan.add(btnTaoHoaDonMoi);
-        
+
         btnThanhToan = new JButton("Thanh Toán");
         btnThanhToan.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonThanhToan.add(btnThanhToan);
@@ -508,102 +509,100 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 
         spinnerNumberModel = new SpinnerNumberModel(0, 0, 0, 1);
         spinnerSoLuong.setModel(spinnerNumberModel);
-        
+
         loadDataCbbTimHang();
         hienThiThongTinSanPhamLenManHinh("", "", "", "", "", "", "", "", "", "", null);
         giaGoc = 0;
         tienGiam = 0;
     }
-    
+
     private void initEvent() {
         cbbTimHang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cbbTimHang.isValid()){
-                    if(cbbTimHang.getSelectedIndex() != -1){
+                if (cbbTimHang.isValid()) {
+                    if (cbbTimHang.getSelectedIndex() != -1) {
                         NhaSanXuat nsx = (NhaSanXuat) cbbTimHang.getSelectedItem();
                         loadDataCboSanPham(nsx);
                     }
                 }
             }
         });
-        
+
         cbbTimTenSP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cbbTimTenSP.isValid()){
-                    if(cbbTimTenSP.getSelectedIndex() != -1){
+                if (cbbTimTenSP.isValid()) {
+                    if (cbbTimTenSP.getSelectedIndex() != -1) {
                         sanPham = (SanPham) cbbTimTenSP.getSelectedItem();
                         System.out.println(sanPham.getTenSp());
                         hienThiThongTinSanPham();
-                        Calendar calendar = Calendar.getInstance();
-                        //calendar.set(2018, 11, 23,0,0,0);
-                        KhuyenMaiController.getInstance().kiemTraKhuyenMai(calendar.getTime(), sanPham, pnHoaDonNV.this);
-                        
-                        int sl = sanPham.getSl();
-                        spinnerNumberModel.setMaximum(sl);
-                        if(sl == 0) 
-                            spinnerNumberModel.setValue(0);
-                        else
-                            spinnerNumberModel.setValue(1);
+
                     }
                 }
             }
         });
-        
+
         btnTaoHoaDonMoi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 themHoaDonBan();
             }
         });
-        
+
         btnThemSPBan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 themCTHDBan();
             }
         });
-        
+
         btnHuyBanHang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 xoaHoaDon();
             }
         });
-        
+
         btnKiemTraKH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 timKiemThongTinKhachHang();
             }
         });
-        
+
         btnCapNhatThongTinKH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 capNhatThongTinKhachHang();
             }
         });
-        
+
         btnThanhToan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 thanhToanHoaDon();
             }
         });
-        
+
         btnXoaSP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 xoaSanPhamKhoiHoaDon();
             }
         });
-        
+
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetDanhSachSanPhamHoaDon();
+            }
+        });
+
+        btnTimSP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moManHinhTimKiemSanPham();
             }
         });
     }
@@ -622,50 +621,61 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private void loadDataCbbTimHang() {
         NhaSanXuatController.getInstance().layToanBoDuLieuLenComBox(this);
     }
-    
-    private void loadDataCboSanPham(NhaSanXuat nsx){
+
+    private void loadDataCboSanPham(NhaSanXuat nsx) {
         cbbTimTenSP.removeAllItems();
-        for(SanPham sp : nsx.getSanphams()){
-            if(sp.getTinhtrang() == 1){
+        for (SanPham sp : nsx.getSanphams()) {
+            if (sp.getTinhtrang() == 1) {
                 cbbTimTenSP.addItem(sp);
             }
         }
         cbbTimTenSP.setSelectedIndex(-1);
     }
-    
+
     private void hienThiThongTinSanPham() {
-        if(sanPham != null){
-            String masp = sanPham.getMaSp()+"";
+        if (sanPham != null) {
+            Calendar calendar = Calendar.getInstance();
+            //calendar.set(2018, 11, 23,0,0,0);
+            KhuyenMaiController.getInstance().kiemTraKhuyenMai(calendar.getTime(), sanPham, pnHoaDonNV.this);
+
+            int sl = sanPham.getSl();
+            spinnerNumberModel.setMaximum(sl);
+            if (sl == 0) {
+                spinnerNumberModel.setValue(0);
+            } else {
+                spinnerNumberModel.setValue(1);
+            }
+
+            String masp = sanPham.getMaSp() + "";
             String tensp = sanPham.getTenSp();
             String hang = sanPham.getNhasanxuat().getTenNsx();
             String xuatXu = sanPham.getXuatxu();
-            String baoHanh = sanPham.getThoigianBh() +"";
+            String baoHanh = sanPham.getThoigianBh() + "";
             String mau = sanPham.getMau();
             String theNho = sanPham.getBonho();
             String kichThuoc = sanPham.getKichthuoc();
-            String sl;
-            if(sanPham.getSl() <= 0){
-                sl = "Hết Hàng!";
+            String soLuong;
+            if (sanPham.getSl() <= 0) {
+                soLuong = "Hết Hàng!";
+            } else {
+                soLuong = sanPham.getSl() + "";
             }
-            else{
-                sl = sanPham.getSl()+"";
-            }
-            
-            String namSX = sanPham.getNamSx()+"";
-            
-            if(sanPham.getAnh() != null){
+
+            String namSX = sanPham.getNamSx() + "";
+
+            if (sanPham.getAnh() != null) {
                 Image image = Config.convertArrayByteToImageIcon(sanPham.getAnh());
                 ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH));
-                hienThiThongTinSanPhamLenManHinh(masp, tensp, hang, xuatXu, baoHanh, mau, theNho, kichThuoc, sl, namSX, imageIcon);
+                hienThiThongTinSanPhamLenManHinh(masp, tensp, hang, xuatXu, baoHanh, mau, theNho, kichThuoc, soLuong, namSX, imageIcon);
+            } else {
+                hienThiThongTinSanPhamLenManHinh(masp, tensp, hang, xuatXu, baoHanh, mau, theNho, kichThuoc, soLuong, namSX, null);
             }
-            else
-                hienThiThongTinSanPhamLenManHinh(masp, tensp, hang, xuatXu, baoHanh, mau, theNho, kichThuoc, sl, namSX, null);
-            
+
         }
     }
-    
+
     private void hienThiThongTinSanPhamLenManHinh(String masp, String tensp, String hang, String xuatXu, String baoHanh,
-                                            String mau, String theNho, String kichThuoc, String sl, String namSX, ImageIcon icon) {
+            String mau, String theNho, String kichThuoc, String sl, String namSX, ImageIcon icon) {
         lblHASP.setIcon(icon);
         lblHASP.setText("");
         lblLoadMaSP.setText(masp);
@@ -684,17 +694,16 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     public void capNhatKhuyenMaiSanPham(KhuyenMai km) {
         this.khuyenMai = km;
         giaGoc = sanPham.getGiaBanRa();
-        if(khuyenMai != null){
-            tienGiam = giaGoc*khuyenMai.getHsKm();
+        if (khuyenMai != null) {
+            tienGiam = giaGoc * khuyenMai.getHsKm();
             System.out.println(khuyenMai.getTenKm());
-        }
-        else{
+        } else {
             tienGiam = 0;
         }
         System.out.println(giaGoc);
         System.out.println(tienGiam);
     }
-    
+
     private void themHoaDonBan() {
         Date ngayBan = new Date();
         System.out.println(ngayBan);
@@ -702,23 +711,25 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         HoaDonBanController.getInstance().themHoaDonBan(hdb, this);
         capGiaTien();
     }
-    
+
     private void themCTHDBan() {
-        
-        if(sanPham == null) return;
-        if(hdb == null){
+
+        if (sanPham == null) {
+            return;
+        }
+        if (hdb == null) {
             showMessageAndReloadData("Bạn cần tạo hóa đơn mới trước khi thêm hàng", NONE);
             return;
         }
-        
+
         int sl = (int) spinnerSoLuong.getValue();
-        
-        if(sl == 0 ){
+
+        if (sl == 0) {
             showMessageAndReloadData("Sản phẩm đã hết hàng!!!", NONE);
         }
 
         CthdBanId id = new CthdBanId(hdb.getSohdBan(), sanPham.getMaSp());
-        
+
         CthdBan ban = new CthdBan(id, hdb, khuyenMai, sanPham, sl, giaGoc, tienGiam);
 
         CTHD_BanController.getInstance().themCTHD_BanVaoHoaDonBan(ban, this);
@@ -726,40 +737,38 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 
     @Override
     public void capNhatSanPhamVaoHoaDon(boolean result, CthdBan ban) {
-        if(result){
+        if (result) {
             //cập nhật lại đơn hàng từ hệ thống về
             ban = CTHD_BanDAO.getCTHD_Ban(ban.getId());
-            
+
             int row = modelTable.containID(ban.getId());
-            
-            if(row != -1){
+
+            if (row != -1) {
                 modelTable.removeRow(row);
                 modelTable.addRow(row, ban);
-            }
-            else{
+            } else {
                 modelTable.addRow(ban);
             }
-            
+
             hdb = HoaDonBanDAO.getHoaDonBan(hdb.getSohdBan());
-            
+
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thành Công", iMessageView.NONE);
             capGiaTien();
-            
+
             //load lại cboHãng
             loadDataCbbTimHang();
-            
+
             //reset màn hình thông tin sản phầm
             hienThiThongTinSanPhamLenManHinh("", "", "", "", "", "", "", "", "", "", null);
-        }
-        else{
+        } else {
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thất Bại", iMessageView.NONE);
         }
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -770,14 +779,16 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
                 break;
         }
     }
-    
+
     private void timKiemThongTinKhachHang() {
-        if(tfSoCMND.getText().isEmpty()) return;
-        
+        if (tfSoCMND.getText().isEmpty()) {
+            return;
+        }
+
         int cmndKH = -1;//kiểm tra điều kiện
-        try{
+        try {
             cmndKH = Integer.valueOf(tfSoCMND.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
         KhachHangController.getInstance().timKhachHangTheoCMND(cmndKH, this);
@@ -785,19 +796,18 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 
     @Override
     public void timKiemKhacHang(KhachHang kh) {
-        if(kh != null){
+        if (kh != null) {
             khachHang = kh;
             String hoTen = kh.getTenKh();
             String diaChi = kh.getDiachiKh();
-            String sdt =  kh.getSoDtKh().toString();
+            String sdt = kh.getSoDtKh().toString();
             System.out.println(kh.getSoDtKh());
             String email = kh.getEmail();
-            
-            hienThiThongTinKhachHangLenManHinh(hoTen,diaChi,sdt,email);
-        }
-        else{
+
+            hienThiThongTinKhachHangLenManHinh(hoTen, diaChi, sdt, email);
+        } else {
             showMessageAndReloadData("Không tìm thấy thông tin khách hàng", iMessageView.NONE);
-            hienThiThongTinKhachHangLenManHinh("","","","");
+            hienThiThongTinKhachHangLenManHinh("", "", "", "");
         }
     }
 
@@ -807,98 +817,96 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         tfSoDTKH.setText(sdt);
         tfEmail.setText(email);
     }
-    
-    
+
     private void capNhatThongTinKhachHang() {
         String diaChi = tfDiaChi.getText();
-        int sdt =  -1;//kiểm tra điều kiện
+        int sdt = -1;//kiểm tra điều kiện
         String email = tfEmail.getText();
-        
-        try{
+
+        try {
             sdt = Integer.valueOf(tfSoDTKH.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(khachHang != null){
+
+        if (khachHang != null) {
             KhachHang kh = new KhachHang(this.khachHang.getMaKh(), this.khachHang.getTenKh(), this.khachHang.getSoCmndKh(), diaChi, sdt, email);
-            KhachHangController.getInstance().capNhatThongTinKhachHang(kh, (iBanHangView)this);
+            KhachHangController.getInstance().capNhatThongTinKhachHang(kh, (iBanHangView) this);
         }
-        
+
     }
 
     @Override
     public void capNhatThongTinKhachHang(boolean result, KhachHang khachHang) {
-        if(result){
+        if (result) {
             this.khachHang = khachHang;
             showMessageAndReloadData("Cập nhật thông tin khách hàng Thành Công", iMessageView.NONE);
-        }else{
+        } else {
             showMessageAndReloadData("Cập nhật thông tin khách hàng Thất Bại", iMessageView.NONE);
         }
     }
-    
-    
+
     private void thanhToanHoaDon() {
-        if(khachHang != null){
+        if (khachHang != null) {
             hdb.setKhachhang(khachHang);
-        }
-        else{
+        } else {
             String hoTen = tfHoTen.getText();
             String diaChi = tfDiaChi.getText();
-            int sdt =  -1;//kiểm tra điều kiện
+            int sdt = -1;//kiểm tra điều kiện
             int cmndKH = -1;//kiểm tra điều kiện
             String email = tfEmail.getText();
 
-            try{
+            try {
                 sdt = Integer.valueOf(tfSoDTKH.getText());
                 cmndKH = Integer.valueOf(tfSoCMND.getText());
-            }catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 ex.printStackTrace();
             }
             //kt điều kiện thoát
             KhachHang kh = new KhachHang(hoTen, cmndKH, diaChi, sdt, email);
             hdb.setKhachhang(kh);
         }
-        
-        HoaDonBanController.getInstance().thanhToanHoaDon(hdb,this);
+
+        HoaDonBanController.getInstance().thanhToanHoaDon(hdb, this);
     }
-    
+
     private void xoaSanPhamKhoiHoaDon() {
         int row = tableCTHD.getSelectedRow();
-        if(row < 0 ) return;
-                
+        if (row < 0) {
+            return;
+        }
+
         CthdBan ban = modelTable.getSelectedRow(row);
         CTHD_BanController.getInstance().xoaSanPhamKhoiHoaDon(row, ban, this);
     }
 
     @Override
     public void xoaSanPhamRaKhoiHoaDon(boolean result, int row) {
-        if(result){
+        if (result) {
             modelTable.removeRow(row);
             showMessageAndReloadData("Xóa Sản phẩm ra hóa đơn thành công", iMessageView.NONE);
             capGiaTien();
-        }
-        else{
+        } else {
             showMessageAndReloadData("Xóa Sản phẩm ra hóa đơn thất bại", iMessageView.NONE);
         }
     }
-    
-    private void capGiaTien(){
+
+    private void capGiaTien() {
         double tongTien = 0, giamGia = 0, thanhTien = 0;
         int sl;
-        for(CthdBan cthdBan : modelTable.getData()){
+        for (CthdBan cthdBan : modelTable.getData()) {
             sl = cthdBan.getSl();
             tongTien += cthdBan.getGiaGoc() * sl;
             giamGia += cthdBan.getTienGiam() * sl;
             thanhTien += cthdBan.getThanhtien();
         }
         DecimalFormat format = new DecimalFormat("#,###");
-        
+
         tfTongTien.setText(format.format(tongTien));
         tfGiamGia.setText(format.format(giamGia));
         tfThanhTien.setText(format.format(thanhTien));
     }
-    
+
     private void xoaHoaDon() {
         HoaDonBanController.getInstance().xoaHoaDonBanHang(hdb, this);
     }
@@ -924,20 +932,43 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         giaGoc = 0;
         tienGiam = 0;
     }
-    
+
     private void clearDataTableCTHD() {
         modelTable.clearData();
     }
-    
+
     private void resetDanhSachSanPhamHoaDon() {
         boolean result = CTHD_BanController.getInstance().xoaTatCaSanPhamTrongHoaDon(modelTable.getData());
-        if(result){
+        if (result) {
             clearDataTableCTHD();
             capGiaTien();
             showMessageAndReloadData("Xóa tất cả sản phẩm ra khỏi hóa đơn thành công", NONE);
-        }
-        else{
+        } else {
             showMessageAndReloadData("Xóa tất cả sản phẩm ra khỏi hóa đơn thất bại", NONE);
         }
+    }
+
+    private void moManHinhTimKiemSanPham() {
+        FrameTimKiemSP frame = new FrameTimKiemSP(this);
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void transferData(Object[] data) {
+        int result = (int) data[0];
+        switch (result) {
+            case iFrameListener.TypeFrame.TIM_KIEM_SP:
+                SanPham sp = (SanPham) data[1];
+                System.out.println(sp.getTenSp());
+                hienThiThongTinSanPhamTimKiem(sp);
+                break;
+        }
+    }
+
+    private void hienThiThongTinSanPhamTimKiem(SanPham sp) {
+        sanPham = sp;
+        cbbTimHang.setSelectedIndex(-1);
+        cbbTimTenSP.setSelectedIndex(-1);
+        hienThiThongTinSanPham();
     }
 }

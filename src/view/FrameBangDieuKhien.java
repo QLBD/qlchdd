@@ -18,6 +18,9 @@ import java.awt.Frame;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.text.SimpleDateFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -40,7 +43,11 @@ public class FrameBangDieuKhien extends JFrame {
     private JButton btnTrangCuaToi;
 
     private TaiKhoan tk;
-    
+    private JPanel pnFrameDrage;
+
+    int xx = 0;
+    int yy = 0;
+
     public FrameBangDieuKhien(TaiKhoan tk) {
         this.tk = tk;
         initComponent();
@@ -58,25 +65,25 @@ public class FrameBangDieuKhien extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
 
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(0, 51, 51));
-        contentPane.add(panel, BorderLayout.NORTH);
-        panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        pnFrameDrage = new JPanel();
+        pnFrameDrage.setBackground(new Color(0, 51, 51));
+        contentPane.add(pnFrameDrage, BorderLayout.NORTH);
+        pnFrameDrage.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 
         Icon miniIcon = new ImageIcon("Images/Mini.png");
         btnMini = new JButton(miniIcon);
-        btnMini.setContentAreaFilled (false);
+        btnMini.setContentAreaFilled(false);
         btnMini.setFocusPainted(false);
-        btnMini.setMargin(new Insets(0,0,0,0));
-        panel.add(btnMini);
-        
+        btnMini.setMargin(new Insets(0, 0, 0, 0));
+        pnFrameDrage.add(btnMini);
+
         Icon closeIcon = new ImageIcon("Images/Close.png");
         btnClose = new JButton(closeIcon);
-        btnClose.setMargin(new Insets(0,0,0,0));
-        btnClose.setContentAreaFilled (false);
+        btnClose.setMargin(new Insets(0, 0, 0, 0));
+        btnClose.setContentAreaFilled(false);
         btnClose.setFocusPainted(false);
-        panel.add(btnClose);
-        
+        pnFrameDrage.add(btnClose);
+
         JPanel panel_1 = new JPanel();
         contentPane.add(panel_1, BorderLayout.CENTER);
         panel_1.setLayout(new GridLayout(0, 2, 0, 0));
@@ -178,9 +185,57 @@ public class FrameBangDieuKhien extends JFrame {
         btnTrangCuaToi = new JButton("Trang của tôi");
         btnTrangCuaToi.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButton.add(btnTrangCuaToi);
+        
+        btnMini.setFocusable(false);
+        btnClose.setFocusable(false);
+        btnTrangCuaToi.setFocusable(true);
+        getRootPane().setDefaultButton(btnTrangCuaToi);
     }
 
     private void initEvent() {
+
+        pnFrameDrage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xx = e.getX();
+                yy = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        pnFrameDrage.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xx, y - yy);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
         btnDoiMatKhau.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -191,41 +246,39 @@ public class FrameBangDieuKhien extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PhanQuyen phanquyen = tk.getPhanquyen();
-                if(phanquyen.getMaPhanQuyen() == 1){
+                if (phanquyen.getMaPhanQuyen() == 1) {
                     new FrameQuanLy().setVisible(true);
-                }
-                else if(phanquyen.getMaPhanQuyen() == 2){
+                } else if (phanquyen.getMaPhanQuyen() == 2) {
                     //new FrameBanHang(tk).setVisible(true);
                     NhanVien nhanVien = tk.getNhanvien();
                     new FrameNhanVien(nhanVien).setVisible(true);
                 }
             }
         });
-        
-                
+
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        
-         btnMini.addActionListener(new ActionListener() {
+
+        btnMini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
-             
-         });
+
+        });
     }
 
     private void initData() {
         PhanQuyen phanquyen = tk.getPhanquyen();
-        
+
         tfChucVu.setText(phanquyen.getQuyentruycap());
         tfTaiKhoan.setText(tk.getTenDangNhap());
-        
-        if(phanquyen.getMaPhanQuyen() == 2){
+
+        if (phanquyen.getMaPhanQuyen() == 2) {
             NhanVien nv = tk.getNhanvien();
             hienThiThongTinNhanVien(nv);
         }

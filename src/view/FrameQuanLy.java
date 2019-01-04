@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -59,21 +60,12 @@ public class FrameQuanLy extends JFrame {
     private pnBaoHanhQL pnbaoHanh = new pnBaoHanhQL();
     private pnHoaDonQL pnhoaDon = new pnHoaDonQL();
     private pnThongKe pnthongKe = new pnThongKe();
-    
+
     private int tabIndex;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    FrameQuanLy frame = new FrameQuanLy();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    int xx = 0;
+    int yy = 0;
+    private JPanel pnFrameDrage;
 
     public FrameQuanLy() {
         initComponent();
@@ -83,7 +75,7 @@ public class FrameQuanLy extends JFrame {
     }
 
     private void initComponent() {
-        
+
         setUndecorated(true);
         setSize(1379, 866);
         setLocationRelativeTo(null);
@@ -92,24 +84,24 @@ public class FrameQuanLy extends JFrame {
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JPanel pnTop = new JPanel();
-        pnTop.setBackground(new Color(0, 51, 51));
-        contentPane.add(pnTop, BorderLayout.NORTH);
-        pnTop.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
+        pnFrameDrage = new JPanel();
+        pnFrameDrage.setBackground(new Color(0, 51, 51));
+        contentPane.add(pnFrameDrage, BorderLayout.NORTH);
+        pnFrameDrage.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
 
         Icon miniIcon = new ImageIcon("Images/Mini.png");
         btnMini = new JButton(miniIcon);
-        btnMini.setContentAreaFilled (false);
+        btnMini.setContentAreaFilled(false);
         btnMini.setFocusPainted(false);
-        btnMini.setMargin(new Insets(0,0,0,0));
-        pnTop.add(btnMini);
+        btnMini.setMargin(new Insets(0, 0, 0, 0));
+        pnFrameDrage.add(btnMini);
 
         Icon closeIcon = new ImageIcon("Images/Close.png");
         btnClose = new JButton(closeIcon);
-        btnClose.setMargin(new Insets(0,0,0,0));
-        btnClose.setContentAreaFilled (false);
+        btnClose.setMargin(new Insets(0, 0, 0, 0));
+        btnClose.setContentAreaFilled(false);
         btnClose.setFocusPainted(false);
-        pnTop.add(btnClose);
+        pnFrameDrage.add(btnClose);
 
         JPanel pnCenter = new JPanel();
         contentPane.add(pnCenter, BorderLayout.CENTER);
@@ -201,6 +193,49 @@ public class FrameQuanLy extends JFrame {
     }
 
     private void initEvent() {
+
+        pnFrameDrage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xx = e.getX();
+                yy = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        pnFrameDrage.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xx, y - yy);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
         lblNhanVien.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -210,25 +245,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblSanPham.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -238,25 +273,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblQLXuatXu.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -266,25 +301,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblKhachHang.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -294,25 +329,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblKhuyenMai.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -322,25 +357,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblBaoHanh.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -350,25 +385,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblHoaDon.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -378,25 +413,25 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblThongKe.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -406,43 +441,43 @@ public class FrameQuanLy extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }
         });
-        
+
         btnMini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
-             
-         });
+
+        });
     }
 
     private void chuyenTab() {
-        switch(tabIndex){
+        switch (tabIndex) {
             case 1:
                 pnnhanVien.setVisible(true);
                 pnsanPham.setVisible(false);
@@ -452,7 +487,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.YELLOW);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -462,7 +497,7 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-        
+
             case 2:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(true);
@@ -472,7 +507,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.YELLOW);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -482,8 +517,8 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-        
-        case 3:
+
+            case 3:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
                 pnxuatXu.setVisible(true);
@@ -492,7 +527,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.YELLOW);
@@ -502,8 +537,8 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-                
-            case 4:    
+
+            case 4:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
                 pnxuatXu.setVisible(false);
@@ -512,7 +547,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -522,7 +557,7 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-                
+
             case 5:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
@@ -532,7 +567,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -542,7 +577,7 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-                
+
             case 6:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
@@ -552,7 +587,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(true);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -562,7 +597,7 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-                
+
             case 7:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
@@ -572,7 +607,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(true);
                 pnthongKe.setVisible(false);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -582,7 +617,7 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.YELLOW);
                 lblThongKe.setForeground(Color.WHITE);
                 break;
-                
+
             case 8:
                 pnnhanVien.setVisible(false);
                 pnsanPham.setVisible(false);
@@ -592,7 +627,7 @@ public class FrameQuanLy extends JFrame {
                 pnbaoHanh.setVisible(false);
                 pnhoaDon.setVisible(false);
                 pnthongKe.setVisible(true);
-                
+
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);

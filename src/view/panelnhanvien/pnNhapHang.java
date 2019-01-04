@@ -44,6 +44,7 @@ import model.entities.NhanVien;
 import model.entities.SanPham;
 import view.FrameThemNhaCungCap;
 import view.FrameThemSanPham;
+import view.FrameTimKiemSP;
 import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
@@ -393,6 +394,13 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
                 showMessageAndReloadData("Hủy hóa đơn nhập thành công", iMessageView.SUCCESS);
             }
         });
+        
+        btnTimSPNhap.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moManHinhTimKiemSanPham();
+            }
+        });
     }
 
     private void loadDataCbbNhaCungCap() {
@@ -443,6 +451,11 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
                 break;
             case iFrameListener.TypeFrame.THEM_SAN_PHAM:
                 loadDataCbbSanPhamNhap();
+                break;
+            case iFrameListener.TypeFrame.TIM_KIEM_SP:
+                SanPham sp = (SanPham) data[1];
+                System.out.println(sp.getTenSp());
+                hienThiThongTinSanPhamTimKiem(sp);
                 break;
         }
     }
@@ -581,5 +594,20 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         hienThongTinChiTietNhap("", "");
         
         modelTable.clearData();
+    }
+    
+    private void moManHinhTimKiemSanPham() {
+        FrameTimKiemSP frame = new FrameTimKiemSP(this);
+        frame.setVisible(true);
+    }
+
+    private void hienThiThongTinSanPhamTimKiem(SanPham sp) {
+        sanPham = sp;
+        int tinhTrang = sp.getTinhtrang();
+        if(tinhTrang == 0){
+            showMessageAndReloadData("Sản phẩm này đã ngừng kinh doanh", NONE);
+            return;
+        }
+        cbbSanPhamNhap.getModel().setSelectedItem(sanPham);
     }
 }

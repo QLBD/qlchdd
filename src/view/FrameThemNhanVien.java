@@ -25,6 +25,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +42,7 @@ import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 
-public class FrameThemNhanVien extends JFrame implements iMessageView, iModelComBox, iFrameListener{
+public class FrameThemNhanVien extends JFrame implements iMessageView, iModelComBox, iFrameListener {
 
     private JPanel contentPane;
     private JTextField tfTenNV;
@@ -58,9 +61,13 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
     private JButton btnThem;
     private JButton btnHuy;
     private ButtonGroup group;
-    
+
     private iFrameListener callBack;
-    
+
+    int xx = 0;
+    int yy = 0;
+    private JPanel pnFrameDrage;
+
     public FrameThemNhanVien(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
@@ -69,7 +76,7 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
     }
 
     private void initComponent() {
-        
+
         setUndecorated(true);
         setLocationRelativeTo(null);
         setSize(834, 471);
@@ -78,24 +85,24 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JPanel pnTop = new JPanel();
-        pnTop.setBackground(new Color(0, 51, 51));
-        contentPane.add(pnTop, BorderLayout.NORTH);
-        pnTop.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
+        pnFrameDrage = new JPanel();
+        pnFrameDrage.setBackground(new Color(0, 51, 51));
+        contentPane.add(pnFrameDrage, BorderLayout.NORTH);
+        pnFrameDrage.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
 
         Icon miniIcon = new ImageIcon("Images/Mini.png");
         btnMini = new JButton(miniIcon);
-        btnMini.setContentAreaFilled (false);
+        btnMini.setContentAreaFilled(false);
         btnMini.setFocusPainted(false);
-        btnMini.setMargin(new Insets(0,0,0,0));
-        pnTop.add(btnMini);
+        btnMini.setMargin(new Insets(0, 0, 0, 0));
+        pnFrameDrage.add(btnMini);
 
         Icon closeIcon = new ImageIcon("Images/Close.png");
         btnClose = new JButton(closeIcon);
-        btnClose.setMargin(new Insets(0,0,0,0));
-        btnClose.setContentAreaFilled (false);
+        btnClose.setMargin(new Insets(0, 0, 0, 0));
+        btnClose.setContentAreaFilled(false);
         btnClose.setFocusPainted(false);
-        pnTop.add(btnClose);
+        pnFrameDrage.add(btnClose);
 
         JPanel pnCenter = new JPanel();
         contentPane.add(pnCenter, BorderLayout.CENTER);
@@ -313,7 +320,7 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
         btnHuy = new JButton("Hủy");
         btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButton.add(btnHuy);
-        
+
         group = new ButtonGroup();
         group.add(rdbtnNam);
         group.add(rdbtnNu);
@@ -325,58 +332,101 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
     }
 
     private void initEvent() {
+
+        pnFrameDrage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xx = e.getX();
+                yy = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        pnFrameDrage.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xx, y - yy);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
         btnThem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 themNhanVienMoi();
             }
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FrameThemNhanVien.this.setVisible(false);
-                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_NHAN_VIEN});
+                clearData();
             }
         });
-        
+
         btnThemTaiKhoan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moManHinhThemTaiKhoan();
             }
         });
-        
+
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_NHAN_VIEN});
             }
         });
-        
+
         btnMini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
-             
-         });
+
+        });
     }
 
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
         cbbTaiKhoan.removeAllItems();
-            for (Iterator it = data.iterator(); it.hasNext();) {
-                TaiKhoan tk = (TaiKhoan) it.next();
-                cbbTaiKhoan.addItem(tk);
-            }
+        for (Iterator it = data.iterator(); it.hasNext();) {
+            TaiKhoan tk = (TaiKhoan) it.next();
+            cbbTaiKhoan.addItem(tk);
+        }
         cbbTaiKhoan.setSelectedIndex(-1);
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -404,12 +454,12 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
     private void loadDataCbbTaiKhoan() {
         TaiKhoanController.getInstance().layToanBoTaiKhoanNhanVienLenComboBox(this);
     }
-    
+
     private void moManHinhThemTaiKhoan() {
         FrameThemTaiKhoan frame = new FrameThemTaiKhoan(this);
         frame.setVisible(true);
     }
-    
+
     private void themNhanVienMoi() {
         String tenNV = tfTenNV.getText();
         String diaChi = tfDiaChi.getText();
@@ -417,37 +467,35 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
         int cmnd = 0;
         int sdt = 0;
         boolean gt;
-        if(rdbtnNam.isSelected()){
+        if (rdbtnNam.isSelected()) {
             gt = Const.GioiTinh.NAM;
-        }
-        else{
+        } else {
             gt = Const.GioiTinh.NU;
         }
-        try{
+        try {
             cmnd = Integer.valueOf(tfSoCMND.getText());
             luongCB = Double.valueOf(tfLuongCoBan.getText());
             sdt = Integer.valueOf(tfSoDT.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
+
         Date ngaysinhNv = dtpNgaySinh.getDate();
         Date ngayVaoLam = dpNgayVaoLam.getDate();
         NhanVien nhanVien = new NhanVien(tenNV, cmnd, gt, ngaysinhNv, diaChi, sdt, ngayVaoLam, luongCB, 1);
-        if(cbbTaiKhoan.getSelectedIndex() != -1){
+        if (cbbTaiKhoan.getSelectedIndex() != -1) {
             TaiKhoan taiKhoan = (TaiKhoan) cbbTaiKhoan.getSelectedItem();
             NhanVien nv = taiKhoan.getNhanvien();
-            if(nv != null){
+            if (nv != null) {
                 showMessageAndReloadData("Tài này hiện đã có nhân viên sử dụng", NONE);
                 return;
             }
             nhanVien.setTaikhoan(taiKhoan);
-        }
-        else{
+        } else {
             showMessageAndReloadData("Chưa chọn tài khoản đăng nhập", iMessageView.NONE);
             return;
         }
-                
+
         NhanVienController.getInstance().themNhanVien(nhanVien, this);
     }
 }

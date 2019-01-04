@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -38,7 +39,7 @@ import view.panelnhanvien.pnNhapHang;
  */
 public class FrameNhanVien extends JFrame {
 
-     private JPanel contentPane;
+    private JPanel contentPane;
     private JButton btnMini;
     private JButton btnClose;
     private JLabel lblHoaDon;
@@ -48,22 +49,14 @@ public class FrameNhanVien extends JFrame {
     private pnBaoHanhNV pnbaoHanh;
     private pnHoaDonNV pnhoaDon;
     private pnNhapHang pnnhapHang;
-    
+
     private int tabIndex;
     private JPanel pnMenu;
 
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    FrameNhanVien frame = new FrameNhanVien(null);
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
+    int xx = 0;
+    int yy = 0;
+    private JPanel pnFrameDrage;
+
     public FrameNhanVien(NhanVien nhanVien) {
         pnbaoHanh = new pnBaoHanhNV(nhanVien);
         pnhoaDon = new pnHoaDonNV(nhanVien);
@@ -75,9 +68,8 @@ public class FrameNhanVien extends JFrame {
         chuyenTab();
     }
 
-       
     private void initComponent() {
-        
+
         setUndecorated(true);
         setSize(1379, 866);
         setLocationRelativeTo(null);
@@ -86,24 +78,24 @@ public class FrameNhanVien extends JFrame {
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JPanel pnTop = new JPanel();
-        pnTop.setBackground(new Color(0, 51, 51));
-        contentPane.add(pnTop, BorderLayout.NORTH);
-        pnTop.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 5));
+        pnFrameDrage = new JPanel();
+        pnFrameDrage.setBackground(new Color(0, 51, 51));
+        contentPane.add(pnFrameDrage, BorderLayout.NORTH);
+        pnFrameDrage.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 5));
 
         Icon miniIcon = new ImageIcon("Images/Mini.png");
         btnMini = new JButton(miniIcon);
-        btnMini.setContentAreaFilled (false);
+        btnMini.setContentAreaFilled(false);
         btnMini.setFocusPainted(false);
-        btnMini.setMargin(new Insets(0,0,0,0));
-        pnTop.add(btnMini);
+        btnMini.setMargin(new Insets(0, 0, 0, 0));
+        pnFrameDrage.add(btnMini);
 
         Icon closeIcon = new ImageIcon("Images/Close.png");
         btnClose = new JButton(closeIcon);
-        btnClose.setMargin(new Insets(0,0,0,0));
-        btnClose.setContentAreaFilled (false);
+        btnClose.setMargin(new Insets(0, 0, 0, 0));
+        btnClose.setContentAreaFilled(false);
         btnClose.setFocusPainted(false);
-        pnTop.add(btnClose);
+        pnFrameDrage.add(btnClose);
 
         JPanel pnCenter = new JPanel();
         contentPane.add(pnCenter, BorderLayout.CENTER);
@@ -148,6 +140,49 @@ public class FrameNhanVien extends JFrame {
     }
 
     private void initEvent() {
+
+        pnFrameDrage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xx = e.getX();
+                yy = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        pnFrameDrage.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xx, y - yy);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
         lblHoaDon.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -157,25 +192,25 @@ public class FrameNhanVien extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         lblBaoHanh.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -185,22 +220,22 @@ public class FrameNhanVien extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
 
@@ -213,48 +248,48 @@ public class FrameNhanVien extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                setVisible(false);
             }
         });
-        
-         btnMini.addActionListener(new ActionListener() {
+
+        btnMini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
-             
-         });
+
+        });
     }
 
     private void chuyenTab() {
-        switch(tabIndex){
+        switch (tabIndex) {
             case 1:
                 pnhoaDon.setVisible(true);
                 pnbaoHanh.setVisible(false);
                 pnnhapHang.setVisible(false);
-                
+
                 lblHoaDon.setForeground(Color.YELLOW);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblNhapHang.setForeground(Color.WHITE);
@@ -263,7 +298,7 @@ public class FrameNhanVien extends JFrame {
                 pnhoaDon.setVisible(false);
                 pnbaoHanh.setVisible(true);
                 pnnhapHang.setVisible(false);
-                
+
                 lblHoaDon.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.YELLOW);
                 lblNhapHang.setForeground(Color.WHITE);
@@ -272,7 +307,7 @@ public class FrameNhanVien extends JFrame {
                 pnhoaDon.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnnhapHang.setVisible(true);
-                
+
                 lblHoaDon.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblNhapHang.setForeground(Color.YELLOW);

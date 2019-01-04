@@ -13,6 +13,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.Icon;
@@ -45,6 +48,10 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
 
     private iFrameListener callBack;
 
+    int xx = 0;
+    int yy = 0;
+    private JPanel pnFrameDrage;
+
     public FrameThemTaiKhoan(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
@@ -53,7 +60,7 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
     }
 
     private void initComponent() {
-        
+
         setUndecorated(true);
         setSize(431, 300);
         setLocationRelativeTo(null);
@@ -62,24 +69,24 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JPanel pnTop = new JPanel();
-        pnTop.setBackground(new Color(0, 51, 51));
-        contentPane.add(pnTop, BorderLayout.NORTH);
-        pnTop.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
+        pnFrameDrage = new JPanel();
+        pnFrameDrage.setBackground(new Color(0, 51, 51));
+        contentPane.add(pnFrameDrage, BorderLayout.NORTH);
+        pnFrameDrage.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 5));
 
         Icon miniIcon = new ImageIcon("Images/Mini.png");
         btnMini = new JButton(miniIcon);
-        btnMini.setContentAreaFilled (false);
+        btnMini.setContentAreaFilled(false);
         btnMini.setFocusPainted(false);
-        btnMini.setMargin(new Insets(0,0,0,0));
-        pnTop.add(btnMini);
+        btnMini.setMargin(new Insets(0, 0, 0, 0));
+        pnFrameDrage.add(btnMini);
 
         Icon closeIcon = new ImageIcon("Images/Close.png");
         btnClose = new JButton(closeIcon);
-        btnClose.setMargin(new Insets(0,0,0,0));
-        btnClose.setContentAreaFilled (false);
+        btnClose.setMargin(new Insets(0, 0, 0, 0));
+        btnClose.setContentAreaFilled(false);
         btnClose.setFocusPainted(false);
-        pnTop.add(btnClose);
+        pnFrameDrage.add(btnClose);
 
         JPanel pnCenter = new JPanel();
         contentPane.add(pnCenter, BorderLayout.CENTER);
@@ -151,6 +158,49 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
     }
 
     private void initEvent() {
+
+        pnFrameDrage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xx = e.getX();
+                yy = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        pnFrameDrage.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xx, y - yy);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
         btnDongY.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,25 +211,26 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FrameThemTaiKhoan.this.setVisible(false);
-                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_TAI_KHOAN});
+                clearData();
+
             }
         });
-                
+
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.THEM_TAI_KHOAN});
             }
         });
-        
+
         btnMini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
-             
-         });
+
+        });
     }
 
     private void initData() {

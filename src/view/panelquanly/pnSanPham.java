@@ -470,7 +470,10 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
             case iFrameListener.TypeFrame.THEM_HANG:
                 loadDataCbbHang();
                 break;
-            case iFrameListener.TypeFrame.THEM_TAI_KHOAN:
+            case iFrameListener.TypeFrame.TIM_KIEM_SP:
+                SanPham sp = (SanPham) data[1];
+                System.out.println(sp.getTenSp());
+                hienThiThongTinSanPhamTimKiem(sp);
                 break;
         }
     }
@@ -517,37 +520,8 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
 
         SanPhamModelTable modelTable = (SanPhamModelTable) tableSanPham.getModel();
         sanPham = modelTable.getSelectedRow(row);
-
-        String maSP = sanPham.getMaSp()+"";
-        String tenSP = sanPham.getTenSp();
-        String xuatXu = sanPham.getXuatxu();
-        String mauSac = sanPham.getMau();
-        String baoHanh = sanPham.getTinhtrang() + "";
-        String theNho = sanPham.getBonho();
-        String kichThuoc = sanPham.getKichthuoc();
-        String namSX = sanPham.getNamSx() + "";
-        String soLuong = sanPham.getSl() +"";
         
-        Locale locale  = new Locale("<em>vi</em>" , "VN");
-        String pattern = "###.##";
-
-        DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(locale);
-        decimalFormat.applyPattern(pattern);
-
-        String giaBanRa = decimalFormat.format(sanPham.getGiaBanRa());
-        
-        int tinhTrang = sanPham.getTinhtrang();
-        
-        NhaSanXuat nsx = sanPham.getNhasanxuat();
-
-        if (sanPham.getAnh() != null) {
-            Image image = Config.convertArrayByteToImageIcon(sanPham.getAnh());
-            ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(300, 270, java.awt.Image.SCALE_SMOOTH));
-            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, imageIcon);
-        }
-        else {
-            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, null);
-        }
+        thongTinSanPham();
     }
 
     private void hienThiThongTinSanPhamLenManHinh(String maSP, String tenSP, String xuatXu, String mauSac, String baoHanh, 
@@ -637,6 +611,48 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
             case iMessageView.SUCCESS:
                 loadToanBoSanPhamLenTable();
                 break;
+        }
+    }
+
+    private void hienThiThongTinSanPhamTimKiem(SanPham sp) {
+        sanPham = sp;
+        tableSanPham.getSelectionModel().clearSelection();
+        thongTinSanPham();
+    }
+
+    private void thongTinSanPham() {
+        
+        if(sanPham == null) return;
+        
+        String maSP = sanPham.getMaSp()+"";
+        String tenSP = sanPham.getTenSp();
+        String xuatXu = sanPham.getXuatxu();
+        String mauSac = sanPham.getMau();
+        String baoHanh = sanPham.getTinhtrang() + "";
+        String theNho = sanPham.getBonho();
+        String kichThuoc = sanPham.getKichthuoc();
+        String namSX = sanPham.getNamSx() + "";
+        String soLuong = sanPham.getSl() +"";
+        
+        Locale locale  = new Locale("<em>vi</em>" , "VN");
+        String pattern = "###.##";
+
+        DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(locale);
+        decimalFormat.applyPattern(pattern);
+
+        String giaBanRa = decimalFormat.format(sanPham.getGiaBanRa());
+        
+        int tinhTrang = sanPham.getTinhtrang();
+        
+        NhaSanXuat nsx = sanPham.getNhasanxuat();
+
+        if (sanPham.getAnh() != null) {
+            Image image = Config.convertArrayByteToImageIcon(sanPham.getAnh());
+            ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(300, 270, java.awt.Image.SCALE_SMOOTH));
+            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, imageIcon);
+        }
+        else {
+            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, null);
         }
     }
 }

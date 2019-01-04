@@ -18,6 +18,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
@@ -57,6 +60,10 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
 
     private ButtonGroup buttonGroup;
 
+    int xx = 0;
+    int yy = 0;
+    private JPanel pnFrameDrage;
+
     public FrameTimKiemSP(iFrameListener callBack) {
         this.callBack = callBack;
         initComponent();
@@ -65,7 +72,7 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
     }
 
     private void initComponent() {
-        
+
         setUndecorated(true);
         setSize(900, 600);
         setLocationRelativeTo(null);
@@ -74,26 +81,26 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JPanel pnTop = new JPanel();
-        pnTop.setBackground(new Color(0, 51, 51));
-        FlowLayout flowLayout = (FlowLayout) pnTop.getLayout();
+        pnFrameDrage = new JPanel();
+        pnFrameDrage.setBackground(new Color(0, 51, 51));
+        FlowLayout flowLayout = (FlowLayout) pnFrameDrage.getLayout();
         flowLayout.setHgap(2);
         flowLayout.setAlignment(FlowLayout.RIGHT);
-        contentPane.add(pnTop, BorderLayout.NORTH);
+        contentPane.add(pnFrameDrage, BorderLayout.NORTH);
 
         Icon miniIcon = new ImageIcon("Images/Mini.png");
         btnMini = new JButton(miniIcon);
-        btnMini.setContentAreaFilled (false);
+        btnMini.setContentAreaFilled(false);
         btnMini.setFocusPainted(false);
-        btnMini.setMargin(new Insets(0,0,0,0));
-        pnTop.add(btnMini);
+        btnMini.setMargin(new Insets(0, 0, 0, 0));
+        pnFrameDrage.add(btnMini);
 
         Icon closeIcon = new ImageIcon("Images/Close.png");
         btnClose = new JButton(closeIcon);
-        btnClose.setMargin(new Insets(0,0,0,0));
-        btnClose.setContentAreaFilled (false);
+        btnClose.setMargin(new Insets(0, 0, 0, 0));
+        btnClose.setContentAreaFilled(false);
         btnClose.setFocusPainted(false);
-        pnTop.add(btnClose);
+        pnFrameDrage.add(btnClose);
 
         JPanel pnCenter = new JPanel();
         contentPane.add(pnCenter, BorderLayout.CENTER);
@@ -229,6 +236,11 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         btnHuy = new JButton("Hủy");
         btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
         panel_1.add(btnHuy);
+        
+        btnMini.setFocusable(false);
+        btnClose.setFocusable(false);
+        btnTimKiemCoBan.setFocusable(true);
+        getRootPane().setDefaultButton(btnTimKiemCoBan);
     }
 
     @Override
@@ -245,6 +257,48 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
     }
 
     private void initEvent() {
+
+        pnFrameDrage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                xx = e.getX();
+                yy = e.getY();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        pnFrameDrage.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xx, y - yy);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
 
         btnTimKiemCoBan.addActionListener(new ActionListener() {
             @Override
@@ -263,24 +317,24 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FrameTimKiemSP.this.setVisible(false);
+                clearData();
             }
         });
-                
+
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }
         });
-        
+
         btnMini.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
-             
-         });
+
+        });
 
     }
 
@@ -298,5 +352,10 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
         SanPham sp = modelTable.getSelectedRow(row);
         callBack.transferData(new Object[]{iFrameListener.TypeFrame.TIM_KIEM_SP, sp});
+        setVisible(false);
+    }
+
+    private void clearData() {
+        
     }
 }
