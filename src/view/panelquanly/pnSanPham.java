@@ -34,6 +34,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -79,6 +80,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
 
     private SanPham sanPham;
     private JButton btnHuyCapNhat;
+    private JComboBox cbbLoaiHienThi;
     
     public pnSanPham() {
         initComponent();
@@ -353,9 +355,32 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         btnLinkHinhAnh = new JButton("...");
         btnLinkHinhAnh.setBounds(473, 316, 45, 25);
         pnHinhAnhSP.add(btnLinkHinhAnh);
+        
+        JPanel pnTable = new JPanel();
+        panel_4.add(pnTable);
+        pnTable.setBorder(new LineBorder(new Color(0, 51, 51)));
+        pnTable.setLayout(new BorderLayout(0, 0));
+
+        JPanel pnLoaiHienThi = new JPanel();
+        FlowLayout flowLayout_80 = (FlowLayout) pnLoaiHienThi.getLayout();
+        flowLayout_80.setVgap(10);
+        flowLayout_80.setHgap(10);
+        flowLayout_80.setAlignment(FlowLayout.LEFT);
+        pnTable.add(pnLoaiHienThi, BorderLayout.NORTH);
+        
+        JLabel lblLoaiHienThi = new JLabel("Loại hiển thị:");
+        lblLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnLoaiHienThi.add(lblLoaiHienThi);
+        
+        cbbLoaiHienThi = new JComboBox();
+        cbbLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        cbbLoaiHienThi.setPreferredSize(new Dimension(150, 25));
+        cbbLoaiHienThi.setMaximumSize(new Dimension(150, 25));
+        cbbLoaiHienThi.setMinimumSize(new Dimension(150, 25));
+        pnLoaiHienThi.add(cbbLoaiHienThi);
 
         JPanel pnTableSanPham = new JPanel();
-        panel_4.add(pnTableSanPham);
+        pnTable.add(pnTableSanPham, BorderLayout.CENTER);
         pnTableSanPham.setLayout(new BorderLayout(0, 0));
 
         scrollPaneTableSanPham = new JScrollPane();
