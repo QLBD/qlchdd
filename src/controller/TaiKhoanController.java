@@ -8,11 +8,8 @@ package controller;
 
 import java.util.List;
 import model.TaiKhoanModelTable;
-import model.dao.NhanVienDAO;
-import model.dao.PhanQuyenDAO;
 import model.dao.TaiKhoanDAO;
 import model.dao.TimKiemDAO;
-import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
 import utils.Config;
@@ -21,7 +18,6 @@ import view.interfaceView.iDangNhapView;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
 import view.interfaceView.iModelTable;
-import view.interfaceView.iQuanLyTaiKhoan;
 
 
 /**
@@ -53,7 +49,7 @@ public class TaiKhoanController {
     }
     
     public void layToanBoTaiKhoanNhanVienLenComboBox(iModelComBox callBack){
-        List list = new TimKiemDAO(PhanQuyen.class).equal("quyentruycap", "nhanvien").timKiem();
+        List list = new TimKiemDAO(PhanQuyen.class).equal("maPhanQuyen", 2).timKiem();
         PhanQuyen phanquyen = (PhanQuyen) list.get(0);
         List data = new TimKiemDAO(TaiKhoan.class).equal("phanquyen", phanquyen).timKiem();
         callBack.hienThiDuLieuLenComBox(data,new TaiKhoan());
@@ -115,5 +111,24 @@ public class TaiKhoanController {
             callBack.dangNhapThanhCong(tk);
         else
             callBack.dangNhapThatBai();
+    }
+    
+    public void timKiemTaiKhoanTheoTenDangNhapLenTable(String tenDangNhap, iModelTable callBack){
+        String ten = Config.convertSignedStringToUnsignedString(tenDangNhap);
+        List data = new TimKiemDAO(TaiKhoan.class).ilike("tenDangNhap", "%"+ten+"%").timKiem();
+        if(!data.isEmpty()){
+            TaiKhoanModelTable modelTable = new TaiKhoanModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        }
+        else
+            callBack.hienThiDuLieuLenTable(null);
+    }
+    
+    public void capNhatThongTinNhanVien(TaiKhoan taiKhoan, iMessageView callBack){
+        boolean result = TaiKhoanDAO.capNhatTaiKhoan(taiKhoan);
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật Tài khoản Thành Công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Cập nhật Tài khoản Thất Bại", iMessageView.FAIL);
     }
 }

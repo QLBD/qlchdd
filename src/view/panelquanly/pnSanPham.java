@@ -20,6 +20,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Iterator;
@@ -56,7 +58,8 @@ import view.interfaceView.iModelTable;
  *
  * @author RanRan
  */
-public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, iModelTable , iMessageView{
+public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, iModelTable, iMessageView {
+
     private JTextField tfMaSP;
     private JTextField tfTenSP;
     private JComboBox cbbHang;
@@ -81,7 +84,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
     private SanPham sanPham;
     private JButton btnHuyCapNhat;
     private JComboBox cbbLoaiHienThi;
-    
+
     public pnSanPham() {
         initComponent();
         initData();
@@ -320,10 +323,10 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         btnCapNhatSP = new JButton("Cập nhật");
         btnCapNhatSP.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLSP.add(btnCapNhatSP);
-        
+
         btnHuyCapNhat = new JButton("Hủy");
-	btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	pnButtonQLSP.add(btnHuyCapNhat);
+        btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButtonQLSP.add(btnHuyCapNhat);
 
         JPanel panel_4 = new JPanel();
         pnChinhQLSP.add(panel_4);
@@ -355,7 +358,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         btnLinkHinhAnh = new JButton("...");
         btnLinkHinhAnh.setBounds(473, 316, 45, 25);
         pnHinhAnhSP.add(btnLinkHinhAnh);
-        
+
         JPanel pnTable = new JPanel();
         panel_4.add(pnTable);
         pnTable.setBorder(new LineBorder(new Color(0, 51, 51)));
@@ -367,16 +370,16 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         flowLayout_80.setHgap(10);
         flowLayout_80.setAlignment(FlowLayout.LEFT);
         pnTable.add(pnLoaiHienThi, BorderLayout.NORTH);
-        
+
         JLabel lblLoaiHienThi = new JLabel("Loại hiển thị:");
         lblLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnLoaiHienThi.add(lblLoaiHienThi);
-        
+
         cbbLoaiHienThi = new JComboBox();
         cbbLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        cbbLoaiHienThi.setPreferredSize(new Dimension(150, 25));
-        cbbLoaiHienThi.setMaximumSize(new Dimension(150, 25));
-        cbbLoaiHienThi.setMinimumSize(new Dimension(150, 25));
+        cbbLoaiHienThi.setPreferredSize(new Dimension(220, 25));
+        cbbLoaiHienThi.setMaximumSize(new Dimension(220, 25));
+        cbbLoaiHienThi.setMinimumSize(new Dimension(220, 25));
         pnLoaiHienThi.add(cbbLoaiHienThi);
 
         JPanel pnTableSanPham = new JPanel();
@@ -414,13 +417,31 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
 //        String NamSX = tfNamSX.getText();
 //        String GiaBanRa = tfGiaBanRa.getText();
 //        String LinkHinhAnh = tfLinkHinhAnh.getText();
-
-        loadToanBoSanPhamLenTable();
+        loadDataCbbLoaiHienThi();
         loadDataCbbHang();
         loadDataCbbTinhTrang();
     }
 
     private void initEvent() {
+
+        cbbLoaiHienThi.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int selected = cbbLoaiHienThi.getSelectedIndex();
+                switch (selected) {
+                    case 0:
+                        loadToanBoSanPhamLenTable();
+                        break;
+                    case 1:
+                        loadSanPhamDangKinhDoanhLenTable();
+                        break;
+                    case 2:
+                        loadSanPhamNgungKinhDoanhLenTable();
+                        break;
+                }
+            }
+        });
+
         btnLinkHinhAnh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -450,7 +471,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
                 }
             }
         });
-        
+
         btnCapNhatSP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -526,6 +547,14 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         SanPhamController.getInstance().layToanBoDuLieuLenTable(this);
     }
 
+    private void loadSanPhamDangKinhDoanhLenTable() {
+        SanPhamController.getInstance().layDuLieuTheoTinhTrangLenTable(this, 1);
+    }
+
+    private void loadSanPhamNgungKinhDoanhLenTable() {
+        SanPhamController.getInstance().layDuLieuTheoTinhTrangLenTable(this, 0);
+    }
+
     private void moManHinhTimKiemSanPham() {
         FrameTimKiemSP frame = new FrameTimKiemSP(this);
         frame.setVisible(true);
@@ -545,14 +574,14 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
 
         SanPhamModelTable modelTable = (SanPhamModelTable) tableSanPham.getModel();
         sanPham = modelTable.getSelectedRow(row);
-        
+
         thongTinSanPham();
     }
 
-    private void hienThiThongTinSanPhamLenManHinh(String maSP, String tenSP, String xuatXu, String mauSac, String baoHanh, 
-            String theNho, String kichThuoc, String namSX, String soLuong, String giaBanRa, int tinhTrang, NhaSanXuat nsx, 
+    private void hienThiThongTinSanPhamLenManHinh(String maSP, String tenSP, String xuatXu, String mauSac, String baoHanh,
+            String theNho, String kichThuoc, String namSX, String soLuong, String giaBanRa, int tinhTrang, NhaSanXuat nsx,
             ImageIcon imageIcon) {
-        
+
         tfMaSP.setText(maSP);
         tfTenSP.setText(tenSP);
         tfXuatXu.setText(xuatXu);
@@ -563,32 +592,34 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         tfKichThuoc.setText(kichThuoc);
         tfNamSX.setText(namSX);
         tfGiaBanRa.setText(giaBanRa);
-        
+
         cbbTinhTrangSP.setSelectedIndex(tinhTrang);
         cbbHang.getModel().setSelectedItem(nsx);
-        
+
         tfLinkHinhAnh.setText("");
-        
+
         lblLoadHinhAnh.setText("");
         lblLoadHinhAnh.setIcon(imageIcon);
     }
-    
+
     private void capNhatThongTinSanPham() {
-        if(sanPham == null) return;
-        
+        if (sanPham == null) {
+            return;
+        }
+
         String tenSP = tfTenSP.getText();
         String xuatXu = tfXuatXu.getText();
         String mauSac = tfMauSac.getText();
         String theNho = tfTheNho.getText();
         String kichThuoc = tfKichThuoc.getText();
-        
+
         int namSX = -1;
         int baoHanh = -1;
         int soLuong = -1;
         double giaBanRa = -1;
-        
+
         byte[] anh = null;
-        
+
         try {
             namSX = Integer.valueOf(tfNamSX.getText());
             baoHanh = Integer.valueOf(tfBaoHanh.getText());
@@ -597,17 +628,17 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
+
         if (lblLoadHinhAnh.getIcon() != null) {
             ImageIcon imageIcon = (ImageIcon) lblLoadHinhAnh.getIcon();
             Image image = imageIcon.getImage();
             anh = Config.convertImageIconToArrayByte(image, "png");
         }
-        
+
         NhaSanXuat nsx = (NhaSanXuat) cbbHang.getSelectedItem();
-        
+
         int tinhTrang = cbbTinhTrangSP.getSelectedIndex();
-        
+
         sanPham.setTenSp(tenSP);
         sanPham.setTinhtrang(baoHanh);
         sanPham.setThoigianBh(baoHanh);
@@ -621,7 +652,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         sanPham.setGiaBanRa(giaBanRa);
         sanPham.setNhasanxuat(nsx);
         sanPham.setSl(soLuong);
-        
+
         SanPhamController.getInstance().capNhatSanPham(sanPham, this);
     }
 
@@ -646,10 +677,12 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
     }
 
     private void thongTinSanPham() {
-        
-        if(sanPham == null) return;
-        
-        String maSP = sanPham.getMaSp()+"";
+
+        if (sanPham == null) {
+            return;
+        }
+
+        String maSP = sanPham.getMaSp() + "";
         String tenSP = sanPham.getTenSp();
         String xuatXu = sanPham.getXuatxu();
         String mauSac = sanPham.getMau();
@@ -657,27 +690,33 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         String theNho = sanPham.getBonho();
         String kichThuoc = sanPham.getKichthuoc();
         String namSX = sanPham.getNamSx() + "";
-        String soLuong = sanPham.getSl() +"";
-        
-        Locale locale  = new Locale("<em>vi</em>" , "VN");
+        String soLuong = sanPham.getSl() + "";
+
+        Locale locale = new Locale("<em>vi</em>", "VN");
         String pattern = "###.##";
 
-        DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(locale);
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
         decimalFormat.applyPattern(pattern);
 
         String giaBanRa = decimalFormat.format(sanPham.getGiaBanRa());
-        
+
         int tinhTrang = sanPham.getTinhtrang();
-        
+
         NhaSanXuat nsx = sanPham.getNhasanxuat();
 
         if (sanPham.getAnh() != null) {
             Image image = Config.convertArrayByteToImageIcon(sanPham.getAnh());
             ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(300, 270, java.awt.Image.SCALE_SMOOTH));
             hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, imageIcon);
-        }
-        else {
+        } else {
             hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, null);
         }
+    }
+
+    private void loadDataCbbLoaiHienThi() {
+        cbbLoaiHienThi.addItem("Toàn bộ sản phẩm");
+        cbbLoaiHienThi.addItem("Sản phẩm đang kinh doanh");
+        cbbLoaiHienThi.addItem("Sản Phẩm ngừng kinh doanh");
+        cbbLoaiHienThi.setSelectedIndex(-1);
     }
 }

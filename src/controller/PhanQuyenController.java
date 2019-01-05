@@ -6,9 +6,12 @@
 package controller;
 
 import java.util.List;
+import model.PhanQuyenModelTable;
 import model.dao.PhanQuyenDAO;
 import model.entities.PhanQuyen;
+import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
+import view.interfaceView.iModelTable;
 
 /**
  *
@@ -29,5 +32,20 @@ public class PhanQuyenController {
     public void layToanBoDuLieuLenComBox(iModelComBox callBack){
         List<PhanQuyen> data = PhanQuyenDAO.getDSPhanQuyen();
         callBack.hienThiDuLieuLenComBox(data,new PhanQuyen());
+    }
+    
+    public void layToanBoDuLieuLenTable(iModelTable callBack){
+        List<PhanQuyen> data =  PhanQuyenDAO.getDSPhanQuyen();
+        PhanQuyenModelTable modelTable = new PhanQuyenModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void capNhatThongTinNhaCungCap(PhanQuyen pq, iMessageView callBack){
+        boolean result = PhanQuyenDAO.capNhatTaiKhoan(pq);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Cập nhật Phân quyền thành công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Cập nhật Phân quyền cấp thất bại", iMessageView.FAIL);
     }
 }
