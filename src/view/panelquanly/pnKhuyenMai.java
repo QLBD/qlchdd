@@ -501,6 +501,13 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
                 timKiemSanPham();
             }
         });
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
+
     }
 
     @Override
@@ -588,10 +595,10 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
 
         List<SanPham> sanPhams = new ArrayList<>(khuyenMai.getSanphams());
 
-        hienThiThongTinKhuyeMai(maKM, tenKM, hsKM, ngayBD, ngayKT, sanPhams);
+        hienThiThongTinKhuyenMai(maKM, tenKM, hsKM, ngayBD, ngayKT, sanPhams);
     }
 
-    private void hienThiThongTinKhuyeMai(String maKM, String tenKM, String hsKM, Date ngayBD, Date ngayKT, List<SanPham> sanPhams) {
+    private void hienThiThongTinKhuyenMai(String maKM, String tenKM, String hsKM, Date ngayBD, Date ngayKT, List<SanPham> sanPhams) {
         tfMaKM.setText(maKM);
         tfTenKM.setText(tenKM);
         tfHeSoKM.setText(hsKM);
@@ -715,10 +722,6 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         KhuyenMaiController.getInstance().capNhatKhuyenMai(khuyenMai, this);
     }
 
-    private void clearData() {
-
-    }
-
     private void xoaSanPham() {
         int row = tableCTKM.getSelectedRow();
         if (row < 0) {
@@ -754,5 +757,12 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         NhaSanXuat nsx = sp.getNhasanxuat();
         cbbTimHangSPKM.getModel().setSelectedItem(nsx);
         cbbTimTenSPKM.getModel().setSelectedItem(sp);
+    }
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        khuyenMai = null;
+        tableKM.getSelectionModel().clearSelection();
+        hienThiThongTinKhuyenMai("", "", "",null, null, null);
+
     }
 }

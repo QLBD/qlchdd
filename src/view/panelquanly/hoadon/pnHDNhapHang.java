@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -315,6 +317,12 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
                 }
             }
         });
+        btnXemTatCa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     @Override
@@ -344,10 +352,6 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
         HoaDonMuaController.getInstance().layToanBoDuLieuLenTable(this);
     }
 
-    private void clearData() {
-
-    }
-
     private void tableHDNhapSelection() {
         int row = tableHDNhap.getSelectedRow();
         if (row < 0) {
@@ -372,10 +376,10 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
 
         List<CthdMua> cthdMuas = new ArrayList<>(hoaDonMua.getCthdMuas());
 
-        hienThiThongHoaDonMua(soHD, ngayNhap, tenNV, tenNCC, tongTien, cthdMuas);
+        hienThiThongTinHoaDonMua(soHD, ngayNhap, tenNV, tenNCC, tongTien, cthdMuas);
     }
 
-    private void hienThiThongHoaDonMua(String soHD, String ngayNhap, String tenNV, String tenNCC, String tongTien, List<CthdMua> cthdMuas) {
+    private void hienThiThongTinHoaDonMua(String soHD, String ngayNhap, String tenNV, String tenNCC, String tongTien, List<CthdMua> cthdMuas) {
         tfMaHDNhap.setText(soHD);
         tfNgayNhap.setText(ngayNhap);
         tfNVNhap.setText(tenNV);
@@ -413,4 +417,13 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
         tfDonGiaNhap.setText(donGia);
         tfThanhTienNhap.setText(thanhTien);
     }
+    
+        private void clearData() {
+        //xóa trắng màn hình thông tin
+        hoaDonMua = null;
+        tableHDNhap.getSelectionModel().clearSelection();
+        hienThiThongTinHoaDonMua("", "", "","","",null);
+
+    }
+    
 }

@@ -157,10 +157,6 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
         tablePhanQuyen.setModel(tableModel);
     }
 
-    private void clearData() {
-
-    }
-
     private void initData() {
         loadToanBoPhanQuyenLenTable();
     }
@@ -221,5 +217,12 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
         
         phanQuyen.setQuyentruycap(quyenTruyCap);
         PhanQuyenController.getInstance().capNhatThongTinNhaCungCap(phanQuyen, this);
+    }
+    private void clearData() {
+        
+        phanQuyen = null;
+        tablePhanQuyen.getSelectionModel().clearSelection();
+        hienThiThongTinPhanQuyen("", "");
+
     }
 }

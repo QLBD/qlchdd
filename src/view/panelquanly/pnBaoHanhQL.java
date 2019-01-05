@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JTextField;
@@ -321,6 +323,14 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
                 }
             }
         });
+        
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
+
     }
 
     @Override
@@ -368,9 +378,10 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         String maBH = baoHanh.getMaBh() + "";
-        String soHD_BH = baoHanh.getHoadonban() + "";
+        String soHD_BH = baoHanh.getHoadonban().getSohdBan() + "";
         String tenSP_BH = baoHanh.getSanpham().getTenSp();
         String serial = baoHanh.getSerial() + "";
+        String yeuCauBH = baoHanh.getYeucauBh();
         String nhanVienNhanBH = baoHanh.getNhanvienByNhanvienNhan().getTenNv();
         String ngayNhanBH = dateFormat.format(baoHanh.getNgaynhan());
 
@@ -384,10 +395,10 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
             nhanVienTraBH = baoHanh.getNhanvienByNhanvienTra().getTenNv();
         }
 
-        hienThiThongTinBaoHanh(maBH, soHD_BH, tenSP_BH, serial, nhanVienNhanBH, ngayNhanBH, tinhTrang, ngayTraBH, nhanVienTraBH);
+        hienThiThongTinBaoHanh(maBH, soHD_BH, tenSP_BH, serial, nhanVienNhanBH, ngayNhanBH,yeuCauBH, tinhTrang, ngayTraBH, nhanVienTraBH);
     }
 
-    private void hienThiThongTinBaoHanh(String maBH, String soHD_BH, String tenSP_BH, String serial, String nhanVienNhanBH, String ngayNhanBH, int tinhTrang, String ngayTraBH, String nhanVienTraBH) {
+    private void hienThiThongTinBaoHanh(String maBH, String soHD_BH, String tenSP_BH, String serial, String nhanVienNhanBH, String ngayNhanBH, String yeuCauBH, int tinhTrang, String ngayTraBH, String nhanVienTraBH) {
 
         tfMaBH.setText(maBH);
         tfSoHD_BH.setText(soHD_BH);
@@ -395,9 +406,18 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
         tfSerial.setText(serial);
         tfNVNhanBH.setText(nhanVienNhanBH);
         tfNgayNhanBH.setText(ngayNhanBH);
+        taYeuCauBH.setText(yeuCauBH);
         tfNgayTraBH.setText(ngayTraBH);
         tfNVTraBH.setText(nhanVienTraBH);
 
         cbbTinhTrangBH.setSelectedIndex(tinhTrang);
+    }
+    
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        baoHanh = null;
+        tableBH.getSelectionModel().clearSelection();
+        hienThiThongTinBaoHanh("", "", "", "","", "", "",-1,"","");
+        //loadToanBoNhanVienLenTable();
     }
 }

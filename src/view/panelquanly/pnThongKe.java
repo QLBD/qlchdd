@@ -41,6 +41,7 @@ public class pnThongKe extends JPanel implements iMessageView{
     private JButton btnXemThongKe;
     private JButton btnXuatBaoCao;
     private JTable tableThongKe;
+    private JButton btnHuy;
 
     public pnThongKe() {
         initComponent();
@@ -145,10 +146,14 @@ public class pnThongKe extends JPanel implements iMessageView{
 	btnXemThongKe = new JButton("Xem thống kê");
 	btnXemThongKe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	panel_47.add(btnXemThongKe);
-		
+        
 	btnXuatBaoCao = new JButton("Xuất báo cáo");
 	btnXuatBaoCao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	panel_47.add(btnXuatBaoCao);
+        
+	btnHuy = new JButton("Hủy");
+	btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	panel_47.add(btnHuy);
 		
 	JPanel panel_56 = new JPanel();
 	panel_48.add(panel_56, BorderLayout.CENTER);
@@ -169,6 +174,13 @@ public class pnThongKe extends JPanel implements iMessageView{
                 loadDataCbbChiTiet();
             }
         });
+//        btnHuy.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                clearData();
+//            }
+//        });
+		
     }
 
     private void thongKe() {
