@@ -1,8 +1,8 @@
 package view;
 
+import controller.HoaHongController;
 import controller.TaiKhoanController;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +23,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -51,9 +53,10 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
 
     public FrameDangNhap() {
         initComponent();
+        initData();
         initEvent();
-        tfTaiKhoan.setText("nhanvien");
-        pwfMatKhau.setText("1");
+        tfTaiKhoan.setText("admin");
+        pwfMatKhau.setText("admin");
     }
 
     private void initComponent() {
@@ -235,5 +238,12 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
     @Override
     public void dangNhapThatBai() {
         JOptionPane.showMessageDialog(null, "Đăng nhập thất bại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void initData() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        System.out.println(month +""+year);
+        HoaHongController.getInstance().kiemTraHoaHongTheoThang(month+1, year);
     }
 }
