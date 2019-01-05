@@ -21,6 +21,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
@@ -338,11 +340,11 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         btnCapNhat = new JButton("Cập nhật");
         btnCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButton.add(btnCapNhat);
-        
+
         btnHuyCapNhat = new JButton("Hủy");
-	btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	pnButton.add(btnHuyCapNhat);
-        
+        btnHuyCapNhat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButton.add(btnHuyCapNhat);
+
         JPanel pnTable = new JPanel();
         pnChinhQLNV.add(pnTable);
         pnTable.setBorder(new LineBorder(new Color(0, 51, 51)));
@@ -354,22 +356,22 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         flowLayout_80.setHgap(10);
         flowLayout_80.setAlignment(FlowLayout.LEFT);
         pnTable.add(pnLoaiHienThi, BorderLayout.NORTH);
-        
+
         JLabel lblLoaiHienThi = new JLabel("Loại hiển thị:");
         lblLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnLoaiHienThi.add(lblLoaiHienThi);
-        
+
         cbbLoaiHienThi = new JComboBox();
         cbbLoaiHienThi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        cbbLoaiHienThi.setPreferredSize(new Dimension(150, 25));
-        cbbLoaiHienThi.setMaximumSize(new Dimension(150, 25));
-        cbbLoaiHienThi.setMinimumSize(new Dimension(150, 25));
+        cbbLoaiHienThi.setPreferredSize(new Dimension(200, 25));
+        cbbLoaiHienThi.setMaximumSize(new Dimension(200, 25));
+        cbbLoaiHienThi.setMinimumSize(new Dimension(200, 25));
         pnLoaiHienThi.add(cbbLoaiHienThi);
-        
+
         JPanel pnTableNhanVien = new JPanel();
         //pnChinhQLNV.add(pnTableNhanVien);
         pnTable.add(pnTableNhanVien, BorderLayout.CENTER);
-		pnTableNhanVien.setLayout(new BorderLayout(0, 0));
+        pnTableNhanVien.setLayout(new BorderLayout(0, 0));
 
         scrollPaneTableNV = new JScrollPane();
         pnTableNhanVien.add(scrollPaneTableNV, BorderLayout.CENTER);
@@ -383,7 +385,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         buttonGroup.add(rdbtnNu);
         buttonGroup.add(rdbtnNam);
 
-        loadToanBoNhanVienLenTable();
+        loadDataCbbLoaiHienThi();
         loadDataCbbTinhTrang();
         loadDataCbbTaiKhoan();
     }
@@ -396,7 +398,9 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     @Override
     public void hienThiDuLieuLenTable(TableModel tableModel) {
-        if(tableModel==null) return;
+        if (tableModel == null) {
+            return;
+        }
         tableNhanVien.setModel(tableModel);
     }
 
@@ -405,6 +409,25 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     }
 
     private void initEvent() {
+
+        cbbLoaiHienThi.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int selected = cbbLoaiHienThi.getSelectedIndex();
+                switch (selected) {
+                    case 0:
+                        loadToanBoNhanVienLenTable();
+                        break;
+                    case 1:
+                        loadNhanVienDangLamLenTable();
+                        break;
+                    case 2:
+                        loadNhanVienDaNghiLamLenTable();
+                        break;
+                }
+            }
+        });
+
         tableNhanVien.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -441,21 +464,21 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
                 timKiemNhanVienTheoTen();
             }
         });
-        
+
         tfTenNV.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                
+
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                
+
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                
+
             }
         });
     }
@@ -532,7 +555,9 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
-        if(data.isEmpty()) return;
+        if (data.isEmpty()) {
+            return;
+        }
         cbbTaiKhoan.removeAllItems();
         for (Iterator it = data.iterator(); it.hasNext();) {
             TaiKhoan tk = (TaiKhoan) it.next();
@@ -632,7 +657,22 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     private void timKiemNhanVienTheoTen() {
         String tenNv = tfTenNV.getText();
-        
+
         NhanVienController.getInstance().timKiemDuLieuNhanVienTheoTenLenTable(tenNv, this);
+    }
+
+    private void loadDataCbbLoaiHienThi() {
+        cbbLoaiHienThi.addItem("Toàn bộ nhân viên");
+        cbbLoaiHienThi.addItem("Nhân viên đang làm");
+        cbbLoaiHienThi.addItem("Nhân viên đã nghỉ việc");
+        cbbLoaiHienThi.setSelectedIndex(-1);
+    }
+
+    private void loadNhanVienDangLamLenTable() {
+        NhanVienController.getInstance().layDuLieuTheoTinhTrangLenTable(this, 1);
+    }
+
+    private void loadNhanVienDaNghiLamLenTable() {
+        NhanVienController.getInstance().layDuLieuTheoTinhTrangLenTable(this, 0);
     }
 }

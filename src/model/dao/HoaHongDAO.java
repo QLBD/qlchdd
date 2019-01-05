@@ -66,6 +66,9 @@ public class HoaHongDAO
     public static boolean themHoaHong(HoaHong hh)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        if(getHoaHong(hh.getId()) != null){
+            return false;
+        }
         boolean kq = true;
         try
         {

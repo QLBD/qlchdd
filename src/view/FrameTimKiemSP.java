@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
@@ -33,6 +35,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.table.TableModel;
 import model.SanPhamModelTable;
+import model.entities.NhaSanXuat;
 import model.entities.SanPham;
 import view.interfaceView.iFrameListener;
 import view.interfaceView.iModelTable;
@@ -58,8 +61,9 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
 
     private iFrameListener callBack;
 
-    private ButtonGroup buttonGroup;
+    private List<SanPham> sanPhams;
 
+//    private ButtonGroup buttonGroup;
     int xx = 0;
     int yy = 0;
     private JPanel pnFrameDrage;
@@ -236,23 +240,18 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         btnHuy = new JButton("Hủy");
         btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
         panel_1.add(btnHuy);
-        
+
         btnMini.setFocusable(false);
         btnClose.setFocusable(false);
         btnTimKiemCoBan.setFocusable(true);
         getRootPane().setDefaultButton(btnTimKiemCoBan);
     }
 
-    @Override
-    public void hienThiDuLieuLenTable(TableModel tableModel) {
-        tableKetQua.setModel(tableModel);
-    }
-
     private void initData() {
-        buttonGroup = new ButtonGroup();
-        buttonGroup.add(rdbtnHang);
-        buttonGroup.add(rdbtnMau);
-        buttonGroup.add(rdbtnXuatXu);
+//        buttonGroup = new ButtonGroup();
+//        buttonGroup.add(rdbtnHang);
+//        buttonGroup.add(rdbtnMau);
+//        buttonGroup.add(rdbtnXuatXu);
 
     }
 
@@ -333,7 +332,13 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
             public void actionPerformed(ActionEvent ae) {
                 setState(Frame.ICONIFIED);
             }
+        });
 
+        btnTimKiemNangCao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timKiemNangCao();
+            }
         });
 
     }
@@ -355,7 +360,117 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         setVisible(false);
     }
 
+    @Override
+    public void hienThiDuLieuLenTable(TableModel tableModel) {
+        if (tableModel == null) {
+            return;
+        }
+        sanPhams = new ArrayList<>(((SanPhamModelTable) tableModel).getData());
+        tableKetQua.setModel(tableModel);
+
+        loadCbbHang();
+        loadCbbMauSac();
+        loadCbbXuatXu();
+    }
+
     private void clearData() {
+
+    }
+
+    private void loadCbbHang() {
+        SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
+        cbbHang.removeAllItems();
+        List<NhaSanXuat> list = new ArrayList<>();
+        NhaSanXuat nhaSanXuat;
+        for (SanPham sp : modelTable.getData()) {
+            nhaSanXuat = sp.getNhasanxuat();
+            if (!list.contains(nhaSanXuat)) {
+                cbbHang.addItem(nhaSanXuat);
+                list.add(nhaSanXuat);
+            }
+        }
+
+        cbbHang.setSelectedIndex(-1);
+    }
+
+    private void loadCbbMauSac() {
+        SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
+        cbbMau.removeAllItems();
+        List<String> list = new ArrayList<>();
+        String mau;
+        for (SanPham sp : modelTable.getData()) {
+            mau = sp.getMau();
+            if (mau == null) {
+                continue;
+            }
+            if (!list.contains(mau)) {
+                cbbMau.addItem(mau);
+                list.add(mau);
+            }
+        }
+
+        cbbMau.setSelectedIndex(-1);
+    }
+
+    private void loadCbbXuatXu() {
+        SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
+        cbbXuatXu.removeAllItems();
+        List<String> list = new ArrayList<>();
+        String xuatXu;
+        for (SanPham sp : modelTable.getData()) {
+            xuatXu = sp.getXuatxu();
+            if (xuatXu == null) {
+                continue;
+            }
+            if (!list.contains(xuatXu)) {
+                cbbXuatXu.addItem(xuatXu);
+                list.add(xuatXu);
+            }
+        }
+
+        cbbXuatXu.setSelectedIndex(-1);
+    }
+
+    private void timKiemNangCao() {
+        String mau = "";
+        String xuatXu = "";
+        NhaSanXuat nhaSanXuat = null;
+
+        if (rdbtnHang.isSelected()) {
+            nhaSanXuat = (NhaSanXuat) cbbHang.getSelectedItem();
+        }
+
+        if (rdbtnMau.isSelected()) {
+            mau = (String) cbbMau.getSelectedItem();
+        }
+
+        if (rdbtnXuatXu.isSelected()) {
+            xuatXu = (String) cbbXuatXu.getSelectedItem();
+        }
         
+        SanPhamModelTable modelTable = (SanPhamModelTable) tableKetQua.getModel();
+        modelTable.clearData();
+        for (SanPham sp : sanPhams) {
+            if (mau != null) {
+                if (!mau.isEmpty()) {
+                    if (sp.getMau().compareTo(mau) != 0) {
+                        continue;
+                    }
+                }
+            }
+            if (xuatXu != null) {
+                if (!xuatXu.isEmpty()) {
+                    if (sp.getXuatxu().compareTo(xuatXu) != 0) {
+                        continue;
+                    }
+                }
+            }
+            if (nhaSanXuat != null) {
+                if (nhaSanXuat.getMaNsx() != sp.getNhasanxuat().getMaNsx()) {
+                    continue;
+                }
+            }
+            modelTable.addRow(sp);
+        }
     }
 }

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Xuất Hóa Đơn" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de4c6fbf-0416-4ffd-8f3c-6d92e0510c3e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="271"/>
 	<parameter name="soHD" class="java.lang.Integer"/>
 	<parameter name="ngayHD" class="java.lang.String"/>
 	<parameter name="maKH" class="java.lang.Integer"/>
@@ -39,7 +39,12 @@
 		<variableExpression><![CDATA[$F{gia_Goc}]]></variableExpression>
 	</variable>
 	<background>
-		<band height="572" splitType="Stretch"/>
+		<band height="572" splitType="Stretch">
+			<image>
+				<reportElement x="261" y="173" width="200" height="200" uuid="330d0108-dcbb-4377-830e-2c098ce01219"/>
+				<imageExpression><![CDATA["Images\\logo-thegioididong.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="82" splitType="Stretch">

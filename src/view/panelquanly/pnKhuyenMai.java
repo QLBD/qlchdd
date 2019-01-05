@@ -531,7 +531,7 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
         cbbTimHangSPKM.removeAllItems();
-        cbbTimHangSPKM.removeAllItems();
+        cbbTimTenSPKM.removeAllItems();
         for (Iterator it = data.iterator(); it.hasNext();) {
             NhaSanXuat nsx = (NhaSanXuat) it.next();
             cbbTimHangSPKM.addItem(nsx);
