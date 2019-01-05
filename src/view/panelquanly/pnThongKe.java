@@ -16,6 +16,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
@@ -42,6 +44,7 @@ public class pnThongKe extends JPanel implements iMessageView{
 
     public pnThongKe() {
         initComponent();
+        initData();
         initEvent();
     }
 
@@ -77,9 +80,9 @@ public class pnThongKe extends JPanel implements iMessageView{
 		
 	cbbLoaiThongKe = new JComboBox();
 	cbbLoaiThongKe.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        cbbLoaiThongKe.setPreferredSize(new Dimension(150, 25));
-        cbbLoaiThongKe.setMaximumSize(new Dimension(150, 25));
-        cbbLoaiThongKe.setMinimumSize(new Dimension(150, 25));
+        cbbLoaiThongKe.setPreferredSize(new Dimension(200, 25));
+        cbbLoaiThongKe.setMaximumSize(new Dimension(200, 25));
+        cbbLoaiThongKe.setMinimumSize(new Dimension(200, 25));
 	panel_50.add(cbbLoaiThongKe);
 		
 	JLabel lblChiTietThongKe = new JLabel("Chi tiết:");
@@ -104,7 +107,7 @@ public class pnThongKe extends JPanel implements iMessageView{
 	lblThang.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	panel_51.add(lblThang);
 		
-	cbbThang = new JComboBox();
+	cbbThang = new JComboBox(new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
 	cbbThang.setFont(new Font("Tahoma", Font.PLAIN, 15));
         cbbThang.setPreferredSize(new Dimension(100, 25));
         cbbThang.setMaximumSize(new Dimension(100, 25));
@@ -115,7 +118,7 @@ public class pnThongKe extends JPanel implements iMessageView{
 	lblQuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	panel_51.add(lblQuy);
 		
-	cbbQuy = new JComboBox();
+	cbbQuy = new JComboBox(new Object[]{1, 2, 3, 4});
 	cbbQuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
         cbbQuy.setPreferredSize(new Dimension(100, 25));
         cbbQuy.setMaximumSize(new Dimension(100, 25));
@@ -160,12 +163,12 @@ public class pnThongKe extends JPanel implements iMessageView{
     }
 
     private void initEvent() {
-//        btnThongKe.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                thongKe();
-//            }
-//        });
+        cbbLoaiThongKe.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                loadDataCbbChiTiet();
+            }
+        });
     }
 
     private void thongKe() {
@@ -176,5 +179,58 @@ public class pnThongKe extends JPanel implements iMessageView{
     @Override
     public void showMessageAndReloadData(String message, int type) {
         
+    }
+
+    private void initData() {
+        cbbQuy.setSelectedIndex(-1);
+        cbbThang.setSelectedIndex(-1);
+        loadDataCbbLoai();
+    }
+
+    private void loadDataCbbLoai() {
+        cbbLoaiThongKe.removeAllItems();
+        cbbLoaiThongKe.addItem("Doanh Thu");
+        cbbLoaiThongKe.addItem("Số lượng phẩm bán được");
+        cbbLoaiThongKe.addItem("Lương");
+        cbbLoaiThongKe.setSelectedIndex(-1);
+    }
+
+    private void loadDataCbbChiTiet() {
+        int loai = cbbLoaiThongKe.getSelectedIndex();
+        switch(loai){
+            case 0:
+                loadDataDoanhThuCbbChiTiet();
+                break;
+            case 1:
+                loadDataSanPhamBanRaCbbChiTiet();
+                break;
+            case 2:
+                loadDataLuongCbbChiTiet();
+                break;
+        }
+    }
+
+    private void loadDataDoanhThuCbbChiTiet() {
+        cbbChiTietThongKe.removeAllItems();
+        cbbChiTietThongKe.addItem("Tháng");
+        cbbChiTietThongKe.addItem("Quý");
+        cbbChiTietThongKe.addItem("Năm");
+        cbbChiTietThongKe.setSelectedIndex(-1);
+    }
+
+    private void loadDataSanPhamBanRaCbbChiTiet() {
+        cbbChiTietThongKe.removeAllItems();
+        cbbChiTietThongKe.addItem("Tháng");
+        cbbChiTietThongKe.addItem("Quý");
+        cbbChiTietThongKe.addItem("Năm");
+        cbbChiTietThongKe.setSelectedIndex(-1);
+    }
+
+    private void loadDataLuongCbbChiTiet() {
+        cbbChiTietThongKe.removeAllItems();
+//        cbbChiTietThongKe.addItem("Doanh Thu");
+//        cbbChiTietThongKe.addItem("Số lượng phẩm bán được");
+//        cbbChiTietThongKe.addItem("Lương");
+//        cbbChiTietThongKe.setSelectedIndex(-1);
     }
 }

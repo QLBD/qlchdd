@@ -481,6 +481,13 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
             }
         });
+        
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     private void tableNhanVienSelection() {
@@ -536,7 +543,11 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         dpNgayVaoLam.setDate(ngayVL);
         cbbTinhTrang.setSelectedIndex(tinhTrang);
 
-        if (gioiTinh == 0) {
+        if(gioiTinh == -1){
+            rdbtnNam.setSelected(false);
+            rdbtnNu.setSelected(false);
+        }
+        else if (gioiTinh == 0) {
             rdbtnNam.setSelected(true);
         } else {
             rdbtnNu.setSelected(true);
@@ -653,6 +664,11 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     private void clearData() {
         //xóa trắng màn hình thông tin
+        nhanVien = null;
+        tableNhanVien.getSelectionModel().clearSelection();
+        cbbLoaiHienThi.setSelectedIndex(0);
+        hienThiThongTinNhanVien("", "", "", -1, null, "", "", null, "", -1, null);
+        //loadToanBoNhanVienLenTable();
     }
 
     private void timKiemNhanVienTheoTen() {
