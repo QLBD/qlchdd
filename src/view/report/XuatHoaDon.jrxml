@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Xuất Hóa Đơn" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de4c6fbf-0416-4ffd-8f3c-6d92e0510c3e">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.1000000000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="271"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="soHD" class="java.lang.Integer"/>
 	<parameter name="ngayHD" class="java.lang.String"/>
 	<parameter name="maKH" class="java.lang.Integer"/>
@@ -39,53 +39,48 @@
 		<variableExpression><![CDATA[$F{gia_Goc}]]></variableExpression>
 	</variable>
 	<background>
-		<band height="572" splitType="Stretch">
-			<image>
-				<reportElement x="261" y="173" width="200" height="200" uuid="330d0108-dcbb-4377-830e-2c098ce01219"/>
-				<imageExpression><![CDATA["Images\\logo-thegioididong.jpg"]]></imageExpression>
-			</image>
-		</band>
+		<band height="572" splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="82" splitType="Stretch">
+		<band height="109" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="202" height="20" uuid="adec0267-3173-4245-869b-4ed45b46afc6"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="14" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[CÔNG TY CỔ PHẦN THẾ GIỚI DI ĐỘNG]]></text>
+				<text><![CDATA[Y2T Mobile Shop]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="100" height="20" uuid="bf1e9e66-88b3-4c85-a74b-a5357e657c9e"/>
-				<text><![CDATA[Địa Chỉ:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="40" width="100" height="20" uuid="be4d2ea6-ac80-46ef-83d1-5198d5b1e446"/>
-				<text><![CDATA[Điện Thoại:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="305" y="0" width="134" height="60" uuid="89216cec-7259-42af-b8f4-505ea7eba6f7"/>
+				<reportElement x="0" y="20" width="219" height="20" uuid="bf1e9e66-88b3-4c85-a74b-a5357e657c9e"/>
 				<textElement>
-					<font size="14" isBold="true"/>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Địa Chỉ: 47 Võ Văn Ngân, quận Thủ Đức]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="219" height="20" uuid="be4d2ea6-ac80-46ef-83d1-5198d5b1e446"/>
+				<textElement>
+					<font isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Điện Thoại: 1800.2549]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="752" height="49" uuid="89216cec-7259-42af-b8f4-505ea7eba6f7"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[HÓA ĐƠN
 GIÁ TRỊ GIA TĂNG]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="578" y="0" width="74" height="20" uuid="1af7fa55-088a-46c6-98e9-74965e9035ae"/>
-				<text><![CDATA[Số Hóa Đơn:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="578" y="20" width="74" height="20" uuid="f6203502-4cbe-4226-8f05-191cde41745c"/>
-				<text><![CDATA[Ngày:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="652" y="20" width="100" height="20" uuid="72f2a926-f9e5-410c-a437-5cd3f2da5b18"/>
-				<textFieldExpression><![CDATA[$P{ngayHD}]]></textFieldExpression>
+				<reportElement x="552" y="20" width="200" height="20" uuid="72f2a926-f9e5-410c-a437-5cd3f2da5b18"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Ngày: "+$P{ngayHD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="652" y="0" width="100" height="20" uuid="29ad9e46-935a-4e63-87c3-bfbeb9757d3f"/>
-				<textFieldExpression><![CDATA[$P{soHD}]]></textFieldExpression>
+				<reportElement x="552" y="0" width="200" height="20" uuid="29ad9e46-935a-4e63-87c3-bfbeb9757d3f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Số hóa đơn: " + $P{soHD}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -99,7 +94,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 			</rectangle>
 			<staticText>
 				<reportElement x="294" y="10" width="134" height="20" uuid="07f44a73-3155-4529-b0e9-8bb6da80b22b"/>
-				<text><![CDATA[Họ Tên Người Mua hàng: ]]></text>
+				<text><![CDATA[Họ Tên Khách Hàng: ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="294" y="50" width="100" height="20" uuid="1daa8efa-f72d-43c3-afb2-b03e9722c530"/>
@@ -299,6 +294,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{sl}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -310,6 +306,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{tien_Giam})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -321,6 +318,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{gia_Goc})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -332,6 +330,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{thanhtien})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -343,7 +342,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<textElement textAlignment="Right" markup="styled"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled"/>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -354,20 +353,16 @@ GIÁ TRỊ GIA TĂNG]]></text>
 	<pageFooter>
 		<band height="107" splitType="Stretch">
 			<staticText>
-				<reportElement x="402" y="0" width="100" height="20" uuid="8b905f3d-1cba-46af-832f-ae9d695e158e"/>
-				<text><![CDATA[Người Mua Hàng]]></text>
+				<reportElement x="402" y="0" width="100" height="32" uuid="8b905f3d-1cba-46af-832f-ae9d695e158e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Khách Hàng
+(kí, ghi rõ họ tên)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="402" y="20" width="100" height="20" uuid="de70c255-fa91-4739-887f-7f8700b89d5f"/>
-				<text><![CDATA[(ký ghi rõ họ tên)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="652" y="0" width="100" height="20" uuid="350f3d6d-d474-4d94-aee3-d368214a9b18"/>
-				<text><![CDATA[Người Bán Hàng]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="652" y="20" width="100" height="20" uuid="f6d2f7b1-8a0a-45bc-b83c-c530c51ce520"/>
-				<text><![CDATA[(ký ghi rõ họ tên)]]></text>
+				<reportElement x="640" y="0" width="100" height="32" uuid="350f3d6d-d474-4d94-aee3-d368214a9b18"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nhân viên bán hàng
+(kí, ghi rõ họ tên)]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="402" y="75" width="100" height="20" uuid="33636589-2dc4-467a-b4f1-73d2a893a45e"/>

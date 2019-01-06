@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Thống Kê Số Lượng Bán Ra Theo Quý" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab60c5b6-0829-46f6-8506-d99711fc41cd">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="14"/>
 	<parameter name="nam" class="java.lang.Integer"/>
 	<parameter name="quy" class="java.lang.Integer"/>
 	<queryString language="SQL">
@@ -21,48 +21,182 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="114" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="88" width="555" height="20" uuid="d6a31511-56fc-41a7-a521-a4bf4cdb7913"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["QUÝ: " + $P(quy)+" NĂM: " + $P{nam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="133" height="20" uuid="7639a18c-c43d-4738-89fb-f039933d2cfe"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Điện thoại: 1800.2549]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="431" y="0" width="124" height="20" uuid="8e2cf5d0-db2e-4712-80b4-8f5340e526f4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="211" height="20" uuid="ca88e92a-fd91-4abf-a2de-6e0f2dcca98e"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Địa chỉ: 47 Võ Văn Ngân, quận Thủ Đức]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="165" height="20" uuid="4b411e99-e3f9-4edc-9728-8fc5b69c9503"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Y2T Mobile Shop]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="555" height="28" uuid="b2b3a039-16ea-4496-a99a-73b54b12f5c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[THỐNG KÊ SẢN PHẨM BÁN RA TRONG QUÝ]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="33" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="133" y="41" width="100" height="20" uuid="0d084fb8-0e72-4dea-b59f-8d155b36fc72"/>
-				<text><![CDATA[ma_SP]]></text>
+				<reportElement x="413" y="0" width="142" height="20" uuid="9de0abf1-9e8e-480d-820f-a6dc13ea5737"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Số lượng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="233" y="41" width="100" height="20" uuid="28e49de9-1642-4246-b886-48b45bc69f7f"/>
-				<text><![CDATA[ten_SP]]></text>
+				<reportElement x="0" y="0" width="74" height="20" uuid="c95b3b98-58a1-480b-aba4-628ead392278"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[STT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="41" width="100" height="20" uuid="93982583-e6ce-402c-a884-bba2046d99c3"/>
-				<text><![CDATA[SL]]></text>
+				<reportElement x="219" y="0" width="194" height="20" uuid="b7a89658-e5c0-4bfb-b045-ef9615fdeb25"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Tên sản phẩm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="0" width="145" height="20" uuid="7a53fe71-8975-4985-b05c-9a49665e6ac0"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Mã sản phẩm]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="133" y="0" width="100" height="20" uuid="902de714-f4c1-474d-bffa-4a46b0c10ea8"/>
+				<reportElement x="74" y="0" width="145" height="20" uuid="902de714-f4c1-474d-bffa-4a46b0c10ea8"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ma_SP}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="233" y="0" width="100" height="20" uuid="67d0c86d-7a41-446a-818b-1a8fde573725"/>
+				<reportElement x="219" y="0" width="194" height="20" uuid="67d0c86d-7a41-446a-818b-1a8fde573725"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ten_SP}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="333" y="0" width="100" height="20" uuid="d31561dc-dec9-4916-a810-0adf999cce39"/>
+				<reportElement x="413" y="0" width="142" height="20" uuid="d31561dc-dec9-4916-a810-0adf999cce39"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{SL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="74" height="20" uuid="001248e3-a2a7-43e0-b95d-d60e2b6e6abb"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="152" splitType="Stretch">
+			<staticText>
+				<reportElement x="431" y="13" width="100" height="34" uuid="b32de962-b0c0-4891-aac6-5aba9ad17fd7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Quản lý
+(kí, ghi rõ họ tên)]]></text>
+			</staticText>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="d5910c05-c197-400d-a2a6-eeb3930ec034"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
