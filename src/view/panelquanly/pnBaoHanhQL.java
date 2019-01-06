@@ -330,7 +330,7 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
                 clearData();
             }
         });
-
+        
     }
 
     @Override
