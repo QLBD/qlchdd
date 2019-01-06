@@ -55,7 +55,7 @@ import view.interfaceView.iModelComBox;
  */
 public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, iMessageView{
 
-    private JTextField tfMaPhieuNhap;
+    private JTextField tfTongTien;
     private JComboBox cbbNhaCungCap;
     private JButton btnThemNhaCungCap;
     private JDateChooser dpNgayNhapHang;
@@ -120,15 +120,15 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         fl_pnMaPhieuNhap.setAlignment(FlowLayout.LEFT);
         panel_6.add(pnMaPhieuNhap);
 
-        JLabel lblMaPhieuNhap = new JLabel("Mã phiếu nhập:");
-        lblMaPhieuNhap.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnMaPhieuNhap.add(lblMaPhieuNhap);
+        JLabel lblTongTien = new JLabel("Tổng tiền:   ");
+        lblTongTien.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnMaPhieuNhap.add(lblTongTien);
 
-        tfMaPhieuNhap = new JTextField();
-        tfMaPhieuNhap.setEditable(false);
-        tfMaPhieuNhap.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        tfMaPhieuNhap.setColumns(15);
-        pnMaPhieuNhap.add(tfMaPhieuNhap);
+        tfTongTien = new JTextField();
+        tfTongTien.setEditable(false);
+        tfTongTien.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        tfTongTien.setColumns(15);
+        pnMaPhieuNhap.add(tfTongTien);
 
         JPanel pnNhaCungCap = new JPanel();
         FlowLayout fl_pnNhaCungCap = (FlowLayout) pnNhaCungCap.getLayout();
@@ -553,7 +553,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         }
         DecimalFormat format = new DecimalFormat("#,###");
         
-        tfMaPhieuNhap.setText(format.format(tongTien));
+        tfTongTien.setText(format.format(tongTien));
     }
     
     private void xacNhanNhapHang() {
@@ -589,7 +589,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         cbbNhaCungCap.setSelectedIndex(-1);
         cbbSanPhamNhap.setSelectedIndex(-1);
         dpNgayNhapHang.setDate(null);
-        tfMaPhieuNhap.setText("");
+        tfTongTien.setText("");
         
         hienThongTinChiTietNhap("", "");
         

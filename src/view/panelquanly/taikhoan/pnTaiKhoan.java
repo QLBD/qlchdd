@@ -53,6 +53,7 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
 
     private TaiKhoan taiKhoan;
     private JButton btnCapNhatTK;
+    private JButton btnXoaTK;
 
     public pnTaiKhoan() {
         initComponent();
@@ -162,6 +163,10 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
         btnResetMatKhau = new JButton("Đặt lại mật khẩu");
         btnResetMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLTK.add(btnResetMatKhau);
+        
+        btnXoaTK = new JButton("Xóa");
+        btnXoaTK.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButtonQLTK.add(btnXoaTK);
 
         btnHuyTK = new JButton("Hủy");
         btnHuyTK.setFont(new Font("Tahoma", Font.PLAIN, 15));
