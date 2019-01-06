@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import model.BaoHanhModelTable;
 import model.dao.BaoHanhDAO;
+import model.dao.TimKiemDAO;
 import model.entities.BaoHanh;
 import utils.ReportUtils;
 import view.interfaceView.iMessageView;
@@ -113,5 +114,16 @@ public class BaoHanhController {
             callBack.showMessageAndReloadData("Cập nhật Bảo Hành thành công",iMessageView.SUCCESS);
         else
             callBack.showMessageAndReloadData("Cập nhật Bảo Hành thất bại",iMessageView.FAIL);
+    }
+    
+    public void timKiemBaoHanhTheoMa(int maBh, iModelTable callBack){
+        List data = new TimKiemDAO(BaoHanh.class).equal("maBh", maBh).timKiem();
+        if(!data.isEmpty()){
+            BaoHanhModelTable modelTable = new BaoHanhModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        }
+        else
+            callBack.hienThiDuLieuLenTable(null);
+        
     }
 }

@@ -29,7 +29,7 @@ public class BaoHanh implements java.io.Serializable {
 	private NhanVien nhanvienByNhanvienTra;
 	private NhanVien nhanvienByNhanvienNhan;
 	private SanPham sanpham;
-	private int serial;
+	private Long serial;
 	private String yeucauBh;
 	private Date ngaynhan;
 	private int tinhtrang;
@@ -38,7 +38,7 @@ public class BaoHanh implements java.io.Serializable {
 	public BaoHanh() {
 	}
 
-	public BaoHanh(HoaDonBan hoadonban, NhanVien nhanvienByNhanvienNhan, SanPham sanpham, int serial, String yeucauBh,
+	public BaoHanh(HoaDonBan hoadonban, NhanVien nhanvienByNhanvienNhan, SanPham sanpham, Long serial, String yeucauBh,
 			Date ngaynhan, int tinhtrang) {
 		this.hoadonban = hoadonban;
 		this.nhanvienByNhanvienNhan = nhanvienByNhanvienNhan;
@@ -50,7 +50,7 @@ public class BaoHanh implements java.io.Serializable {
 	}
 
 	public BaoHanh(HoaDonBan hoadonban, NhanVien nhanvienByNhanvienTra, NhanVien nhanvienByNhanvienNhan,
-			SanPham sanpham, int serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
+			SanPham sanpham, Long serial, String yeucauBh, Date ngaynhan, int tinhtrang, Date ngaytra) {
 		this.hoadonban = hoadonban;
 		this.nhanvienByNhanvienTra = nhanvienByNhanvienTra;
 		this.nhanvienByNhanvienNhan = nhanvienByNhanvienNhan;
@@ -115,11 +115,11 @@ public class BaoHanh implements java.io.Serializable {
 	}
 
 	@Column(name = "serial", nullable = false)
-	public int getSerial() {
+	public Long getSerial() {
 		return this.serial;
 	}
 
-	public void setSerial(int serial) {
+	public void setSerial(Long serial) {
 		this.serial = serial;
 	}
 

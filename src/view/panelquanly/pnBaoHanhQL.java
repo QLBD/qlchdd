@@ -103,7 +103,6 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
         tfMaBH = new JTextField();
         tfMaBH.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfMaBH.setColumns(20);
-        tfMaBH.setEditable(false);
         pnMaBH.add(tfMaBH);
 
         JPanel pnSoHD_BH = new JPanel();
@@ -311,7 +310,6 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
 
         loadDataCbbTinhTrang();
         loadToanBoBaoHanhLenTable();
-
     }
 
     private void initEvent() {
@@ -323,7 +321,7 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
                 }
             }
         });
-        
+
         btnHuyCapNhat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -331,6 +329,19 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
             }
         });
 
+        btnCapNhatBH.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                capNhatThongTinBaoHanh();
+            }
+        });
+
+        btnTimKiemBH.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timKiemBaoHanh();
+            }
+        });
     }
 
     @Override
@@ -342,7 +353,7 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                //loadToanBoSanPhamLenTable();
+                loadToanBoBaoHanhLenTable();
                 break;
         }
     }
@@ -350,6 +361,8 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
     @Override
     public void hienThiDuLieuLenTable(TableModel tableModel) {
         if (tableModel == null) {
+            BaoHanhModelTable modelTable = (BaoHanhModelTable) tableBH.getModel();
+            modelTable.clearData();
             return;
         }
         tableBH.setModel(tableModel);
@@ -390,12 +403,12 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
         String ngayTraBH = "";
         String nhanVienTraBH = "";
 
-        if (tinhTrang > 0) {
+        if (tinhTrang > 1) {
             ngayTraBH = dateFormat.format(baoHanh.getNgaytra());
             nhanVienTraBH = baoHanh.getNhanvienByNhanvienTra().getTenNv();
         }
 
-        hienThiThongTinBaoHanh(maBH, soHD_BH, tenSP_BH, serial, nhanVienNhanBH, ngayNhanBH,yeuCauBH, tinhTrang, ngayTraBH, nhanVienTraBH);
+        hienThiThongTinBaoHanh(maBH, soHD_BH, tenSP_BH, serial, nhanVienNhanBH, ngayNhanBH, yeuCauBH, tinhTrang, ngayTraBH, nhanVienTraBH);
     }
 
     private void hienThiThongTinBaoHanh(String maBH, String soHD_BH, String tenSP_BH, String serial, String nhanVienNhanBH, String ngayNhanBH, String yeuCauBH, int tinhTrang, String ngayTraBH, String nhanVienTraBH) {
@@ -412,12 +425,42 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
 
         cbbTinhTrangBH.setSelectedIndex(tinhTrang);
     }
-    
+
+    private void capNhatThongTinBaoHanh() {
+        if (baoHanh == null) {
+            return;
+        }
+
+        int tinhTrang = cbbTinhTrangBH.getSelectedIndex();
+        if (tinhTrang == 2) {
+            showMessageAndReloadData("Bạn không được quyền cập nhật tình trạng này cho bảo hành", NONE);
+            return;
+        }
+
+        String yeuCauBH = taYeuCauBH.getText();
+
+        baoHanh.setTinhtrang(tinhTrang);
+        baoHanh.setYeucauBh(yeuCauBH);
+
+        BaoHanhController.getInstance().capNhatBaoHanh(baoHanh, this);
+    }
+
     private void clearData() {
         //xóa trắng màn hình thông tin
         baoHanh = null;
         tableBH.getSelectionModel().clearSelection();
-        hienThiThongTinBaoHanh("", "", "", "","", "", "",-1,"","");
+        hienThiThongTinBaoHanh("", "", "", "", "", "", "", -1, "", "");
         //loadToanBoNhanVienLenTable();
+    }
+
+    private void timKiemBaoHanh() {
+        int maBh = 0;
+        if(tfMaBH.getText().isEmpty()) return;
+        try{
+            maBh = Integer.valueOf(tfMaBH.getText());
+        }catch(NumberFormatException ex){
+            ex.printStackTrace();
+        }
+        BaoHanhController.getInstance().timKiemBaoHanhTheoMa(maBh, this);
     }
 }

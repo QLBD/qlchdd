@@ -88,7 +88,6 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
         tfMaKH = new JTextField();
         tfMaKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfMaKH.setColumns(20);
-        tfMaKH.setEditable(false);
         pnMaKH.add(tfMaKH);
 
         JPanel pnTenKH = new JPanel();
@@ -358,12 +357,12 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
 
         KhachHangController.getInstance().timKiemDuLieuKhachHangTheoTenLenTable(tenKh, this);
     }
-    
+
     private void clearData() {
         //xóa trắng màn hình thông tin
         khachHang = null;
         tableKH.getSelectionModel().clearSelection();
-        hienThiThongTinKhachHang("", "", "","", "", "");
+        hienThiThongTinKhachHang("", "", "", "", "", "");
         //loadToanBoNhanVienLenTable();
     }
 }

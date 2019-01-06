@@ -121,7 +121,7 @@ CREATE TABLE `baohanh` (
   `ma_BH` int(11) NOT NULL,
   `sohd_Ban` int(11) NOT NULL,
   `ma_SP` int(11) NOT NULL,
-  `serial` int(11) NOT NULL,
+  `serial` bigint(20) NOT NULL,
   `yeucau_BH` varchar(1000) NOT NULL,
   `nhanvien_Nhan` int(11) NOT NULL,
   `ngaynhan` date NOT NULL,
@@ -129,6 +129,13 @@ CREATE TABLE `baohanh` (
   `nhanvien_Tra` int(11) DEFAULT NULL,
   `ngaytra` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `baohanh`
+--
+
+INSERT INTO `baohanh` (`ma_BH`, `sohd_Ban`, `ma_SP`, `serial`, `yeucau_BH`, `nhanvien_Nhan`, `ngaynhan`, `tinhtrang`, `nhanvien_Tra`, `ngaytra`) VALUES
+(1, 12, 1, 12345, 'haha', 5, '2019-01-06', 1, NULL, NULL);
 
 --
 -- Triggers `baohanh`
@@ -1059,7 +1066,7 @@ ALTER TABLE `taikhoan`
 -- AUTO_INCREMENT for table `baohanh`
 --
 ALTER TABLE `baohanh`
-  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ctkm`

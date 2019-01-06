@@ -34,8 +34,9 @@ import javax.swing.SwingUtilities;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
 import view.interfaceView.iDangNhapView;
+import view.interfaceView.iFrameListener;
 
-public class FrameDangNhap extends JFrame implements iDangNhapView{
+public class FrameDangNhap extends JFrame implements iDangNhapView, iFrameListener{
 
     private JPanel contentPane;
     private JTextField tfTaiKhoan;
@@ -231,7 +232,7 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
 
     @Override
     public void dangNhapThanhCong(TaiKhoan tk) {
-        new FrameBangDieuKhien(tk).setVisible(true);
+        new FrameBangDieuKhien(tk, this).setVisible(true);
         this.setVisible(false);
     }
 
@@ -245,5 +246,16 @@ public class FrameDangNhap extends JFrame implements iDangNhapView{
         int month = Calendar.getInstance().get(Calendar.MONTH);
         System.out.println(month +""+year);
         HoaHongController.getInstance().kiemTraHoaHongTheoThang(month+1, year);
+    }
+
+    @Override
+    public void transferData(Object[] data) {
+        int result = (int) data[0];
+        switch (result) {
+            case iFrameListener.TypeFrame.BANG_DIEU_KHIEN:
+                setVisible(true);
+                pwfMatKhau.setText("");
+                break;
+        }
     }
 }

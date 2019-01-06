@@ -127,7 +127,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         tfMaNV = new JTextField();
         tfMaNV.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfMaNV.setColumns(20);
-        tfMaNV.setEditable(false);
         pnMaNV.add(tfMaNV);
 
         btnThemNV = new JButton("Thêm nhân viên");
@@ -481,7 +480,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
             }
         });
-        
+
         btnHuyCapNhat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -543,11 +542,10 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         dpNgayVaoLam.setDate(ngayVL);
         cbbTinhTrang.setSelectedIndex(tinhTrang);
 
-        if(gioiTinh == -1){
+        if (gioiTinh == -1) {
             rdbtnNam.setSelected(false);
             rdbtnNu.setSelected(false);
-        }
-        else if (gioiTinh == 0) {
+        } else if (gioiTinh == 0) {
             rdbtnNam.setSelected(true);
         } else {
             rdbtnNu.setSelected(true);

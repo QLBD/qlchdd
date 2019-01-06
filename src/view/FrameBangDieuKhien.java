@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
+import view.interfaceView.iFrameListener;
 
 public class FrameBangDieuKhien extends JFrame {
 
@@ -47,9 +48,12 @@ public class FrameBangDieuKhien extends JFrame {
 
     int xx = 0;
     int yy = 0;
+    private JButton btnDangXuat;
+    private iFrameListener callBack;
 
-    public FrameBangDieuKhien(TaiKhoan tk) {
+    public FrameBangDieuKhien(TaiKhoan tk, iFrameListener callBack) {
         this.tk = tk;
+        this.callBack = callBack;
         initComponent();
         initData();
         initEvent();
@@ -178,6 +182,10 @@ public class FrameBangDieuKhien extends JFrame {
         flowLayout_4.setHgap(10);
         panel_2.add(pnButton);
 
+        btnDangXuat = new JButton("Đăng Xuất");
+        btnDangXuat.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnButton.add(btnDangXuat);
+        
         btnDoiMatKhau = new JButton("Đổi mật khẩu");
         btnDoiMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButton.add(btnDoiMatKhau);
@@ -269,6 +277,14 @@ public class FrameBangDieuKhien extends JFrame {
                 setState(Frame.ICONIFIED);
             }
 
+        });
+        
+        btnDangXuat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.BANG_DIEU_KHIEN});
+                setVisible(false);
+            }
         });
     }
 

@@ -288,7 +288,6 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
             public void actionPerformed(ActionEvent e) {
                 if(tinhTrang == 1){
                     traSanPhamChoKhachHang();
-                    
                 }
                 else{
                     //xuất thông báo
@@ -364,7 +363,7 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
         BaoHanhController.getInstance().traSanPhamChoKhachHang(baoHanh, this);
     }
 
-    private void resetData() {
+    private void clearData() {
         
     }
 
@@ -377,7 +376,7 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                resetData();
+                clearData();
                 break;
         }
     }

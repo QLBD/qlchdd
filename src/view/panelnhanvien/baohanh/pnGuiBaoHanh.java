@@ -315,19 +315,7 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         btnXacNhanGuiBH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!conBaoHanh) return;
-                if(cthdBan == null) return;
-                int serial = -1;
-                String yeuCau =  taYeuCauGuiBH.getText();
-                try{
-                    serial = Integer.valueOf(tfSerialSPBH.getText());
-                }catch(NumberFormatException ex){
-                    ex.printStackTrace();
-                }
-                
-                if(serial != -1 && !yeuCau.isEmpty()){
-                    themBaoHanh(serial,yeuCau);
-                }
+                themBaoHanh();
             }
         });
     }
@@ -389,13 +377,26 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
     }
     
     
-    private void themBaoHanh(int serial, String yeuCau) {
+    private void themBaoHanh() {
+        if(!conBaoHanh) return;
+            if(cthdBan == null) return;
+            long serial = -1;
+            String yeuCau =  taYeuCauGuiBH.getText();
+            try{
+                serial = Long.valueOf(tfSerialSPBH.getText());
+            }catch(NumberFormatException ex){
+                ex.printStackTrace();
+            }
+
+        if(serial == -1 && yeuCau.isEmpty()){
+            return;
+        }
         Date ngayNhan = Calendar.getInstance().getTime();
         BaoHanh baoHanh = new BaoHanh(hoaDonBan, nhanVien, sanPham, serial, yeuCau, ngayNhan, 0);
         BaoHanhController.getInstance().themBaoHanh(baoHanh, this);
     }
 
-    private void resetData() {
+    private void clearData() {
         
     }
 
@@ -408,7 +409,7 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                resetData();
+                clearData();
                 break;
         }
     }

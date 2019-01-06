@@ -17,6 +17,7 @@ public interface iFrameListener {
         int THEM_SAN_PHAM = 4;
         int THEM_TAI_KHOAN = 5;
         int TIM_KIEM_SP = 6;
+        int BANG_DIEU_KHIEN = 7;
     }
     void transferData(Object[] data);
 }

@@ -125,7 +125,6 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         tfMaSP = new JTextField();
         tfMaSP.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfMaSP.setColumns(20);
-        tfMaSP.setEditable(false);
         pnMaSP.add(tfMaSP);
 
         JPanel pnTenSP = new JPanel();
@@ -726,11 +725,12 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         cbbLoaiHienThi.addItem("Sản Phẩm ngừng kinh doanh");
         cbbLoaiHienThi.setSelectedIndex(-1);
     }
+
     private void clearData() {
         //xóa trắng màn hình thông tin
         sanPham = null;
         tableSanPham.getSelectionModel().clearSelection();
         cbbLoaiHienThi.setSelectedIndex(0);
-        hienThiThongTinSanPham("", "", "","","","","","","", "",-1,null, null);
+        hienThiThongTinSanPham("", "", "", "", "", "", "", "", "", "", -1, null, null);
     }
 }
