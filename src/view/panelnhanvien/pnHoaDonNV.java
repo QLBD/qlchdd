@@ -775,7 +775,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
                 break;
             case iMessageView.SUCCESS:
                 //reset lại tất cả
-                resetALL();
+                clearData();
                 break;
         }
     }
@@ -908,10 +908,14 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     }
 
     private void xoaHoaDon() {
+        int reply = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn có muốn xóa hóa đơn bán này không?", "Hỏi Xóa", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.NO_OPTION) {
+            return;
+        }
         HoaDonBanController.getInstance().xoaHoaDonBanHang(hdb, this);
     }
 
-    public void resetALL() {
+    public void clearData() {
         resetData();
         clearDataTableCTHD();
         capGiaTien();

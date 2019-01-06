@@ -41,7 +41,7 @@ import view.interfaceView.iMessageView;
  *
  * @author RanRan
  */
-public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageView{
+public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageView {
 
     private JTextField tfMaHD;
     private JTextField tfMaSPGuiBH;
@@ -57,17 +57,16 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
     private JTextArea taYeuCauGuiBH;
     private JButton btnXacNhanGuiBH;
     private JButton btnHuyGuiBH;
-    
 
     private NhanVien nhanVien;
     private HoaDonBan hoaDonBan;
     private CthdBan cthdBan;
     private SanPham sanPham;
     private boolean conBaoHanh;
-    
+
     public pnGuiBaoHanh(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
-        
+
         System.out.println(nhanVien.getTenNv());
         conBaoHanh = false;
         initComponent();
@@ -251,7 +250,6 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         panel_8.add(panel_16, BorderLayout.CENTER);
         panel_16.setLayout(new BorderLayout(0, 0));
 
-
         JPanel panel_17 = new JPanel();
         panel_16.add(panel_17, BorderLayout.CENTER);
         panel_17.setLayout(new BorderLayout(0, 0));
@@ -298,20 +296,10 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         btnKiemTraGuiBH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int maHD = 0;
-                int maSP = 0;
-                try{
-                    maHD = Integer.valueOf(tfMaHD.getText());
-                    maSP = Integer.valueOf(tfMaSPGuiBH.getText());
-                }catch(NumberFormatException ex){
-                    ex.printStackTrace();
-                }
-                tfSerialSPBH.setText("");
-                taYeuCauGuiBH.setText("");
-                kiemTraThongTinMuaHang(maHD,maSP);
+                kiemTraGuiBH();
             }
         });
-        
+
         btnXacNhanGuiBH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -322,37 +310,38 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
 
     @Override
     public void thongTinMuaHang(CthdBan cthdBan) {
-        
+
         this.cthdBan = cthdBan;
-        
-        if(this.cthdBan == null) return;
-        
-        hoaDonBan =  cthdBan.getHoadonban();
-        sanPham = cthdBan.getSanpham();
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        
-        String tenKH = hoaDonBan.getKhachhang().getTenKh();
-        String cmnd = hoaDonBan.getKhachhang().getSoCmndKh()+"";
-        String tenSP = sanPham.getTenSp();
-        String thoiGianBaoHanh =  sanPham.getThoigianBh() +"";
-        
-        Date ngayBan = hoaDonBan.getNgayBan();
-        String ngayMua =  dateFormat.format(ngayBan);
-        
-        ngayBan.setMonth(ngayBan.getMonth() + sanPham.getThoigianBh());
-        
-        System.out.println(dateFormat.format(ngayBan));
-        
-        Date currentDate = Calendar.getInstance().getTime();
-        
-        if(currentDate.before(ngayBan)){
-            conBaoHanh = true;
-            hienThiThongTin(tenKH,cmnd,tenSP,thoiGianBaoHanh,ngayMua,"Còn thời hạn bảo hành!");
+
+        if (this.cthdBan == null) {
+            return;
         }
-        else{
+
+        hoaDonBan = cthdBan.getHoadonban();
+        sanPham = cthdBan.getSanpham();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        String tenKH = hoaDonBan.getKhachhang().getTenKh();
+        String cmnd = hoaDonBan.getKhachhang().getSoCmndKh() + "";
+        String tenSP = sanPham.getTenSp();
+        String thoiGianBaoHanh = sanPham.getThoigianBh() + "";
+
+        Date ngayBan = hoaDonBan.getNgayBan();
+        String ngayMua = dateFormat.format(ngayBan);
+
+        ngayBan.setMonth(ngayBan.getMonth() + sanPham.getThoigianBh());
+
+        System.out.println(dateFormat.format(ngayBan));
+
+        Date currentDate = Calendar.getInstance().getTime();
+
+        if (currentDate.before(ngayBan)) {
+            conBaoHanh = true;
+            hienThiThongTin(tenKH, cmnd, tenSP, thoiGianBaoHanh, ngayMua, "Còn thời hạn bảo hành!");
+        } else {
             conBaoHanh = false;
-            hienThiThongTin(tenKH,cmnd,tenSP,thoiGianBaoHanh,ngayMua,"Hết thời hạn bảo hành!");
+            hienThiThongTin(tenKH, cmnd, tenSP, thoiGianBaoHanh, ngayMua, "Hết thời hạn bảo hành!");
         }
     }
 
@@ -360,14 +349,13 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         tfTenKHGuiBH.setText(tenKH);
         tfCMNDGuiBH.setText(CMND);
         tfTenSPGuiBH.setText(tenSP);
-        tfThoiGianBHSP.setText(thoiGianBaoHanh+" tháng");
+        tfThoiGianBHSP.setText(thoiGianBaoHanh + " tháng");
         tfNgayMuaSPBH.setText(ngayMua);
         lblThongTinHanBH.setText(thongTinHanBaoHanh);
-        
-        if(conBaoHanh){
+
+        if (conBaoHanh) {
             lblThongTinHanBH.setForeground(Color.blue);
-        }
-        else{
+        } else {
             lblThongTinHanBH.setForeground(Color.red);
         }
     }
@@ -375,20 +363,23 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
     private void kiemTraThongTinMuaHang(int maHD, int maSP) {
         CTHD_BanController.getInstance().kiemTraThongTinMuaHang(maHD, maSP, this);
     }
-    
-    
-    private void themBaoHanh() {
-        if(!conBaoHanh) return;
-            if(cthdBan == null) return;
-            long serial = -1;
-            String yeuCau =  taYeuCauGuiBH.getText();
-            try{
-                serial = Long.valueOf(tfSerialSPBH.getText());
-            }catch(NumberFormatException ex){
-                ex.printStackTrace();
-            }
 
-        if(serial == -1 && yeuCau.isEmpty()){
+    private void themBaoHanh() {
+        if (!conBaoHanh) {
+            return;
+        }
+        if (cthdBan == null) {
+            return;
+        }
+        long serial = -1;
+        String yeuCau = taYeuCauGuiBH.getText();
+        try {
+            serial = Long.valueOf(tfSerialSPBH.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (serial == -1 && yeuCau.isEmpty()) {
             return;
         }
         Date ngayNhan = Calendar.getInstance().getTime();
@@ -396,14 +387,22 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         BaoHanhController.getInstance().themBaoHanh(baoHanh, this);
     }
 
-    private void clearData() {
+    public void clearData() {
+        hoaDonBan = null;
+        cthdBan = null;
+        sanPham = null;
+        conBaoHanh = false;
         
+        tfMaHD.setText("");
+        tfMaSPGuiBH.setText("");
+        
+        hienThiThongTin("", "", "", "", "", "");
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -412,5 +411,19 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
                 clearData();
                 break;
         }
+    }
+
+    private void kiemTraGuiBH() {
+        int maHD = 0;
+        int maSP = 0;
+        try {
+            maHD = Integer.valueOf(tfMaHD.getText());
+            maSP = Integer.valueOf(tfMaSPGuiBH.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+        tfSerialSPBH.setText("");
+        taYeuCauGuiBH.setText("");
+        kiemTraThongTinMuaHang(maHD, maSP);
     }
 }

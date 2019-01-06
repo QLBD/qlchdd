@@ -423,20 +423,22 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
 
     private void initEvent() {
 
-        cbbLoaiHienThi.addItemListener(new ItemListener() {
+        cbbLoaiHienThi.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
-                int selected = cbbLoaiHienThi.getSelectedIndex();
-                switch (selected) {
-                    case 0:
-                        loadToanBoSanPhamLenTable();
-                        break;
-                    case 1:
-                        loadSanPhamDangKinhDoanhLenTable();
-                        break;
-                    case 2:
-                        loadSanPhamNgungKinhDoanhLenTable();
-                        break;
+            public void actionPerformed(ActionEvent e) {
+                if(cbbLoaiHienThi.isValid()){
+                    int selected = cbbLoaiHienThi.getSelectedIndex();
+                    switch (selected) {
+                        case 0:
+                            loadToanBoSanPhamLenTable();
+                            break;
+                        case 1:
+                            loadSanPhamDangKinhDoanhLenTable();
+                            break;
+                        case 2:
+                            loadSanPhamNgungKinhDoanhLenTable();
+                            break;
+                    }
                 }
             }
         });
@@ -567,6 +569,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
     }
 
     private void loadDataCbbTinhTrang() {
+        cbbTinhTrangSP.removeAllItems();
         cbbTinhTrangSP.addItem("Ngừng kinh doanh");
         cbbTinhTrangSP.addItem("Đang kinh doanh");
         cbbTinhTrangSP.setSelectedIndex(-1);
@@ -725,13 +728,14 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
     }
 
     private void loadDataCbbLoaiHienThi() {
+        cbbLoaiHienThi.removeAllItems();
         cbbLoaiHienThi.addItem("Toàn bộ sản phẩm");
         cbbLoaiHienThi.addItem("Sản phẩm đang kinh doanh");
         cbbLoaiHienThi.addItem("Sản Phẩm ngừng kinh doanh");
         cbbLoaiHienThi.setSelectedIndex(-1);
     }
 
-    private void clearData() {
+    public void clearData() {
         //xóa trắng màn hình thông tin
         sanPham = null;
         tableSanPham.getSelectionModel().clearSelection();

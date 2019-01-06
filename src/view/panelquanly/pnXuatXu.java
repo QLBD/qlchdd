@@ -24,7 +24,6 @@ public class pnXuatXu extends JPanel {
         pnnhaSanXuat = new pnNhaSanXuat();
 
         initComponent();
-        initData();
     }
 
     private void initComponent() {
@@ -34,7 +33,7 @@ public class pnXuatXu extends JPanel {
 
     }
 
-    private void initData() {
+    public void clearData() {
         ///set
 //        tfTenNCC.setText(TOOL_TIP_TEXT_KEY);
 //        tfDiaChiNCC.setText(TOOL_TIP_TEXT_KEY);
@@ -49,6 +48,8 @@ public class pnXuatXu extends JPanel {
 //        String TenNSX = this.tfTenNSX.getText();
 //        String ThongTinNSX = tfThongTinNSX.getText();
 
+        pnnhaCungCap.clearData();
+        pnnhaSanXuat.clearData();
     }
 
 }

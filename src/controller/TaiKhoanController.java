@@ -124,11 +124,19 @@ public class TaiKhoanController {
             callBack.hienThiDuLieuLenTable(null);
     }
     
-    public void capNhatThongTinNhanVien(TaiKhoan taiKhoan, iMessageView callBack){
+    public void capNhatThongTinTaiKhoan(TaiKhoan taiKhoan, iMessageView callBack){
         boolean result = TaiKhoanDAO.capNhatTaiKhoan(taiKhoan);
         if(result)
             callBack.showMessageAndReloadData("Cập nhật Tài khoản Thành Công", iMessageView.SUCCESS);
         else
             callBack.showMessageAndReloadData("Cập nhật Tài khoản Thất Bại", iMessageView.FAIL);
+    }
+    
+    public void xoaTaiKhoan(TaiKhoan taiKhoan, iMessageView callBack){
+        boolean result = TaiKhoanDAO.xoaTaiKhoan(taiKhoan.getTenDangNhap());
+        if(result)
+            callBack.showMessageAndReloadData("Xóa Tài khoản Thành Công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Xóa Tài khoản Thất Bại", iMessageView.FAIL);
     }
 }

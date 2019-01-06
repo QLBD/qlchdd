@@ -390,6 +390,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     }
 
     private void loadDataCbbTinhTrang() {
+        cbbTinhTrang.removeAllItems();
         cbbTinhTrang.addItem("Đã nghỉ việc");
         cbbTinhTrang.addItem("Đang làm");
         cbbTinhTrang.setSelectedIndex(-1);
@@ -409,20 +410,22 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
 
     private void initEvent() {
 
-        cbbLoaiHienThi.addItemListener(new ItemListener() {
+        cbbLoaiHienThi.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
-                int selected = cbbLoaiHienThi.getSelectedIndex();
-                switch (selected) {
-                    case 0:
-                        loadToanBoNhanVienLenTable();
-                        break;
-                    case 1:
-                        loadNhanVienDangLamLenTable();
-                        break;
-                    case 2:
-                        loadNhanVienDaNghiLamLenTable();
-                        break;
+            public void actionPerformed(ActionEvent e) {
+                if(cbbLoaiHienThi.isValid()){
+                    int selected = cbbLoaiHienThi.getSelectedIndex();
+                    switch (selected) {
+                        case 0:
+                            loadToanBoNhanVienLenTable();
+                            break;
+                        case 1:
+                            loadNhanVienDangLamLenTable();
+                            break;
+                        case 2:
+                            loadNhanVienDaNghiLamLenTable();
+                            break;
+                    }
                 }
             }
         });
@@ -660,7 +663,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         }
     }
 
-    private void clearData() {
+    public void clearData() {
         //xóa trắng màn hình thông tin
         nhanVien = null;
         tableNhanVien.getSelectionModel().clearSelection();
@@ -676,6 +679,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     }
 
     private void loadDataCbbLoaiHienThi() {
+        cbbLoaiHienThi.removeAllItems();
         cbbLoaiHienThi.addItem("Toàn bộ nhân viên");
         cbbLoaiHienThi.addItem("Nhân viên đang làm");
         cbbLoaiHienThi.addItem("Nhân viên đã nghỉ việc");

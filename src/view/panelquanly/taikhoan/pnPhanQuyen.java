@@ -217,7 +217,8 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
         phanQuyen.setQuyentruycap(quyenTruyCap);
         PhanQuyenController.getInstance().capNhatThongTinNhaCungCap(phanQuyen, this);
     }
-    private void clearData() {
+    
+    public void clearData() {
         phanQuyen = null;
         tablePhanQuyen.getSelectionModel().clearSelection();
         hienThiThongTinPhanQuyen("", "");

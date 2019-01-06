@@ -39,7 +39,6 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
 
     private JPanel contentPane;
     private JTextField tfTaiKhoan;
-    private JTextField tfMatKhau;
     private JButton btnMini;
     private JButton btnClose;
     private JComboBox cbbPhanQuyen;
@@ -264,7 +263,6 @@ public class FrameThemTaiKhoan extends JFrame implements iMessageView, iModelCom
     private void clearData() {
         //xóa trắng màn hình
         tfTaiKhoan.setText("");
-        tfMatKhau.setText("");
     }
 
     private void themMoiTaiKhoan() {

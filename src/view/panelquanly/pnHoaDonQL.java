@@ -33,8 +33,7 @@ public class pnHoaDonQL extends JPanel {
     public pnHoaDonQL() {
         initComponent();
         initEvent();
-        tabIndex = 1;
-        chuyenTab();
+        clearData();
     }
 
     private void initComponent() {
@@ -132,6 +131,9 @@ public class pnHoaDonQL extends JPanel {
 
                 lblHoaDonBan.setForeground(Color.YELLOW);
                 lblHoaDonMua.setForeground(Color.WHITE);
+                
+                pnhdBanHang.clearData();
+                
                 break;
             case 2:
                 pnhdBanHang.setVisible(false);
@@ -139,8 +141,15 @@ public class pnHoaDonQL extends JPanel {
 
                 lblHoaDonBan.setForeground(Color.WHITE);
                 lblHoaDonMua.setForeground(Color.YELLOW);
+                
+                pnhdNhapHang.clearData();
                 break;
         }
+    }
+
+    public void clearData() {
+        tabIndex = 1;
+        chuyenTab();
     }
 
 }

@@ -285,7 +285,8 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
         String tenNsx = tfTenNSX.getText();
         NhaSanXuatController.getInstance().timKiemNhaSanXuatTheoTen(tenNsx, this);
     }
-    private void clearData() {
+    
+    public void clearData() {
         //xóa trắng màn hình thông tin
         nhaSanXuat = null;
         tableNSX.getSelectionModel().clearSelection();

@@ -30,5 +30,10 @@ public class pnTaiKhoanQL extends JPanel {
        add(pnphanQuyen);
 
     }
+
+    public void clearData() {
+        pntaiKhoan.clearData();
+        pnphanQuyen.clearData();
+    }
     
 }

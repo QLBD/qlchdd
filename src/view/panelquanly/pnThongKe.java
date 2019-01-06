@@ -492,8 +492,8 @@ public class pnThongKe extends JPanel implements iMessageView, iModelTable{
         ThongKeController.getInstance().TK_DoanhThuNam(this);
     }
 
-    private void clearData() {
-
+    public void clearData() {
+        
     }
 
     private void xemThongKe() {

@@ -296,7 +296,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         scrollPaneChiTietNhap.setViewportView(tableChiTietNhap);
     }
 
-    private void initData() {
+    public void initData() {
         modelTable = new CTHDMuaModelTable();
         tableChiTietNhap.setModel(modelTable);
         
@@ -575,12 +575,12 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
                 break;
             case iMessageView.SUCCESS:
                 //reset lại tất cả
-                resetALL();
+                clearData();
                 break;
         }
     }
 
-    private void resetALL() {
+    public void clearData() {
         hdm = null;
         sanPham = null;
         cthdMua = null;

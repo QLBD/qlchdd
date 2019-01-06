@@ -542,6 +542,8 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnnhanVien.clearData();
                 break;
 
             case 2:
@@ -564,6 +566,8 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnsanPham.clearData();
                 break;
 
             case 3:
@@ -586,6 +590,8 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnxuatXu.clearData();
                 break;
 
             case 4:
@@ -608,6 +614,9 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnkhachHang.clearData();
+                
                 break;
 
             case 5:
@@ -630,6 +639,9 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnkhuyenMai.clearData();
+                
                 break;
 
             case 6:
@@ -652,6 +664,9 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnbaoHanh.clearData();
+                
                 break;
 
             case 7:
@@ -674,6 +689,9 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.YELLOW);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pnhoaDon.clearData();
+                
                 break;
                 
             case 8:
@@ -687,7 +705,6 @@ public class FrameQuanLy extends JFrame {
                 pntaiKhoan.setVisible(true);
                 pnthongKe.setVisible(false);
                 
-
                 lblNhanVien.setForeground(Color.WHITE);
                 lblSanPham.setForeground(Color.WHITE);
                 lblQLXuatXu.setForeground(Color.WHITE);
@@ -697,6 +714,9 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.YELLOW);
                 lblThongKe.setForeground(Color.WHITE);
+                
+                pntaiKhoan.clearData();
+                
                 break;
 
             case 9:
@@ -719,6 +739,9 @@ public class FrameQuanLy extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblTaiKhoan.setForeground(Color.WHITE);
                 lblThongKe.setForeground(Color.YELLOW);
+                
+                pnthongKe.clearData();
+                
                 break;
         }
     }

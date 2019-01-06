@@ -369,6 +369,7 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
     }
 
     private void loadDataCbbTinhTrang() {
+        cbbTinhTrangBH.removeAllItems();
         cbbTinhTrangBH.addItem("Chưa hoàn thành");
         cbbTinhTrangBH.addItem("Đã hoàn thành");
         cbbTinhTrangBH.addItem("Đã trả sản phẩm");
@@ -445,7 +446,7 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
         BaoHanhController.getInstance().capNhatBaoHanh(baoHanh, this);
     }
 
-    private void clearData() {
+    public void clearData() {
         //xóa trắng màn hình thông tin
         baoHanh = null;
         tableBH.getSelectionModel().clearSelection();

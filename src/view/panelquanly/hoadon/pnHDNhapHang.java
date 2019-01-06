@@ -417,7 +417,7 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
         tfThanhTienNhap.setText(thanhTien);
     }
     
-    private void clearData() {
+    public void clearData() {
         //xóa trắng màn hình thông tin
         hoaDonMua = null;
         tableHDNhap.getSelectionModel().clearSelection();

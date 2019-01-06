@@ -461,7 +461,8 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
         tfTienGiamSPBan.setText(tienGiamSPBan);
         tfThanhTienSPBan.setText(thanhTienSPBan);
     }
-    private void clearData() {
+    
+    public void clearData() {
         //xóa trắng màn hình thông tin
         hoaDonBan = null;
         tableHDBanHang.getSelectionModel().clearSelection();

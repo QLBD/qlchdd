@@ -363,8 +363,10 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
         BaoHanhController.getInstance().traSanPhamChoKhachHang(baoHanh, this);
     }
 
-    private void clearData() {
-        
+    public void clearData() {
+        baoHanh = null;
+        tfMaPhieuBH.setText("");
+        hienThiThongTin("","","","","","","");
     }
 
     @Override

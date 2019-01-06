@@ -695,8 +695,8 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
 
         Date ngayBD = dpNgayBDKM.getDate();
         Date ngayKT = dpNgayKTKM.getDate();
-        
-        if(ngayBD == null || ngayKT == null){
+
+        if (ngayBD == null || ngayKT == null) {
             showMessageAndReloadData("Bạn chưa nhập ngày bắt đầu hoặc ngày kết thúc!!!", NONE);
             return;
         }
@@ -774,7 +774,7 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         cbbTimTenSPKM.getModel().setSelectedItem(sp);
     }
 
-    private void clearData() {
+    public void clearData() {
         //xóa trắng màn hình thông tin
         khuyenMai = null;
         tableKM.getSelectionModel().clearSelection();
@@ -797,8 +797,8 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
 
         Date ngayBD = dpNgayBDKM.getDate();
         Date ngayKT = dpNgayKTKM.getDate();
-        
-        if(ngayBD == null || ngayKT == null){
+
+        if (ngayBD == null || ngayKT == null) {
             showMessageAndReloadData("Bạn chưa nhập ngày bắt đầu hoặc ngày kết thúc!!!", NONE);
             return;
         }
@@ -819,9 +819,9 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         }
 
         khuyenMai = new KhuyenMai(tenKM, hsKM, ngayBD, ngayKT);
-        
+
         Set<SanPham> sanPhams = new HashSet<>(modelTable.getData());
-        
+
         khuyenMai.setSanphams(sanPhams);
 
         KhuyenMaiController.getInstance().themKhuyenMai(khuyenMai, this);
@@ -837,7 +837,12 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
             showMessageAndReloadData("Không được xóa khuyến mãi lúc này!!!", NONE);
             return;
         }
-        
+
+        int reply = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn có muốn xóa khuyến mãi này không?", "Hỏi Xóa", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.NO_OPTION) {
+            return;
+        }
+
         KhuyenMaiController.getInstance().xoaKhuyenMai(khuyenMai, this);
     }
 }

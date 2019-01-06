@@ -311,7 +311,8 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         String tenNcc = tfTenNCC.getText();
         NhaCungCapController.getInstance().timKiemNhaCungCapTheoTen(tenNcc, this);
     }
-    private void clearData() {
+    
+    public void clearData() {
         //xóa trắng màn hình thông tin
         nhaCungCap = null;
         tableNCC.getSelectionModel().clearSelection();

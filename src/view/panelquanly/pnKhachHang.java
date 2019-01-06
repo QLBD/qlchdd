@@ -357,7 +357,7 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
         KhachHangController.getInstance().timKiemDuLieuKhachHangTheoTenLenTable(tenKh, this);
     }
 
-    private void clearData() {
+    public void clearData() {
         //xóa trắng màn hình thông tin
         khachHang = null;
         tableKH.getSelectionModel().clearSelection();

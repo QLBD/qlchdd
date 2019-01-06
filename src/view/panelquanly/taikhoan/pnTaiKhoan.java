@@ -30,6 +30,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import model.TaiKhoanModelTable;
+import model.entities.NhanVien;
 import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
 import view.interfaceView.iMessageView;
@@ -163,7 +164,7 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
         btnResetMatKhau = new JButton("Đặt lại mật khẩu");
         btnResetMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLTK.add(btnResetMatKhau);
-        
+
         btnXoaTK = new JButton("Xóa");
         btnXoaTK.setFont(new Font("Tahoma", Font.PLAIN, 15));
         pnButtonQLTK.add(btnXoaTK);
@@ -225,6 +226,13 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
                 capNhatTaiKhoan();
             }
         });
+
+        btnXoaTK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                xoaTaiKhoan();
+            }
+        });
     }
 
     @Override
@@ -236,7 +244,6 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                
                 clearData();
                 break;
         }
@@ -268,10 +275,10 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
         PhanQuyenController.getInstance().layToanBoDuLieuLenComBox(this);
     }
 
-    private void clearData() {
+    public void clearData() {
         taiKhoan = null;
         tableTaiKhoan.getSelectionModel().clearSelection();
-        hienThiThongTinTaiKhoan("", "",null);
+        hienThiThongTinTaiKhoan("", "", null);
         loadToanBoTaiKhoanLenTable();
     }
 
@@ -315,12 +322,41 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
     }
 
     private void capNhatTaiKhoan() {
-        if(taiKhoan == null) return;
+        if (taiKhoan == null) {
+            return;
+        }
         PhanQuyen phanQuyen = (PhanQuyen) cbbPhanQuyenTK.getSelectedItem();
-        if(phanQuyen == null) return;
-        
+        if (phanQuyen == null) {
+            return;
+        }
+
         taiKhoan.setPhanquyen(phanQuyen);
-        
+
         TaiKhoanController.getInstance();
+    }
+
+    private void xoaTaiKhoan() {
+        if (taiKhoan == null) {
+            return;
+        }
+        
+        if(taiKhoan.getPhanquyen().getMaPhanQuyen() == 1){
+            showMessageAndReloadData("Bạn không thể xóa tài khoản admin!!!", NONE);
+            return;
+        }
+        
+        if(taiKhoan.getNhanvien()!= null){
+            if(taiKhoan.getNhanvien().getTinhTrang() == 1){
+                showMessageAndReloadData("Bạn không thể xóa tài khoản của nhân viên đang còn làm việc!!!", NONE);
+                return;
+            }
+        }
+        
+        int reply = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn có muốn xóa tài khoản này không?", "Hỏi Xóa", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.NO_OPTION) {
+            return;
+        }
+        
+        TaiKhoanController.getInstance().xoaTaiKhoan(taiKhoan, this);
     }
 }

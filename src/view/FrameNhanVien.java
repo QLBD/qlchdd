@@ -306,6 +306,8 @@ public class FrameNhanVien extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.YELLOW);
                 lblNhapHang.setForeground(Color.WHITE);
+                
+                pnbaoHanh.clearData();
                 break;
             case 3:
                 pnhoaDon.setVisible(false);
@@ -315,9 +317,9 @@ public class FrameNhanVien extends JFrame {
                 lblHoaDon.setForeground(Color.WHITE);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblNhapHang.setForeground(Color.YELLOW);
+                
+                pnnhapHang.clearData();
                 break;
         }
-        //pnMenu.revalidate();
-        pnMenu.updateUI();
     }
 }

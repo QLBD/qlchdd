@@ -37,8 +37,7 @@ public class pnBaoHanhNV extends JPanel {
         
         initComponent();
         initEvent();
-        tabIndex = 1;
-        chuyenTab();
+        clearData();
     }
 
     private void initComponent() {
@@ -134,6 +133,8 @@ public class pnBaoHanhNV extends JPanel {
                 
                 lblGuiBaoHanh.setForeground(Color.YELLOW);
                 lblTraBaoHanh.setForeground(Color.WHITE);
+                
+                pnguiBH.clearData();
                 break;
             case 2:    
                 pnguiBH.setVisible(false);
@@ -141,8 +142,15 @@ public class pnBaoHanhNV extends JPanel {
                 
                 lblGuiBaoHanh.setForeground(Color.WHITE);
                 lblTraBaoHanh.setForeground(Color.YELLOW);
+                
+                pntraBH.clearData();
                 break;
         }
+    }
+
+    public void clearData() {
+        tabIndex = 1;
+        chuyenTab();
     }
 
 }
