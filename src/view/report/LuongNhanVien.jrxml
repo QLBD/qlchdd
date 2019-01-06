@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6c34cd41-553b-4477-9fee-f101c356573f">
-	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.zoom" value="1.6105100000000012"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="thang" class="java.lang.Integer">
@@ -18,9 +18,21 @@
 	<field name="ten_NV" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="luong_CB" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_HH" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="luong" class="java.lang.Double"/>
 	<variable name="luong_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{luong}]]></variableExpression>
+	</variable>
+	<variable name="tien_HH_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_HH}]]></variableExpression>
+	</variable>
+	<variable name="luong_CB_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{luong_CB}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -127,12 +139,26 @@
 				<text><![CDATA[Ghi chú]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="303" y="0" width="74" height="20" uuid="9b7eb0aa-9995-45b9-aadc-abd6176bffd6"/>
+				<reportElement x="299" y="0" width="78" height="20" uuid="9b7eb0aa-9995-45b9-aadc-abd6176bffd6"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Hoa hồng (3%)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="377" y="0" width="89" height="20" uuid="6cdfe6cb-32fb-4795-b47a-3734d81c7036"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Tổng lương]]></text>
 			</staticText>
@@ -186,7 +212,7 @@
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{luong}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{luong})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="466" y="0" width="89" height="20" uuid="955147bb-27a1-48ed-bfc8-b0ba1eeb46e6"/>
@@ -201,13 +227,27 @@
 			</staticText>
 			<textField>
 				<reportElement x="207" y="0" width="92" height="20" uuid="dafdd395-4397-4f0e-a0f7-d0c581fd1fa5"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{luong_CB})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="303" y="0" width="74" height="20" uuid="b6b732dc-a37b-4c00-a33e-cdeaae890ac7"/>
+				<reportElement x="299" y="0" width="78" height="20" uuid="b6b732dc-a37b-4c00-a33e-cdeaae890ac7"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{tien_HH})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="31" height="20" uuid="dc501d99-29be-4db0-88ac-04f4cf48a323"/>
@@ -245,13 +285,52 @@
 	<summary>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="176" height="20" uuid="317856e8-eba9-4653-b42d-6163348fdd05"/>
+				<reportElement x="0" y="0" width="207" height="20" uuid="317856e8-eba9-4653-b42d-6163348fdd05"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Tổng cộng:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="352" y="0" width="89" height="20" uuid="717dcb07-39e9-4544-af0d-122651e4ec8b"/>
-				<textFieldExpression><![CDATA[$V{luong_1}]]></textFieldExpression>
+				<reportElement x="377" y="0" width="89" height="20" uuid="717dcb07-39e9-4544-af0d-122651e4ec8b"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{luong_1})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="78" height="20" uuid="13c5855d-1220-4139-af23-a4aeeeb0d7da"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{tien_HH_1})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="0" width="92" height="20" uuid="2be60b46-0ca5-4b34-aa7e-7a7e4339302d"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{luong_CB_1})]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

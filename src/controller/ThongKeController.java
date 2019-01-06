@@ -187,10 +187,10 @@ public class ThongKeController {
             data[i][0] = i + 1;
             data[i][1] = listObject.get(i)[0].toString();
             
-            data[i][2] = decimalFormat.format(listObject.get(i)[1].toString());
-            data[i][3] = decimalFormat.format(listObject.get(i)[2].toString());
-            data[i][4] = decimalFormat.format(listObject.get(i)[3].toString());
-            data[i][5] = decimalFormat.format(listObject.get(i)[4].toString());
+            data[i][2] = decimalFormat.format(Double.valueOf(listObject.get(i)[1].toString()));
+            data[i][3] = decimalFormat.format(Double.valueOf(listObject.get(i)[2].toString()));
+            data[i][4] = decimalFormat.format(Double.valueOf(listObject.get(i)[3].toString()));
+            data[i][5] = decimalFormat.format(Double.valueOf(listObject.get(i)[4].toString()));
         }
         DefaultTableModel modelTable = new DefaultTableModel(data, columns);
         callBack.hienThiDuLieuLenTable(modelTable);

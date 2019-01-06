@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import model.entities.NhanVien;
+import view.interfaceView.iFrameListener;
 import view.panelnhanvien.pnBaoHanhNV;
 import view.panelnhanvien.pnHoaDonNV;
 import view.panelnhanvien.pnNhapHang;
@@ -56,8 +57,10 @@ public class FrameNhanVien extends JFrame {
     int xx = 0;
     int yy = 0;
     private JPanel pnFrameDrage;
+    private iFrameListener callBack;
 
-    public FrameNhanVien(NhanVien nhanVien) {
+    public FrameNhanVien(NhanVien nhanVien, iFrameListener callBack) {
+        this.callBack = callBack;
         pnbaoHanh = new pnBaoHanhNV(nhanVien);
         pnhoaDon = new pnHoaDonNV(nhanVien);
         pnnhapHang = new pnNhapHang(nhanVien);
@@ -271,6 +274,7 @@ public class FrameNhanVien extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.BANG_DIEU_KHIEN});
             }
         });
 

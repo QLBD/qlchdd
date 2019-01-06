@@ -213,7 +213,7 @@
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tienban_SP}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{tienban_SP})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="273" y="0" width="100" height="20" uuid="834db952-a24a-414a-a2f2-1e2a25540634"/>
@@ -225,7 +225,7 @@
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tienmua_SP}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{tienmua_SP})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="373" y="0" width="89" height="20" uuid="49acb1a8-4e01-4fe3-9595-ef6a337b9975"/>
@@ -237,7 +237,7 @@
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tienluong_NV}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{tienluong_NV})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="462" y="0" width="93" height="20" uuid="34d36b19-43a3-4790-b069-fcadd3b5d1cb"/>
@@ -249,7 +249,7 @@
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tienloi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{tienloi})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="42" height="20" uuid="43aa5be0-b242-468f-822a-916b88a61e8b"/>
@@ -286,7 +286,7 @@
 	<summary>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="131" height="20" uuid="15df9812-03fe-4620-9a6a-66e8985aa1dd"/>
+				<reportElement x="0" y="0" width="173" height="20" uuid="15df9812-03fe-4620-9a6a-66e8985aa1dd"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -298,7 +298,7 @@
 				<text><![CDATA[Tổng cộng:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="131" y="0" width="100" height="20" uuid="b20ab20e-fdb2-4d47-b949-d5ae9b1c6438"/>
+				<reportElement x="173" y="0" width="100" height="20" uuid="b20ab20e-fdb2-4d47-b949-d5ae9b1c6438"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -306,11 +306,11 @@
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{tienban_SP_1}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{tienban_SP_1})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="231" y="0" width="100" height="20" uuid="71a5c168-f3e0-4dce-8540-135c69c2e6a5"/>
+				<reportElement x="273" y="0" width="100" height="20" uuid="71a5c168-f3e0-4dce-8540-135c69c2e6a5"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -318,11 +318,11 @@
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{tienmua_SP_1}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{tienmua_SP_1})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="331" y="0" width="100" height="20" uuid="508ab7f5-c514-4c3a-81ba-cb67661ff58a"/>
+				<reportElement x="373" y="0" width="89" height="20" uuid="508ab7f5-c514-4c3a-81ba-cb67661ff58a"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -330,11 +330,11 @@
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{tienluong_NV_1}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{tienluong_NV_1})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="431" y="0" width="124" height="20" uuid="42e1e20c-92fa-4e18-a7c8-aff58f40bf61"/>
+				<reportElement x="462" y="0" width="93" height="20" uuid="42e1e20c-92fa-4e18-a7c8-aff58f40bf61"/>
 				<box>
 					<pen lineWidth="0.2"/>
 					<topPen lineWidth="0.2"/>
@@ -342,8 +342,8 @@
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{tienloi_1}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{tienloi_1})]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

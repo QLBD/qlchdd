@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import view.interfaceView.iFrameListener;
 import view.panelquanly.pnBaoHanhQL;
 import view.panelquanly.pnHoaDonQL;
 import view.panelquanly.pnXuatXu;
@@ -69,8 +70,10 @@ public class FrameQuanLy extends JFrame {
     int yy = 0;
     private JPanel pnFrameDrage;
     private JLabel lblTaiKhoan;
+    private iFrameListener callBack;
 
-    public FrameQuanLy() {
+    public FrameQuanLy(iFrameListener callBack) {
+        this.callBack = callBack;
         initComponent();
         initEvent();
         tabIndex = 1;
@@ -504,6 +507,7 @@ public class FrameQuanLy extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                callBack.transferData(new Object[]{iFrameListener.TypeFrame.BANG_DIEU_KHIEN});
             }
         });
 

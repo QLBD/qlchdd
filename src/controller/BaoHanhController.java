@@ -117,7 +117,7 @@ public class BaoHanhController {
     }
     
     public void timKiemBaoHanhTheoMa(int maBh, iModelTable callBack){
-        List data = new TimKiemDAO(BaoHanh.class).equal("maBh", maBh).timKiem();
+        List data = new TimKiemDAO(BaoHanh.class).ilike("maBh", maBh).timKiem();
         if(!data.isEmpty()){
             BaoHanhModelTable modelTable = new BaoHanhModelTable(data);
             callBack.hienThiDuLieuLenTable(modelTable);

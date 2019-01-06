@@ -30,7 +30,7 @@ import model.entities.PhanQuyen;
 import model.entities.TaiKhoan;
 import view.interfaceView.iFrameListener;
 
-public class FrameBangDieuKhien extends JFrame {
+public class FrameBangDieuKhien extends JFrame implements iFrameListener{
 
     private JPanel contentPane;
     private JTextField tfHoTen;
@@ -255,12 +255,13 @@ public class FrameBangDieuKhien extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 PhanQuyen phanquyen = tk.getPhanquyen();
                 if (phanquyen.getMaPhanQuyen() == 1) {
-                    new FrameQuanLy().setVisible(true);
+                    new FrameQuanLy(FrameBangDieuKhien.this).setVisible(true);
                 } else if (phanquyen.getMaPhanQuyen() == 2) {
                     //new FrameBanHang(tk).setVisible(true);
                     NhanVien nhanVien = tk.getNhanvien();
-                    new FrameNhanVien(nhanVien).setVisible(true);
+                    new FrameNhanVien(nhanVien, FrameBangDieuKhien.this).setVisible(true);
                 }
+                setVisible(false);
             }
         });
 
@@ -307,4 +308,13 @@ public class FrameBangDieuKhien extends JFrame {
         tfNgaySinh.setText(ngaySinh);
     }
 
+    @Override
+    public void transferData(Object[] data) {
+        int result = (int) data[0];
+        switch (result) {
+            case iFrameListener.TypeFrame.BANG_DIEU_KHIEN:
+                setVisible(true);
+                break;
+        }
+    }
 }
