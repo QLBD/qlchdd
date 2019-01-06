@@ -45,8 +45,8 @@ public class BaoHanhController {
         List<BaoHanh> list = new TimKiemDAO(BaoHanh.class).addAnd(TimKiemDAO.getEqual("hoadonban", baoHanh.getHoadonban()), TimKiemDAO.getEqual("sanpham", baoHanh.getSanpham())).timKiem();
         
         for(BaoHanh bh: list){
-            if(bh.getSerial() == baoHanh.getSerial()){
-                callBack.showMessageAndReloadData("Sản Phẩm này đã bị trùng số serial!!!",iMessageView.FAIL);
+            if(bh.getSerial() == baoHanh.getSerial() && bh.getTinhtrang() != 2){
+                callBack.showMessageAndReloadData("Sản Phẩm có số serial này đang gửi bảo hành rồi!!!",iMessageView.FAIL);
                 return;
             }
         }

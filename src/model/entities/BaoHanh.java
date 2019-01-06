@@ -114,7 +114,7 @@ public class BaoHanh implements java.io.Serializable {
 		this.sanpham = sanpham;
 	}
 
-	@Column(name = "serial", nullable = false, unique = true)
+	@Column(name = "serial", nullable = false)
 	public Long getSerial() {
 		return this.serial;
 	}

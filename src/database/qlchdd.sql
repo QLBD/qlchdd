@@ -935,7 +935,6 @@ INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_
 --
 ALTER TABLE `baohanh`
   ADD PRIMARY KEY (`ma_BH`),
-  ADD UNIQUE KEY `serial` (`serial`),
   ADD UNIQUE KEY `nhanvien_Tra` (`nhanvien_Tra`),
   ADD UNIQUE KEY `UK_3wsc3w3hlrxns7qbjed5381fo` (`nhanvien_Tra`),
   ADD KEY `sohd_Ban` (`sohd_Ban`),
