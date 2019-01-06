@@ -342,7 +342,6 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoHoaDonMuaLenTable();
                 clearData();
                 break;
         }
@@ -418,12 +417,12 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
         tfThanhTienNhap.setText(thanhTien);
     }
     
-        private void clearData() {
+    private void clearData() {
         //xóa trắng màn hình thông tin
         hoaDonMua = null;
         tableHDNhap.getSelectionModel().clearSelection();
         hienThiThongTinHoaDonMua("", "", "","","",null);
-
+        loadToanBoHoaDonMuaLenTable();
     }
     
 }

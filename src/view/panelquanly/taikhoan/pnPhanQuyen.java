@@ -143,7 +143,6 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoPhanQuyenLenTable();
                 clearData();
                 break;
         }
@@ -219,10 +218,9 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
         PhanQuyenController.getInstance().capNhatThongTinNhaCungCap(phanQuyen, this);
     }
     private void clearData() {
-        
         phanQuyen = null;
         tablePhanQuyen.getSelectionModel().clearSelection();
         hienThiThongTinPhanQuyen("", "");
-
+        loadToanBoPhanQuyenLenTable();
     }
 }

@@ -666,7 +666,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         tableNhanVien.getSelectionModel().clearSelection();
         cbbLoaiHienThi.setSelectedIndex(0);
         hienThiThongTinNhanVien("", "", "", -1, null, "", "", null, "", -1, null);
-        //loadToanBoNhanVienLenTable();
+        loadToanBoNhanVienLenTable();
     }
 
     private void timKiemNhanVienTheoTen() {

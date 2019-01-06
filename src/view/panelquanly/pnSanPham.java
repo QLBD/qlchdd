@@ -635,6 +635,11 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
             ex.printStackTrace();
         }
 
+        if(soLuong > sanPham.getSl()){
+            showMessageAndReloadData("Không được cập nhật số lượng sản phẩm nhiều hơn số lượng hiện tại", NONE);
+            return;
+        }
+        
         if (lblLoadHinhAnh.getIcon() != null) {
             ImageIcon imageIcon = (ImageIcon) lblLoadHinhAnh.getIcon();
             Image image = imageIcon.getImage();

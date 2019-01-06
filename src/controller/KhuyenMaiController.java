@@ -91,12 +91,41 @@ public class KhuyenMaiController {
     
     public void timKiemDuLieuKhuyenMaiTheoTenLenTable(String tenKm, iModelTable callBack){
         String ten = Config.convertSignedStringToUnsignedString(tenKm);
-        List data = new TimKiemDAO(KhuyenMai.class).ilike("tenKm", "%"+ten+"%").timKiem();
-        if(!data.isEmpty()){
-            KhuyenMaiModelTable modelTable = new KhuyenMaiModelTable(data);
-            callBack.hienThiDuLieuLenTable(modelTable);
+        List<KhuyenMai> timKiem = new TimKiemDAO(KhuyenMai.class).ilike("tenKm", "%"+ten+"%").timKiem();
+        List<KhuyenMai> data = new ArrayList<>();
+        int maKm;
+        int j;
+        for(int i = 0; i < timKiem.size();i++){
+            maKm = timKiem.get(i).getMaKm();
+            for(j = 0; j < i;j++){
+                if(maKm == timKiem.get(j).getMaKm()){
+                    break;
+                }
+            }
+            if(j == i){
+                data.add(timKiem.get(i));
+            }
         }
+        
+        KhuyenMaiModelTable modelTable = new KhuyenMaiModelTable(data);
+        callBack.hienThiDuLieuLenTable(modelTable);
+    }
+    
+    public void themKhuyenMai(KhuyenMai km, iMessageView callBack){
+        boolean result = KhuyenMaiDAO.themKhuyenMai(km);
+        
+        if(result)
+            callBack.showMessageAndReloadData("Thêm Khuyến mãi mới thành công", iMessageView.SUCCESS);
         else
-            callBack.hienThiDuLieuLenTable(null);
+            callBack.showMessageAndReloadData("Thêm Khuyến mãi mới thất bại", iMessageView.FAIL);
+    }
+    
+    public void xoaKhuyenMai(KhuyenMai km, iMessageView callBack){
+        boolean result = KhuyenMaiDAO.xoaKhuyenMai(km.getMaKm());
+        
+        if(result)
+            callBack.showMessageAndReloadData("Xóa Khuyến mãi thành công", iMessageView.SUCCESS);
+        else
+            callBack.showMessageAndReloadData("Xóa Khuyến mãi thất bại", iMessageView.FAIL);
     }
 }

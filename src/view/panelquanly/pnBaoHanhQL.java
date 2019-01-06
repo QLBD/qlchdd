@@ -450,7 +450,7 @@ public class pnBaoHanhQL extends JPanel implements iMessageView, iModelTable {
         baoHanh = null;
         tableBH.getSelectionModel().clearSelection();
         hienThiThongTinBaoHanh("", "", "", "", "", "", "", -1, "", "");
-        //loadToanBoNhanVienLenTable();
+        loadToanBoBaoHanhLenTable();
     }
 
     private void timKiemBaoHanh() {

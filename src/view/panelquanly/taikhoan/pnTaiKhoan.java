@@ -236,7 +236,7 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoTaiKhoanLenTable();
+                
                 clearData();
                 break;
         }
@@ -272,7 +272,7 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
         taiKhoan = null;
         tableTaiKhoan.getSelectionModel().clearSelection();
         hienThiThongTinTaiKhoan("", "",null);
-
+        loadToanBoTaiKhoanLenTable();
     }
 
     private void tableTaiKhoanSelection() {

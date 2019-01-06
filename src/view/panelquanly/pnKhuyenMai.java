@@ -498,7 +498,7 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         btnTimKiemKM.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                timKiemSanPham();
+                timKiemKhuyenMai();
             }
         });
         btnHuyCapNhat.addActionListener(new ActionListener() {
@@ -508,6 +508,19 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
             }
         });
 
+        btnThemKM.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                themKhuyenMai();
+            }
+        });
+
+        btnXoaKM.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                xoaKhuyenMai();
+            }
+        });
     }
 
     @Override
@@ -529,7 +542,6 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoKhuyenMaiLenTable();
                 clearData();
                 break;
         }
@@ -611,6 +623,7 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         } else {
             modelTable.clearData();
         }
+        rdbtnTuyChonSPKM.setSelected(true);
     }
 
     private void tableCTKMSelection() {
@@ -675,28 +688,31 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         }
 
         Date date = new Date();
-        if (khuyenMai.getNgayBd().after(date) || khuyenMai.getNgayBd().equals(date)) {
+        if (khuyenMai.getNgayBd().before(date) || khuyenMai.getNgayBd().equals(date)) {
             showMessageAndReloadData("Không được cập nhật khuyến mãi lúc này!!!", NONE);
-            loadToanBoKhuyenMaiLenTable();
-            clearData();
             return;
         }
 
         Date ngayBD = dpNgayBDKM.getDate();
         Date ngayKT = dpNgayKTKM.getDate();
-
-        if (ngayKT.after(ngayBD)) {
-            showMessageAndReloadData("Ngày kết thúc không được trước ngày bắt đầu", NONE);
+        
+        if(ngayBD == null || ngayKT == null){
+            showMessageAndReloadData("Bạn chưa nhập ngày bắt đầu hoặc ngày kết thúc!!!", NONE);
             return;
         }
 
-        if (ngayBD.after(date) || ngayBD.equals(date)) {
-            showMessageAndReloadData("Ngày bắt đầu mới không được bằng hoặc sau ngày hiện tại!!!", NONE);
+        if (ngayKT.before(ngayBD)) {
+            showMessageAndReloadData("Ngày kết thúc không được trước ngày bắt đầu!!!", NONE);
             return;
         }
 
-        if (ngayKT.after(date) || ngayKT.equals(date)) {
-            showMessageAndReloadData("Ngày bắt đầu mới không được bằng hoặc trước ngày hiện tại!!!", NONE);
+        if (ngayBD.before(date) || ngayBD.equals(date)) {
+            showMessageAndReloadData("Ngày bắt đầu không được bằng hoặc sau ngày hiện tại!!!", NONE);
+            return;
+        }
+
+        if (ngayKT.before(date) || ngayKT.equals(date)) {
+            showMessageAndReloadData("Ngày kết thúc không được bằng hoặc trước ngày hiện tại!!!", NONE);
             return;
         }
 
@@ -741,28 +757,87 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         modelTable.clearData();
     }
 
-    private void timKiemSanPham() {
+    private void timKiemKhuyenMai() {
         String tenKm = tfTenKM.getText();
-
         KhuyenMaiController.getInstance().timKiemDuLieuKhuyenMaiTheoTenLenTable(tenKm, this);
     }
 
     private void hienThiThongTinSanPhamTimKiem(SanPham sp) {
         int tinhTrang = sp.getTinhtrang();
-        if(tinhTrang == 0){
+        if (tinhTrang == 0) {
             showMessageAndReloadData("Sản phẩm này đã ngừng kinh doanh", NONE);
             return;
         }
-        
+
         NhaSanXuat nsx = sp.getNhasanxuat();
         cbbTimHangSPKM.getModel().setSelectedItem(nsx);
         cbbTimTenSPKM.getModel().setSelectedItem(sp);
     }
+
     private void clearData() {
         //xóa trắng màn hình thông tin
         khuyenMai = null;
         tableKM.getSelectionModel().clearSelection();
-        hienThiThongTinKhuyenMai("", "", "",null, null, null);
+        hienThiThongTinKhuyenMai("", "", "", null, null, null);
+        loadToanBoKhuyenMaiLenTable();
+    }
 
+    private void themKhuyenMai() {
+        String tenKM = tfTenKM.getText();
+
+        float hsKM = -1;
+
+        try {
+            hsKM = Float.valueOf(tfHeSoKM.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        Date date = new Date();
+
+        Date ngayBD = dpNgayBDKM.getDate();
+        Date ngayKT = dpNgayKTKM.getDate();
+        
+        if(ngayBD == null || ngayKT == null){
+            showMessageAndReloadData("Bạn chưa nhập ngày bắt đầu hoặc ngày kết thúc!!!", NONE);
+            return;
+        }
+
+        if (ngayKT.before(ngayBD)) {
+            showMessageAndReloadData("Ngày kết thúc không được trước ngày bắt đầu!!!", NONE);
+            return;
+        }
+
+        if (ngayBD.before(date) || ngayBD.equals(date)) {
+            showMessageAndReloadData("Ngày bắt đầu không được bằng hoặc sau ngày hiện tại!!!", NONE);
+            return;
+        }
+
+        if (ngayKT.before(date) || ngayKT.equals(date)) {
+            showMessageAndReloadData("Ngày kết thúc không được bằng hoặc trước ngày hiện tại!!!", NONE);
+            return;
+        }
+
+        khuyenMai = new KhuyenMai(tenKM, hsKM, ngayBD, ngayKT);
+        
+        Set<SanPham> sanPhams = new HashSet<>(modelTable.getData());
+        
+        khuyenMai.setSanphams(sanPhams);
+
+        KhuyenMaiController.getInstance().themKhuyenMai(khuyenMai, this);
+    }
+
+    private void xoaKhuyenMai() {
+        if (khuyenMai == null) {
+            return;
+        }
+
+        Date date = new Date();
+        if (khuyenMai.getNgayBd().before(date) || khuyenMai.getNgayBd().equals(date)) {
+            showMessageAndReloadData("Không được xóa khuyến mãi lúc này!!!", NONE);
+            return;
+        }
+        
+        KhuyenMaiController.getInstance().xoaKhuyenMai(khuyenMai, this);
     }
 }

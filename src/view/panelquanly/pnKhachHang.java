@@ -290,7 +290,6 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoKhachHangLenTable();
                 clearData();
                 break;
         }
@@ -363,6 +362,6 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
         khachHang = null;
         tableKH.getSelectionModel().clearSelection();
         hienThiThongTinKhachHang("", "", "", "", "", "");
-        //loadToanBoNhanVienLenTable();
+        loadToanBoKhachHangLenTable();
     }
 }
