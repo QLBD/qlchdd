@@ -43,7 +43,6 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
     private JTextField tfSerialTraBH;
     private JTextArea taYeuCauTraBH;
     private JTextField tfNgayNhanTraBH;
-    private JTextField tfNgayTraBH;
     private JTextField tfTinhTrangTraBH;
     private JButton btnXacNhanTraBH;
     private JButton btnHuyTraBH;
@@ -230,22 +229,6 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
         tfTinhTrangTraBH.setEditable(false);
         tfTinhTrangTraBH.setColumns(20);
         pnTinhTrang_TraBH.add(tfTinhTrangTraBH);
-
-        JPanel pnNgayTraBH = new JPanel();
-        FlowLayout flowLayout_23 = (FlowLayout) pnNgayTraBH.getLayout();
-        flowLayout_23.setVgap(10);
-        flowLayout_23.setHgap(10);
-        flowLayout_23.setAlignment(FlowLayout.LEFT);
-        panel_23.add(pnNgayTraBH);
-
-        JLabel lblNgayTraBH = new JLabel("Ngày trả:    ");
-        lblNgayTraBH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnNgayTraBH.add(lblNgayTraBH);
-
-        tfNgayTraBH = new JTextField();
-        tfNgayTraBH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        tfNgayTraBH.setColumns(20);
-        pnNgayTraBH.add(tfNgayTraBH);
 
         JPanel pnButtonTraBH = new JPanel();
         FlowLayout flowLayout_24 = (FlowLayout) pnButtonTraBH.getLayout();
