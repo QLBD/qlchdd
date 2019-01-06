@@ -156,43 +156,13 @@ public class pnThongKe extends JPanel implements iMessageView {
 
         JPanel panel_56 = new JPanel();
         panel_48.add(panel_56, BorderLayout.CENTER);
-//=======
-//	panel_51.add(cbbQuy);
-//		
-//	JLabel lblNam = new JLabel("Năm:");
-//	lblNam.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//	panel_51.add(lblNam);
-//		
-//	tfNam = new JTextField();
-//	tfNam.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//	panel_51.add(tfNam);
-//	tfNam.setColumns(7);
-//		
-//	JPanel panel_48 = new JPanel();
-//	panel_21.add(panel_48, BorderLayout.CENTER);
-//	panel_48.setLayout(new BorderLayout(0, 0));
-//		
-//	JPanel panel_47 = new JPanel();
-//	panel_48.add(panel_47, BorderLayout.NORTH);
-//	panel_47.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-//		
-//	btnXemThongKe = new JButton("Xem thống kê");
-//	btnXemThongKe.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//	panel_47.add(btnXemThongKe);
-//        
-//	btnXuatBaoCao = new JButton("Xuất báo cáo");
-//	btnXuatBaoCao.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//	panel_47.add(btnXuatBaoCao);
-//        
-//	btnHuy = new JButton("Hủy");
-//	btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
-//	panel_47.add(btnHuy);
-//		
-//	JPanel panel_56 = new JPanel();
-//	panel_48.add(panel_56, BorderLayout.CENTER);
-//>>>>>>> yen
         panel_56.setBorder(new LineBorder(new Color(0, 51, 51)));
         panel_56.setLayout(new BorderLayout(0, 0));
+
+	btnHuy = new JButton("Hủy");
+	btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	panel_47.add(btnHuy);
+        
 
         JScrollPane scrollPane = new JScrollPane();
         panel_56.add(scrollPane, BorderLayout.CENTER);
@@ -214,6 +184,7 @@ public class pnThongKe extends JPanel implements iMessageView {
                 cbbChiTietThongKeSelection();
             }
         });
+        
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
