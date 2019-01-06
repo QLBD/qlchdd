@@ -17,7 +17,6 @@ import model.entities.BaoHanh;
 import utils.ReportUtils;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
-import view.interfaceView.iQuanLyBaoHanh;
 import view.interfaceView.iTraBaoHanhView;
 
 /**
@@ -43,6 +42,14 @@ public class BaoHanhController {
     }
     
     public void themBaoHanh(BaoHanh baoHanh, iMessageView callBack){
+        List<BaoHanh> list = new TimKiemDAO(BaoHanh.class).addAnd(TimKiemDAO.getEqual("hoadonban", baoHanh.getHoadonban()), TimKiemDAO.getEqual("sanpham", baoHanh.getSanpham())).timKiem();
+        
+        for(BaoHanh bh: list){
+            if(bh.getSerial() == baoHanh.getSerial()){
+                callBack.showMessageAndReloadData("Sản Phẩm này đã bị trùng số serial!!!",iMessageView.FAIL);
+            }
+        }
+        
         boolean result = BaoHanhDAO.themBaoHanh(baoHanh);
 
         if(result){
