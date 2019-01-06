@@ -349,19 +349,10 @@ CREATE TABLE `ctkm` (
 --
 
 INSERT INTO `ctkm` (`ma_KM`, `ma_SP`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(4, 1),
-(4, 2),
-(4, 3),
-(4, 4),
-(5, 1),
-(5, 2),
-(5, 3),
-(5, 4);
+(10, 1),
+(10, 2),
+(10, 3),
+(10, 5);
 
 -- --------------------------------------------------------
 
@@ -727,7 +718,8 @@ INSERT INTO `khuyenmai` (`ma_KM`, `ten_KM`, `hs_KM`, `ngay_BD`, `ngay_KT`) VALUE
 (2, '30/4 - 1/5', 0.1, '2018-04-29', '2018-05-01'),
 (3, '20/11/2018', 0.05, '2018-11-19', '2018-11-20'),
 (4, 'Noel 2018', 0.07, '2018-12-23', '2018-12-25'),
-(5, 'Tết dương lịch 2019', 0.15, '2018-12-29', '2019-01-01');
+(5, 'Tết dương lịch 2019', 0.15, '2018-12-29', '2019-01-01'),
+(10, 'valentine', 0.3, '2019-01-07', '2019-01-09');
 
 --
 -- Triggers `khuyenmai`
@@ -804,10 +796,10 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`ma_NV`, `ten_NV`, `soCMND_NV`, `gioitinh`, `ngaysinh_NV`, `diachi_NV`, `soDT_NV`, `ngay_VaoLam`, `luong_CB`, `tinh_trang`) VALUES
-(3, 'Hồ Thái Thăng', 123456789, 0, '1998-02-01', 'ko có', 1234, '3918-11-01', 1000, 1),
+(3, 'Hồ Thái Thăng', 123456789, 0, '1998-02-01', 'ko có', 1234, '3918-11-01', 1000, 0),
 (4, 'Loui Pasteur', 345345, 1, '1822-12-27', 'Pháp', 12345, '2018-11-01', 1000, 1),
 (5, 'Thomas Alva Edison', 7878, 1, '1847-02-11', 'Mỹ', 567432, '2018-01-01', 1000, 1),
-(6, 'yến', 46354654, 0, '2000-12-01', 'sdfsadfsd', 926528212, '2019-01-02', 0, 0),
+(6, 'yến', 46354654, 1, '2000-12-01', 'sdfsadfsd', 926528212, '2019-01-02', 0, 0),
 (9, 'yến', 464654, 0, '2000-12-01', 'sdfsadfsd', 546, '2019-01-02', 0, 0);
 
 --
@@ -932,7 +924,7 @@ INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_
 ('admin', 'C31F804A0E4A8943A7A5577A292F2321', 1, NULL),
 ('hello', NULL, 2, 4),
 ('nhanvien', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 5),
-('thanglong', NULL, 2, 3);
+('ranran49', '9B84756F9A50CC0D8223B9A03842CAC4', 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -943,6 +935,7 @@ INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_
 --
 ALTER TABLE `baohanh`
   ADD PRIMARY KEY (`ma_BH`),
+  ADD UNIQUE KEY `serial` (`serial`),
   ADD UNIQUE KEY `nhanvien_Tra` (`nhanvien_Tra`),
   ADD UNIQUE KEY `UK_3wsc3w3hlrxns7qbjed5381fo` (`nhanvien_Tra`),
   ADD KEY `sohd_Ban` (`sohd_Ban`),
@@ -1067,13 +1060,13 @@ ALTER TABLE `baohanh`
 -- AUTO_INCREMENT for table `ctkm`
 --
 ALTER TABLE `ctkm`
-  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `hoadonban`
 --
 ALTER TABLE `hoadonban`
-  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hoadonmua`
@@ -1091,7 +1084,7 @@ ALTER TABLE `khachhang`
 -- AUTO_INCREMENT for table `khuyenmai`
 --
 ALTER TABLE `khuyenmai`
-  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `nhacungcap`
