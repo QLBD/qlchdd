@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -354,6 +356,12 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
                 }
             }
         });
+        btnXemTatCa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     private void loadToanBoHoaDonBanLenTable() {
@@ -383,10 +391,6 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
         }
     }
 
-    private void clearData() {
-
-    }
-
     private void tableHDBanHangSelection() {
         int row = tableHDBanHang.getSelectedRow();
         if (row < 0) {
@@ -410,10 +414,10 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
 
         List<CthdBan> cthdBans = new ArrayList<>(hoaDonBan.getCthdBans());
 
-        hienThiThongHoaDonBan(soHD, ngayBan, tenNV, tenKH, tongTien, cthdBans);
+        hienThiThongTinHoaDonBan(soHD, ngayBan, tenNV, tenKH, tongTien, cthdBans);
     }
 
-    private void hienThiThongHoaDonBan(String soHD, String ngayBan, String tenNV, String tenKH, String tongTien, List<CthdBan> cthdBans) {
+    private void hienThiThongTinHoaDonBan(String soHD, String ngayBan, String tenNV, String tenKH, String tongTien, List<CthdBan> cthdBans) {
         tfMaHDBan.setText(soHD);
         tfNgayBan.setText(ngayBan);
         tfNVBan.setText(tenNV);
@@ -457,5 +461,12 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
         tfGiaGocSPBan.setText(giaGocSPBan);
         tfTienGiamSPBan.setText(tienGiamSPBan);
         tfThanhTienSPBan.setText(thanhTienSPBan);
+    }
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        hoaDonBan = null;
+        tableHDBanHang.getSelectionModel().clearSelection();
+        hienThiThongTinHoaDonBan("", "", "", "","", null);
+        //loadToanBoNhanVienLenTable();
     }
 }

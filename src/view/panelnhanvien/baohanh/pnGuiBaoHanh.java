@@ -251,21 +251,6 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         panel_8.add(panel_16, BorderLayout.CENTER);
         panel_16.setLayout(new BorderLayout(0, 0));
 
-        JPanel pnNgayNhanBH = new JPanel();
-        FlowLayout fl_pnNgayNhanBH = (FlowLayout) pnNgayNhanBH.getLayout();
-        fl_pnNgayNhanBH.setVgap(10);
-        fl_pnNgayNhanBH.setHgap(10);
-        fl_pnNgayNhanBH.setAlignment(FlowLayout.LEFT);
-        panel_16.add(pnNgayNhanBH, BorderLayout.NORTH);
-
-        JLabel lblNgayNhanBH = new JLabel("Ngày nhận:      ");
-        lblNgayNhanBH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnNgayNhanBH.add(lblNgayNhanBH);
-
-        tfNgayNhanBH = new JTextField();
-        tfNgayNhanBH.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        tfNgayNhanBH.setColumns(20);
-        pnNgayNhanBH.add(tfNgayNhanBH);
 
         JPanel panel_17 = new JPanel();
         panel_16.add(panel_17, BorderLayout.CENTER);
@@ -321,7 +306,8 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
                 }catch(NumberFormatException ex){
                     ex.printStackTrace();
                 }
-                
+                tfSerialSPBH.setText("");
+                taYeuCauGuiBH.setText("");
                 kiemTraThongTinMuaHang(maHD,maSP);
             }
         });

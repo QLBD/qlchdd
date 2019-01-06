@@ -264,6 +264,9 @@ public class pnTaiKhoan extends JPanel implements iMessageView, iModelComBox, iM
     }
 
     private void clearData() {
+        taiKhoan = null;
+        tableTaiKhoan.getSelectionModel().clearSelection();
+        hienThiThongTinTaiKhoan("", "",null);
 
     }
 

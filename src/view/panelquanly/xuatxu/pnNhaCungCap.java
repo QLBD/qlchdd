@@ -214,6 +214,12 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
                 timKiemNhaCungCapTheoTen();
             }
         });
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     @Override
@@ -247,10 +253,6 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
             return;
         }
         tableNCC.setModel(tableModel);
-    }
-
-    private void clearData() {
-
     }
 
     private void moManHinhThemNhaCungCap() {
@@ -309,5 +311,11 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
     private void timKiemNhaCungCapTheoTen() {
         String tenNcc = tfTenNCC.getText();
         NhaCungCapController.getInstance().timKiemNhaCungCapTheoTen(tenNcc, this);
+    }
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        nhaCungCap = null;
+        tableNCC.getSelectionModel().clearSelection();
+        hienThongTinNhaCungCap("", "", "", "");
     }
 }

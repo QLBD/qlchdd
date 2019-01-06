@@ -266,6 +266,12 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
                 timKiemKhachHangTheoTen();
             }
         });
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     @Override
@@ -323,10 +329,6 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
         tfEmailKH.setText(emailKH);
     }
 
-    private void clearData() {
-
-    }
-
     private void capNhatThongTinKhachHang() {
         String tenKH = tfTenKH.getText();
         String diaChiKH = tfDiaChiKH.getText();
@@ -355,5 +357,13 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
         String tenKh = tfTenKH.getText();
 
         KhachHangController.getInstance().timKiemDuLieuKhachHangTheoTenLenTable(tenKh, this);
+    }
+    
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        khachHang = null;
+        tableKH.getSelectionModel().clearSelection();
+        hienThiThongTinKhachHang("", "", "","", "", "");
+        //loadToanBoNhanVienLenTable();
     }
 }

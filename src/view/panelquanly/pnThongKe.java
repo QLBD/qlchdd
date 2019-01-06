@@ -41,6 +41,7 @@ public class pnThongKe extends JPanel implements iMessageView {
     private JButton btnXemThongKe;
     private JButton btnXuatBaoCao;
     private JTable tableThongKe;
+    private JButton btnHuy;
 
     private int loai;
     private int chiTiet;
@@ -155,6 +156,41 @@ public class pnThongKe extends JPanel implements iMessageView {
 
         JPanel panel_56 = new JPanel();
         panel_48.add(panel_56, BorderLayout.CENTER);
+//=======
+//	panel_51.add(cbbQuy);
+//		
+//	JLabel lblNam = new JLabel("Năm:");
+//	lblNam.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//	panel_51.add(lblNam);
+//		
+//	tfNam = new JTextField();
+//	tfNam.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//	panel_51.add(tfNam);
+//	tfNam.setColumns(7);
+//		
+//	JPanel panel_48 = new JPanel();
+//	panel_21.add(panel_48, BorderLayout.CENTER);
+//	panel_48.setLayout(new BorderLayout(0, 0));
+//		
+//	JPanel panel_47 = new JPanel();
+//	panel_48.add(panel_47, BorderLayout.NORTH);
+//	panel_47.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+//		
+//	btnXemThongKe = new JButton("Xem thống kê");
+//	btnXemThongKe.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//	panel_47.add(btnXemThongKe);
+//        
+//	btnXuatBaoCao = new JButton("Xuất báo cáo");
+//	btnXuatBaoCao.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//	panel_47.add(btnXuatBaoCao);
+//        
+//	btnHuy = new JButton("Hủy");
+//	btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//	panel_47.add(btnHuy);
+//		
+//	JPanel panel_56 = new JPanel();
+//	panel_48.add(panel_56, BorderLayout.CENTER);
+//>>>>>>> yen
         panel_56.setBorder(new LineBorder(new Color(0, 51, 51)));
         panel_56.setLayout(new BorderLayout(0, 0));
 
@@ -178,14 +214,20 @@ public class pnThongKe extends JPanel implements iMessageView {
                 cbbChiTietThongKeSelection();
             }
         });
+        btnHuy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
 
         btnXemThongKe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
             }
         });
-        
+
         btnXuatBaoCao.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -327,20 +369,20 @@ public class pnThongKe extends JPanel implements iMessageView {
     }
 
     private void xuatLuongNhanVien() {
-        
+
         int thang = cbbThang.getSelectedIndex();
-        if(thang == -1){
+        if (thang == -1) {
             showMessageAndReloadData("Bạn chưa chọn tháng", NONE);
             return;
         }
         int nam = -1;
-        try{
+        try {
             nam = Integer.valueOf(tfNam.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(nam == -1){
+
+        if (nam == -1) {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
@@ -364,61 +406,61 @@ public class pnThongKe extends JPanel implements iMessageView {
 
     private void xuatThongKeSanPhamBanRaThang() {
         int thang = cbbThang.getSelectedIndex() + 1;
-        if(thang == 0){
+        if (thang == 0) {
             showMessageAndReloadData("Bạn chưa chọn tháng", NONE);
             return;
         }
         int nam = -1;
-        try{
+        try {
             nam = Integer.valueOf(tfNam.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(nam == -1){
+
+        if (nam == -1) {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
-        
+
         ThongKeController.getInstance().TK_SLSP_BanTrongThang(thang, nam, this);
     }
 
     private void xuatThongKeSanPhamBanRaQuy() {
         int quy = cbbQuy.getSelectedIndex() + 1;
-        
-        if(quy == 0){
+
+        if (quy == 0) {
             showMessageAndReloadData("Bạn chưa chọn quý", NONE);
             return;
         }
-        
+
         int nam = -1;
-        try{
+        try {
             nam = Integer.valueOf(tfNam.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(nam == -1){
+
+        if (nam == -1) {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
-        
+
         ThongKeController.getInstance().TK_SLSP_BanTrongQuy(quy, nam, this);
     }
 
     private void xuatThongKeSanPhamBanRaNam() {
         int nam = -1;
-        try{
+        try {
             nam = Integer.valueOf(tfNam.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(nam == -1){
+
+        if (nam == -1) {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
-        
+
         ThongKeController.getInstance().TK_SLSP_BanTrongNam(nam, this);
     }
 
@@ -431,20 +473,20 @@ public class pnThongKe extends JPanel implements iMessageView {
                 xuatThongKeDoanhThuQuy();
                 break;
             case 2:
-               xuatThongKeDoanhThuNam();
+                xuatThongKeDoanhThuNam();
                 break;
         }
     }
 
     private void xuatThongKeDoanhThuThang() {
         int nam = -1;
-        try{
+        try {
             nam = Integer.valueOf(tfNam.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(nam == -1){
+
+        if (nam == -1) {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
@@ -452,14 +494,14 @@ public class pnThongKe extends JPanel implements iMessageView {
     }
 
     private void xuatThongKeDoanhThuQuy() {
-         int nam = -1;
-        try{
+        int nam = -1;
+        try {
             nam = Integer.valueOf(tfNam.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
-        if(nam == -1){
+
+        if (nam == -1) {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
@@ -468,5 +510,9 @@ public class pnThongKe extends JPanel implements iMessageView {
 
     private void xuatThongKeDoanhThuNam() {
         ThongKeController.getInstance().TK_DoanhThuNam(this);
+    }
+
+    private void clearData() {
+        
     }
 }

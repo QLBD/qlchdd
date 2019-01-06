@@ -478,6 +478,13 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
                 capNhatThongTinSanPham();
             }
         });
+
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     private void themHinhAnhSanPham() {
@@ -578,7 +585,7 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         thongTinSanPham();
     }
 
-    private void hienThiThongTinSanPhamLenManHinh(String maSP, String tenSP, String xuatXu, String mauSac, String baoHanh,
+    private void hienThiThongTinSanPham(String maSP, String tenSP, String xuatXu, String mauSac, String baoHanh,
             String theNho, String kichThuoc, String namSX, String soLuong, String giaBanRa, int tinhTrang, NhaSanXuat nsx,
             ImageIcon imageIcon) {
 
@@ -707,9 +714,9 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         if (sanPham.getAnh() != null) {
             Image image = Config.convertArrayByteToImageIcon(sanPham.getAnh());
             ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(300, 270, java.awt.Image.SCALE_SMOOTH));
-            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, imageIcon);
+            hienThiThongTinSanPham(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, imageIcon);
         } else {
-            hienThiThongTinSanPhamLenManHinh(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, null);
+            hienThiThongTinSanPham(maSP, tenSP, xuatXu, mauSac, baoHanh, theNho, kichThuoc, namSX, soLuong, giaBanRa, tinhTrang, nsx, null);
         }
     }
 
@@ -718,5 +725,12 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
         cbbLoaiHienThi.addItem("Sản phẩm đang kinh doanh");
         cbbLoaiHienThi.addItem("Sản Phẩm ngừng kinh doanh");
         cbbLoaiHienThi.setSelectedIndex(-1);
+    }
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        sanPham = null;
+        tableSanPham.getSelectionModel().clearSelection();
+        cbbLoaiHienThi.setSelectedIndex(0);
+        hienThiThongTinSanPham("", "", "","","","","","","", "",-1,null, null);
     }
 }

@@ -80,23 +80,29 @@ public class BaoHanhModelTable extends AbstractTableModel{
         switch (columnIndex) {
             case 0:
                 return bh.getMaBh();
-            case 5:
-                return bh.getHoadonban().getSohdBan();
             case 1:
-                return bh.getSanpham().getMaSp();
+                return bh.getHoadonban().getSohdBan();
             case 2:
+                return bh.getSanpham().getMaSp();
+            case 3:
+                return bh.getSerial();
+            case 4:
+                return bh.getYeucauBh();
+            case 5:
+                return bh.getNhanvienByNhanvienNhan().getMaNv();
+            case 6:
                 String ngayNhan = dateFormat.format(bh.getNgaynhan());
                 return ngayNhan;
-            case 3:
+            case 7:
+                return bh.getTinhtrang();
+                
+            case 8:
+                if(bh.getNhanvienByNhanvienTra() == null) return "";
+                return bh.getNhanvienByNhanvienTra().getMaNv();
+            case 9:
+                if(bh.getNgaytra()==null) return "";
                 String ngayTra = dateFormat.format(bh.getNgaytra());
                 return ngayTra;
-            case 4:
-                return bh.getSerial();
-            
-            case 6:
-                return bh.getTinhtrang();
-            case 7:
-                return bh.getYeucauBh();
             default:
                 return null;
         }

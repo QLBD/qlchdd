@@ -196,6 +196,12 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
                 timKiemNhaSanXuatTheoTen();
             }
         });
+        btnHuyCapNhat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     @Override
@@ -233,9 +239,6 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
 
     private void loadToanBoNhaSanXuatLenTable() {
         NhaSanXuatController.getInstance().layToanBoDuLieuLenTable(this);
-    }
-
-    private void clearData() {
     }
 
     private void moManHinhThemNhaSanXuat() {
@@ -282,5 +285,12 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
     private void timKiemNhaSanXuatTheoTen() {
         String tenNsx = tfTenNSX.getText();
         NhaSanXuatController.getInstance().timKiemNhaSanXuatTheoTen(tenNsx, this);
+    }
+    private void clearData() {
+        //xóa trắng màn hình thông tin
+        nhaSanXuat = null;
+        tableNSX.getSelectionModel().clearSelection();
+        hienThongTinNhaSanXuat("", "", "");
+        //loadToanBoNhanVienLenTable();
     }
 }
