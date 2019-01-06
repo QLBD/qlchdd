@@ -223,7 +223,6 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoNhaSanXuatLenTable();
                 clearData();
                 break;
         }
@@ -291,6 +290,6 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
         nhaSanXuat = null;
         tableNSX.getSelectionModel().clearSelection();
         hienThongTinNhaSanXuat("", "", "");
-        //loadToanBoNhanVienLenTable();
+        loadToanBoNhaSanXuatLenTable();
     }
 }

@@ -110,7 +110,7 @@ public class KhuyenMai implements java.io.Serializable {
 		this.cthdBans = cthdBans;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = SanPham.class, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name = "ctkm", catalog = "qlchdd", joinColumns = {
 			@JoinColumn(name = "ma_KM", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "ma_SP", nullable = false, updatable = false) })

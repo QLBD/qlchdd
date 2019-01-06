@@ -99,27 +99,27 @@ public class KhuyenMaiDAO {
         return kq;
     }
     
-//    public static boolean xoaKhuyenMai(int maKm){
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        KhuyenMai km = KhuyenMaiDAO.getKhuyenMai(maKm);
-//        if (km == null)
-//        {
-//            return false;
-//        }
-//        boolean kq = true;
-//        try {
-//            session.beginTransaction();
-//            session.delete(km);
-//            session.getTransaction().commit();
-//            System.out.println("Xóa khuyến mãi thành công!");
-//        } catch (RuntimeException e) {
-//            session.getTransaction().rollback();
-//            e.printStackTrace();
-//            kq = false;
-//        } finally {
-//            session.flush();
-//            session.close();
-//        }
-//        return kq;
-//    }
+    public static boolean xoaKhuyenMai(int maKm){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        KhuyenMai km = KhuyenMaiDAO.getKhuyenMai(maKm);
+        if (km == null)
+        {
+            return false;
+        }
+        boolean kq = true;
+        try {
+            session.beginTransaction();
+            session.delete(km);
+            session.getTransaction().commit();
+            System.out.println("Xóa khuyến mãi thành công!");
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            kq = false;
+        } finally {
+            session.flush();
+            session.close();
+        }
+        return kq;
+    }
 }

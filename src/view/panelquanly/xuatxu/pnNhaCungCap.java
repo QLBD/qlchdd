@@ -241,7 +241,6 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoNhaCungCapLenTable();
                 clearData();
                 break;
         }
@@ -317,5 +316,6 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         nhaCungCap = null;
         tableNCC.getSelectionModel().clearSelection();
         hienThongTinNhaCungCap("", "", "", "");
+        loadToanBoNhaCungCapLenTable();
     }
 }

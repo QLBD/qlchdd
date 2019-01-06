@@ -385,7 +385,6 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
             case iMessageView.FAIL:
                 break;
             case iMessageView.SUCCESS:
-                loadToanBoHoaDonBanLenTable();
                 clearData();
                 break;
         }
@@ -467,6 +466,6 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
         hoaDonBan = null;
         tableHDBanHang.getSelectionModel().clearSelection();
         hienThiThongTinHoaDonBan("", "", "", "","", null);
-        //loadToanBoNhanVienLenTable();
+        loadToanBoHoaDonBanLenTable();
     }
 }
