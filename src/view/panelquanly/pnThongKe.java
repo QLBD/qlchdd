@@ -20,17 +20,20 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.table.TableModel;
 import view.interfaceView.iMessageView;
+import view.interfaceView.iModelTable;
 
 /**
  *
  * @author RanRan
  */
-public class pnThongKe extends JPanel implements iMessageView {
+public class pnThongKe extends JPanel implements iMessageView, iModelTable{
 
     private JButton btnThongKe;
     private JComboBox cbbLoaiThongKe;
@@ -159,10 +162,9 @@ public class pnThongKe extends JPanel implements iMessageView {
         panel_56.setBorder(new LineBorder(new Color(0, 51, 51)));
         panel_56.setLayout(new BorderLayout(0, 0));
 
-	btnHuy = new JButton("Hủy");
-	btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	panel_47.add(btnHuy);
-        
+        btnHuy = new JButton("Hủy");
+        btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        panel_47.add(btnHuy);
 
         JScrollPane scrollPane = new JScrollPane();
         panel_56.add(scrollPane, BorderLayout.CENTER);
@@ -184,7 +186,7 @@ public class pnThongKe extends JPanel implements iMessageView {
                 cbbChiTietThongKeSelection();
             }
         });
-        
+
         btnHuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,7 +197,7 @@ public class pnThongKe extends JPanel implements iMessageView {
         btnXemThongKe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                xemThongKe();
             }
         });
 
@@ -209,7 +211,15 @@ public class pnThongKe extends JPanel implements iMessageView {
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
+            case iMessageView.NONE:
+                break;
+            case iMessageView.FAIL:
+                break;
+            case iMessageView.SUCCESS:
+                break;
+        }
     }
 
     private void initData() {
@@ -341,8 +351,8 @@ public class pnThongKe extends JPanel implements iMessageView {
 
     private void xuatLuongNhanVien() {
 
-        int thang = cbbThang.getSelectedIndex();
-        if (thang == -1) {
+        int thang = cbbThang.getSelectedIndex() +1;
+        if (thang == 0) {
             showMessageAndReloadData("Bạn chưa chọn tháng", NONE);
             return;
         }
@@ -357,7 +367,6 @@ public class pnThongKe extends JPanel implements iMessageView {
             showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
             return;
         }
-        thang += 1;
         ThongKeController.getInstance().TK_LuongNhanVien(thang, nam, this);
     }
 
@@ -484,6 +493,170 @@ public class pnThongKe extends JPanel implements iMessageView {
     }
 
     private void clearData() {
-        
+
+    }
+
+    private void xemThongKe() {
+        switch (loai) {
+            case 0:
+                xemThongKeDoanhThu();
+                break;
+            case 1:
+                xemThongKeSanPhamBanRa();
+                break;
+            case 2:
+                xemLuongNhanVien();
+                break;
+        }
+    }
+
+    private void xemThongKeDoanhThu() {
+        switch (chiTiet) {
+            case 0:
+                xemThongKeDoanhThuThang();
+                break;
+            case 1:
+                xemThongKeDoanhThuQuy();
+                break;
+            case 2:
+                xemThongKeDoanhThuNam();
+                break;
+        }
+    }
+
+    private void xemThongKeSanPhamBanRa() {
+        switch (chiTiet) {
+            case 0:
+                xemThongKeSanPhamBanRaThang();
+                break;
+            case 1:
+                xemThongKeSanPhamBanRaQuy();
+                break;
+            case 2:
+                xemThongKeSanPhamBanRaNam();
+                break;
+        }
+    }
+
+    private void xemLuongNhanVien() {
+        int thang = cbbThang.getSelectedIndex() +1;
+        if (thang == 0) {
+            showMessageAndReloadData("Bạn chưa chọn tháng", NONE);
+            return;
+        }
+        int nam = -1;
+        try {
+            nam = Integer.valueOf(tfNam.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (nam == -1) {
+            showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
+            return;
+        }
+        ThongKeController.getInstance().xemTK_LuongNhanVien(thang, nam, this);
+    }
+
+    private void xemThongKeDoanhThuThang() {
+        int nam = -1;
+        try {
+            nam = Integer.valueOf(tfNam.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (nam == -1) {
+            showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
+            return;
+        }
+        ThongKeController.getInstance().xemTK_DoanhThuThang(nam, this);
+    }
+
+    private void xemThongKeDoanhThuQuy() {
+        int nam = -1;
+        try {
+            nam = Integer.valueOf(tfNam.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (nam == -1) {
+            showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
+            return;
+        }
+        ThongKeController.getInstance().xemTK_DoanhThuQuy(nam, this);
+    }
+
+    private void xemThongKeDoanhThuNam() {
+        ThongKeController.getInstance().xemTK_DoanhThuNam(this);
+    }
+
+    private void xemThongKeSanPhamBanRaThang() {
+         int thang = cbbThang.getSelectedIndex() + 1;
+        if (thang == 0) {
+            showMessageAndReloadData("Bạn chưa chọn tháng", NONE);
+            return;
+        }
+        int nam = -1;
+        try {
+            nam = Integer.valueOf(tfNam.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (nam == -1) {
+            showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
+            return;
+        }
+
+        ThongKeController.getInstance().xemTK_SLSP_BanTrongThang(thang, nam, this);
+    }
+
+    private void xemThongKeSanPhamBanRaQuy() {
+        int quy = cbbQuy.getSelectedIndex() + 1;
+
+        if (quy == 0) {
+            showMessageAndReloadData("Bạn chưa chọn quý", NONE);
+            return;
+        }
+
+        int nam = -1;
+        try {
+            nam = Integer.valueOf(tfNam.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (nam == -1) {
+            showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
+            return;
+        }
+
+        ThongKeController.getInstance().xemTK_SLSP_BanTrongQuy(quy, nam, this);
+    }
+
+    private void xemThongKeSanPhamBanRaNam() {
+                int nam = -1;
+        try {
+            nam = Integer.valueOf(tfNam.getText());
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        if (nam == -1) {
+            showMessageAndReloadData("Bạn nhập năm ko chính xác", NONE);
+            return;
+        }
+
+        ThongKeController.getInstance().xemTK_SLSP_BanTrongNam(nam, this);
+    }
+
+    @Override
+    public void hienThiDuLieuLenTable(TableModel tableModel) {
+        if (tableModel == null) {
+            return;
+        }
+        tableThongKe.setModel(tableModel);
     }
 }
