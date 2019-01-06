@@ -56,12 +56,36 @@ public class ThongKeController {
         
     }
     
-    public void TK_DoanhThu(int nam, iMessageView callBack){
-        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\DoanhThu.jrxml";
+    public void TK_DoanhThuThang(int nam, iMessageView callBack){
+        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\DoanhThuThang.jrxml";
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("nam", nam);
         boolean result = showReport(path, parameters);
         
+    }
+    
+    public void TK_DoanhThuQuy(int nam, iMessageView callBack){
+        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\DoanhThuQuy.jrxml";
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("nam", nam);
+        boolean result = showReport(path, parameters);
+        
+    }
+    
+    public void TK_DoanhThuNam(iMessageView callBack){
+        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\DoanhThuNam.jrxml";
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        boolean result = showReport(path, parameters);
+        
+    }
+    
+    public void TK_LuongNhanVien(int thang, int nam, iMessageView callBack){
+        System.out.println(thang +""+nam);
+        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\LuongNhanVien.jrxml";
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("thang", thang);
+        parameters.put("nam", nam);
+        boolean result = showReport(path, parameters);
     }
     
     public void in_TK_SLSP_BanTrongNam(int nam, iMessageView callBack){
