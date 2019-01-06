@@ -47,6 +47,7 @@ public class BaoHanhController {
         for(BaoHanh bh: list){
             if(bh.getSerial() == baoHanh.getSerial()){
                 callBack.showMessageAndReloadData("Sản Phẩm này đã bị trùng số serial!!!",iMessageView.FAIL);
+                return;
             }
         }
         
