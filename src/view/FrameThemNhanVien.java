@@ -487,7 +487,7 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
             TaiKhoan taiKhoan = (TaiKhoan) cbbTaiKhoan.getSelectedItem();
             NhanVien nv = taiKhoan.getNhanvien();
             if (nv != null) {
-                showMessageAndReloadData("Tài này hiện đã có nhân viên sử dụng", NONE);
+                showMessageAndReloadData("Tài khoản này hiện đã có nhân viên sử dụng", NONE);
                 return;
             }
             nhanVien.setTaikhoan(taiKhoan);

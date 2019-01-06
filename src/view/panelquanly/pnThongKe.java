@@ -231,7 +231,7 @@ public class pnThongKe extends JPanel implements iMessageView, iModelTable{
     private void loadDataCbbLoai() {
         cbbLoaiThongKe.removeAllItems();
         cbbLoaiThongKe.addItem("Doanh Thu");
-        cbbLoaiThongKe.addItem("Số lượng phẩm bán được");
+        cbbLoaiThongKe.addItem("Sản Phẩm");
         cbbLoaiThongKe.addItem("Lương");
         cbbLoaiThongKe.setSelectedIndex(-1);
     }

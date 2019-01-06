@@ -69,21 +69,24 @@ SELECT sp.ma_SP, sp.ten_SP, SUM(ct.sl) AS SL
 FROM sanpham sp, cthd_ban ct, hoadonban hd
 WHERE ct.sohd_Ban = hd.sohd_Ban and sp.ma_SP = ct.ma_SP and
 	year(hd.ngay_Ban) = nam
-GROUP BY sp.ma_SP, sp.ten_SP$$
+GROUP BY sp.ma_SP, sp.ten_SP
+ORDER BY SL DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongQuy` (IN `quy` INT, IN `nam` INT)  NO SQL
 SELECT sp.ma_SP , sp.ten_SP , SUM(ct.sl) AS SL
 FROM sanpham sp, cthd_ban ct, hoadonban hd
 WHERE ct.sohd_Ban = hd.sohd_Ban and sp.ma_SP = ct.ma_SP and
 	year(hd.ngay_Ban) = nam and quarter(hd.ngay_Ban) = quy
-GROUP BY sp.ma_SP, sp.ten_SP$$
+GROUP BY sp.ma_SP, sp.ten_SP
+ORDER BY SL DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongThang` (IN `thang` INT, IN `nam` INT)  NO SQL
 SELECT sp.ma_SP , sp.ten_SP , SUM(ct.sl) AS SL
 FROM sanpham sp, cthd_ban ct, hoadonban hd
 WHERE ct.sohd_Ban = hd.sohd_Ban and sp.ma_SP = ct.ma_SP and
 	year(hd.ngay_Ban) = nam and month(hd.ngay_Ban) = thang
-GROUP BY sp.ma_SP, sp.ten_SP$$
+GROUP BY sp.ma_SP, sp.ten_SP
+ORDER BY SL DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `TK_SLSP_BanTrongThang-Nam` (IN `th` INT(11), IN `n` INT(11))  NO SQL
 SELECT sp.ma_SP, sp.ten_SP, sum(db.sl) sl
@@ -1058,7 +1061,7 @@ ALTER TABLE `taikhoan`
 -- AUTO_INCREMENT for table `baohanh`
 --
 ALTER TABLE `baohanh`
-  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ctkm`
@@ -1070,7 +1073,7 @@ ALTER TABLE `ctkm`
 -- AUTO_INCREMENT for table `hoadonban`
 --
 ALTER TABLE `hoadonban`
-  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hoadonmua`
