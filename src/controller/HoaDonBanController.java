@@ -45,9 +45,9 @@ public class HoaDonBanController {
         boolean result = HoaDonBanDAO.themHoaDonBan(hoaDonBan);
         
         if(result)
-            callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán Thành Công", iMessageView.NONE);
+            callBack.showMessageAndReloadData("", iMessageView.NONE);
         else
-            callBack.showMessageAndReloadData("Thêm Hóa Đơn Bán Thất Bại", iMessageView.NONE);
+            callBack.showMessageAndReloadData("", iMessageView.NONE);
     }
     
     
