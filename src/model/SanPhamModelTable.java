@@ -28,9 +28,7 @@ public class SanPhamModelTable extends AbstractTableModel{
                                 "Xuất xứ",
                                 "Màu",
                                 "Bộ nhớ",
-                                "Kích thước",
-                                "Ảnh",
-                                "Tình trạng"
+                                "Kích thước"
     };
     
     public SanPhamModelTable() {
@@ -103,10 +101,6 @@ public class SanPhamModelTable extends AbstractTableModel{
                 return sp.getBonho();
             case 10:
                 return sp.getKichthuoc();
-            case 11:
-                return sp.getAnh();
-            case 12:
-                return sp.getTinhtrang();
             default:
                 return null;
         }

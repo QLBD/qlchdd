@@ -673,12 +673,14 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         SanPhamModelTable modelTable = (SanPhamModelTable) tableCTKM.getModel();
 
         List<SanPham> data = modelTable.getData();
-
-        if (data.contains(sanPham)) {
-            showMessageAndReloadData("Sản phẩm này đã có trong chi tiết khuyến mãi", NONE);
-        } else {
-            modelTable.addRow(sanPham);
+        
+        for(SanPham sp : data){
+            if(sp.getMaSp() == sanPham.getMaSp()){
+                showMessageAndReloadData("Sản phẩm này đã có trong chi tiết khuyến mãi", NONE);
+                return;
+            }
         }
+        modelTable.addRow(sanPham);
     }
 
     private void capNhatChiTieTKhuyenMai() {

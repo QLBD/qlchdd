@@ -290,6 +290,7 @@ public class FrameNhanVien extends JFrame {
     private void chuyenTab() {
         switch (tabIndex) {
             case 1:
+                
                 pnhoaDon.setVisible(true);
                 pnbaoHanh.setVisible(false);
                 pnnhapHang.setVisible(false);
@@ -297,8 +298,15 @@ public class FrameNhanVien extends JFrame {
                 lblHoaDon.setForeground(Color.YELLOW);
                 lblBaoHanh.setForeground(Color.WHITE);
                 lblNhapHang.setForeground(Color.WHITE);
+                
                 break;
             case 2:
+                
+                if(pnhoaDon.conHoaDonBan()){
+                    pnhoaDon.xoaHoaDon();
+                    return;
+                }
+                
                 pnhoaDon.setVisible(false);
                 pnbaoHanh.setVisible(true);
                 pnnhapHang.setVisible(false);
@@ -310,6 +318,12 @@ public class FrameNhanVien extends JFrame {
                 pnbaoHanh.clearData();
                 break;
             case 3:
+                
+                if(pnhoaDon.conHoaDonBan()){
+                    pnhoaDon.xoaHoaDon();
+                    return;
+                }
+                
                 pnhoaDon.setVisible(false);
                 pnbaoHanh.setVisible(false);
                 pnnhapHang.setVisible(true);
