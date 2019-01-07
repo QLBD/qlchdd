@@ -110,4 +110,8 @@ public class HoaDonBanController {
         else
             callBack.showMessageAndReloadData("Xóa Hóa Đơn Bán Thất Bại", iMessageView.FAIL);
     }
+    
+    public HoaDonBan capNhatLaiHoaDonBanTuCSDLHeThong(HoaDonBan hdb){
+        return HoaDonBanDAO.getHoaDonBan(hdb.getSohdBan());
+    }
 }
