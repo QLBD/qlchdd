@@ -93,14 +93,26 @@ public class FrameDangNhap extends JFrame implements iDangNhapView, iFrameListen
         panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 
         JPanel panel_3 = new JPanel();
+        panel_3.setBorder(new EmptyBorder(0, 0, 0, 0));
         panel_1.add(panel_3);
+        
+        
+        Icon HinhAnhDN = new ImageIcon("Images/HinhAnhDN.png");
+        JLabel lblHinhAnhBG = new JLabel(HinhAnhDN);
+        panel_3.add(lblHinhAnhBG, BorderLayout.CENTER);
 
         JPanel panel_2 = new JPanel();
         panel_1.add(panel_2);
         panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panel_5 = new JPanel();
+        panel_5.setBorder(new EmptyBorder(0, 0, 0, 0));
         panel_2.add(panel_5);
+        
+        Icon LogoDN = new ImageIcon("Images/LogoDN.png");
+        JLabel lblLogoDN = new JLabel(LogoDN);
+        lblLogoDN.setHorizontalAlignment(SwingConstants.CENTER);
+        panel_5.add(lblLogoDN, BorderLayout.CENTER);
 
         JPanel panel_4 = new JPanel();
         panel_2.add(panel_4);

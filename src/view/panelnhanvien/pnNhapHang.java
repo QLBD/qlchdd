@@ -29,9 +29,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -191,10 +195,13 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         panel_6.add(panel_11);
 
         JPanel panel_5 = new JPanel();
+        panel_5.setBorder(new EmptyBorder(0, 0, 0, 0));
         panel_3.add(panel_5);
-
-        JLabel lblNewLabel_1 = new JLabel("Hình EXID");
-        panel_5.add(lblNewLabel_1);
+        
+        Icon hinhEXID = new ImageIcon("Images/EXID1.jpg");
+        JLabel lblhinhEXID = new JLabel(hinhEXID);
+        lblhinhEXID.setHorizontalAlignment(SwingConstants.CENTER);
+        panel_5.add(lblhinhEXID, BorderLayout.CENTER);
 
         JPanel panel_4 = new JPanel();
         panel_4.setBorder(new TitledBorder(new LineBorder(new Color(0, 51, 51), 2), "Chi ti\u1EBFt nh\u1EADp h\u00E0ng:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
