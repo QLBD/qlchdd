@@ -8,6 +8,7 @@ package controller;
 import java.util.List;
 import model.NhanVienModelTable;
 import model.dao.NhanVienDAO;
+import model.dao.TaiKhoanDAO;
 import model.dao.TimKiemDAO;
 import model.entities.*;
 import utils.Config;
@@ -46,9 +47,19 @@ public class NhanVienController {
     }
     
     public void themNhanVien(NhanVien nhanVien, iMessageView callBack){
+        TaiKhoan taiKhoan = nhanVien.getTaikhoan();
         boolean result = NhanVienDAO.themNhanVien(nhanVien);
-        if(result)
-            callBack.showMessageAndReloadData("Thêm Nhân Viên Thành Công", iMessageView.SUCCESS);
+        if(result){
+            taiKhoan.setNhanvien(nhanVien);
+            result = TaiKhoanDAO.capNhatTaiKhoan(taiKhoan);
+            if(result){
+                callBack.showMessageAndReloadData("Thêm Nhân Viên Thành Công", iMessageView.SUCCESS);
+            }
+            else{
+                callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", iMessageView.FAIL);
+            }
+            
+        }
         else
             callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", iMessageView.FAIL);
     }
