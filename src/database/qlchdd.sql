@@ -353,6 +353,13 @@ CREATE TABLE `doanhthu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `doanhthu`
+--
+
+INSERT INTO `doanhthu` (`thang`, `nam`, `quy`, `tienban_SP`, `tienmua_SP`, `tienluong_NV`, `tienloi`) VALUES
+(1, 2019, 1, 0, 0, 14000000, -14000000);
+
+--
 -- Triggers `doanhthu`
 --
 DELIMITER $$
@@ -584,6 +591,17 @@ CREATE TABLE `hoahong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `hoahong`
+--
+
+INSERT INTO `hoahong` (`thang`, `nam`, `ma_NV`, `tien_HH`) VALUES
+(1, 2019, 10, 0),
+(1, 2019, 11, 0),
+(1, 2019, 12, 0),
+(1, 2019, 13, 0),
+(1, 2019, 14, 0);
+
+--
 -- Triggers `hoahong`
 --
 DELIMITER $$
@@ -713,6 +731,17 @@ CREATE TABLE `nhanvien` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`ma_NV`, `ten_NV`, `soCMND_NV`, `gioitinh`, `ngaysinh_NV`, `diachi_NV`, `soDT_NV`, `ngay_VaoLam`, `luong_CB`, `tinh_trang`) VALUES
+(10, 'Heo Solji', 241609133, 1, '1989-01-10', '12 Nguyễn Kiệm, quận Gò Vấp, thành phố Hồ Chí Minh', 32689213, '2016-03-16', 3000000, 1),
+(11, 'Ahn Hyojin', 241609158, 1, '1991-12-10', '12 Nguyễn Kiệm, quận Gò Vấp, thành phố Hồ Chí Minh', 389625458, '2016-03-16', 3000000, 1),
+(12, 'Ahn Heeyeon', 241609835, 1, '1992-05-01', '35 Cách mạng tháng Tám, quận 10, thành phố Hồ Chí Minh', 325648125, '2016-07-05', 3000000, 1),
+(13, 'Seo Hyelin', 241609556, 1, '1993-08-23', '156 Võ Văn Ngân, quận Thủ Đức, thành phố Hồ Chí Minh', 378923648, '2017-05-17', 2500000, 1),
+(14, 'Park Jeonghwa', 241609784, 1, '1995-05-08', '208 Nguyễn Oanh, quận Gò Vấp, thành phố Hồ Chí Minh', 378952365, '2017-05-17', 2500000, 1);
+
+--
 -- Triggers `nhanvien`
 --
 DELIMITER $$
@@ -807,7 +836,12 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`ten_DangNhap`, `matkhau_DangNhap`, `ma_PhanQuyen`, `ma_NV`) VALUES
-('admin', 'C31F804A0E4A8943A7A5577A292F2321', 1, NULL);
+('admin', 'C31F804A0E4A8943A7A5577A292F2321', 1, NULL),
+('nhanvien1', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 10),
+('nhanvien2', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 11),
+('nhanvien3', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 12),
+('nhanvien4', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 13),
+('nhanvien5', '9B84756F9A50CC0D8223B9A03842CAC4', 2, 14);
 
 --
 -- Indexes for dumped tables
@@ -936,55 +970,55 @@ ALTER TABLE `taikhoan`
 -- AUTO_INCREMENT for table `baohanh`
 --
 ALTER TABLE `baohanh`
-  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ma_BH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ctkm`
 --
 ALTER TABLE `ctkm`
-  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hoadonban`
 --
 ALTER TABLE `hoadonban`
-  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sohd_Ban` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hoadonmua`
 --
 ALTER TABLE `hoadonmua`
-  MODIFY `sohd_Mua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sohd_Mua` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
 --
 ALTER TABLE `khachhang`
-  MODIFY `ma_KH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ma_KH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `khuyenmai`
 --
 ALTER TABLE `khuyenmai`
-  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ma_KM` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nhacungcap`
 --
 ALTER TABLE `nhacungcap`
-  MODIFY `ma_NCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ma_NCC` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `ma_NV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ma_NV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `nhasanxuat`
 --
 ALTER TABLE `nhasanxuat`
-  MODIFY `ma_nsx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ma_nsx` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `phanquyen`
@@ -996,7 +1030,7 @@ ALTER TABLE `phanquyen`
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `ma_SP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ma_SP` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
