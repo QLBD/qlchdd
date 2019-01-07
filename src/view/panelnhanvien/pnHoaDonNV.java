@@ -116,6 +116,8 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 
     private double giaGoc;
     private double tienGiam;
+    private JLabel lblLoadGiaGoc;
+    private JLabel lblLoadTienGiam;
 
     public pnHoaDonNV(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
@@ -281,6 +283,26 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         lblLoadNamSX.setBounds(415, 404, 56, 20);
         pnThongTin.add(lblLoadNamSX);
 
+        JLabel lblGiaGoc = new JLabel("Giá gốc:");
+	lblGiaGoc.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	lblGiaGoc.setBounds(12, 433, 67, 20);
+	pnThongTin.add(lblGiaGoc);
+		
+	lblLoadGiaGoc = new JLabel("");
+	lblLoadGiaGoc.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	lblLoadGiaGoc.setBounds(160, 433, 108, 20);
+	pnThongTin.add(lblLoadGiaGoc);
+		
+	JLabel lblTienGiam = new JLabel("Giảm giá:");
+	lblTienGiam.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	lblTienGiam.setBounds(283, 433, 97, 20);
+	pnThongTin.add(lblTienGiam);
+		
+	lblLoadTienGiam = new JLabel("");
+	lblLoadTienGiam.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	lblLoadTienGiam.setBounds(415, 436, 130, 20);
+	pnThongTin.add(lblLoadTienGiam);
+              
         JLabel lblSLng = new JLabel("Số lượng:");
         lblSLng.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblSLng.setBounds(244, 508, 74, 20);
