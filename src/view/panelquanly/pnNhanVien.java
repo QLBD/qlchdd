@@ -70,7 +70,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
     private JDateChooser dpNgayVaoLam;
     private JTextField tfLuongCoBan;
     private JComboBox cbbTaiKhoan;
-    private JButton btnThemTaiKhoan;
     private JTextField tfSoDT;
     private JComboBox cbbTinhTrang;
     private JButton btnTimKiem;
@@ -285,10 +284,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         cbbTaiKhoan.setMinimumSize(new Dimension(150, 25));
         pnTaiKhoan.add(cbbTaiKhoan);
 
-        btnThemTaiKhoan = new JButton("Thêm tài khoản");
-        btnThemTaiKhoan.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnTaiKhoan.add(btnThemTaiKhoan);
-
         JPanel pnSoDT = new JPanel();
         FlowLayout flowLayout_8 = (FlowLayout) pnSoDT.getLayout();
         flowLayout_8.setVgap(10);
@@ -446,13 +441,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
             }
         });
 
-        btnThemTaiKhoan.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                moManHinhThemTaiKhoan();
-            }
-        });
-
         btnCapNhat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -585,9 +573,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
             case iFrameListener.TypeFrame.THEM_NHAN_VIEN:
                 loadToanBoNhanVienLenTable();
                 break;
-            case iFrameListener.TypeFrame.THEM_TAI_KHOAN:
-                loadDataCbbTaiKhoan();
-                break;
         }
     }
 
@@ -596,10 +581,6 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         frame.setVisible(true);
     }
 
-    private void moManHinhThemTaiKhoan() {
-        FrameThemTaiKhoan frame = new FrameThemTaiKhoan(this);
-        frame.setVisible(true);
-    }
 
     private void capNhatThongTinNhanVien() {
         if (nhanVien == null) {
