@@ -349,7 +349,11 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         tfTenKHGuiBH.setText(tenKH);
         tfCMNDGuiBH.setText(CMND);
         tfTenSPGuiBH.setText(tenSP);
-        tfThoiGianBHSP.setText(thoiGianBaoHanh + " tháng");
+        if(thoiGianBaoHanh.isEmpty()){
+            tfThoiGianBHSP.setText("");
+        }
+        else
+            tfThoiGianBHSP.setText(thoiGianBaoHanh + " tháng");
         tfNgayMuaSPBH.setText(ngayMua);
         lblThongTinHanBH.setText(thongTinHanBaoHanh);
 
