@@ -56,6 +56,7 @@ public class NhanVienController {
                 callBack.showMessageAndReloadData("Thêm Nhân Viên Thành Công", iMessageView.SUCCESS);
             }
             else{
+                NhanVienDAO.xoaNhanVien(nhanVien.getMaNv());
                 callBack.showMessageAndReloadData("Thêm Nhân Viên Thất Bại", iMessageView.FAIL);
             }
             
