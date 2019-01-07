@@ -504,6 +504,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     }
 
     private void initData() {
+        hdb = null;
         modelTable = new CTHDBanModelTable();
         tableCTHD.setModel(modelTable);
 
@@ -907,7 +908,10 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         tfThanhTien.setText(format.format(thanhTien));
     }
 
-    private void xoaHoaDon() {
+    public void xoaHoaDon() {
+        
+        if(hdb == null) return;
+        
         int reply = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn có muốn xóa hóa đơn bán này không?", "Hỏi Xóa", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.NO_OPTION) {
             return;
@@ -974,5 +978,12 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         cbbTimHang.setSelectedIndex(-1);
         cbbTimTenSP.setSelectedIndex(-1);
         hienThiThongTinSanPham();
+    }
+    
+    public boolean conHoaDonBan(){
+        if(hdb == null){
+            return false;
+        }
+        return true;
     }
 }
