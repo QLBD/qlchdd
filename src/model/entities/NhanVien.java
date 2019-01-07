@@ -118,7 +118,7 @@ public class NhanVien implements java.io.Serializable {
 		this.ngaysinhNv = ngaysinhNv;
 	}
 
-	@Column(name = "diachi_NV", length = 45)
+	@Column(name = "diachi_NV", length = 255)
 	public String getDiachiNv() {
 		return this.diachiNv;
 	}

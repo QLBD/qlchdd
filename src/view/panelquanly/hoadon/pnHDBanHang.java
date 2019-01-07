@@ -362,6 +362,12 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
                 clearData();
             }
         });
+        btnTimKiemHDBan.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timKiemHoaDonBan();
+            }
+        });
     }
 
     private void loadToanBoHoaDonBanLenTable() {
@@ -461,12 +467,23 @@ public class pnHDBanHang extends JPanel implements iModelTable, iMessageView {
         tfTienGiamSPBan.setText(tienGiamSPBan);
         tfThanhTienSPBan.setText(thanhTienSPBan);
     }
-    
+
     public void clearData() {
         //xóa trắng màn hình thông tin
         hoaDonBan = null;
         tableHDBanHang.getSelectionModel().clearSelection();
-        hienThiThongTinHoaDonBan("", "", "", "","", null);
+        hienThiThongTinHoaDonBan("", "", "", "", "", null);
         loadToanBoHoaDonBanLenTable();
+    }
+
+    private void timKiemHoaDonBan() {
+        int sohdBan = 0;
+        if(tfMaHDBan.getText().isEmpty()) return;
+        try{
+            sohdBan = Integer.valueOf(tfMaHDBan.getText());
+        }catch(NumberFormatException ex){
+            ex.printStackTrace();
+        }
+        HoaDonBanController.getInstance().timKiemHoaDonBanTheoMa(sohdBan, this);
     }
 }

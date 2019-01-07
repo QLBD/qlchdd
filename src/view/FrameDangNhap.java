@@ -56,8 +56,8 @@ public class FrameDangNhap extends JFrame implements iDangNhapView, iFrameListen
         initComponent();
         initData();
         initEvent();
-        tfTaiKhoan.setText("nhanvien");
-        pwfMatKhau.setText("1");
+        tfTaiKhoan.setText("admin");
+        pwfMatKhau.setText("admin");
     }
 
     private void initComponent() {

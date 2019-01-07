@@ -9,11 +9,13 @@ import java.util.List;
 import model.HoaDonMuaModelTable;
 import model.dao.CTHD_MuaDAO;
 import model.dao.HoaDonMuaDAO;
+import model.dao.TimKiemDAO;
 import model.entities.CthdMua;
 import model.entities.CthdMuaId;
 import model.entities.HoaDonMua;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
+import view.panelquanly.hoadon.pnHDNhapHang;
 
 /**
  *
@@ -69,5 +71,15 @@ public class HoaDonMuaController {
             callBack.showMessageAndReloadData("Cập nhật hóa đơn mua thành công", iMessageView.SUCCESS);
         else
             callBack.showMessageAndReloadData("Cập nhật hóa đơn mua thất bại", iMessageView.FAIL);
+    }
+
+    public void timKiemHoaDonMuaTheoMa(int sohdMua, iModelTable callBack) {
+        List data = new TimKiemDAO(HoaDonMua.class).equal("sohdMua", sohdMua).timKiem();
+        if (!data.isEmpty()) {
+            HoaDonMuaModelTable modelTable = new HoaDonMuaModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        } else {
+            callBack.hienThiDuLieuLenTable(null);
+        }
     }
 }

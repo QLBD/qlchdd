@@ -13,11 +13,13 @@ import java.util.Map;
 import model.HoaDonBanModelTable;
 import model.dao.HoaDonBanDAO;
 import model.dao.KhachHangDAO;
+import model.dao.TimKiemDAO;
 import model.entities.HoaDonBan;
 import model.entities.KhachHang;
 import utils.ReportUtils;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
+import view.panelquanly.hoadon.pnHDBanHang;
 
 /**
  *
@@ -113,5 +115,15 @@ public class HoaDonBanController {
     
     public HoaDonBan capNhatLaiHoaDonBanTuCSDLHeThong(HoaDonBan hdb){
         return HoaDonBanDAO.getHoaDonBan(hdb.getSohdBan());
+    }
+
+    public void timKiemHoaDonBanTheoMa(int sohdBan, iModelTable callBack) {
+        List data = new TimKiemDAO(HoaDonBan.class).equal("sohdBan", sohdBan).timKiem();
+        if (!data.isEmpty()) {
+            HoaDonBanModelTable modelTable = new HoaDonBanModelTable(data);
+            callBack.hienThiDuLieuLenTable(modelTable);
+        } else {
+            callBack.hienThiDuLieuLenTable(null);
+        }
     }
 }
