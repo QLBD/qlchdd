@@ -273,6 +273,10 @@ public class FrameNhanVien extends JFrame {
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(pnhoaDon.conHoaDonBan()){
+                    pnhoaDon.xoaHoaDon();
+                    return;
+                }
                 setVisible(false);
                 callBack.transferData(new Object[]{iFrameListener.TypeFrame.BANG_DIEU_KHIEN});
             }

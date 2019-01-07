@@ -57,7 +57,7 @@ import view.interfaceView.iModelComBox;
  *
  * @author RanRan
  */
-public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, iMessageView{
+public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, iMessageView {
 
     private JTextField tfTongTien;
     private JComboBox cbbNhaCungCap;
@@ -74,9 +74,9 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     private JTable tableChiTietNhap;
     private JScrollPane scrollPaneChiTietNhap;
     private JButton btnThemSPNhap;
-    
+
     private CTHDMuaModelTable modelTable;
-    
+
     private NhanVien nhanVien;
     private HoaDonMua hdm;
     private NhaCungCap nhaCungCap;
@@ -84,7 +84,6 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     private SanPham sanPham;
     private JButton btnXoaSPNhap;
     private JButton btnCapNhatSPNhap;
-    
 
     public pnNhapHang(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
@@ -197,7 +196,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         JPanel panel_5 = new JPanel();
         panel_5.setBorder(new EmptyBorder(0, 0, 0, 0));
         panel_3.add(panel_5);
-        
+
         Icon hinhEXID = new ImageIcon("Images/EXID1.jpg");
         JLabel lblhinhEXID = new JLabel(hinhEXID);
         lblhinhEXID.setHorizontalAlignment(SwingConstants.CENTER);
@@ -306,11 +305,11 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     public void initData() {
         modelTable = new CTHDMuaModelTable();
         tableChiTietNhap.setModel(modelTable);
-        
+
         loadDataCbbNhaCungCap();
         loadDataCbbSanPhamNhap();
     }
-    
+
     private void initEvent() {
         btnThemNhaCungCap.addActionListener(new ActionListener() {
             @Override
@@ -318,90 +317,80 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
                 moManHinhThemNhaCungCap();
             }
         });
-        
+
         btnThemSanPham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moManHinhThemSanPham();
             }
         });
-        
+
         btnThemSPNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 themSanPhamVaoCthdMua();
             }
         });
-        
+
         cbbSanPhamNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cbbSanPhamNhap.isValid()){
-                    if(cbbSanPhamNhap.getSelectedIndex() != -1){
+                if (cbbSanPhamNhap.isValid()) {
+                    if (cbbSanPhamNhap.getSelectedIndex() != -1) {
                         sanPham = (SanPham) cbbSanPhamNhap.getSelectedItem();
                     }
                 }
             }
         });
-        
+
         cbbNhaCungCap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cbbNhaCungCap.isValid()){
-                    if(cbbNhaCungCap.getSelectedIndex() != -1){
+                if (cbbNhaCungCap.isValid()) {
+                    if (cbbNhaCungCap.getSelectedIndex() != -1) {
                         nhaCungCap = (NhaCungCap) cbbNhaCungCap.getSelectedItem();
                     }
                 }
             }
         });
-        
+
         tableChiTietNhap.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    if (!e.getValueIsAdjusting()) {
-
-                        int row = tableChiTietNhap.getSelectedRow();
-                        if(row < 0) return;
-                        CthdMua ctMua = modelTable.getSelectedRow(row);
-                        DecimalFormat format = new DecimalFormat("#,###");
-                        String sl = ctMua.getSl() + "";
-                        String donGia = format.format(ctMua.getDongiaSp());
-                        hienThongTinChiTietNhap(sl, donGia);
-                        
-                        cbbSanPhamNhap.setSelectedItem(ctMua.getSanpham());
-                    }
-
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    tableChiTietNhapSelection();
                 }
+            }
         });
-        
+
         btnXoaSPNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 xoaSanPhamRaKhoiHoaDonMua();
             }
         });
-        
+
         btnCapNhatSPNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 capNhatSanPhamTrenHoaDonMua();
             }
         });
-        
+
         btnXacNhanNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 xacNhanNhapHang();
             }
         });
-        
+
         btnHuyNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showMessageAndReloadData("Hủy hóa đơn nhập thành công", iMessageView.SUCCESS);
             }
         });
-        
+
         btnTimSPNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -420,15 +409,14 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
 
     @Override
     public void hienThiDuLieuLenComBox(List data, Object object) {
-        if(object instanceof NhaCungCap){
+        if (object instanceof NhaCungCap) {
             cbbNhaCungCap.removeAllItems();
             for (Iterator it = data.iterator(); it.hasNext();) {
                 NhaCungCap ncc = (NhaCungCap) it.next();
                 cbbNhaCungCap.addItem(ncc);
             }
             cbbNhaCungCap.setSelectedIndex(-1);
-        }
-        else if(object instanceof SanPham){
+        } else if (object instanceof SanPham) {
             cbbSanPhamNhap.removeAllItems();
             for (Iterator it = data.iterator(); it.hasNext();) {
                 SanPham sp = (SanPham) it.next();
@@ -437,22 +425,22 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
             cbbSanPhamNhap.setSelectedIndex(-1);
         }
     }
-    
+
     private void moManHinhThemNhaCungCap() {
         FrameThemNhaCungCap frame = new FrameThemNhaCungCap(this);
         frame.setVisible(true);
-        
+
     }
 
     private void moManHinhThemSanPham() {
         FrameThemSanPham frame = new FrameThemSanPham(this);
         frame.setVisible(true);
     }
-    
+
     @Override
     public void transferData(Object[] data) {
         int result = (int) data[0];
-        switch(result){
+        switch (result) {
             case iFrameListener.TypeFrame.THEM_NHA_CUNG_CAP:
                 loadDataCbbNhaCungCap();
                 break;
@@ -466,73 +454,84 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
                 break;
         }
     }
-    
+
     private void themSanPhamVaoCthdMua() {
         int sl = -1;
         double donGia = -1;
-        if(tfDonGiaNhap.getText().isEmpty() || tfSoLuongNhap.getText().isEmpty()) return;
-        try{
+        if (tfDonGiaNhap.getText().isEmpty() || tfSoLuongNhap.getText().isEmpty()) {
+            return;
+        }
+        try {
             sl = Integer.valueOf(tfSoLuongNhap.getText());
             donGia = Double.valueOf(tfDonGiaNhap.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
         //kiểm tra điều kiện
-        
-        if(sanPham == null) return;
-        
+
+        if (sanPham == null) {
+            return;
+        }
+
         int row = modelTable.isContainSanPham(sanPham);
-        
-        if(row != -1){
+
+        if (row != -1) {
             //xuất thông báo
             return;
         }
-        
+
         cthdMua = new CthdMua();
         cthdMua.setSanpham(sanPham);
         cthdMua.setSl(sl);
         cthdMua.setDongiaSp(donGia);
-        
-        double thanhTien = sl*donGia;
+
+        double thanhTien = sl * donGia;
         cthdMua.setThanhtien(thanhTien);
-        
+
         modelTable.addRow(cthdMua);
         hienThongTinChiTietNhap("", "");
         capNhatTongTien();
     }
-    
+
     private void xoaSanPhamRaKhoiHoaDonMua() {
         int row = tableChiTietNhap.getSelectedRow();
-        
-        if(row < 0) return;
-        
+
+        if (row < 0) {
+            return;
+        }
+
         modelTable.removeRow(row);
         capNhatTongTien();
     }
-    
-    
+
     private void capNhatSanPhamTrenHoaDonMua() {
         int row = tableChiTietNhap.getSelectedRow();
-        
-        if(row < 0) return;
-        
+
+        if (row < 0) {
+            return;
+        }
+
         int sl = -1;
         double donGia = -1;
-        if(tfDonGiaNhap.getText().isEmpty() || tfSoLuongNhap.getText().isEmpty()) return;
-        try{
+        if (tfDonGiaNhap.getText().isEmpty() || tfSoLuongNhap.getText().isEmpty()) {
+            return;
+        }
+        try {
             sl = Integer.valueOf(tfSoLuongNhap.getText());
             donGia = Double.valueOf(tfDonGiaNhap.getText());
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-        
+
         cthdMua = modelTable.getSelectedRow(row);
-        
-        if(sanPham == null) return;
-        
+
+        if (sanPham == null) {
+            return;
+        }
+
         int contain = modelTable.isContainSanPham(sanPham);
-        
-        if(contain != -1 && contain != row){
+
+        if (contain != -1 && contain != row) {
             //xuất thông báo
             return;
         }
@@ -540,42 +539,46 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         cthdMua.setSanpham(sanPham);
         cthdMua.setSl(sl);
         cthdMua.setDongiaSp(donGia);
-        double thanhTien = sl*donGia;
+        double thanhTien = sl * donGia;
         cthdMua.setThanhtien(thanhTien);
-        
-        modelTable.addRow(row,cthdMua);
+
+        modelTable.addRow(row, cthdMua);
         capNhatTongTien();
     }
-    
+
     private void hienThongTinChiTietNhap(String sl, String donGia) {
         tfSoLuongNhap.setText(sl);
         tfDonGiaNhap.setText(donGia);
     }
-    
-    private void capNhatTongTien(){
+
+    private void capNhatTongTien() {
         double tongTien = 0;
-        
-        for(CthdMua cthdMua : modelTable.getData()){
+
+        for (CthdMua cthdMua : modelTable.getData()) {
             tongTien += cthdMua.getThanhtien();
         }
         DecimalFormat format = new DecimalFormat("#,###");
-        
+
         tfTongTien.setText(format.format(tongTien));
     }
-    
+
     private void xacNhanNhapHang() {
         Date ngayNhap = dpNgayNhapHang.getDate();
-        if(ngayNhap == null) return;
-        if(nhaCungCap == null) return;
+        if (ngayNhap == null) {
+            return;
+        }
+        if (nhaCungCap == null) {
+            return;
+        }
         hdm = new HoaDonMua(nhaCungCap, nhanVien, ngayNhap);
-        
-        HoaDonMuaController.getInstance().themHoaDonMua(hdm, modelTable.getData(),this);
+
+        HoaDonMuaController.getInstance().themHoaDonMua(hdm, modelTable.getData(), this);
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
@@ -592,17 +595,17 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
         sanPham = null;
         cthdMua = null;
         nhaCungCap = null;
-        
+
         cbbNhaCungCap.setSelectedIndex(-1);
         cbbSanPhamNhap.setSelectedIndex(-1);
         dpNgayNhapHang.setDate(null);
         tfTongTien.setText("");
-        
+
         hienThongTinChiTietNhap("", "");
-        
+
         modelTable.clearData();
     }
-    
+
     private void moManHinhTimKiemSanPham() {
         FrameTimKiemSP frame = new FrameTimKiemSP(this);
         frame.setVisible(true);
@@ -611,10 +614,24 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     private void hienThiThongTinSanPhamTimKiem(SanPham sp) {
         sanPham = sp;
         int tinhTrang = sp.getTinhtrang();
-        if(tinhTrang == 0){
+        if (tinhTrang == 0) {
             showMessageAndReloadData("Sản phẩm này đã ngừng kinh doanh", NONE);
             return;
         }
         cbbSanPhamNhap.getModel().setSelectedItem(sanPham);
+    }
+
+    private void tableChiTietNhapSelection() {
+        int row = tableChiTietNhap.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        CthdMua ctMua = modelTable.getSelectedRow(row);
+        DecimalFormat format = new DecimalFormat("#,###");
+        String sl = ctMua.getSl() + "";
+        String donGia = format.format(ctMua.getDongiaSp());
+        hienThongTinChiTietNhap(sl, donGia);
+
+        cbbSanPhamNhap.setSelectedItem(ctMua.getSanpham());
     }
 }
