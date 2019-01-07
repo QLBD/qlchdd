@@ -58,7 +58,7 @@ public class KhachHang implements java.io.Serializable {
 		this.maKh = maKh;
 	}
 
-	@Column(name = "ten_KH", length = 45)
+	@Column(name = "ten_KH", length = 50)
 	public String getTenKh() {
 		return this.tenKh;
 	}
@@ -76,7 +76,7 @@ public class KhachHang implements java.io.Serializable {
 		this.soCmndKh = soCmndKh;
 	}
 
-	@Column(name = "diachi_KH", length = 45)
+	@Column(name = "diachi_KH", length = 255)
 	public String getDiachiKh() {
 		return this.diachiKh;
 	}

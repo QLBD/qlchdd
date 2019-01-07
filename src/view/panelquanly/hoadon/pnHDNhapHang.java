@@ -323,6 +323,12 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
                 clearData();
             }
         });
+        btnTimKiemHDNhap.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timKiemHoaDonMua();
+            }
+        });
     }
 
     @Override
@@ -416,13 +422,23 @@ public class pnHDNhapHang extends JPanel implements iModelTable, iMessageView {
         tfDonGiaNhap.setText(donGia);
         tfThanhTienNhap.setText(thanhTien);
     }
-    
+
     public void clearData() {
         //xóa trắng màn hình thông tin
         hoaDonMua = null;
         tableHDNhap.getSelectionModel().clearSelection();
-        hienThiThongTinHoaDonMua("", "", "","","",null);
+        hienThiThongTinHoaDonMua("", "", "", "", "", null);
         loadToanBoHoaDonMuaLenTable();
     }
-    
+
+    private void timKiemHoaDonMua() {
+        int sohdMua = 0;
+        if(tfMaHDNhap.getText().isEmpty()) return;
+        try{
+            sohdMua = Integer.valueOf(tfMaHDNhap.getText());
+        }catch(NumberFormatException ex){
+            ex.printStackTrace();
+        }
+        HoaDonMuaController.getInstance().timKiemHoaDonMuaTheoMa(sohdMua, this);
+    }
 }

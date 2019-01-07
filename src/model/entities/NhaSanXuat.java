@@ -60,7 +60,7 @@ public class NhaSanXuat implements java.io.Serializable {
 		this.tenNsx = tenNsx;
 	}
 
-	@Column(name = "thongtin", nullable = false, length = 45)
+	@Column(name = "thongtin", nullable = false, length = 255)
 	public String getThongtin() {
 		return this.thongtin;
 	}

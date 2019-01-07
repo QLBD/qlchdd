@@ -96,4 +96,8 @@ public class NhanVienController {
         else
             callBack.hienThiDuLieuLenTable(null);
     }
+    
+    public NhanVien capNhatLaiThongTinNhanVienTuCSDL(NhanVien nv){
+        return NhanVienDAO.getNhanVien(nv.getMaNv());
+    }
 }
