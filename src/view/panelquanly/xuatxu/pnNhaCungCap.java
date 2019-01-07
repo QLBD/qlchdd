@@ -8,6 +8,7 @@ package view.panelquanly.xuatxu;
 import controller.NhaCungCapController;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -50,6 +51,7 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
     private JButton btnHuyCapNhat;
 
     private NhaCungCap nhaCungCap;
+    private JComboBox cbbTinhTrang;
 
     public pnNhaCungCap() {
         initComponent();
@@ -75,7 +77,7 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
 
         JPanel panel_9 = new JPanel();
         panel_8.add(panel_9);
-        panel_9.setLayout(new GridLayout(5, 0, 0, 0));
+        panel_9.setLayout(new GridLayout(6, 0, 0, 0));
 
         JPanel pnMaNCC = new JPanel();
         FlowLayout flowLayout_30 = (FlowLayout) pnMaNCC.getLayout();
@@ -145,6 +147,23 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         tfSoDTNCC.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfSoDTNCC.setColumns(20);
         pnSoDTNCC.add(tfSoDTNCC);
+        
+        JPanel pnTinhTrang = new JPanel();
+        FlowLayout flowLayout_35 = (FlowLayout) pnTinhTrang.getLayout();
+        flowLayout_35.setVgap(10);
+        flowLayout_35.setHgap(10);
+        flowLayout_35.setAlignment(FlowLayout.LEFT);
+        panel_9.add(pnTinhTrang);
+
+        JLabel lblTinhTrang = new JLabel("Tình trạng:          ");
+        lblTinhTrang.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnTinhTrang.add(lblTinhTrang);
+
+        cbbTinhTrang = new JComboBox();
+        cbbTinhTrang.setPreferredSize(new Dimension(150, 25));
+        cbbTinhTrang.setMaximumSize(new Dimension(150, 25));
+        cbbTinhTrang.setMinimumSize(new Dimension(150, 25));
+        pnTinhTrang.add(cbbTinhTrang);
 
         JPanel pnButtonQLNCC = new JPanel();
         FlowLayout flowLayout_34 = (FlowLayout) pnButtonQLNCC.getLayout();
