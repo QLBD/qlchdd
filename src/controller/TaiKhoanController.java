@@ -43,10 +43,10 @@ public class TaiKhoanController {
         callBack.hienThiDuLieuLenTable(modelTable);
     }
     
-    public void layToanBoTaiKhoanChuaCoNhanVienLenComboBox(iModelComBox callBack){
-//        List data = new TimKiemDAO(TaiKhoan.class).isNull("nhanvien").equal("phanquyen", data).timKiem();
-//        callBack.hienThiDuLieuLenComBox(data,new TaiKhoan());
-    }
+//    public void layToanBoTaiKhoanChuaCoNhanVienLenComboBox(iModelComBox callBack){
+////        List data = new TimKiemDAO(TaiKhoan.class).isNull("nhanvien").equal("phanquyen", data).timKiem();
+////        callBack.hienThiDuLieuLenComBox(data,new TaiKhoan());
+//    }
     
     public void layToanBoTaiKhoanNhanVienLenComboBox(iModelComBox callBack){
         List list = new TimKiemDAO(PhanQuyen.class).equal("maPhanQuyen", 2).timKiem();
@@ -124,13 +124,13 @@ public class TaiKhoanController {
             callBack.hienThiDuLieuLenTable(null);
     }
     
-    public void capNhatThongTinTaiKhoan(TaiKhoan taiKhoan, iMessageView callBack){
-        boolean result = TaiKhoanDAO.capNhatTaiKhoan(taiKhoan);
-        if(result)
-            callBack.showMessageAndReloadData("Cập nhật Tài khoản Thành Công", iMessageView.SUCCESS);
-        else
-            callBack.showMessageAndReloadData("Cập nhật Tài khoản Thất Bại", iMessageView.FAIL);
-    }
+//    public void capNhatThongTinTaiKhoan(TaiKhoan taiKhoan, iMessageView callBack){
+//        boolean result = TaiKhoanDAO.capNhatTaiKhoan(taiKhoan);
+//        if(result)
+//            callBack.showMessageAndReloadData("Cập nhật Tài khoản Thành Công", iMessageView.SUCCESS);
+//        else
+//            callBack.showMessageAndReloadData("Cập nhật Tài khoản Thất Bại", iMessageView.FAIL);
+//    }
     
     public void xoaTaiKhoan(TaiKhoan taiKhoan, iMessageView callBack){
         boolean result = TaiKhoanDAO.xoaTaiKhoan(taiKhoan.getTenDangNhap());

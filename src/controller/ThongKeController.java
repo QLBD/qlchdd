@@ -94,30 +94,30 @@ public class ThongKeController {
         boolean result = showReport(path, parameters);
     }
     
-    public void in_TK_SLSP_BanTrongNam(int nam, iMessageView callBack){
-        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\TK_SLSP_BanTrongNam.jrxml";
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("nam", nam);
-        boolean result = exportFilePDF(path,"",parameters);
-        
-    }
+//    public void in_TK_SLSP_BanTrongNam(int nam, iMessageView callBack){
+//        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\TK_SLSP_BanTrongNam.jrxml";
+//        Map<String, Object> parameters = new HashMap<String, Object>();
+//        parameters.put("nam", nam);
+//        boolean result = exportFilePDF(path,"",parameters);
+//        
+//    }
     
-    public void in_TK_SLSP_BanTrongQuy(int quy, int nam, iMessageView callBack){
-        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\TK_SLSP_BanTrongQuy.jrxml";
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("quy", quy);
-        parameters.put("nam", nam);
-        boolean result = exportFilePDF(path,"",parameters);
-        
-    }
+//    public void in_TK_SLSP_BanTrongQuy(int quy, int nam, iMessageView callBack){
+//        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\TK_SLSP_BanTrongQuy.jrxml";
+//        Map<String, Object> parameters = new HashMap<String, Object>();
+//        parameters.put("quy", quy);
+//        parameters.put("nam", nam);
+//        boolean result = exportFilePDF(path,"",parameters);
+//        
+//    }
     
-    public void in_TK_SLSP_BanTrongThang(int thang, int nam, iMessageView callBack){
-        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\TK_SLSP_BanTrongThang.jrxml";
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("thang", thang);
-        parameters.put("nam", nam);
-        boolean result = exportFilePDF(path,"",parameters);
-    }
+//    public void in_TK_SLSP_BanTrongThang(int thang, int nam, iMessageView callBack){
+//        String path = new File("").getAbsolutePath()+"\\src\\view\\report\\TK_SLSP_BanTrongThang.jrxml";
+//        Map<String, Object> parameters = new HashMap<String, Object>();
+//        parameters.put("thang", thang);
+//        parameters.put("nam", nam);
+//        boolean result = exportFilePDF(path,"",parameters);
+//    }
 
     public void xemTK_LuongNhanVien(int thang, int nam, iModelTable callBack) {
         String hql = "CALL `luong_nhanvien`("+thang+","+ nam+")";

@@ -62,12 +62,12 @@ public class HoaDonMuaController {
             callBack.showMessageAndReloadData("Thêm hóa đơn mua thất bại", iMessageView.FAIL);
     }
     
-    public void capNhatHoaDonMua(HoaDonMua hdm, iMessageView callBack){
-        boolean result = HoaDonMuaDAO.themHoaDonMua(hdm);
-        
-        if(result)
-            callBack.showMessageAndReloadData("Cập nhật hóa đơn mua thành công", iMessageView.SUCCESS);
-        else
-            callBack.showMessageAndReloadData("Cập nhật hóa đơn mua thất bại", iMessageView.FAIL);
-    }
+//    public void capNhatHoaDonMua(HoaDonMua hdm, iMessageView callBack){
+//        boolean result = HoaDonMuaDAO.themHoaDonMua(hdm);
+//        
+//        if(result)
+//            callBack.showMessageAndReloadData("Cập nhật hóa đơn mua thành công", iMessageView.SUCCESS);
+//        else
+//            callBack.showMessageAndReloadData("Cập nhật hóa đơn mua thất bại", iMessageView.FAIL);
+//    }
 }

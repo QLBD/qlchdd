@@ -31,11 +31,11 @@ public class NhaCungCapController {
     private NhaCungCapController() {
     }
     
-    public void layToanBoDuLieuLenComBox(iModelComBox callBack){
-        List<NhaCungCap> data = NhaCungCapDAO.getDSNhaCungCap();
-        callBack.hienThiDuLieuLenComBox(data, new NhaCungCap());
-    }
-    
+//    public void layToanBoDuLieuLenComBox(iModelComBox callBack){
+//        List<NhaCungCap> data = NhaCungCapDAO.getDSNhaCungCap();
+//        callBack.hienThiDuLieuLenComBox(data, new NhaCungCap());
+//    }
+//    
     public void layDuLieuTheoTinhTrangLenComBox(iModelComBox callBack, Integer tinhTrang){
         List data = new TimKiemDAO(NhaCungCap.class).equal("tinhTrang", tinhTrang).timKiem();
         callBack.hienThiDuLieuLenComBox(data, new NhaCungCap());
@@ -47,7 +47,7 @@ public class NhaCungCapController {
         callBack.hienThiDuLieuLenTable(modelTable);
     }
     
-    public void themNhaSanXuat(NhaCungCap ncc, iMessageView callBack){
+    public void themNhaCungCap(NhaCungCap ncc, iMessageView callBack){
         boolean result = NhaCungCapDAO.themNhaCungCap(ncc);
         
         if(result)

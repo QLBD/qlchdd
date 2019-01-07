@@ -270,6 +270,6 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView {
 
         NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDT, 1);
 
-        NhaCungCapController.getInstance().themNhaSanXuat(ncc, FrameThemNhaCungCap.this);
+        NhaCungCapController.getInstance().themNhaCungCap(ncc, FrameThemNhaCungCap.this);
     }
 }

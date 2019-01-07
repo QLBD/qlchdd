@@ -30,11 +30,11 @@ public class HoaHongController {
     private HoaHongController() {
     }
     
-    public void layToanBoDuLieuLenTable(iModelTable callBack){
-        List<HoaHong> data = HoaHongDAO.getDSHoaHong();
-        HoaHongModelTable modelTable = new HoaHongModelTable(data);
-        callBack.hienThiDuLieuLenTable(modelTable);
-    }
+//    public void layToanBoDuLieuLenTable(iModelTable callBack){
+//        List<HoaHong> data = HoaHongDAO.getDSHoaHong();
+//        HoaHongModelTable modelTable = new HoaHongModelTable(data);
+//        callBack.hienThiDuLieuLenTable(modelTable);
+//    }
     
     public void kiemTraHoaHongTheoThang(int thang, int nam){
         List<NhanVien> list = new TimKiemDAO(NhanVien.class).equal("tinhTrang", 1).timKiem();
