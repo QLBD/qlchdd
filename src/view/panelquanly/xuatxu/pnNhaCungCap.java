@@ -93,7 +93,6 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         tfMaNCC = new JTextField();
         tfMaNCC.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfMaNCC.setColumns(20);
-        tfMaNCC.setEditable(false);
         pnMaNCC.add(tfMaNCC);
 
         btnThemNCC = new JButton("Thêm mới");
@@ -160,6 +159,7 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         pnTinhTrang.add(lblTinhTrang);
 
         cbbTinhTrang = new JComboBox();
+        cbbTinhTrang.setFont(new Font("Tahoma", Font.PLAIN, 15));
         cbbTinhTrang.setPreferredSize(new Dimension(150, 25));
         cbbTinhTrang.setMaximumSize(new Dimension(150, 25));
         cbbTinhTrang.setMinimumSize(new Dimension(150, 25));
@@ -197,6 +197,7 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
 
     private void initData() {
         loadToanBoNhaCungCapLenTable();
+        loadCbbTinhTrang();
     }
 
     private void loadToanBoNhaCungCapLenTable() {
@@ -291,15 +292,17 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         String tenNCC = nhaCungCap.getTenNcc();
         String diaChiNCC = nhaCungCap.getDiachiNcc();
         String soDTNC = nhaCungCap.getSoDtNcc() + "";
+        int tinhTrang = nhaCungCap.getTinhTrang();
 
-        hienThongTinNhaCungCap(maNCC, tenNCC, diaChiNCC, soDTNC);
+        hienThongTinNhaCungCap(maNCC, tenNCC, diaChiNCC, soDTNC, tinhTrang);
     }
 
-    private void hienThongTinNhaCungCap(String maNCC, String tenNCC, String diaChiNCC, String soDTNC) {
+    private void hienThongTinNhaCungCap(String maNCC, String tenNCC, String diaChiNCC, String soDTNC, int tinhTrang) {
         tfMaNCC.setText(maNCC);
         tfTenNCC.setText(tenNCC);
         tfDiaChiNCC.setText(diaChiNCC);
         tfSoDTNCC.setText(soDTNC);
+        cbbTinhTrang.setSelectedIndex(tinhTrang);
     }
 
     private void capNhatThongTinNhaCung() {
@@ -318,11 +321,13 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
             ex.printStackTrace();
         }
 
+        int tinhTrang = cbbTinhTrang.getSelectedIndex();
         //kiểm tra điều kiện
         nhaCungCap.setTenNcc(tenNCC);
         nhaCungCap.setDiachiNcc(diaChiNCC);
         nhaCungCap.setSoDtNcc(soDTNC);
-
+        nhaCungCap.setTinhTrang(tinhTrang);
+        
         NhaCungCapController.getInstance().capNhatThongTinNhaCungCap(nhaCungCap, this);
     }
 
@@ -335,7 +340,14 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         //xóa trắng màn hình thông tin
         nhaCungCap = null;
         tableNCC.getSelectionModel().clearSelection();
-        hienThongTinNhaCungCap("", "", "", "");
+        hienThongTinNhaCungCap("", "", "", "", -1);
         loadToanBoNhaCungCapLenTable();
+    }
+
+    private void loadCbbTinhTrang() {
+        cbbTinhTrang.removeAllItems();
+        cbbTinhTrang.addItem("Đã nghỉ việc");
+        cbbTinhTrang.addItem("Đang hợp tác");
+        cbbTinhTrang.setSelectedIndex(-1);
     }
 }

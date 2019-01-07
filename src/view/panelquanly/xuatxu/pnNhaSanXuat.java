@@ -90,7 +90,6 @@ public class pnNhaSanXuat extends JPanel implements iFrameListener, iMessageView
         tfMaNSX = new JTextField();
         tfMaNSX.setFont(new Font("Tahoma", Font.PLAIN, 15));
         tfMaNSX.setColumns(20);
-        tfMaNSX.setEditable(false);
         pnMaNSX.add(tfMaNSX);
 
         btnThemNSX = new JButton("Thêm mới");
