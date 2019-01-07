@@ -42,10 +42,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.TableModel;
 import model.CTHDBanModelTable;
-import model.dao.CTHD_BanDAO;
-import model.dao.HoaDonBanDAO;
 import model.entities.CthdBan;
 import model.entities.CthdBanId;
 import model.entities.HoaDonBan;
@@ -60,7 +57,6 @@ import view.interfaceView.iBanHangView;
 import view.interfaceView.iFrameListener;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelComBox;
-import view.interfaceView.iModelTable;
 import view.interfaceView.iTimKiemKhachHang;
 
 /**
@@ -770,7 +766,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     public void capNhatSanPhamVaoHoaDon(boolean result, CthdBan ban) {
         if (result) {
             //cập nhật lại đơn hàng từ hệ thống về
-            ban = CTHD_BanDAO.getCTHD_Ban(ban.getId());
+            ban = CTHD_BanController.getInstance().capNhatLaiCTHD_BanTuCSDLHeThong(ban);
 
             int row = modelTable.containID(ban.getId());
 
@@ -780,8 +776,8 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             } else {
                 modelTable.addRow(ban);
             }
-
-            hdb = HoaDonBanDAO.getHoaDonBan(hdb.getSohdBan());
+            
+            hdb = HoaDonBanController.getInstance().capNhatLaiHoaDonBanTuCSDLHeThong(hdb);
 
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thành Công", iMessageView.NONE);
             capGiaTien();

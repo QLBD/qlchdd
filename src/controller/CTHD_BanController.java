@@ -76,4 +76,8 @@ public class CTHD_BanController {
         }
         return result;
     }
+    
+    public CthdBan capNhatLaiCTHD_BanTuCSDLHeThong(CthdBan ban){
+        return CTHD_BanDAO.getCTHD_Ban(ban.getId());
+   }
 }

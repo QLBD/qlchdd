@@ -636,6 +636,7 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:
+                nhanVien = NhanVienController.getInstance().capNhatLaiThongTinNhanVienTuCSDL(nhanVien);
                 break;
             case iMessageView.SUCCESS:
                 clearData();
