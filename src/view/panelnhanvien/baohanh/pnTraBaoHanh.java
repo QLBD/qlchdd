@@ -269,12 +269,7 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
         btnXacNhanTraBH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(tinhTrang == 1){
-                    traSanPhamChoKhachHang();
-                }
-                else{
-                    //xuất thông báo
-                }
+                traSanPhamChoKhachHang();
             }
         });
     }
