@@ -346,7 +346,7 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
 
     private void loadCbbTinhTrang() {
         cbbTinhTrang.removeAllItems();
-        cbbTinhTrang.addItem("Đã nghỉ việc");
+        cbbTinhTrang.addItem("Ngừng cung cấp");
         cbbTinhTrang.addItem("Đang hợp tác");
         cbbTinhTrang.setSelectedIndex(-1);
     }
