@@ -72,7 +72,6 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 
     private JTable tableCTHD;
     private JTextField tfHoTen;
-    private JTextField textField_1;
     private JComboBox cbbTimHang;
     private JComboBox cbbTimTenSP;
     private JTextField tfTongTien;
@@ -117,7 +116,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     private double giaGoc;
     private double tienGiam;
     private JLabel lblLoadGiaGoc;
-    private JLabel lblLoadTienGiam;
+    private JLabel lblLoadGiaKM;
 
     public pnHoaDonNV(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
@@ -293,15 +292,15 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
 	lblLoadGiaGoc.setBounds(160, 433, 108, 20);
 	pnThongTin.add(lblLoadGiaGoc);
 		
-	JLabel lblTienGiam = new JLabel("Giảm giá:");
+	JLabel lblTienGiam = new JLabel("Giá Khuyến mãi:");
 	lblTienGiam.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	lblTienGiam.setBounds(283, 433, 97, 20);
+	lblTienGiam.setBounds(283, 433, 130, 20);
 	pnThongTin.add(lblTienGiam);
 		
-	lblLoadTienGiam = new JLabel("");
-	lblLoadTienGiam.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	lblLoadTienGiam.setBounds(415, 436, 130, 20);
-	pnThongTin.add(lblLoadTienGiam);
+	lblLoadGiaKM = new JLabel("");
+	lblLoadGiaKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	lblLoadGiaKM.setBounds(415, 436, 130, 20);
+	pnThongTin.add(lblLoadGiaKM);
               
         JLabel lblSLng = new JLabel("Số lượng:");
         lblSLng.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -722,6 +721,15 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             System.out.println(khuyenMai.getTenKm());
         } else {
             tienGiam = 0;
+        }
+        DecimalFormat format = new DecimalFormat("#,###");
+        lblLoadGiaGoc.setText(format.format(giaGoc));
+        if(tienGiam == 0){
+            lblLoadGiaKM.setText("");
+        }
+        else{
+            double tienKM = giaGoc - tienGiam;
+            lblLoadGiaKM.setText(format.format(tienKM));
         }
         System.out.println(giaGoc);
         System.out.println(tienGiam);
