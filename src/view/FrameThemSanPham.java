@@ -469,7 +469,6 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
         String kichThuoc = tfKichThuoc.getText();
         int namSX = -1;
         int baoHanh = -1;
-        //double donGia = 0;
 
         byte[] anh = null;
 
@@ -482,12 +481,22 @@ public class FrameThemSanPham extends JFrame implements iMessageView, iModelComB
         try {
             namSX = Integer.valueOf(tfNamSX.getText());
             baoHanh = Integer.valueOf(tfBaoHanh.getText());
-            //donGia = Double.valueOf(tfDonGia.getText());
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
 
         //kiem tra dieu kien
+        if(namSX == -1){
+            showMessageAndReloadData("Nhập năm sản xuất không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(baoHanh == -1){
+            showMessageAndReloadData("Nhập thời gian bảo hành không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        
         if (cbbHang.getSelectedIndex() != -1) {
             NhaSanXuat nhasanxuat = (NhaSanXuat) cbbHang.getSelectedItem();
 

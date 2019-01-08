@@ -76,7 +76,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[PHIẾU NHẬN BẢO HÀNH]]></text>
+				<text><![CDATA[PHIẾU GỬI BẢO HÀNH]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="600" y="0" width="152" height="20" uuid="5d7e2c84-ed40-4ad6-9ef8-5bebef3c612a"/>

@@ -259,7 +259,7 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView {
 
     private void themNhaCungCap() {
         String tenNCC = tfTenNCC.getText();
-        int soDT = 0;
+        int soDT = -1;
         String diaChi = tfDiaChi.getText();
 
         try {
@@ -268,6 +268,11 @@ public class FrameThemNhaCungCap extends JFrame implements iMessageView {
             ex.printStackTrace();
         }
 
+        if(soDT == -1){
+            showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+            return;
+        }
+        
         NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDT, 1);
 
         NhaCungCapController.getInstance().themNhaCungCap(ncc, FrameThemNhaCungCap.this);

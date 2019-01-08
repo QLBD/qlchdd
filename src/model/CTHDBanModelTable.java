@@ -81,7 +81,7 @@ public class CTHDBanModelTable extends AbstractTableModel{
             case 2:
                 return ctBan.getSl();
             case 3:
-                if(ctBan.getKhuyenmai() == null) return "null";
+                if(ctBan.getKhuyenmai() == null) return "";
                 return ctBan.getKhuyenmai().getMaKm();
             case 4:
                 return decimalFormat.format(ctBan.getGiaGoc());

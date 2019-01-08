@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Phiếu Nhận Bảo Hành" language="groovy" pageWidth="792" pageHeight="500" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c9d7116-b683-4c75-a3c7-bb7d2b462db9">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="maBH" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[CALL `PhieuTraBaoHanh`($P{maBH})]]>
@@ -79,7 +79,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PHIẾU TRẢ BẢO HÀNH]]></text>
+				<text><![CDATA[PHIẾU NHẬN BẢO HÀNH]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="600" y="0" width="152" height="20" uuid="5d7e2c84-ed40-4ad6-9ef8-5bebef3c612a"/>

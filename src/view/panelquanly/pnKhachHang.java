@@ -342,6 +342,16 @@ public class pnKhachHang extends JPanel implements iModelTable, iMessageView {
             ex.printStackTrace();
         }
 
+        if (soDTKH == -1) {
+            showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+            return;
+        }
+
+        if (soCMNDKH == -1) {
+            showMessageAndReloadData("Nhập chứng minh dân không hợp lệ!!!", NONE);
+            return;
+        }
+
         khachHang.setTenKh(tenKH);
         khachHang.setSoCmndKh(soCMNDKH);
         khachHang.setSoDtKh(soDTKH);

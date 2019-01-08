@@ -72,10 +72,10 @@ public class CTHDMuaModelTable extends AbstractTableModel{
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         switch (columnIndex) {
             case 0:
-                if(ctMua.getHoadonmua() == null) return "null";
+                if(ctMua.getHoadonmua() == null) return "";
                 return ctMua.getHoadonmua().getSohdMua();
             case 1:
-                if(ctMua.getSanpham() == null) return "null";
+                if(ctMua.getSanpham() == null) return "";
                 return ctMua.getSanpham().getMaSp();
             case 2:
                 return ctMua.getSl();

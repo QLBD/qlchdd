@@ -463,9 +463,9 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
     private void themNhanVienMoi() {
         String tenNV = tfTenNV.getText();
         String diaChi = tfDiaChi.getText();
-        double luongCB = 0;
-        int cmnd = 0;
-        int sdt = 0;
+        double luongCB = -1;
+        int cmnd = -1;
+        int sdt = -1;
         boolean gt;
         if (rdbtnNam.isSelected()) {
             gt = Const.GioiTinh.NAM;
@@ -480,6 +480,21 @@ public class FrameThemNhanVien extends JFrame implements iMessageView, iModelCom
             ex.printStackTrace();
         }
 
+        if(sdt == -1){
+            showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(luongCB == -1){
+            showMessageAndReloadData("Nhập lương cơ bản không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(cmnd == -1){
+            showMessageAndReloadData("Nhập chứng minh dân không hợp lệ!!!", NONE);
+            return;
+        }
+        
         Date ngaysinhNv = dtpNgaySinh.getDate();
         Date ngayVaoLam = dpNgayVaoLam.getDate();
         NhanVien nhanVien = new NhanVien(tenNV, cmnd, gt, ngaysinhNv, diaChi, sdt, ngayVaoLam, luongCB, 1);

@@ -27,13 +27,14 @@ import model.entities.KhachHang;
 import model.entities.NhanVien;
 import model.entities.SanPham;
 import view.interfaceView.iMessageView;
+import static view.interfaceView.iMessageView.NONE;
 import view.interfaceView.iTraBaoHanhView;
 
 /**
  *
  * @author RanRan
  */
-public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageView{
+public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView, iMessageView {
 
     private JTextField tfMaPhieuBH;
     private JButton btnKiemTraMaPBH;
@@ -50,7 +51,7 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
     private BaoHanh baoHanh;
     private NhanVien nhanVien;
     private int tinhTrang;
-    
+
     public pnTraBaoHanh(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
         initComponent();
@@ -254,18 +255,24 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
             @Override
             public void actionPerformed(ActionEvent e) {
                 int maBH = 0;
-                if(!tfMaPhieuBH.getText().isEmpty()){
-                    
-                    try{
+                if (!tfMaPhieuBH.getText().isEmpty()) {
+
+                    try {
                         maBH = Integer.valueOf(tfMaPhieuBH.getText());
-                    }catch(NumberFormatException ex){
+                    } catch (NumberFormatException ex) {
                         ex.printStackTrace();
                     }
+
+                    if (maBH == -1) {
+                        showMessageAndReloadData("Nhập mã bảo hành không hợp lệ!!!", NONE);
+                        return;
+                    }
+
                     kiemTraMaPhieuBH(maBH);
                 }
             }
         });
-        
+
         btnXacNhanTraBH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -273,39 +280,37 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
             }
         });
     }
-    
+
     @Override
     public void kiemTraThongTinBaoHanh(BaoHanh baoHanh) {
         this.baoHanh = baoHanh;
-        if(this.baoHanh != null){
+        if (this.baoHanh != null) {
             SanPham sanPham = baoHanh.getSanpham();
             KhachHang khachHang = baoHanh.getHoadonban().getKhachhang();
-            
+
             String tenKH = khachHang.getTenKh();
-            String cmnd = khachHang.getSoCmndKh()+"";
+            String cmnd = khachHang.getSoCmndKh() + "";
             String tenSP = sanPham.getTenSp();
-            String serial = baoHanh.getSerial() +"";
-            String yeuCau =  baoHanh.getYeucauBh();
+            String serial = baoHanh.getSerial() + "";
+            String yeuCau = baoHanh.getYeucauBh();
             tinhTrang = baoHanh.getTinhtrang();
             String thongTin = "";
-            if(tinhTrang == 1){
-                thongTin ="Đã hoàn thành";
+            if (tinhTrang == 1) {
+                thongTin = "Đã hoàn thành";
+            } else if (tinhTrang == 0) {
+                thongTin = "Chưa hoàn thành";
+            } else if (tinhTrang == 2) {
+                thongTin = "Đã trả sản phẩm";
             }
-            else if(tinhTrang == 0){
-                thongTin ="Chưa hoàn thành";
-            }
-            else if(tinhTrang == 2){
-                thongTin ="Đã trả sản phẩm";
-            }
-            
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            
+
             String ngayNhan = dateFormat.format(baoHanh.getNgaynhan());
-            
-            hienThiThongTin(tenKH,cmnd,tenSP,serial,yeuCau,thongTin,ngayNhan);
-        }
-        else
+
+            hienThiThongTin(tenKH, cmnd, tenSP, serial, yeuCau, thongTin, ngayNhan);
+        } else {
             showMessageAndReloadData("Không tìm thấy phiếu nhận bảo hành trên hệ thống", iMessageView.NONE);
+        }
     }
 
     private void hienThiThongTin(String tenKH, String cmnd, String tenSP, String serial, String yeuCau, String thongTin, String ngayNhan) {
@@ -317,40 +322,39 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView , iMessageVi
         tfNgayNhanTraBH.setText(ngayNhan);
         tfTinhTrangTraBH.setText(thongTin);
     }
-    
+
     private void kiemTraMaPhieuBH(int maBH) {
         BaoHanhController.getInstance().kiemTraMaPhieuBH(maBH, this);
     }
-    
+
     private void traSanPhamChoKhachHang() {
-        
-        if(baoHanh.getTinhtrang() == 0) {
+
+        if (baoHanh.getTinhtrang() == 0) {
             showMessageAndReloadData("Bảo hành chưa hoàn tất", NONE);
             return;
-        }
-        else if(baoHanh.getTinhtrang() == 2){
+        } else if (baoHanh.getTinhtrang() == 2) {
             showMessageAndReloadData("Bảo hành đã trả sản phẩm", NONE);
             return;
         }
-        
+
         baoHanh.setNhanvienByNhanvienTra(nhanVien);
         Date ngayTra = Calendar.getInstance().getTime();
         baoHanh.setNgaytra(ngayTra);
         baoHanh.setTinhtrang(2);
-        
+
         BaoHanhController.getInstance().traSanPhamChoKhachHang(baoHanh, this);
     }
 
     public void clearData() {
         baoHanh = null;
         tfMaPhieuBH.setText("");
-        hienThiThongTin("","","","","","","");
+        hienThiThongTin("", "", "", "", "", "", "");
     }
 
     @Override
     public void showMessageAndReloadData(String message, int type) {
-        JOptionPane.showMessageDialog(null, message,"Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        switch(type){
+        JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        switch (type) {
             case iMessageView.NONE:
                 break;
             case iMessageView.FAIL:

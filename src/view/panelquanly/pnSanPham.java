@@ -638,6 +638,26 @@ public class pnSanPham extends JPanel implements iFrameListener, iModelComBox, i
             ex.printStackTrace();
         }
 
+        if(namSX == -1){
+            showMessageAndReloadData("Nhập năm sản xuất không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(baoHanh == -1){
+            showMessageAndReloadData("Nhập thời gian bảo hành không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(giaBanRa == -1){
+            showMessageAndReloadData("Nhập giá bán ra không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(soLuong == -1){
+            showMessageAndReloadData("Nhập số lượng không hợp lệ!!!", NONE);
+            return;
+        }
+        
         if(soLuong > sanPham.getSl()){
             showMessageAndReloadData("Không được cập nhật số lượng sản phẩm nhiều hơn số lượng hiện tại", NONE);
             return;

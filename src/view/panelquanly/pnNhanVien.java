@@ -603,6 +603,21 @@ public class pnNhanVien extends JPanel implements iModelTable, iModelComBox, iFr
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
+        
+        if(sdt == -1){
+            showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(luongCB == -1){
+            showMessageAndReloadData("Nhập lương cơ bản không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(cmnd == -1){
+            showMessageAndReloadData("Nhập chứng minh dân không hợp lệ!!!", NONE);
+            return;
+        }
 
         boolean gt;
         if (rdbtnNam.isSelected()) {

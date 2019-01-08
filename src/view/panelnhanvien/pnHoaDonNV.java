@@ -279,25 +279,25 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         pnThongTin.add(lblLoadNamSX);
 
         JLabel lblGiaGoc = new JLabel("Giá gốc:");
-	lblGiaGoc.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	lblGiaGoc.setBounds(12, 433, 67, 20);
-	pnThongTin.add(lblGiaGoc);
-		
-	lblLoadGiaGoc = new JLabel("");
-	lblLoadGiaGoc.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	lblLoadGiaGoc.setBounds(160, 433, 108, 20);
-	pnThongTin.add(lblLoadGiaGoc);
-		
-	JLabel lblTienGiam = new JLabel("Giá Khuyến mãi:");
-	lblTienGiam.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	lblTienGiam.setBounds(283, 433, 130, 20);
-	pnThongTin.add(lblTienGiam);
-		
-	lblLoadGiaKM = new JLabel("");
-	lblLoadGiaKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	lblLoadGiaKM.setBounds(415, 436, 130, 20);
-	pnThongTin.add(lblLoadGiaKM);
-              
+        lblGiaGoc.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblGiaGoc.setBounds(12, 433, 67, 20);
+        pnThongTin.add(lblGiaGoc);
+
+        lblLoadGiaGoc = new JLabel("");
+        lblLoadGiaGoc.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblLoadGiaGoc.setBounds(160, 433, 108, 20);
+        pnThongTin.add(lblLoadGiaGoc);
+
+        JLabel lblTienGiam = new JLabel("Giá Khuyến mãi:");
+        lblTienGiam.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblTienGiam.setBounds(283, 433, 130, 20);
+        pnThongTin.add(lblTienGiam);
+
+        lblLoadGiaKM = new JLabel("");
+        lblLoadGiaKM.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblLoadGiaKM.setBounds(415, 436, 130, 20);
+        pnThongTin.add(lblLoadGiaKM);
+
         JLabel lblSLng = new JLabel("Số lượng:");
         lblSLng.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblSLng.setBounds(244, 508, 74, 20);
@@ -720,10 +720,9 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         }
         DecimalFormat format = new DecimalFormat("#,###");
         lblLoadGiaGoc.setText(format.format(giaGoc));
-        if(tienGiam == 0){
+        if (tienGiam == 0) {
             lblLoadGiaKM.setText("");
-        }
-        else{
+        } else {
             double tienKM = giaGoc - tienGiam;
             lblLoadGiaKM.setText(format.format(tienKM));
         }
@@ -776,7 +775,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             } else {
                 modelTable.addRow(ban);
             }
-            
+
             hdb = HoaDonBanController.getInstance().capNhatLaiHoaDonBanTuCSDLHeThong(hdb);
 
             showMessageAndReloadData("Thêm Sản Phẩm vào hóa đơn Thành Công", iMessageView.NONE);
@@ -890,6 +889,17 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
                 ex.printStackTrace();
             }
             //kt điều kiện thoát
+
+            if (sdt == -1) {
+                showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+                return;
+            }
+
+            if (cmndKH == -1) {
+                showMessageAndReloadData("Nhập chứng minh dân không hợp lệ!!!", NONE);
+                return;
+            }
+
             KhachHang kh = new KhachHang(hoTen, cmndKH, diaChi, sdt, email);
             hdb.setKhachhang(kh);
         }
@@ -935,9 +945,11 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
     }
 
     public void xoaHoaDon() {
-        
-        if(hdb == null) return;
-        
+
+        if (hdb == null) {
+            return;
+        }
+
         int reply = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn có muốn xóa hóa đơn bán này không?", "Hỏi Xóa", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.NO_OPTION) {
             return;
@@ -957,6 +969,8 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         tfTongTien.setText("");
         cbbTimHang.setSelectedIndex(-1);
         cbbTimTenSP.setSelectedIndex(-1);
+        lblLoadGiaGoc.setText("");
+        lblLoadGiaKM.setText("");
     }
 
     private void resetData() {
@@ -1005,9 +1019,9 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         cbbTimTenSP.setSelectedIndex(-1);
         hienThiThongTinSanPham();
     }
-    
-    public boolean conHoaDonBan(){
-        if(hdb == null){
+
+    public boolean conHoaDonBan() {
+        if (hdb == null) {
             return false;
         }
         return true;

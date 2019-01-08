@@ -673,9 +673,9 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         SanPhamModelTable modelTable = (SanPhamModelTable) tableCTKM.getModel();
 
         List<SanPham> data = modelTable.getData();
-        
-        for(SanPham sp : data){
-            if(sp.getMaSp() == sanPham.getMaSp()){
+
+        for (SanPham sp : data) {
+            if (sp.getMaSp() == sanPham.getMaSp()) {
                 showMessageAndReloadData("Sản phẩm này đã có trong chi tiết khuyến mãi", NONE);
                 return;
             }
@@ -726,6 +726,11 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
             hsKM = Float.valueOf(tfHeSoKM.getText());
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
+        }
+
+        if (hsKM == -1) {
+            showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+            return;
         }
 
         khuyenMai.setTenKm(tenKM);

@@ -320,7 +320,11 @@ public class pnNhaCungCap extends JPanel implements iFrameListener, iMessageView
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-
+        
+        if(soDTNC == -1){
+            showMessageAndReloadData("Nhập số điện thoại không hợp lệ!!!", NONE);
+            return;
+        }
         int tinhTrang = cbbTinhTrang.getSelectedIndex();
         //kiểm tra điều kiện
         nhaCungCap.setTenNcc(tenNCC);

@@ -468,6 +468,15 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
             ex.printStackTrace();
         }
         //kiểm tra điều kiện
+        if(sl == -1){
+            showMessageAndReloadData("Nhập số lượng không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(donGia == -1){
+            showMessageAndReloadData("Nhập đơn giá không hợp lệ!!!", NONE);
+            return;
+        }
 
         if (sanPham == null) {
             return;
@@ -627,9 +636,8 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
             return;
         }
         CthdMua ctMua = modelTable.getSelectedRow(row);
-        DecimalFormat format = new DecimalFormat("#,###");
         String sl = ctMua.getSl() + "";
-        String donGia = format.format(ctMua.getDongiaSp());
+        String donGia = ctMua.getDongiaSp()+"";
         hienThongTinChiTietNhap(sl, donGia);
 
         cbbSanPhamNhap.setSelectedItem(ctMua.getSanpham());

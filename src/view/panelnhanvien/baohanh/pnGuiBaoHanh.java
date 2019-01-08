@@ -382,6 +382,11 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
+        
+        if(serial == -1){
+            showMessageAndReloadData("Nhập số serial không hợp lệ!!!", NONE);
+            return;
+        }
 
         if (serial == -1 && yeuCau.isEmpty()) {
             return;
@@ -420,14 +425,25 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
     }
 
     private void kiemTraGuiBH() {
-        int maHD = 0;
-        int maSP = 0;
+        int maHD = -1;
+        int maSP = -1;
         try {
             maHD = Integer.valueOf(tfMaHD.getText());
             maSP = Integer.valueOf(tfMaSPGuiBH.getText());
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
+        
+        if(maHD == -1){
+            showMessageAndReloadData("Nhập mã hóa đơn không hợp lệ!!!", NONE);
+            return;
+        }
+        
+        if(maSP == -1){
+            showMessageAndReloadData("Nhập mã sản phẩm không hợp lệ!!!", NONE);
+            return;
+        }
+        
         tfSerialSPBH.setText("");
         taYeuCauGuiBH.setText("");
         kiemTraThongTinMuaHang(maHD, maSP);
