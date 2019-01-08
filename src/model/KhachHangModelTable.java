@@ -78,9 +78,9 @@ public class KhachHangModelTable extends AbstractTableModel{
             case 2:
                 return kh.getSoCmndKh();
             case 3:
-                return kh.getSoDtKh();
+                return kh.getDiachiKh();
             case 4:
-                return kh.getSoCmndKh();
+                return kh.getSoDtKh();
             case 5:
                 return kh.getEmail();
             default:
