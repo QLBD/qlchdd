@@ -299,6 +299,7 @@ public class FrameBangDieuKhien extends JFrame implements iFrameListener{
             NhanVien nv = tk.getNhanvien();
             hienThiThongTinNhanVien(nv);
         }
+        loadHinhAnhNhanVien();
     }
 
     private void hienThiThongTinNhanVien(NhanVien nv) {
@@ -315,6 +316,34 @@ public class FrameBangDieuKhien extends JFrame implements iFrameListener{
             case iFrameListener.TypeFrame.BANG_DIEU_KHIEN:
                 setVisible(true);
                 break;
+        }
+    }
+
+    private void loadHinhAnhNhanVien() {
+        lblHinhAnh.setText("");
+        PhanQuyen phanquyen = tk.getPhanquyen();
+        if (phanquyen.getMaPhanQuyen() == 2) {
+            //new FrameBanHang(tk).setVisible(true);
+            int maNV = tk.getNhanvien().getMaNv();
+            Icon icon = null;
+            switch(maNV){
+                case 10:
+                    icon = new ImageIcon("Images/nhanvien/nhanvien1.jpg");
+                    break;
+                case 11:
+                    icon = new ImageIcon("Images/nhanvien/nhanvien2.jpg");
+                    break;
+                case 12:
+                    icon = new ImageIcon("Images/nhanvien/nhanvien3.jpg");
+                    break;
+                case 13:
+                    icon = new ImageIcon("Images/nhanvien/nhanvien4.jpg");
+                    break;
+                case 14:
+                    icon = new ImageIcon("Images/nhanvien/nhanvien5.jpg");
+                    break;
+            }
+            lblHinhAnh.setIcon(icon);
         }
     }
 }
