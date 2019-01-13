@@ -654,7 +654,7 @@ public class pnKhuyenMai extends JPanel implements iModelTable, iMessageView, iM
         switch (result) {
             case iFrameListener.TypeFrame.TIM_KIEM_SP:
                 SanPham sp = (SanPham) data[1];
-                System.out.println(sp.getTenSp());
+                //System.out.println(sp.getTenSp());
                 hienThiThongTinSanPhamTimKiem(sp);
                 break;
         }

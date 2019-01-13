@@ -53,7 +53,7 @@ public class HoaHongDAO
         catch(HibernateException e)
         {
             session.getTransaction().rollback();
-            System.out.println(e);
+            //System.out.println(e);
         }
         finally
         {
@@ -75,7 +75,7 @@ public class HoaHongDAO
             session.beginTransaction();
             session.save(hh);
             session.getTransaction().commit();
-            System.out.println("Thêm hoa hồng thành công!");
+            //System.out.println("Thêm hoa hồng thành công!");
         }
         catch(RuntimeException e)
         {
@@ -105,7 +105,7 @@ public class HoaHongDAO
 //            session.beginTransaction();
 //            session.delete(hh);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa hoa hồng thành công!");
+//            //System.out.println("Xóa hoa hồng thành công!");
 //        }
 //        catch(RuntimeException e)
 //        {
@@ -134,7 +134,7 @@ public class HoaHongDAO
             session.beginTransaction();
             session.update(hh);
             session.getTransaction().commit();
-            System.out.println("Cập nhật hoa hồng thành công!");
+            //System.out.println("Cập nhật hoa hồng thành công!");
         }
         catch(RuntimeException e)
         {

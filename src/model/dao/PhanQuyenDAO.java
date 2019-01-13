@@ -66,7 +66,7 @@ public class PhanQuyenDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("thêm phân quyền thành công!");
+            //////System.out.println("thêm phân quyền thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class PhanQuyenDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("cập nhật phân quyền thành công!");
+            //////System.out.println("cập nhật phân quyền thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class PhanQuyenDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("xóa phân quyền thành công!");
+            //////System.out.println("xóa phân quyền thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();

@@ -553,7 +553,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
                 if (cbbTimTenSP.isValid()) {
                     if (cbbTimTenSP.getSelectedIndex() != -1) {
                         sanPham = (SanPham) cbbTimTenSP.getSelectedItem();
-                        System.out.println(sanPham.getTenSp());
+                        //System.out.println(sanPham.getTenSp());
                         hienThiThongTinSanPham();
 
                     }
@@ -714,7 +714,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         giaGoc = sanPham.getGiaBanRa();
         if (khuyenMai != null) {
             tienGiam = giaGoc * khuyenMai.getHsKm();
-            System.out.println(khuyenMai.getTenKm());
+            //System.out.println(khuyenMai.getTenKm());
         } else {
             tienGiam = 0;
         }
@@ -726,13 +726,13 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             double tienKM = giaGoc - tienGiam;
             lblLoadGiaKM.setText(format.format(tienKM));
         }
-        System.out.println(giaGoc);
-        System.out.println(tienGiam);
+        //System.out.println(giaGoc);
+        //System.out.println(tienGiam);
     }
 
     private void themHoaDonBan() {
         Date ngayBan = new Date();
-        System.out.println(ngayBan);
+        //System.out.println(ngayBan);
         hdb = new HoaDonBan(nhanVien, ngayBan);
         HoaDonBanController.getInstance().themHoaDonBan(hdb, this);
         capGiaTien();
@@ -827,7 +827,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
             String hoTen = kh.getTenKh();
             String diaChi = kh.getDiachiKh();
             String sdt = kh.getSoDtKh().toString();
-            System.out.println(kh.getSoDtKh());
+            //System.out.println(kh.getSoDtKh());
             String email = kh.getEmail();
 
             hienThiThongTinKhachHangLenManHinh(hoTen, diaChi, sdt, email);
@@ -1007,7 +1007,7 @@ public class pnHoaDonNV extends JPanel implements iMessageView, iModelComBox, iB
         switch (result) {
             case iFrameListener.TypeFrame.TIM_KIEM_SP:
                 SanPham sp = (SanPham) data[1];
-                System.out.println(sp.getTenSp());
+                //System.out.println(sp.getTenSp());
                 hienThiThongTinSanPhamTimKiem(sp);
                 break;
         }

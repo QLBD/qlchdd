@@ -284,7 +284,7 @@ public class pnThongKe extends JPanel implements iMessageView, iModelTable{
 
     private void cbbChiTietThongKeSelection() {
         chiTiet = cbbChiTietThongKe.getSelectedIndex();
-        System.out.println(chiTiet);
+        //System.out.println(chiTiet);
         cbbQuy.setSelectedIndex(-1);
         cbbThang.setSelectedIndex(-1);
 

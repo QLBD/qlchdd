@@ -29,7 +29,7 @@ public class KhachHangDAO {
             Query query = session.createQuery(sql);
             ds = query.list();
             for(KhachHang kh : ds){
-            System.out.println(kh.getMaKh());
+            //System.out.println(kh.getMaKh());
             }
         }
         catch(HibernateException e){
@@ -70,7 +70,7 @@ public class KhachHangDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("Thêm khách hàng thành công!");
+            //System.out.println("Thêm khách hàng thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -96,7 +96,7 @@ public class KhachHangDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("Cập nhật khách hàng thành công!");
+            //System.out.println("Cập nhật khách hàng thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -120,7 +120,7 @@ public class KhachHangDAO {
 //            session.beginTransaction();
 //            session.delete(nv);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa khách hàng thành công");
+//            //System.out.println("Xóa khách hàng thành công");
 //        } catch (RuntimeException e) {
 //            session.getTransaction().rollback();
 //            e.printStackTrace();

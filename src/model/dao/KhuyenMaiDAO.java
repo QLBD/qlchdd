@@ -26,7 +26,7 @@ public class KhuyenMaiDAO {
             Query query = session.createQuery(sql);
             ds = query.list();
             for(KhuyenMai km : ds){
-            System.out.println(km.getMaKm());
+            //System.out.println(km.getMaKm());
             }
         }
         catch(HibernateException e){
@@ -64,7 +64,7 @@ public class KhuyenMaiDAO {
             session.beginTransaction();
             session.save(km);
             session.getTransaction().commit();
-            System.out.println("Thêm khuyến mãi thành công!");
+            //System.out.println("Thêm khuyến mãi thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class KhuyenMaiDAO {
             session.beginTransaction();
             session.update(km);
             session.getTransaction().commit();
-            System.out.println("Cập nhật khuyến mãi thành công!");
+            //System.out.println("Cập nhật khuyến mãi thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class KhuyenMaiDAO {
             session.beginTransaction();
             session.delete(km);
             session.getTransaction().commit();
-            System.out.println("Xóa khuyến mãi thành công!");
+            //System.out.println("Xóa khuyến mãi thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();

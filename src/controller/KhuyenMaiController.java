@@ -38,7 +38,7 @@ public class KhuyenMaiController {
     
     public void kiemTraKhuyenMai(Date currentDay, SanPham sanPham, iBanHangView callBack){
         
-        //System.out.println(currentDay.toString());
+        ////System.out.println(currentDay.toString());
         
 //        List result = new TimKiemDAO(KhuyenMai.class)
 //                            .greaterThanOrEqual("ngayKt", currentDay)
@@ -47,13 +47,13 @@ public class KhuyenMaiController {
 //        
 //        if(result.size() != 0){
 //            KhuyenMai km = (KhuyenMai) result.get(0);
-//            System.out.println(km.getTenKm());
+//            //System.out.println(km.getTenKm());
 //            
 //            Object []arr =  km.getSanphams().toArray();
-//            System.out.println(km.getSanphams().size());
+//            //System.out.println(km.getSanphams().size());
 //            for (Object object : arr) {
 //                SanPham sanPham = (SanPham)object;
-//                System.out.println(sanPham.getMaSp());
+//                //System.out.println(sanPham.getMaSp());
 //                if(sanPham.getMaSp() == maSP){
 //                    callBack.capNhatKhuyenMaiSanPham(km);
 //                    return;
@@ -64,7 +64,7 @@ public class KhuyenMaiController {
 //        else
 //            callBack.capNhatKhuyenMaiSanPham(null);
 
-        System.out.println(currentDay.toString());
+        //System.out.println(currentDay.toString());
         for(KhuyenMai km : sanPham.getKhuyenmais()){
             if(km.getNgayBd().before(currentDay) && km.getNgayKt().after(currentDay)){
                 callBack.capNhatKhuyenMaiSanPham(km);

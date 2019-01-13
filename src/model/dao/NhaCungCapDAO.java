@@ -26,7 +26,7 @@ public class NhaCungCapDAO {
             Query query = session.createQuery(sql);
             ds = query.list();
             for(NhaCungCap cc : ds){
-            System.out.println(cc.getMaNcc());
+            //System.out.println(cc.getMaNcc());
             }
         }
         catch(HibernateException e){
@@ -68,7 +68,7 @@ public class NhaCungCapDAO {
             session.beginTransaction();
             session.save(cc);
             session.getTransaction().commit();
-            System.out.println("Thêm nhà cung cấp thành công!");
+            //System.out.println("Thêm nhà cung cấp thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class NhaCungCapDAO {
             session.beginTransaction();
             session.update(cc);
             session.getTransaction().commit();
-            System.out.println("Cập nhật nhà cung cấp thành công!");
+            //System.out.println("Cập nhật nhà cung cấp thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class NhaCungCapDAO {
 //            session.beginTransaction();
 //            session.delete(cc);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa nhà cung cấp thành công!");
+//            //System.out.println("Xóa nhà cung cấp thành công!");
 //        } catch (RuntimeException e) {
 //            session.getTransaction().rollback();
 //            e.printStackTrace();

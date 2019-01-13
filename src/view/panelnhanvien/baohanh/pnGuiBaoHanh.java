@@ -67,7 +67,7 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
     public pnGuiBaoHanh(NhanVien nhanVien) {
         this.nhanVien = nhanVien;
 
-        System.out.println(nhanVien.getTenNv());
+        //System.out.println(nhanVien.getTenNv());
         conBaoHanh = false;
         initComponent();
         initEvent();
@@ -332,7 +332,7 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
 
         ngayBan.setMonth(ngayBan.getMonth() + sanPham.getThoigianBh());
 
-        System.out.println(dateFormat.format(ngayBan));
+        //System.out.println(dateFormat.format(ngayBan));
 
         Date currentDate = Calendar.getInstance().getTime();
 

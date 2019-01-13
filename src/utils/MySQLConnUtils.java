@@ -55,7 +55,7 @@ public class MySQLConnUtils {
         try {
             conn = DriverManager.getConnection(url + dbName + strUnicode, userName, password);
 
-            System.out.println("Connected to the database");
+            //System.out.println("Connected to the database");
 
             state = conn.createStatement();
             rs = state.executeQuery(sql);
@@ -74,7 +74,7 @@ public class MySQLConnUtils {
         try {
             conn = DriverManager.getConnection(url + dbName + strUnicode, userName, password);
 
-            System.out.println("Connected to the database");
+            //System.out.println("Connected to the database");
 
             preState = conn.prepareStatement(sql);
             
@@ -98,7 +98,7 @@ public class MySQLConnUtils {
         try {
             conn = DriverManager.getConnection(url + dbName + strUnicode, userName, password);
 
-            System.out.println("Connected to the database");
+            //System.out.println("Connected to the database");
 
             state = conn.createStatement();
             count = state.executeUpdate(sql);
@@ -126,7 +126,7 @@ public class MySQLConnUtils {
         try {
             conn = DriverManager.getConnection(url + dbName + strUnicode, userName, password);
 
-            System.out.println("Connected to the database");
+            //System.out.println("Connected to the database");
 
             preState = conn.prepareStatement(sql);
             
@@ -157,11 +157,11 @@ public class MySQLConnUtils {
     public boolean testConnection() {
         try {
             conn = DriverManager.getConnection(url + dbName + strUnicode, userName, password);
-            System.out.println("Connection success!");
+            //System.out.println("Connection success!");
             conn.close();
             return true;
         }catch (SQLException ex) {
-            System.out.println("Error connection!");
+            //System.out.println("Error connection!");
         }
         return false;
     }

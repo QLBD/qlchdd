@@ -26,7 +26,7 @@ public class SanPhamDAO {
             Query query = session.createQuery(sql);
             ds = query.list();
             for(SanPham sp : ds){
-            System.out.println(sp.getMaSp());
+            ////System.out.println(sp.getMaSp());
             }
         }
         catch(HibernateException e){
@@ -64,7 +64,7 @@ public class SanPhamDAO {
             session.beginTransaction();
             session.save(sp);
             session.getTransaction().commit();
-            System.out.println("Thêm sản phẩm thành công!");
+            ////System.out.println("Thêm sản phẩm thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class SanPhamDAO {
             session.beginTransaction();
             session.update(sp);
             session.getTransaction().commit();
-            System.out.println("Cập nhật sản phẩm thành công!");
+            ////System.out.println("Cập nhật sản phẩm thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class SanPhamDAO {
 //            session.beginTransaction();
 //            session.delete(sp);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa sản phẩm thành công!");
+//            ////System.out.println("Xóa sản phẩm thành công!");
 //        } catch (RuntimeException e) {
 //            session.getTransaction().rollback();
 //            e.printStackTrace();

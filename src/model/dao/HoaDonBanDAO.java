@@ -26,7 +26,7 @@ public class HoaDonBanDAO {
             Query query = session.createQuery(sql);
             ds = query.list();
             for(HoaDonBan hd : ds){
-            System.out.println(hd.getSohdBan());
+            //System.out.println(hd.getSohdBan());
             }
         }
         catch(HibernateException e){
@@ -64,7 +64,7 @@ public class HoaDonBanDAO {
             session.beginTransaction();
             session.save(hd);
             session.getTransaction().commit();
-            System.out.println("Thêm hóa đơn bán thành công!");
+            //System.out.println("Thêm hóa đơn bán thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class HoaDonBanDAO {
             session.beginTransaction();
             session.update(hd);
             session.getTransaction().commit();
-            System.out.println("Cập nhật hóa đơn bán thành công!");
+            //System.out.println("Cập nhật hóa đơn bán thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class HoaDonBanDAO {
             session.beginTransaction();
             session.delete(hd);
             session.getTransaction().commit();
-            System.out.println("Xóa hóa đơn bán thành công");
+            //System.out.println("Xóa hóa đơn bán thành công");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();

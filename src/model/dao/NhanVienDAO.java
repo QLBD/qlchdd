@@ -64,7 +64,7 @@ public class NhanVienDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("thêm thành công!");
+            ////System.out.println("thêm thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -90,7 +90,7 @@ public class NhanVienDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("cập nhật thành công!");
+            ////System.out.println("cập nhật thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class NhanVienDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("xóa nhân viên thành công");
+            ////System.out.println("xóa nhân viên thành công");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();

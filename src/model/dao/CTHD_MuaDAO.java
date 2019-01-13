@@ -69,7 +69,7 @@ public class CTHD_MuaDAO {
             session.beginTransaction();
             session.save(ct);
             session.getTransaction().commit();
-            System.out.println("Thêm chi tiết hóa đơn mua thành công!");
+            //System.out.println("Thêm chi tiết hóa đơn mua thành công!");
         }
         catch(RuntimeException e)
         {
@@ -98,7 +98,7 @@ public class CTHD_MuaDAO {
 //            session.beginTransaction();
 //            session.delete(ct);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa chi tiết hóa đơn mua thành công!");
+//            //System.out.println("Xóa chi tiết hóa đơn mua thành công!");
 //        }
 //        catch(RuntimeException e)
 //        {
@@ -127,7 +127,7 @@ public class CTHD_MuaDAO {
             session.beginTransaction();
             session.update(ct);
             session.getTransaction().commit();
-            System.out.println("Cập nhật chi tiết hóa đơn mua thành công!");
+            //System.out.println("Cập nhật chi tiết hóa đơn mua thành công!");
         }
         catch(RuntimeException e)
         {

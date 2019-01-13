@@ -70,7 +70,7 @@ public class BaoHanhController {
            
             parameters.put("maBH", baoHanh.getMaBh());
             
-            System.out.println(path);
+            //System.out.println(path);
 
             result = result & ReportUtils.showReport(path, parameters);
      
@@ -80,7 +80,7 @@ public class BaoHanhController {
             
 //            String output = outDir.getPath() +"\\"+  baoHanh.getMaBh() +"_"+ngayNhan+".pdf";
 //            
-//            System.out.println(output);
+//            //System.out.println(output);
 //            
 //            result = result & ReportUtils.exportFilePDF(path, output, parameters);
         }
@@ -105,7 +105,7 @@ public class BaoHanhController {
 
             parameters.put("maBH", baoHanh.getMaBh());
 
-            System.out.println(path);
+            //System.out.println(path);
 
             result = result & ReportUtils.showReport(path, parameters);
 
@@ -116,7 +116,7 @@ public class BaoHanhController {
 
 //            String output = outDir.getPath() +"\\"+  baoHanh.getMaBh() +"_"+ngayTra+".pdf";
 //            
-//            System.out.println(output);
+//            //System.out.println(output);
 //            
 //            result = result & ReportUtils.exportFilePDF(path, output, parameters);
         }

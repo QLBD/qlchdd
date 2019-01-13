@@ -86,7 +86,7 @@ public class ThongKeController {
     }
     
     public void TK_LuongNhanVien(int thang, int nam, iMessageView callBack){
-        System.out.println(thang +""+nam);
+        //System.out.println(thang +""+nam);
         String path = new File("").getAbsolutePath()+"\\src\\view\\report\\LuongNhanVien.jrxml";
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("thang", thang);

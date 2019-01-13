@@ -61,7 +61,7 @@ public class NhaSanXuatDAO {
             session.beginTransaction();
             session.save(nsx);
             session.getTransaction().commit();
-            System.out.println("Thêm nhà sản xuất thành công!");
+            ////System.out.println("Thêm nhà sản xuất thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class NhaSanXuatDAO {
             session.beginTransaction();
             session.update(nsx);
             session.getTransaction().commit();
-            System.out.println("Cập nhật nhà sản xuất thành công!");
+            ////System.out.println("Cập nhật nhà sản xuất thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class NhaSanXuatDAO {
 //            session.beginTransaction();
 //            session.delete(nsx);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa nhà sản xuất thành công!");
+//            ////System.out.println("Xóa nhà sản xuất thành công!");
 //        } catch (RuntimeException e) {
 //            session.getTransaction().rollback();
 //            e.printStackTrace();

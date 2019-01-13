@@ -53,7 +53,7 @@ public class CTHD_BanDAO
         catch(HibernateException e)
         {
             session.getTransaction().rollback();
-            System.out.println(e);
+            //System.out.println(e);
         }
         finally
         {
@@ -74,7 +74,7 @@ public class CTHD_BanDAO
             session.beginTransaction();
             session.save(ct);
             session.getTransaction().commit();
-            System.out.println("Thêm chi tiết hóa đơn bán thành công!");
+            //System.out.println("Thêm chi tiết hóa đơn bán thành công!");
         }
         catch(RuntimeException e)
         {
@@ -104,7 +104,7 @@ public class CTHD_BanDAO
             session.beginTransaction();
             session.delete(ct);
             session.getTransaction().commit();
-            System.out.println("Xóa chi tiết hóa đơn bán thành công!");
+            //System.out.println("Xóa chi tiết hóa đơn bán thành công!");
         }
         catch(RuntimeException e)
         {
@@ -133,7 +133,7 @@ public class CTHD_BanDAO
             session.beginTransaction();
             session.update(ct);
             session.getTransaction().commit();
-            System.out.println("Cập nhật chi tiết hóa đơn bán thành công!");
+            //System.out.println("Cập nhật chi tiết hóa đơn bán thành công!");
         }
         catch(RuntimeException e)
         {

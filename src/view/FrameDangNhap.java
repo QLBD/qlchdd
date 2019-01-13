@@ -256,7 +256,7 @@ public class FrameDangNhap extends JFrame implements iDangNhapView, iFrameListen
     private void initData() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);
-        System.out.println(month +""+year);
+        //System.out.println(month +""+year);
         HoaHongController.getInstance().kiemTraHoaHongTheoThang(month+1, year);
     }
 

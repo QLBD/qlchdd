@@ -53,7 +53,7 @@ public class BaoHanhDAO
         catch(HibernateException e)
         {
             session.getTransaction().rollback();
-            System.out.println(e);
+            //System.out.println(e);
         }
         finally
         {
@@ -72,7 +72,7 @@ public class BaoHanhDAO
             session.beginTransaction();
             session.save(bh);
             session.getTransaction().commit();
-            System.out.println("Thêm bảo hành thành công!");
+            //System.out.println("Thêm bảo hành thành công!");
         }
         catch(RuntimeException e)
         {
@@ -102,7 +102,7 @@ public class BaoHanhDAO
 //            session.beginTransaction();
 //            session.delete(bh);
 //            session.getTransaction().commit();
-//            System.out.println("Xóa bảo hành thành công!");
+//            //System.out.println("Xóa bảo hành thành công!");
 //        }
 //        catch(RuntimeException e)
 //        {
@@ -131,7 +131,7 @@ public class BaoHanhDAO
             session.beginTransaction();
             session.update(bh);
             session.getTransaction().commit();
-            System.out.println("Cập nhật bảo hành thành công!");
+            //System.out.println("Cập nhật bảo hành thành công!");
         }
         catch(RuntimeException e)
         {

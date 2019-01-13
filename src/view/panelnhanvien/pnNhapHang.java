@@ -449,7 +449,7 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
                 break;
             case iFrameListener.TypeFrame.TIM_KIEM_SP:
                 SanPham sp = (SanPham) data[1];
-                System.out.println(sp.getTenSp());
+                //System.out.println(sp.getTenSp());
                 hienThiThongTinSanPhamTimKiem(sp);
                 break;
         }

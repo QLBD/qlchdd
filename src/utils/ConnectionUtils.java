@@ -31,13 +31,13 @@ public class ConnectionUtils {
 //            IllegalAccessException, 
 //            IllegalAccessException {
 // 
-//        System.out.println("Get connection ... ");
+//        //System.out.println("Get connection ... ");
 // 
 //        // Get a Connection object
 //        Connection conn = MySQLConnUtils.getInstance().getConnection();
 // 
-//        System.out.println("Get connection " + conn);
+//        //System.out.println("Get connection " + conn);
 // 
-//        System.out.println("Done!");
+//        //System.out.println("Done!");
 //    }
 }

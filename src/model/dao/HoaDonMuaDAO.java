@@ -61,7 +61,7 @@ public class HoaDonMuaDAO {
             session.beginTransaction();
             session.save(hd);
             session.getTransaction().commit();
-            System.out.println("Thêm hóa đơn mua thành công!");
+            //System.out.println("Thêm hóa đơn mua thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class HoaDonMuaDAO {
             session.beginTransaction();
             session.update(hd);
             session.getTransaction().commit();
-            System.out.println("Cập nhật hóa đơn mua thành công!");
+            //System.out.println("Cập nhật hóa đơn mua thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class HoaDonMuaDAO {
             session.beginTransaction();
             session.delete(hd);
             session.getTransaction().commit();
-            System.out.println("Xóa hóa đơn mua thành công");
+            //System.out.println("Xóa hóa đơn mua thành công");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();

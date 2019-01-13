@@ -75,7 +75,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("Thêm tài khoản thành công!");
+            //System.out.println("Thêm tài khoản thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -102,7 +102,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("Xóa tài khoản thành công!");
+            //System.out.println("Xóa tài khoản thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -128,7 +128,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("Cập nhật tài khoản thành công!");
+            //System.out.println("Cập nhật tài khoản thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -161,7 +161,7 @@ public class TaiKhoanDAO {
 
             session.getTransaction().commit();
 
-            System.out.println("Đăng nhập thành công!");
+            //System.out.println("Đăng nhập thành công!");
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -190,7 +190,7 @@ public class TaiKhoanDAO {
 //
 //            session.getTransaction().commit();
 //
-//            System.out.println("Cập nhật tài khoản thành công!");
+//            //System.out.println("Cập nhật tài khoản thành công!");
 //        } catch (RuntimeException e) {
 //            session.getTransaction().rollback();
 //            e.printStackTrace();
