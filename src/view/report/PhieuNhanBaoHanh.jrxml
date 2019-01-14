@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Phiếu Nhận Bảo Hành" language="groovy" pageWidth="792" pageHeight="500" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c9d7116-b683-4c75-a3c7-bb7d2b462db9">
 	<property name="ireport.zoom" value="1.1000000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="339"/>
 	<parameter name="maBH" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[CALL `PhieuNhanBaoHanh`($P{maBH})]]>
@@ -53,7 +53,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
-		<band height="460" splitType="Stretch"/>
+		<band height="460" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+				<reportElement x="298" y="141" width="151" height="180" uuid="e21d3f98-5d58-4ae8-a27c-358ad6202e4f"/>
+				<imageExpression><![CDATA[new File("").getAbsolutePath() + "\\Images\\LogoReport.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="134" splitType="Stretch">

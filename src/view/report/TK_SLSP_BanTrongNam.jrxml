@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Thống Kê Số Lượng Bán Ra Theo Quý" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc37ec2f-c4b3-401b-9dd9-8746cf3c68af">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1008"/>
 	<parameter name="nam" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[CALL `TK_SLSP_BanTrongNam`($P{nam});]]>
@@ -17,7 +17,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="202" y="313" width="151" height="174" uuid="937b32ab-96d7-4148-a81a-a764a5750dea"/>
+				<imageExpression><![CDATA[new File("").getAbsolutePath() + "\\Images\\LogoReport.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="114" splitType="Stretch">

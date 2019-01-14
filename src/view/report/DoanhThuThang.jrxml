@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55f51a64-e780-43fc-8bd5-5901f347d20f">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="692"/>
 	<parameter name="nam" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[CALL `DoanhThu_Thang`($P{nam});]]>
@@ -38,7 +38,12 @@
 		<variableExpression><![CDATA[$F{tienloi}]]></variableExpression>
 	</variable>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="210" y="305" width="151" height="180" uuid="f38c8470-606c-4f96-a9be-06145564c33b"/>
+				<imageExpression><![CDATA[new File("").getAbsolutePath() + "\\Images\\LogoReport.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="114" splitType="Stretch">
