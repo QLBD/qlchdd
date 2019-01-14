@@ -38,7 +38,6 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
 
     private JTextField tfMaPhanQuyen;
     private JTextField tfQuyenTruyCap;
-    private JButton btnTimKiemPQ;
     private JButton btnCapNhatPQ;
     private JButton btnHuyPQ;
     private JTable tablePhanQuyen;
@@ -110,10 +109,6 @@ public class pnPhanQuyen extends JPanel implements iMessageView, iModelTable {
         flowLayout_85.setHgap(10);
         flowLayout_85.setAlignment(FlowLayout.RIGHT);
         panel_55.add(pnButtonQLPQ);
-
-        btnTimKiemPQ = new JButton("Tìm kiếm");
-        btnTimKiemPQ.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        //pnButtonQLPQ.add(btnTimKiemPQ);
 
         btnCapNhatPQ = new JButton("Cập nhật");
         btnCapNhatPQ.setFont(new Font("Tahoma", Font.PLAIN, 15));
