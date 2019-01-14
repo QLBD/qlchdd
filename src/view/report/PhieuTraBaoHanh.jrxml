@@ -70,21 +70,21 @@
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isItalic="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[For Customer]]></text>
+				<text><![CDATA[For Store]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="88" width="752" height="20" uuid="f3966b48-e900-4303-ad29-a93178875c02"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<text><![CDATA[Phần khách hàng giữ]]></text>
+				<text><![CDATA[Phần cửa hàng giữ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="60" width="752" height="28" uuid="2e27825a-4378-4f1d-99e4-e12ea598b493"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PHIẾU NHẬN BẢO HÀNH]]></text>
+				<text><![CDATA[PHIẾU XÁC NHẬN BẢO HÀNH]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="600" y="0" width="152" height="20" uuid="5d7e2c84-ed40-4ad6-9ef8-5bebef3c612a"/>
