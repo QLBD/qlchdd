@@ -14,6 +14,9 @@
 	<queryString>
 		<![CDATA[CALL `XuatHoaDon`($P{soHD});]]>
 	</queryString>
+	<field name="ma_SP" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="ten_SP" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -136,7 +139,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<bottomPen lineWidth="0.2"/>
 					<rightPen lineWidth="0.2"/>
 				</box>
-				<text><![CDATA[TÊN HÀNG HÓA, DỊCH VỤ]]></text>
+				<text><![CDATA[TÊN SẢN PHẨM ( MÃ SẢN PHẨM )]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="277" y="18" width="100" height="20" uuid="2930c1f0-34da-450f-a654-3a14ce27ef14"/>
@@ -291,7 +294,7 @@ GIÁ TRỊ GIA TĂNG]]></text>
 					<rightPen lineWidth="0.2"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{ten_SP}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ten_SP} + " ( "+$F{ma_SP}+" )"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="277" y="0" width="100" height="20" uuid="2bf2a305-03a2-4e73-b658-5ac99b33a471"/>
