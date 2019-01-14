@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import view.interfaceView.iMessageView;
 import view.interfaceView.iModelTable;
@@ -35,7 +36,6 @@ import view.interfaceView.iModelTable;
  */
 public class pnThongKe extends JPanel implements iMessageView, iModelTable{
 
-    private JButton btnThongKe;
     private JComboBox cbbLoaiThongKe;
     private JComboBox cbbChiTietThongKe;
     private JComboBox cbbThang;
@@ -244,6 +244,7 @@ public class pnThongKe extends JPanel implements iMessageView, iModelTable{
         cbbQuy.setEnabled(false);
         cbbThang.setEnabled(false);
         tfNam.setEnabled(false);
+        tfNam.setText("");
         switch (loai) {
             case 0:
                 loadDataDoanhThuCbbChiTiet();
@@ -291,6 +292,7 @@ public class pnThongKe extends JPanel implements iMessageView, iModelTable{
         cbbQuy.setEnabled(false);
         cbbThang.setEnabled(false);
         tfNam.setEnabled(false);
+        tfNam.setText("");
         switch (loai) {
             case 0:
                 loaiThongKeDoanhThu();
@@ -493,7 +495,16 @@ public class pnThongKe extends JPanel implements iMessageView, iModelTable{
     }
 
     public void clearData() {
-        
+        cbbLoaiThongKe.setSelectedIndex(-1);
+        cbbChiTietThongKe.setSelectedIndex(-1);
+        cbbQuy.setSelectedIndex(-1);
+        cbbThang.setSelectedIndex(-1);
+
+        cbbQuy.setEnabled(false);
+        cbbThang.setEnabled(false);
+        tfNam.setEnabled(false);
+        tfNam.setText("");
+        tableThongKe.setModel(new DefaultTableModel());
     }
 
     private void xemThongKe() {

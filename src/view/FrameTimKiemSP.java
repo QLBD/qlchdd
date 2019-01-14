@@ -26,6 +26,7 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
@@ -48,11 +49,11 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
     private JButton btnMini;
     private JButton btnTimKiemCoBan;
     private JComboBox cbbXuatXu;
-    private JRadioButton rdbtnXuatXu;
+    private JCheckBox cbxXuatXu;
     private JButton btnClose;
-    private JRadioButton rdbtnHang;
+    private JCheckBox cbxHang;
     private JComboBox cbbHang;
-    private JRadioButton rdbtnMau;
+    private JCheckBox cbxMau;
     private JComboBox cbbMau;
     private JButton btnTimKiemNangCao;
     private JScrollPane scrollPaneTableKetQua;
@@ -158,9 +159,9 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         flowLayout_2.setAlignment(FlowLayout.LEFT);
         panel_3.add(pnXuatXu);
 
-        rdbtnXuatXu = new JRadioButton("Xuất xứ:");
-        rdbtnXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnXuatXu.add(rdbtnXuatXu);
+        cbxXuatXu = new JCheckBox("Xuất xứ:");
+        cbxXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnXuatXu.add(cbxXuatXu);
 
         cbbXuatXu = new JComboBox();
         cbbXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -176,9 +177,9 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         flowLayout_3.setAlignment(FlowLayout.LEFT);
         panel_3.add(pnHang);
 
-        rdbtnHang = new JRadioButton("Hãng:");
-        rdbtnHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnHang.add(rdbtnHang);
+        cbxHang = new JCheckBox("Hãng:");
+        cbxHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnHang.add(cbxHang);
 
         cbbHang = new JComboBox();
         cbbHang.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -194,9 +195,9 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         flowLayout_4.setAlignment(FlowLayout.LEFT);
         panel_3.add(pnMau);
 
-        rdbtnMau = new JRadioButton("Màu sắc:");
-        rdbtnMau.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        pnMau.add(rdbtnMau);
+        cbxMau = new JCheckBox("Màu sắc:");
+        cbxMau.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        pnMau.add(cbxMau);
 
         cbbMau = new JComboBox();
         cbbMau.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -251,7 +252,7 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
 //        buttonGroup = new ButtonGroup();
 //        buttonGroup.add(rdbtnHang);
 //        buttonGroup.add(rdbtnMau);
-//        buttonGroup.add(rdbtnXuatXu);
+//        buttonGroup.add(cbxXuatXu);
 
     }
 
@@ -436,15 +437,15 @@ public class FrameTimKiemSP extends JFrame implements iModelTable {
         String xuatXu = "";
         NhaSanXuat nhaSanXuat = null;
 
-        if (rdbtnHang.isSelected()) {
+        if (cbxHang.isSelected()) {
             nhaSanXuat = (NhaSanXuat) cbbHang.getSelectedItem();
         }
 
-        if (rdbtnMau.isSelected()) {
+        if (cbxMau.isSelected()) {
             mau = (String) cbbMau.getSelectedItem();
         }
 
-        if (rdbtnXuatXu.isSelected()) {
+        if (cbxXuatXu.isSelected()) {
             xuatXu = (String) cbbXuatXu.getSelectedItem();
         }
         

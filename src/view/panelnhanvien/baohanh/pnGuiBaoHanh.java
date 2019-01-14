@@ -53,7 +53,6 @@ public class pnGuiBaoHanh extends JPanel implements iGuiBaoHanhView, iMessageVie
     private JTextField tfNgayMuaSPBH;
     private JLabel lblThongTinHanBH;
     private JTextField tfSerialSPBH;
-    private JTextField tfNgayNhanBH;
     private JTextArea taYeuCauGuiBH;
     private JButton btnXacNhanGuiBH;
     private JButton btnHuyGuiBH;

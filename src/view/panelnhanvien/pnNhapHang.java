@@ -69,7 +69,6 @@ public class pnNhapHang extends JPanel implements iModelComBox, iFrameListener, 
     private JTextField tfDonGiaNhap;
     private JButton btnThemSanPham;
     private JButton btnTimSPNhap;
-    private Object pnSoLuongNhap;
     private JTextField tfSoLuongNhap;
     private JTable tableChiTietNhap;
     private JScrollPane scrollPaneChiTietNhap;

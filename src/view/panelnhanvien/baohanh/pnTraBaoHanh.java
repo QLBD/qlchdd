@@ -279,6 +279,13 @@ public class pnTraBaoHanh extends JPanel implements iTraBaoHanhView, iMessageVie
                 traSanPhamChoKhachHang();
             }
         });
+        
+        btnHuyTraBH.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearData();
+            }
+        });
     }
 
     @Override
