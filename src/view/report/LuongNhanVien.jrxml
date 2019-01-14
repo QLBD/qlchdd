@@ -35,7 +35,12 @@
 		<variableExpression><![CDATA[$F{luong_CB}]]></variableExpression>
 	</variable>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="210" y="305" width="151" height="180" uuid="f4b9b3e5-296a-4ff1-be84-2cc63d16a9e6"/>
+				<imageExpression><![CDATA[new File("").getAbsolutePath() + "\\Images\\LogoReport.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="114" splitType="Stretch">

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Thống Kê Số Lượng Bán Ra Theo Quý" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab60c5b6-0829-46f6-8506-d99711fc41cd">
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="960"/>
 	<parameter name="nam" class="java.lang.Integer"/>
 	<parameter name="quy" class="java.lang.Integer"/>
 	<queryString language="SQL">
@@ -18,7 +18,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="202" y="313" width="151" height="174" uuid="e5fb33ed-b283-422b-9a05-be27b1028b51"/>
+				<imageExpression><![CDATA[new File("").getAbsolutePath() + "\\Images\\LogoReport.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="114" splitType="Stretch">
